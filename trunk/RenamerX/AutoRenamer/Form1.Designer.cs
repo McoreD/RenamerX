@@ -36,9 +36,12 @@
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tpMain = new System.Windows.Forms.TabPage();
             this.tpOptions = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtNameFormat = new System.Windows.Forms.TextBox();
             this.tlpMain.SuspendLayout();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
+            this.tpOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // listView1
@@ -47,7 +50,9 @@
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.FullRowSelect = true;
             this.listView1.Location = new System.Drawing.Point(3, 3);
+            this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(379, 524);
             this.listView1.TabIndex = 0;
@@ -65,6 +70,7 @@
             this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader2});
             this.listView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView2.FullRowSelect = true;
             this.listView2.Location = new System.Drawing.Point(388, 3);
             this.listView2.Name = "listView2";
             this.listView2.Size = new System.Drawing.Size(379, 524);
@@ -116,6 +122,8 @@
             // 
             // tpOptions
             // 
+            this.tpOptions.Controls.Add(this.label1);
+            this.tpOptions.Controls.Add(this.txtNameFormat);
             this.tpOptions.Location = new System.Drawing.Point(4, 22);
             this.tpOptions.Name = "tpOptions";
             this.tpOptions.Padding = new System.Windows.Forms.Padding(3);
@@ -123,6 +131,24 @@
             this.tpOptions.TabIndex = 1;
             this.tpOptions.Text = "Options";
             this.tpOptions.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label1.Location = new System.Drawing.Point(16, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(138, 44);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "$N = Show name\r\n$S = Season number\r\n$E = Episode number\r\n$T = Episode title";
+            // 
+            // txtNameFormat
+            // 
+            this.txtNameFormat.Location = new System.Drawing.Point(16, 72);
+            this.txtNameFormat.Name = "txtNameFormat";
+            this.txtNameFormat.Size = new System.Drawing.Size(296, 20);
+            this.txtNameFormat.TabIndex = 0;
+            this.txtNameFormat.Text = "$N - S$SE$E - $T";
             // 
             // Form1
             // 
@@ -136,6 +162,8 @@
             this.tlpMain.ResumeLayout(false);
             this.tcMain.ResumeLayout(false);
             this.tpMain.ResumeLayout(false);
+            this.tpOptions.ResumeLayout(false);
+            this.tpOptions.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -150,6 +178,8 @@
         private System.Windows.Forms.TabControl tcMain;
         private System.Windows.Forms.TabPage tpMain;
         private System.Windows.Forms.TabPage tpOptions;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtNameFormat;
     }
 }
 

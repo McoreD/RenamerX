@@ -10,12 +10,13 @@ using System.Xml;
 using System.Collections;
 using System.IO;
 using System.Text.RegularExpressions;
+using ZSS.Forms;
 
 namespace RenamerX
 {
-    public partial class Form1 : Form
+    public partial class MainWindow : Form
     {
-        public Form1()
+        public MainWindow()
         {
             InitializeComponent();
         }
@@ -89,6 +90,16 @@ namespace RenamerX
                 }
             }
             return filename;
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InputBox ib = new InputBox("Browse for TV Show...", "");
+            ib.ShowDialog();
+            if (ib.DialogResult == DialogResult.OK)
+            {
+                RefreshLists(ib.ShowName, ib.ShowLocation);
+            }
         }
     }
 

@@ -37,6 +37,10 @@
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tpMain = new System.Windows.Forms.TabPage();
             this.tpOptions = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtFileFilter = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNameFormat = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -86,7 +90,7 @@
             this.listView1.Location = new System.Drawing.Point(3, 3);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(379, 492);
+            this.listView1.Size = new System.Drawing.Size(379, 500);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -105,7 +109,7 @@
             this.listView2.FullRowSelect = true;
             this.listView2.Location = new System.Drawing.Point(388, 3);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(379, 492);
+            this.listView2.Size = new System.Drawing.Size(379, 500);
             this.listView2.TabIndex = 1;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
@@ -127,20 +131,18 @@
             this.tlpMain.Name = "tlpMain";
             this.tlpMain.RowCount = 1;
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMain.Size = new System.Drawing.Size(770, 498);
+            this.tlpMain.Size = new System.Drawing.Size(770, 506);
             this.tlpMain.TabIndex = 2;
             // 
             // tcMain
             // 
-            this.tcMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tcMain.Controls.Add(this.tpMain);
             this.tcMain.Controls.Add(this.tpOptions);
-            this.tcMain.Location = new System.Drawing.Point(0, 32);
+            this.tcMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tcMain.Location = new System.Drawing.Point(0, 24);
             this.tcMain.Name = "tcMain";
             this.tcMain.SelectedIndex = 0;
-            this.tcMain.Size = new System.Drawing.Size(784, 530);
+            this.tcMain.Size = new System.Drawing.Size(784, 538);
             this.tcMain.TabIndex = 2;
             // 
             // tpMain
@@ -149,22 +151,63 @@
             this.tpMain.Location = new System.Drawing.Point(4, 22);
             this.tpMain.Name = "tpMain";
             this.tpMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMain.Size = new System.Drawing.Size(776, 504);
+            this.tpMain.Size = new System.Drawing.Size(776, 512);
             this.tpMain.TabIndex = 0;
             this.tpMain.Text = "Main";
             this.tpMain.UseVisualStyleBackColor = true;
             // 
             // tpOptions
             // 
+            this.tpOptions.Controls.Add(this.label4);
+            this.tpOptions.Controls.Add(this.label3);
+            this.tpOptions.Controls.Add(this.label2);
+            this.tpOptions.Controls.Add(this.txtFileFilter);
             this.tpOptions.Controls.Add(this.label1);
             this.tpOptions.Controls.Add(this.txtNameFormat);
             this.tpOptions.Location = new System.Drawing.Point(4, 22);
             this.tpOptions.Name = "tpOptions";
             this.tpOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.tpOptions.Size = new System.Drawing.Size(776, 504);
+            this.tpOptions.Size = new System.Drawing.Size(776, 512);
             this.tpOptions.TabIndex = 1;
             this.tpOptions.Text = "Options";
             this.tpOptions.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label4.Location = new System.Drawing.Point(16, 104);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(243, 44);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "* = Zero or more characters\r\n+ = One or more characters\r\n? = Exactly zero or one " +
+                "character\r\n| = Alternatives ( \"or\" operator )";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(16, 72);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(70, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Name format:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(16, 160);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(48, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "File filter:";
+            // 
+            // txtFileFilter
+            // 
+            this.txtFileFilter.Location = new System.Drawing.Point(72, 157);
+            this.txtFileFilter.Name = "txtFileFilter";
+            this.txtFileFilter.Size = new System.Drawing.Size(296, 20);
+            this.txtFileFilter.TabIndex = 2;
+            this.txtFileFilter.Text = "*.avi|*.mkv";
             // 
             // label1
             // 
@@ -178,7 +221,7 @@
             // 
             // txtNameFormat
             // 
-            this.txtNameFormat.Location = new System.Drawing.Point(16, 72);
+            this.txtNameFormat.Location = new System.Drawing.Point(96, 69);
             this.txtNameFormat.Name = "txtNameFormat";
             this.txtNameFormat.Size = new System.Drawing.Size(296, 20);
             this.txtNameFormat.TabIndex = 0;
@@ -486,6 +529,10 @@
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.TextBox txtFileFilter;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label4;
     }
 }
 

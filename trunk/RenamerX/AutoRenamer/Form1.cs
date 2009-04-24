@@ -27,6 +27,7 @@ namespace RenamerX
             Lost = FindEpisodeNames("Lost");
             List<string> Files = new List<string>();
             foreach (string file in Directory.GetFiles(@"E:\Diziler\Lost\Season 2", "*.avi"))
+            // foreach (string file in Directory.GetFiles(@"S:\TV\LOST\Season 04", "*.avi"))
             {
                 Files.Add(file.Remove(0, file.LastIndexOf("\\") + 1));
             }
@@ -67,13 +68,17 @@ namespace RenamerX
         {
             if (Lost != null)
             {
+
                 string pattern = @"S(?<Season>\d+)E(?<Episode>\d+)|(?<Season>\d+)(?<Episode>\d{2,})|(?<Season>\d{2,})x(?<Episode>\d{2,})";
                 Match result = Regex.Match(filename, pattern, RegexOptions.IgnoreCase);
                 string s = result.Groups[1].Value;
                 string e = result.Groups[2].Value;
-                return "Lost - S" + s + "E" + e + " - " + Lost.Seasons[s.ToInt() - 1].Episodes[e.ToInt() - 1].Title;
+                if (s.ToInt() > 0 && e.ToInt() > 0)
+                {
+                    return "Lost - S" + s + "E" + e + " - " + Lost.Seasons[s.ToInt() - 1].Episodes[e.ToInt() - 1].Title;
+                }
             }
-            return "";
+            return filename;
         }
     }
 

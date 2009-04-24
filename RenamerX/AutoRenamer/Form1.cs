@@ -26,15 +26,19 @@ namespace RenamerX
         {
             Lost = FindEpisodeNames("Lost");
             List<string> Files = new List<string>();
-            foreach (string file in Directory.GetFiles(@"E:\Diziler\Lost\Season 2", "*.avi"))
-            // foreach (string file in Directory.GetFiles(@"S:\TV\LOST\Season 04", "*.avi"))
+            string dir = @"S:\TV\LOST\Season 04";
+            //string dir = @"E:\Diziler\Lost\Season 2";            
+            if (Directory.Exists(dir))
             {
-                Files.Add(file.Remove(0, file.LastIndexOf("\\") + 1));
-            }
-            foreach (string file in Files)
-            {
-                listView1.Items.Add(file);
-                listView2.Items.Add(Reformat(file));
+                foreach (string file in Directory.GetFiles(dir, "*.avi"))                
+                {
+                    Files.Add(file.Remove(0, file.LastIndexOf("\\") + 1));
+                }
+                foreach (string file in Files)
+                {
+                    listView1.Items.Add(file);
+                    listView2.Items.Add(Reformat(file));
+                }
             }
         }
 

@@ -15,8 +15,6 @@ namespace RenamerX
 {
     public partial class Form1 : Form
     {
-        Show Lost;
-
         public Form1()
         {
             InitializeComponent();
@@ -24,27 +22,30 @@ namespace RenamerX
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Lost = FindEpisodeNames("Lost");
-            List<string> Files = new List<string>();
-            string dir = @"S:\TV\LOST\Season 04";
-            //string dir = @"E:\Diziler\Lost\Season 2";            
+            RefreshLists("Lost", @"E:\Diziler\Lost\Season 4"); //@"S:\TV\LOST\Season 04);"
+        }
+
+        public void RefreshLists(string showName, string dir)
+        {
             if (Directory.Exists(dir))
             {
-                foreach (string file in Directory.GetFiles(dir, "*.avi"))                
+                List<string> Files = new List<string>();
+                foreach (string file in Directory.GetFiles(dir, "*.avi"))
                 {
                     Files.Add(file.Remove(0, file.LastIndexOf("\\") + 1));
                 }
+                Show show = FindShow(showName);
                 foreach (string file in Files)
                 {
                     listView1.Items.Add(file);
-                    listView2.Items.Add(Reformat(file));
+                    listView2.Items.Add(Reformat(show, file));
                 }
             }
         }
 
-        public Show FindEpisodeNames(string showName)
+        public Show FindShow(string showName)
         {
-            Show seasons = new Show();
+            Show seasons = new Show(showName);
             try
             {
                 XmlDocument xmlDoc = new XmlDocument();
@@ -54,6 +55,10 @@ namespace RenamerX
                 foreach (XmlNode childs in xmlNode.ChildNodes) //Seasons
                 {
                     Season season = new Season();
+                    if (childs.Attributes.Count > 0)
+                    {
+                        season.SeasonNumber = childs.Attributes[0].Value.ToInt();
+                    }
                     foreach (XmlNode childs2 in childs.ChildNodes) //Episodes
                     {
                         season.Episodes.Add(new Episode(childs2));
@@ -68,18 +73,19 @@ namespace RenamerX
             return seasons;
         }
 
-        public string Reformat(string filename)
+        public string Reformat(Show show, string filename)
         {
-            if (Lost != null)
+            if (show != null)
             {
-
-                string pattern = @"S(?<Season>\d+)E(?<Episode>\d+)|(?<Season>\d+)(?<Episode>\d{2,})|(?<Season>\d{2,})x(?<Episode>\d{2,})";
+                string pattern = @"s(?<Season>\d+)e(?<Episode>\d+)|(?<Season>\d+)(?<Episode>\d{2,})|(?<Season>\d{2,})x(?<Episode>\d{2,})";
                 Match result = Regex.Match(filename, pattern, RegexOptions.IgnoreCase);
-                string s = result.Groups[1].Value;
-                string e = result.Groups[2].Value;
+                string s = result.Groups["Season"].Value;
+                string e = result.Groups["Episode"].Value;
                 if (s.ToInt() > 0 && e.ToInt() > 0)
                 {
-                    return "Lost - S" + s + "E" + e + " - " + Lost.Seasons[s.ToInt() - 1].Episodes[e.ToInt() - 1].Title;
+                    pattern = txtNameFormat.Text;
+                    return pattern.Replace("$N", show.ShowName).Replace("$S", s).Replace("$E", e).
+                        Replace("$T", show.FindSeason(s.ToInt()).FindEpisode(e.ToInt()).Title);
                 }
             }
             return filename;
@@ -96,7 +102,25 @@ namespace RenamerX
 
     public class Show : IEnumerable
     {
+        public string ShowName;
         public List<Season> Seasons = new List<Season>();
+
+        public Show(string showName)
+        {
+            ShowName = showName;
+        }
+
+        public Season FindSeason(int number)
+        {
+            foreach (Season season in Seasons)
+            {
+                if (season.SeasonNumber == number)
+                {
+                    return season;
+                }
+            }
+            return null;
+        }
 
         public IEnumerator GetEnumerator()
         {
@@ -108,6 +132,25 @@ namespace RenamerX
     {
         public int SeasonNumber;
         public List<Episode> Episodes = new List<Episode>();
+
+        public Season() { }
+
+        public Season(int seasonNumber)
+        {
+            SeasonNumber = seasonNumber;
+        }
+
+        public Episode FindEpisode(int number)
+        {
+            foreach (Episode episode in Episodes)
+            {
+                if (episode.EpisodeNumber.ToInt() == number)
+                {
+                    return episode;
+                }
+            }
+            return null;
+        }
 
         public IEnumerator GetEnumerator()
         {

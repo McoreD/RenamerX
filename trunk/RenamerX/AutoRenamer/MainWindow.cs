@@ -31,17 +31,29 @@ namespace RenamerX
             if (Directory.Exists(dir))
             {
                 List<string> Files = new List<string>();
-                foreach (string file in Directory.GetFiles(dir, "*.avi"))
+                foreach (string file in Directory.GetFiles(dir))
                 {
-                    Files.Add(file.Remove(0, file.LastIndexOf("\\") + 1));
+                    if (CheckFile(file, txtFileFilter.Text))
+                    {
+                        Files.Add(file.Remove(0, file.LastIndexOf("\\") + 1));
+                    }
                 }
                 Show show = FindShow(showName);
+                listView1.Items.Clear();
+                listView2.Items.Clear();
                 foreach (string file in Files)
                 {
                     listView1.Items.Add(file);
                     listView2.Items.Add(Reformat(show, file));
                 }
             }
+        }
+
+        public static bool CheckFile(string file, string pattern)
+        {
+            pattern = "^" + Regex.Escape(pattern).Replace("\\*", ".*").Replace("\\+", ".+").Replace("\\?", ".?").
+                Replace("\\|", "|") + "$";
+            return Regex.IsMatch(file, pattern);
         }
 
         public Show FindShow(string showName)

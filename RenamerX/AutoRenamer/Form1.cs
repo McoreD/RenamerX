@@ -67,10 +67,11 @@ namespace RenamerX
         {
             if (Lost != null)
             {
-                Match result = Regex.Match(filename, @"S(\d+)E(\d+)");
+                string pattern = @"S(?<Season>\d+)E(?<Episode>\d+)|(?<Season>\d+)(?<Episode>\d{2,})|(?<Season>\d{2,})x(?<Episode>\d{2,})";
+                Match result = Regex.Match(filename, pattern, RegexOptions.IgnoreCase);
                 string s = result.Groups[1].Value;
                 string e = result.Groups[2].Value;
-                return "Lost S" + s + "E" + e + " " + Lost.Seasons[s.ToInt() - 1].Episodes[e.ToInt() - 1].Title;
+                return "Lost - S" + s + "E" + e + " - " + Lost.Seasons[s.ToInt() - 1].Episodes[e.ToInt() - 1].Title;
             }
             return "";
         }

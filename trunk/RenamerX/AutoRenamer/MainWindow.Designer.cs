@@ -33,18 +33,22 @@
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tpMain = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnChange = new System.Windows.Forms.Button();
+            this.btnDirClear = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.txtFileFilter = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.txtShowName = new System.Windows.Forms.TextBox();
             this.btnDirRemove = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
+            this.txtNameFormat = new System.Windows.Forms.TextBox();
             this.lbDirs = new System.Windows.Forms.ListBox();
             this.btnDirAdd = new System.Windows.Forms.Button();
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
+            this.treeView1 = new RenamerX.TreeViewScroll();
+            this.treeView2 = new RenamerX.TreeViewScroll();
             this.tpOptions = new System.Windows.Forms.TabPage();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtFileFilter = new System.Windows.Forms.TextBox();
-            this.txtNameFormat = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,10 +79,8 @@
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnDirClear = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.treeView1 = new RenamerX.TreeViewScroll();
-            this.treeView2 = new RenamerX.TreeViewScroll();
+            this.cbShowErrors = new System.Windows.Forms.CheckBox();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -122,6 +124,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.cbShowErrors);
+            this.splitContainer1.Panel1.Controls.Add(this.btnChange);
             this.splitContainer1.Panel1.Controls.Add(this.btnDirClear);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.label5);
@@ -143,6 +147,34 @@
             this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 3;
             // 
+            // btnChange
+            // 
+            this.btnChange.Location = new System.Drawing.Point(688, 32);
+            this.btnChange.Name = "btnChange";
+            this.btnChange.Size = new System.Drawing.Size(72, 24);
+            this.btnChange.TabIndex = 12;
+            this.btnChange.Text = "Change";
+            this.btnChange.UseVisualStyleBackColor = true;
+            this.btnChange.Click += new System.EventHandler(this.btnChange_Click);
+            // 
+            // btnDirClear
+            // 
+            this.btnDirClear.Location = new System.Drawing.Point(344, 56);
+            this.btnDirClear.Name = "btnDirClear";
+            this.btnDirClear.Size = new System.Drawing.Size(72, 24);
+            this.btnDirClear.TabIndex = 11;
+            this.btnDirClear.Text = "Clear";
+            this.btnDirClear.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(432, 59);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(48, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "File filter:";
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -151,6 +183,25 @@
             this.label5.Size = new System.Drawing.Size(66, 13);
             this.label5.TabIndex = 10;
             this.label5.Text = "Show name:";
+            // 
+            // txtFileFilter
+            // 
+            this.txtFileFilter.Location = new System.Drawing.Point(504, 56);
+            this.txtFileFilter.Name = "txtFileFilter";
+            this.txtFileFilter.Size = new System.Drawing.Size(176, 20);
+            this.txtFileFilter.TabIndex = 2;
+            this.txtFileFilter.Text = "+.avi|+.mkv|+.srt";
+            this.toolTip1.SetToolTip(this.txtFileFilter, "* = Zero or more characters\r\n+ = One or more characters\r\n? = Exactly zero or one " +
+                    "character\r\n| = Alternatives ( \"or\" operator )");
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(432, 35);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(70, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Name format:";
             // 
             // txtShowName
             // 
@@ -179,6 +230,15 @@
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // txtNameFormat
+            // 
+            this.txtNameFormat.Location = new System.Drawing.Point(504, 32);
+            this.txtNameFormat.Name = "txtNameFormat";
+            this.txtNameFormat.Size = new System.Drawing.Size(176, 20);
+            this.txtNameFormat.TabIndex = 0;
+            this.txtNameFormat.Text = "$N - S$SE$E - $T";
+            this.toolTip1.SetToolTip(this.txtNameFormat, "$N = Show name\r\n$S = Season number\r\n$E = Episode number\r\n$T = Episode title");
             // 
             // lbDirs
             // 
@@ -215,6 +275,28 @@
             this.tlpMain.Size = new System.Drawing.Size(994, 512);
             this.tlpMain.TabIndex = 2;
             // 
+            // treeView1
+            // 
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.HScrollPos = 0;
+            this.treeView1.Location = new System.Drawing.Point(3, 3);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.ShowNodeToolTips = true;
+            this.treeView1.Size = new System.Drawing.Size(491, 506);
+            this.treeView1.TabIndex = 0;
+            this.treeView1.VScrollPos = 0;
+            // 
+            // treeView2
+            // 
+            this.treeView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView2.HScrollPos = 0;
+            this.treeView2.Location = new System.Drawing.Point(500, 3);
+            this.treeView2.Name = "treeView2";
+            this.treeView2.ShowNodeToolTips = true;
+            this.treeView2.Size = new System.Drawing.Size(491, 506);
+            this.treeView2.TabIndex = 1;
+            this.treeView2.VScrollPos = 0;
+            // 
             // tpOptions
             // 
             this.tpOptions.Location = new System.Drawing.Point(4, 24);
@@ -224,43 +306,6 @@
             this.tpOptions.TabIndex = 1;
             this.tpOptions.Text = "Options";
             this.tpOptions.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(432, 35);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(70, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Name format:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(432, 59);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "File filter:";
-            // 
-            // txtFileFilter
-            // 
-            this.txtFileFilter.Location = new System.Drawing.Point(504, 56);
-            this.txtFileFilter.Name = "txtFileFilter";
-            this.txtFileFilter.Size = new System.Drawing.Size(176, 20);
-            this.txtFileFilter.TabIndex = 2;
-            this.txtFileFilter.Text = "*.avi|*.mkv";
-            this.toolTip1.SetToolTip(this.txtFileFilter, "* = Zero or more characters\r\n+ = One or more characters\r\n? = Exactly zero or one " +
-                    "character\r\n| = Alternatives ( \"or\" operator )");
-            // 
-            // txtNameFormat
-            // 
-            this.txtNameFormat.Location = new System.Drawing.Point(504, 32);
-            this.txtNameFormat.Name = "txtNameFormat";
-            this.txtNameFormat.Size = new System.Drawing.Size(176, 20);
-            this.txtNameFormat.TabIndex = 0;
-            this.txtNameFormat.Text = "$N - S$SE$E - $T";
-            this.toolTip1.SetToolTip(this.txtNameFormat, "$N = Show name\r\n$S = Season number\r\n$E = Episode number\r\n$T = Episode title");
             // 
             // menuStrip1
             // 
@@ -498,15 +543,6 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
-            // btnDirClear
-            // 
-            this.btnDirClear.Location = new System.Drawing.Point(344, 56);
-            this.btnDirClear.Name = "btnDirClear";
-            this.btnDirClear.Size = new System.Drawing.Size(72, 24);
-            this.btnDirClear.TabIndex = 11;
-            this.btnDirClear.Text = "Clear";
-            this.btnDirClear.UseVisualStyleBackColor = true;
-            // 
             // toolTip1
             // 
             this.toolTip1.AutomaticDelay = 100;
@@ -514,27 +550,15 @@
             this.toolTip1.InitialDelay = 100;
             this.toolTip1.ReshowDelay = 20;
             // 
-            // treeView1
+            // cbShowErrors
             // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.HScrollPos = 0;
-            this.treeView1.Location = new System.Drawing.Point(3, 3);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.ShowNodeToolTips = true;
-            this.treeView1.Size = new System.Drawing.Size(491, 506);
-            this.treeView1.TabIndex = 0;
-            this.treeView1.VScrollPos = 0;
-            // 
-            // treeView2
-            // 
-            this.treeView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView2.HScrollPos = 0;
-            this.treeView2.Location = new System.Drawing.Point(500, 3);
-            this.treeView2.Name = "treeView2";
-            this.treeView2.ShowNodeToolTips = true;
-            this.treeView2.Size = new System.Drawing.Size(491, 506);
-            this.treeView2.TabIndex = 1;
-            this.treeView2.VScrollPos = 0;
+            this.cbShowErrors.AutoSize = true;
+            this.cbShowErrors.Location = new System.Drawing.Point(696, 64);
+            this.cbShowErrors.Name = "cbShowErrors";
+            this.cbShowErrors.Size = new System.Drawing.Size(257, 17);
+            this.cbShowErrors.TabIndex = 13;
+            this.cbShowErrors.Text = "Don\'t show \"Illegal characters in path\" messages";
+            this.cbShowErrors.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
@@ -614,6 +638,8 @@
         private System.Windows.Forms.TextBox txtShowName;
         private System.Windows.Forms.Button btnDirClear;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btnChange;
+        private System.Windows.Forms.CheckBox cbShowErrors;
     }
 }
 

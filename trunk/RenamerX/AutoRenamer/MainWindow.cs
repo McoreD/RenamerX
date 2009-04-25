@@ -194,6 +194,30 @@ namespace RenamerX
             }
         }
 
+        private void btnChange_Click(object sender, EventArgs e)
+        {
+            ChangeNames();
+        }
+
+        public void ChangeNames()
+        {
+            foreach (TreeNode parents in treeView2.Nodes)
+            {
+                foreach (TreeNode childs in parents.Nodes)
+                {
+                    string[] files = (string[])childs.Tag;
+                    try
+                    {
+                        File.Move(files[1], files[3]);
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        if (!cbShowErrors.Checked) MessageBox.Show(ex.Message + "\n" + files[3]);
+                    }
+                }
+            }
+        }
+
         //private void treeView1_Scroll(object sender, ScrollEventArgs e)
         //{
         //    if (e.Type != ScrollEventType.EndScroll)

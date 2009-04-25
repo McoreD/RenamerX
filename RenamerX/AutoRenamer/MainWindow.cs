@@ -11,6 +11,7 @@ using System.Collections;
 using System.IO;
 using System.Text.RegularExpressions;
 using ZSS.Forms;
+using System.Collections.Specialized;
 
 namespace RenamerX
 {
@@ -23,30 +24,58 @@ namespace RenamerX
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            RefreshLists("Lost", @"E:\Diziler\Lost\Season 4"); //@"S:\TV\LOST\Season 04);"
+            for (int i = 1; i <= 5; i++)
+            {
+                lbDirs.Items.Add(@"E:\Diziler\Lost\Season " + i); //@"S:\TV\LOST\Season 0" + i);"
+            }
+            RefreshLists("Lost");
+        }
+
+        public void RefreshLists(string showName)
+        {
+            List<string> list = new List<string>();
+            foreach (string str in lbDirs.Items)
+            {
+                list.Add(str);
+            }
+            if (list.Count > 0)
+            {
+                RefreshLists(showName, list);
+            }
         }
 
         public void RefreshLists(string showName, string dir)
         {
-            if (Directory.Exists(dir))
+            RefreshLists(showName, new List<string> { dir });
+        }
+
+        public void RefreshLists(string showName, List<string> dirs)
+        {
+            Show show = FindShow(showName);
+            for (int i = 0; i < dirs.Count; i++)
             {
-                List<string> Files = new List<string>();
-                foreach (string file in Directory.GetFiles(dir))
+                if (Directory.Exists(dirs[i]))
                 {
-                    if (CheckFile(file, txtFileFilter.Text))
+                    treeView1.Nodes.Add(GetLastPart(dirs[i]));
+                    treeView2.Nodes.Add(GetLastPart(dirs[i]));
+                    foreach (string file in Directory.GetFiles(dirs[i]))
                     {
-                        Files.Add(file.Remove(0, file.LastIndexOf("\\") + 1));
+                        string file2 = GetLastPart(file);
+                        if (CheckFile(file2, txtFileFilter.Text))
+                        {
+                            treeView1.Nodes[i].Nodes.Add(file2).Tag = file;
+                            treeView2.Nodes[i].Nodes.Add(Reformat(show, file2)).Tag = file;
+                        }
                     }
                 }
-                Show show = FindShow(showName);
-                listView1.Items.Clear();
-                listView2.Items.Clear();
-                foreach (string file in Files)
-                {
-                    listView1.Items.Add(file);
-                    listView2.Items.Add(Reformat(show, file));
-                }
             }
+            treeView1.ExpandAll();
+            treeView2.ExpandAll();
+        }
+
+        public string GetLastPart(string dir)
+        {
+            return dir.Remove(0, dir.LastIndexOf("\\") + 1);
         }
 
         public static bool CheckFile(string file, string pattern)
@@ -90,7 +119,7 @@ namespace RenamerX
         {
             if (show != null)
             {
-                string pattern = @"s(?<Season>\d+)e(?<Episode>\d+)|(?<Season>\d+)(?<Episode>\d{2,})|(?<Season>\d{2,})x(?<Episode>\d{2,})";
+                string pattern = @"s(?<Season>\d+)e(?<Episode>\d+)|(?<Season>\d{2,})x(?<Episode>\d{2,})|(?<Season>\d+)(?<Episode>\d{2,})";
                 Match result = Regex.Match(filename, pattern, RegexOptions.IgnoreCase);
                 string s = result.Groups["Season"].Value;
                 string e = result.Groups["Episode"].Value;
@@ -111,6 +140,28 @@ namespace RenamerX
             if (ib.DialogResult == DialogResult.OK)
             {
                 RefreshLists(ib.ShowName, ib.ShowLocation);
+            }
+        }
+
+        private void MainWindow_Resize(object sender, EventArgs e)
+        {
+            this.Refresh();
+        }
+
+        private void btnDirAdd_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                lbDirs.Items.Add(fbd.SelectedPath);
+            }
+        }
+
+        private void btnDirRemove_Click(object sender, EventArgs e)
+        {
+            if (lbDirs.SelectedIndex > -1)
+            {
+                lbDirs.Items.RemoveAt(lbDirs.SelectedIndex);
             }
         }
     }

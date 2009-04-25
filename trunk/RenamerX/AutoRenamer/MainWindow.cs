@@ -12,6 +12,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using ZSS.Forms;
 using System.Collections.Specialized;
+using System.Runtime.InteropServices;
 
 namespace RenamerX
 {
@@ -51,6 +52,8 @@ namespace RenamerX
 
         public void RefreshLists(string showName, List<string> dirs)
         {
+            treeView1.Nodes.Clear();
+            treeView2.Nodes.Clear();
             Show show = FindShow(showName);
             for (int i = 0; i < dirs.Count; i++)
             {
@@ -60,17 +63,30 @@ namespace RenamerX
                     treeView2.Nodes.Add(GetLastPart(dirs[i]));
                     foreach (string file in Directory.GetFiles(dirs[i]))
                     {
-                        string file2 = GetLastPart(file);
-                        if (CheckFile(file2, txtFileFilter.Text))
+                        string[] files = new string[4];
+                        files[0] = GetLastPart(file); //Default file name
+                        files[1] = file; //Default full file path
+                        if (CheckFile(files[1], txtFileFilter.Text))
                         {
-                            treeView1.Nodes[i].Nodes.Add(file2).Tag = file;
-                            treeView2.Nodes[i].Nodes.Add(Reformat(show, file2)).Tag = file;
+                            files[2] = Reformat(show, files[0]); //New file name
+                            files[3] = ChangeFilePath(files[1], files[2]); //New full file path
+                            TreeNode tn = treeView1.Nodes[i].Nodes.Add(files[0]);
+                            tn.Tag = files;
+                            tn.ToolTipText = files[1];
+                            tn = treeView2.Nodes[i].Nodes.Add(files[2]);
+                            tn.Tag = files;
+                            tn.ToolTipText = files[3];
                         }
                     }
                 }
             }
             treeView1.ExpandAll();
             treeView2.ExpandAll();
+        }
+
+        public string ChangeFilePath(string filePath, string fileName)
+        {
+            return filePath.Substring(0, filePath.LastIndexOf("\\") + 1) + fileName;
         }
 
         public string GetLastPart(string dir)
@@ -119,16 +135,21 @@ namespace RenamerX
         {
             if (show != null)
             {
-                string pattern = @"s(?<Season>\d+)e(?<Episode>\d+)|(?<Season>\d{2,})x(?<Episode>\d{2,})|(?<Season>\d+)(?<Episode>\d{2,})";
-                Match result = Regex.Match(filename, pattern, RegexOptions.IgnoreCase);
-                string s = result.Groups["Season"].Value;
-                string e = result.Groups["Episode"].Value;
-                if (s.ToInt() > 0 && e.ToInt() > 0)
+                try
                 {
-                    pattern = txtNameFormat.Text;
-                    return pattern.Replace("$N", show.ShowName).Replace("$S", s).Replace("$E", e).
-                        Replace("$T", show.FindSeason(s.ToInt()).FindEpisode(e.ToInt()).Title);
+                    string pattern = @"s(?<Season>\d+)e(?<Episode>\d+)|(?<Season>\d{2,})x(?<Episode>\d{2,})|(?<Season>\d+)(?<Episode>\d{2,})";
+                    Match result = Regex.Match(filename, pattern, RegexOptions.IgnoreCase);
+                    string s = result.Groups["Season"].Value;
+                    string e = result.Groups["Episode"].Value;
+                    if (s.ToInt() > 0 && e.ToInt() > 0)
+                    {
+                        pattern = txtNameFormat.Text;
+                        string ext = filename.Remove(0, filename.LastIndexOf('.'));
+                        return pattern.Replace("$N", show.ShowName).Replace("$S", s).Replace("$E", e).
+                            Replace("$T", show.FindSeason(s.ToInt()).FindEpisode(e.ToInt()).Title) + ext;
+                    }
                 }
+                catch { }
             }
             return filename;
         }
@@ -164,6 +185,22 @@ namespace RenamerX
                 lbDirs.Items.RemoveAt(lbDirs.SelectedIndex);
             }
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtShowName.Text))
+            {
+                RefreshLists(txtShowName.Text);
+            }
+        }
+
+        //private void treeView1_Scroll(object sender, ScrollEventArgs e)
+        //{
+        //    if (e.Type != ScrollEventType.EndScroll)
+        //    {
+        //        treeView2.VScrollPos = e.NewValue;
+        //    }
+        //}
     }
 
     public static class Extensions
@@ -264,5 +301,44 @@ namespace RenamerX
                 Title = node.InnerText;
             }
         }
+    }
+
+    public class TreeViewScroll : TreeView
+    {
+        private const int WM_HSCROLL = 0x114;
+        private const int WM_VSCROLL = 0x115;
+        private const int SB_HORZ = 0;
+        private const int SB_VERT = 1;
+
+        public event ScrollEventHandler Scroll;
+
+        [DllImport("user32.dll")]
+        public static extern int GetScrollPos(IntPtr hWnd, int nBar);
+
+        [DllImport("user32.dll")]
+        public static extern int SetScrollPos(IntPtr hWnd, int nBar, int nPos, bool bRedraw);
+
+        public int HScrollPos
+        {
+            get { return GetScrollPos(Handle, SB_HORZ); }
+            set { SetScrollPos(Handle, SB_HORZ, value, true); }
+        }
+
+        public int VScrollPos
+        {
+            get { return GetScrollPos(Handle, SB_VERT); }
+            set { SetScrollPos(Handle, SB_VERT, value, true); }
+        }
+
+        //protected override void WndProc(ref Message m)
+        //{
+        //    if (Scroll != null && m.Msg == WM_HSCROLL || m.Msg == WM_VSCROLL)
+        //    {
+        //        ScrollEventType t = (ScrollEventType)Enum.Parse(typeof(ScrollEventType),
+        //            (m.WParam.ToInt32() & 65535).ToString());
+        //        Scroll(m.HWnd, new ScrollEventArgs(t, ((int)(m.WParam.ToInt64() >> 16)) & 255));
+        //    }
+        //    base.WndProc(ref m);
+        //}
     }
 }

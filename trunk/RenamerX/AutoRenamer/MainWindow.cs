@@ -10,7 +10,6 @@ using System.Xml;
 using System.Collections;
 using System.IO;
 using System.Text.RegularExpressions;
-using ZSS.Forms;
 using System.Collections.Specialized;
 using System.Runtime.InteropServices;
 
@@ -23,6 +22,8 @@ namespace RenamerX
             InitializeComponent();
         }
 
+        #region Form Events
+
         private void Form1_Load(object sender, EventArgs e)
         {
             for (int i = 1; i <= 5; i++)
@@ -31,6 +32,62 @@ namespace RenamerX
             }
             RefreshLists("Lost");
         }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InputBox ib = new InputBox("Browse for TV Show...", "");
+            ib.ShowDialog();
+            if (ib.DialogResult == DialogResult.OK)
+            {
+                RefreshLists(ib.ShowName, ib.ShowLocation);
+            }
+        }
+
+        private void MainWindow_Resize(object sender, EventArgs e)
+        {
+            this.Refresh();
+        }
+
+        private void btnDirAdd_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                lbDirs.Items.Add(fbd.SelectedPath);
+            }
+        }
+
+        private void btnDirRemove_Click(object sender, EventArgs e)
+        {
+            if (lbDirs.SelectedIndex > -1)
+            {
+                lbDirs.Items.RemoveAt(lbDirs.SelectedIndex);
+            }
+        }
+
+        private void btnDirClear_Click(object sender, EventArgs e)
+        {
+            lbDirs.Items.Clear();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtShowName.Text))
+            {
+                RefreshLists(txtShowName.Text);
+            }
+        }
+
+        private void btnChange_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you really want to change file names?", this.Text, MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                ChangeNames();
+            }
+        }
+
+        #endregion
 
         public void RefreshLists(string showName)
         {
@@ -84,12 +141,12 @@ namespace RenamerX
             treeView2.ExpandAll();
         }
 
-        public string ChangeFilePath(string filePath, string fileName)
+        public static string ChangeFilePath(string filePath, string fileName)
         {
             return filePath.Substring(0, filePath.LastIndexOf("\\") + 1) + fileName;
         }
 
-        public string GetLastPart(string dir)
+        public static string GetLastPart(string dir)
         {
             return dir.Remove(0, dir.LastIndexOf("\\") + 1);
         }
@@ -149,61 +206,12 @@ namespace RenamerX
                         return pattern.Replace("$N", show.ShowName).Replace("$S2", season.ToString("d2")).
                             Replace("$S", season.ToString()).Replace("$E2", episode.ToString("d2")).
                             Replace("$E", episode.ToString()).
-                            Replace("$T", show.FindSeason(season).FindEpisode(episode).Title) + extension;
+                            Replace("$T", show.FindEpisode(season, episode).Title) + extension;
                     }
                 }
                 catch { }
             }
             return filename;
-        }
-
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            InputBox ib = new InputBox("Browse for TV Show...", "");
-            ib.ShowDialog();
-            if (ib.DialogResult == DialogResult.OK)
-            {
-                RefreshLists(ib.ShowName, ib.ShowLocation);
-            }
-        }
-
-        private void MainWindow_Resize(object sender, EventArgs e)
-        {
-            this.Refresh();
-        }
-
-        private void btnDirAdd_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            if (fbd.ShowDialog() == DialogResult.OK)
-            {
-                lbDirs.Items.Add(fbd.SelectedPath);
-            }
-        }
-
-        private void btnDirRemove_Click(object sender, EventArgs e)
-        {
-            if (lbDirs.SelectedIndex > -1)
-            {
-                lbDirs.Items.RemoveAt(lbDirs.SelectedIndex);
-            }
-        }
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(txtShowName.Text))
-            {
-                RefreshLists(txtShowName.Text);
-            }
-        }
-
-        private void btnChange_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Are you really want to change file names?", this.Text, MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-            {
-                ChangeNames();
-            }
         }
 
         public void ChangeNames()
@@ -217,17 +225,12 @@ namespace RenamerX
                     {
                         File.Move(files[1], files[3]);
                     }
-                    catch (ArgumentException ex)
+                    catch (Exception ex)
                     {
                         if (!cbShowErrors.Checked) MessageBox.Show(ex.Message + "\n" + files[3]);
                     }
                 }
             }
-        }
-
-        private void btnDirClear_Click(object sender, EventArgs e)
-        {
-            lbDirs.Items.Clear();
         }
     }
 
@@ -259,6 +262,11 @@ namespace RenamerX
                 }
             }
             return null;
+        }
+
+        public Episode FindEpisode(int season, int episode)
+        {
+            return FindSeason(season).FindEpisode(episode);
         }
 
         public IEnumerator GetEnumerator()

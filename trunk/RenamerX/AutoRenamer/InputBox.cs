@@ -24,7 +24,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace ZSS.Forms
+namespace RenamerX
 {
     public partial class InputBox : Form
     {
@@ -56,7 +56,6 @@ namespace ZSS.Forms
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
-
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

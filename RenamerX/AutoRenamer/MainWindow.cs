@@ -96,6 +96,7 @@ namespace RenamerX
 
         public static bool CheckFile(string file, string pattern)
         {
+            if (string.IsNullOrEmpty(pattern)) return true;
             pattern = "^" + Regex.Escape(pattern).Replace("\\*", ".*").Replace("\\+", ".+").Replace("\\?", ".?").
                 Replace("\\|", "|") + "$";
             return Regex.IsMatch(file, pattern);
@@ -139,14 +140,16 @@ namespace RenamerX
                 {
                     string pattern = @"s(?<Season>\d+)e(?<Episode>\d+)|(?<Season>\d{2,})x(?<Episode>\d{2,})|(?<Season>\d+)(?<Episode>\d{2,})";
                     Match result = Regex.Match(filename, pattern, RegexOptions.IgnoreCase);
-                    string s = result.Groups["Season"].Value;
-                    string e = result.Groups["Episode"].Value;
-                    if (s.ToInt() > 0 && e.ToInt() > 0)
+                    int season = result.Groups["Season"].Value.ToInt();
+                    int episode = result.Groups["Episode"].Value.ToInt();
+                    if (season > 0 && episode > 0)
                     {
                         pattern = txtNameFormat.Text;
-                        string ext = filename.Remove(0, filename.LastIndexOf('.'));
-                        return pattern.Replace("$N", show.ShowName).Replace("$S", s).Replace("$E", e).
-                            Replace("$T", show.FindSeason(s.ToInt()).FindEpisode(e.ToInt()).Title) + ext;
+                        string extension = filename.Remove(0, filename.LastIndexOf('.'));
+                        return pattern.Replace("$N", show.ShowName).Replace("$S2", season.ToString("d2")).
+                            Replace("$S", season.ToString()).Replace("$E2", episode.ToString("d2")).
+                            Replace("$E", episode.ToString()).
+                            Replace("$T", show.FindSeason(season).FindEpisode(episode).Title) + extension;
                     }
                 }
                 catch { }
@@ -196,7 +199,11 @@ namespace RenamerX
 
         private void btnChange_Click(object sender, EventArgs e)
         {
-            ChangeNames();
+            if (MessageBox.Show("Are you really want to change file names?", this.Text, MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                ChangeNames();
+            }
         }
 
         public void ChangeNames()
@@ -218,13 +225,10 @@ namespace RenamerX
             }
         }
 
-        //private void treeView1_Scroll(object sender, ScrollEventArgs e)
-        //{
-        //    if (e.Type != ScrollEventType.EndScroll)
-        //    {
-        //        treeView2.VScrollPos = e.NewValue;
-        //    }
-        //}
+        private void btnDirClear_Click(object sender, EventArgs e)
+        {
+            lbDirs.Items.Clear();
+        }
     }
 
     public static class Extensions
@@ -325,44 +329,5 @@ namespace RenamerX
                 Title = node.InnerText;
             }
         }
-    }
-
-    public class TreeViewScroll : TreeView
-    {
-        private const int WM_HSCROLL = 0x114;
-        private const int WM_VSCROLL = 0x115;
-        private const int SB_HORZ = 0;
-        private const int SB_VERT = 1;
-
-        public event ScrollEventHandler Scroll;
-
-        [DllImport("user32.dll")]
-        public static extern int GetScrollPos(IntPtr hWnd, int nBar);
-
-        [DllImport("user32.dll")]
-        public static extern int SetScrollPos(IntPtr hWnd, int nBar, int nPos, bool bRedraw);
-
-        public int HScrollPos
-        {
-            get { return GetScrollPos(Handle, SB_HORZ); }
-            set { SetScrollPos(Handle, SB_HORZ, value, true); }
-        }
-
-        public int VScrollPos
-        {
-            get { return GetScrollPos(Handle, SB_VERT); }
-            set { SetScrollPos(Handle, SB_VERT, value, true); }
-        }
-
-        //protected override void WndProc(ref Message m)
-        //{
-        //    if (Scroll != null && m.Msg == WM_HSCROLL || m.Msg == WM_VSCROLL)
-        //    {
-        //        ScrollEventType t = (ScrollEventType)Enum.Parse(typeof(ScrollEventType),
-        //            (m.WParam.ToInt32() & 65535).ToString());
-        //        Scroll(m.HWnd, new ScrollEventArgs(t, ((int)(m.WParam.ToInt64() >> 16)) & 255));
-        //    }
-        //    base.WndProc(ref m);
-        //}
     }
 }

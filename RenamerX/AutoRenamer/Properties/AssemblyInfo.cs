@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RenamerX")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("RenamerX")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("AutoRenamer")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2009")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("RenamerX")]
+[assembly: AssemblyProduct("RenamerX")]
+[assembly: AssemblyCopyright("RenamerX")]
+[assembly: AssemblyTrademark("RenamerX")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

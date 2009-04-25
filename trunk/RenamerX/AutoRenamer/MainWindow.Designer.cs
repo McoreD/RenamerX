@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.listView2 = new System.Windows.Forms.ListView();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.treeView2 = new System.Windows.Forms.TreeView();
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tpMain = new System.Windows.Forms.TabPage();
             this.tpOptions = new System.Windows.Forms.TabPage();
+            this.btnDirAdd = new System.Windows.Forms.Button();
+            this.lbDirs = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -73,6 +73,7 @@
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnDirRemove = new System.Windows.Forms.Button();
             this.tlpMain.SuspendLayout();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
@@ -80,59 +81,36 @@
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // listView1
-            // 
-            this.listView1.CheckBoxes = true;
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView1.FullRowSelect = true;
-            this.listView1.Location = new System.Drawing.Point(3, 3);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(379, 500);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "File Names (Old)";
-            this.columnHeader1.Width = 332;
-            // 
-            // listView2
-            // 
-            this.listView2.CheckBoxes = true;
-            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader2});
-            this.listView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView2.FullRowSelect = true;
-            this.listView2.Location = new System.Drawing.Point(388, 3);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(379, 500);
-            this.listView2.TabIndex = 1;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "File Names (New)";
-            this.columnHeader2.Width = 329;
-            // 
             // tlpMain
             // 
             this.tlpMain.ColumnCount = 2;
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpMain.Controls.Add(this.listView2, 1, 0);
-            this.tlpMain.Controls.Add(this.listView1, 0, 0);
+            this.tlpMain.Controls.Add(this.treeView1, 0, 0);
+            this.tlpMain.Controls.Add(this.treeView2, 1, 0);
             this.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpMain.Location = new System.Drawing.Point(3, 3);
             this.tlpMain.Name = "tlpMain";
             this.tlpMain.RowCount = 1;
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMain.Size = new System.Drawing.Size(770, 506);
+            this.tlpMain.Size = new System.Drawing.Size(994, 606);
             this.tlpMain.TabIndex = 2;
+            // 
+            // treeView1
+            // 
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.Location = new System.Drawing.Point(3, 3);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(491, 600);
+            this.treeView1.TabIndex = 0;
+            // 
+            // treeView2
+            // 
+            this.treeView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView2.Location = new System.Drawing.Point(500, 3);
+            this.treeView2.Name = "treeView2";
+            this.treeView2.Size = new System.Drawing.Size(491, 600);
+            this.treeView2.TabIndex = 1;
             // 
             // tcMain
             // 
@@ -142,7 +120,7 @@
             this.tcMain.Location = new System.Drawing.Point(0, 24);
             this.tcMain.Name = "tcMain";
             this.tcMain.SelectedIndex = 0;
-            this.tcMain.Size = new System.Drawing.Size(784, 538);
+            this.tcMain.Size = new System.Drawing.Size(1008, 638);
             this.tcMain.TabIndex = 2;
             // 
             // tpMain
@@ -151,13 +129,16 @@
             this.tpMain.Location = new System.Drawing.Point(4, 22);
             this.tpMain.Name = "tpMain";
             this.tpMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMain.Size = new System.Drawing.Size(776, 512);
+            this.tpMain.Size = new System.Drawing.Size(1000, 612);
             this.tpMain.TabIndex = 0;
             this.tpMain.Text = "Main";
             this.tpMain.UseVisualStyleBackColor = true;
             // 
             // tpOptions
             // 
+            this.tpOptions.Controls.Add(this.btnDirRemove);
+            this.tpOptions.Controls.Add(this.btnDirAdd);
+            this.tpOptions.Controls.Add(this.lbDirs);
             this.tpOptions.Controls.Add(this.label4);
             this.tpOptions.Controls.Add(this.label3);
             this.tpOptions.Controls.Add(this.label2);
@@ -167,10 +148,28 @@
             this.tpOptions.Location = new System.Drawing.Point(4, 22);
             this.tpOptions.Name = "tpOptions";
             this.tpOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.tpOptions.Size = new System.Drawing.Size(776, 512);
+            this.tpOptions.Size = new System.Drawing.Size(1000, 612);
             this.tpOptions.TabIndex = 1;
             this.tpOptions.Text = "Options";
             this.tpOptions.UseVisualStyleBackColor = true;
+            // 
+            // btnDirAdd
+            // 
+            this.btnDirAdd.Location = new System.Drawing.Point(368, 192);
+            this.btnDirAdd.Name = "btnDirAdd";
+            this.btnDirAdd.Size = new System.Drawing.Size(72, 32);
+            this.btnDirAdd.TabIndex = 7;
+            this.btnDirAdd.Text = "Add";
+            this.btnDirAdd.UseVisualStyleBackColor = true;
+            this.btnDirAdd.Click += new System.EventHandler(this.btnDirAdd_Click);
+            // 
+            // lbDirs
+            // 
+            this.lbDirs.FormattingEnabled = true;
+            this.lbDirs.Location = new System.Drawing.Point(24, 192);
+            this.lbDirs.Name = "lbDirs";
+            this.lbDirs.Size = new System.Drawing.Size(336, 212);
+            this.lbDirs.TabIndex = 6;
             // 
             // label4
             // 
@@ -236,7 +235,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1008, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -263,7 +262,7 @@
             this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "&New";
             // 
             // openToolStripMenuItem
@@ -272,14 +271,14 @@
             this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(143, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(149, 6);
             // 
             // saveToolStripMenuItem
             // 
@@ -287,19 +286,19 @@
             this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // printToolStripMenuItem
             // 
@@ -307,7 +306,7 @@
             this.printToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
             this.printToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.printToolStripMenuItem.Text = "&Print";
             // 
             // printPreviewToolStripMenuItem
@@ -315,18 +314,18 @@
             this.printPreviewToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("printPreviewToolStripMenuItem.Image")));
             this.printPreviewToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.printPreviewToolStripMenuItem.Name = "printPreviewToolStripMenuItem";
-            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.printPreviewToolStripMenuItem.Text = "Print Pre&view";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(143, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             // 
             // editToolStripMenuItem
@@ -463,11 +462,21 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
+            // btnDirRemove
+            // 
+            this.btnDirRemove.Location = new System.Drawing.Point(368, 232);
+            this.btnDirRemove.Name = "btnDirRemove";
+            this.btnDirRemove.Size = new System.Drawing.Size(75, 32);
+            this.btnDirRemove.TabIndex = 8;
+            this.btnDirRemove.Text = "Remove";
+            this.btnDirRemove.UseVisualStyleBackColor = true;
+            this.btnDirRemove.Click += new System.EventHandler(this.btnDirRemove_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 562);
+            this.ClientSize = new System.Drawing.Size(1008, 662);
             this.Controls.Add(this.tcMain);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -475,6 +484,7 @@
             this.Name = "MainWindow";
             this.Text = "RenamerX - Rename your files eXpressly";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.MainWindow_Resize);
             this.tlpMain.ResumeLayout(false);
             this.tcMain.ResumeLayout(false);
             this.tpMain.ResumeLayout(false);
@@ -489,10 +499,6 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ListView listView2;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.TableLayoutPanel tlpMain;
         private System.Windows.Forms.TabControl tcMain;
         private System.Windows.Forms.TabPage tpMain;
@@ -533,6 +539,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TreeView treeView2;
+        private System.Windows.Forms.Button btnDirAdd;
+        private System.Windows.Forms.ListBox lbDirs;
+        private System.Windows.Forms.Button btnDirRemove;
     }
 }
 

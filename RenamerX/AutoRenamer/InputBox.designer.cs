@@ -1,4 +1,4 @@
-﻿namespace ZSS.Forms
+﻿namespace RenamerX
 {
     partial class InputBox
     {
@@ -39,7 +39,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(216, 112);
+            this.btnOK.Location = new System.Drawing.Point(215, 88);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 0;
@@ -49,7 +49,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(297, 112);
+            this.btnCancel.Location = new System.Drawing.Point(296, 88);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
@@ -67,7 +67,7 @@
             // lblShowName
             // 
             this.lblShowName.AutoSize = true;
-            this.lblShowName.Location = new System.Drawing.Point(16, 24);
+            this.lblShowName.Location = new System.Drawing.Point(16, 19);
             this.lblShowName.Name = "lblShowName";
             this.lblShowName.Size = new System.Drawing.Size(65, 13);
             this.lblShowName.TabIndex = 3;
@@ -76,7 +76,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 56);
+            this.label1.Location = new System.Drawing.Point(32, 51);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(48, 13);
             this.label1.TabIndex = 4;
@@ -104,7 +104,7 @@
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(391, 155);
+            this.ClientSize = new System.Drawing.Size(386, 126);
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.txtLocation);
             this.Controls.Add(this.label1);

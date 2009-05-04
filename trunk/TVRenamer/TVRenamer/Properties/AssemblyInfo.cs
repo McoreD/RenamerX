@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("TVRenamer")]
-[assembly: AssemblyCopyright("Copyright © 2008-09")]
+[assembly: AssemblyCopyright("Copyright © Contributors 2008-09")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

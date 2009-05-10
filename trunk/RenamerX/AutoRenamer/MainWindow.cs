@@ -199,7 +199,7 @@ namespace RenamerX
                 {
                     string pattern = @"s(?<Season>\d+)e(?<Episode>\d+)|(?<Season>\d{2,})x(?<Episode>\d{2,})|(?<Season>\d+)(?<Episode>\d{2,})";
                     filename.Replace(show.ShowName, "");
-                    Match result = Regex.Match(filename, pattern, RegexOptions.IgnoreCase);
+                    Match result = Regex.Match(filename, pattern, RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
                     int season = result.Groups["Season"].Value.ToInt();
                     int episode = result.Groups["Episode"].Value.ToInt();
                     if (season > 0 && episode > 0)
@@ -242,15 +242,17 @@ namespace RenamerX
 
         private void RefreshSelected()
         {
-            if (lvShows.SelectedItems.Count > 0)
+            if (lvShows.SelectedItems.Count > 0 && ShowList.Count > 0)
             {
                 lvList1.Items.Clear();
                 lvList2.Items.Clear();
+
                 foreach (ShowInfo showInfo in ShowList[lvShows.SelectedIndices[0]])
                 {
                     lvList1.Items.Add(showInfo.DefaultFilePath);
                     lvList2.Items.Add(showInfo.NewFilePath);
                 }
+
             }
         }
     }

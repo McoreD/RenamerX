@@ -42,7 +42,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtFileFilter = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtShowName = new System.Windows.Forms.TextBox();
             this.btnDirRemove = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.txtNameFormat = new System.Windows.Forms.TextBox();
@@ -85,6 +84,7 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtShowName = new System.Windows.Forms.TextBox();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -209,18 +209,18 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(432, 59);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 13);
+            this.label2.Size = new System.Drawing.Size(51, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "File filter:";
+            this.label2.Text = "File Filter:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(432, 11);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(66, 13);
+            this.label5.Size = new System.Drawing.Size(68, 13);
             this.label5.TabIndex = 10;
-            this.label5.Text = "Show name:";
+            this.label5.Text = "Show Name:";
             // 
             // txtFileFilter
             // 
@@ -236,17 +236,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(432, 35);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(70, 13);
+            this.label3.Size = new System.Drawing.Size(73, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Name format:";
-            // 
-            // txtShowName
-            // 
-            this.txtShowName.Location = new System.Drawing.Point(504, 8);
-            this.txtShowName.Name = "txtShowName";
-            this.txtShowName.Size = new System.Drawing.Size(176, 20);
-            this.txtShowName.TabIndex = 9;
-            this.txtShowName.Text = "Lost";
+            this.label3.Text = "Name Format:";
             // 
             // btnDirRemove
             // 
@@ -597,6 +589,15 @@
             this.toolTip1.AutoPopDelay = 5000;
             this.toolTip1.InitialDelay = 100;
             this.toolTip1.ReshowDelay = 20;
+            // 
+            // txtShowName
+            // 
+            this.txtShowName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ShowName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtShowName.Location = new System.Drawing.Point(504, 8);
+            this.txtShowName.Name = "txtShowName";
+            this.txtShowName.Size = new System.Drawing.Size(176, 20);
+            this.txtShowName.TabIndex = 9;
+            this.txtShowName.Text = global::RenamerX.Properties.Settings.Default.ShowName;
             // 
             // MainWindow
             // 

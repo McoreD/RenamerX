@@ -81,6 +81,7 @@ namespace RenamerX
         {
             ShowList = new List<List<ShowInfo>>();
             RefreshLists();
+            RefreshSelected();
         }
 
         private void btnChange_Click(object sender, EventArgs e)
@@ -197,6 +198,7 @@ namespace RenamerX
                 try
                 {
                     string pattern = @"s(?<Season>\d+)e(?<Episode>\d+)|(?<Season>\d{2,})x(?<Episode>\d{2,})|(?<Season>\d+)(?<Episode>\d{2,})";
+                    filename.Replace(show.ShowName, "");
                     Match result = Regex.Match(filename, pattern, RegexOptions.IgnoreCase);
                     int season = result.Groups["Season"].Value.ToInt();
                     int episode = result.Groups["Episode"].Value.ToInt();
@@ -234,6 +236,11 @@ namespace RenamerX
         }
 
         private void lvShows_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshSelected();
+        }
+
+        private void RefreshSelected()
         {
             if (lvShows.SelectedItems.Count > 0)
             {

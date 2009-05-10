@@ -43,6 +43,11 @@ namespace RenamerX
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            BrowseTvShow();
+        }
+
+        private void BrowseTvShow()
+        {
             InputBox ib = new InputBox("Browse for TV Show...", "");
             ib.ShowDialog();
             if (ib.DialogResult == DialogResult.OK)
@@ -58,11 +63,7 @@ namespace RenamerX
 
         private void btnDirAdd_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            if (fbd.ShowDialog() == DialogResult.OK)
-            {
-                AddShow(txtShowName.Text, fbd.SelectedPath);
-            }
+            BrowseTvShow();
         }
 
         private void btnDirRemove_Click(object sender, EventArgs e)
@@ -252,13 +253,17 @@ namespace RenamerX
         {
             if (lvShows.SelectedItems.Count > 0 && ShowList.Count > 0)
             {
-                lvList1.Items.Clear();
-                lvList2.Items.Clear();
-
-                foreach (ShowInfo showInfo in ShowList[lvShows.SelectedIndices[0]])
+                if (ShowList.Count >= lvShows.Items.Count)
                 {
-                    lvList1.Items.Add(showInfo.DefaultFilePath);
-                    lvList2.Items.Add(showInfo.NewFilePath);
+                    lvList1.Items.Clear();
+                    lvList2.Items.Clear();
+
+                    foreach (ShowInfo showInfo in ShowList[lvShows.SelectedIndices[0]])
+                    {
+                        lvList1.Items.Add(showInfo.DefaultFilePath);
+                        lvList2.Items.Add(showInfo.NewFilePath);
+                    }
+
                 }
 
             }

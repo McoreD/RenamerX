@@ -17,6 +17,9 @@ namespace RenamerX
 {
     public partial class MainWindow : Form
     {
+        public List<List<ShowInfo>> ShowList = new List<List<ShowInfo>>();
+        public List<Show> Shows = new List<Show>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -28,9 +31,13 @@ namespace RenamerX
         {
             for (int i = 1; i <= 5; i++)
             {
-                lbDirs.Items.Add(@"E:\Diziler\Lost\Season " + i); //@"S:\TV\LOST\Season 0" + i);"
+                AddShow("Lost", @"E:\TV\Lost\Season " + i);
             }
-            RefreshLists("Lost");
+            for (int i = 1; i <= 2; i++)
+            {
+                AddShow("Heroes", @"E:\TV\Heroes\Season " + i);
+            }
+            RefreshLists();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -39,7 +46,7 @@ namespace RenamerX
             ib.ShowDialog();
             if (ib.DialogResult == DialogResult.OK)
             {
-                RefreshLists(ib.ShowName, ib.ShowLocation);
+                AddShow(ib.ShowName, ib.ShowLocation);
             }
         }
 
@@ -53,29 +60,27 @@ namespace RenamerX
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             if (fbd.ShowDialog() == DialogResult.OK)
             {
-                lbDirs.Items.Add(fbd.SelectedPath);
+                AddShow(txtShowName.Text, fbd.SelectedPath);
             }
         }
 
         private void btnDirRemove_Click(object sender, EventArgs e)
         {
-            if (lbDirs.SelectedIndex > -1)
+            if (lvShows.SelectedItems.Count > -1)
             {
-                lbDirs.Items.RemoveAt(lbDirs.SelectedIndex);
+                lvShows.Items.RemoveAt(lvShows.SelectedIndices[0]);
             }
         }
 
         private void btnDirClear_Click(object sender, EventArgs e)
         {
-            lbDirs.Items.Clear();
+            lvShows.Items.Clear();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtShowName.Text))
-            {
-                RefreshLists(txtShowName.Text);
-            }
+            ShowList = new List<List<ShowInfo>>();
+            RefreshLists();
         }
 
         private void btnChange_Click(object sender, EventArgs e)
@@ -89,56 +94,52 @@ namespace RenamerX
 
         #endregion
 
-        public void RefreshLists(string showName)
+        private void AddShow(string showName, string showFolder)
         {
-            List<string> list = new List<string>();
-            foreach (string str in lbDirs.Items)
-            {
-                list.Add(str);
-            }
-            if (list.Count > 0)
-            {
-                RefreshLists(showName, list);
-            }
+            string[] info = { showName, showFolder };
+            ListViewItem lvi = lvShows.Items.Add(showName + ": " + GetLastPart(showFolder));
+            lvi.Tag = info;
         }
 
-        public void RefreshLists(string showName, string dir)
+        public void RefreshLists()
         {
-            RefreshLists(showName, new List<string> { dir });
-        }
-
-        public void RefreshLists(string showName, List<string> dirs)
-        {
-            treeView1.Nodes.Clear();
-            treeView2.Nodes.Clear();
-            Show show = FindShow(showName);
-            for (int i = 0; i < dirs.Count; i++)
+            lvList1.Items.Clear();
+            lvList2.Items.Clear();
+            for (int i = 0; i < lvShows.Items.Count; i++)
             {
-                if (Directory.Exists(dirs[i]))
+                string[] info = (string[])lvShows.Items[i].Tag;
+                Show show = new Show("");
+                foreach (Show shows in Shows)
                 {
-                    treeView1.Nodes.Add(GetLastPart(dirs[i]));
-                    treeView2.Nodes.Add(GetLastPart(dirs[i]));
-                    foreach (string file in Directory.GetFiles(dirs[i]))
+                    if (shows.Contains(info[0]))
                     {
-                        string[] files = new string[4];
-                        files[0] = GetLastPart(file); //Default file name
-                        files[1] = file; //Default full file path
-                        if (CheckFile(files[1], txtFileFilter.Text))
-                        {
-                            files[2] = Reformat(show, files[0]); //New file name
-                            files[3] = ChangeFilePath(files[1], files[2]); //New full file path
-                            TreeNode tn = treeView1.Nodes[i].Nodes.Add(files[0]);
-                            tn.Tag = files;
-                            tn.ToolTipText = files[1];
-                            tn = treeView2.Nodes[i].Nodes.Add(files[2]);
-                            tn.Tag = files;
-                            tn.ToolTipText = files[3];
-                        }
+                        show = shows;
+                        break;
                     }
                 }
+                if (string.IsNullOrEmpty(show.ShowName))
+                {
+                    show = FindShow(info[0]);
+                    Shows.Add(show);
+                }
+                if (Directory.Exists(info[1]))
+                {
+                    List<ShowInfo> showInfos = new List<ShowInfo>();
+                    foreach (string file in Directory.GetFiles(info[1]))
+                    {
+                        if (CheckFile(file, txtFileFilter.Text))
+                        {
+                            ShowInfo showInfo = new ShowInfo();
+                            showInfo.DefaultFileName = GetLastPart(file);
+                            showInfo.DefaultFilePath = file;
+                            showInfo.NewFileName = Reformat(show, showInfo.DefaultFileName);
+                            showInfo.NewFilePath = ChangeFilePath(showInfo.DefaultFilePath, showInfo.NewFileName);
+                            showInfos.Add(showInfo);
+                        }
+                    }
+                    ShowList.Add(showInfos);
+                }
             }
-            treeView1.ExpandAll();
-            treeView2.ExpandAll();
         }
 
         public static string ChangeFilePath(string filePath, string fileName)
@@ -216,19 +217,32 @@ namespace RenamerX
 
         public void ChangeNames()
         {
-            foreach (TreeNode parents in treeView2.Nodes)
+            foreach (List<ShowInfo> showInfos in ShowList)
             {
-                foreach (TreeNode childs in parents.Nodes)
+                foreach (ShowInfo showInfo in showInfos)
                 {
-                    string[] files = (string[])childs.Tag;
                     try
                     {
-                        File.Move(files[1], files[3]);
+                        File.Move(showInfo.DefaultFilePath, showInfo.NewFilePath);
                     }
                     catch (Exception ex)
                     {
-                        if (!cbShowErrors.Checked) MessageBox.Show(ex.Message + "\n" + files[3]);
+                        if (!cbShowErrors.Checked) MessageBox.Show(ex.Message + "\n" + showInfo.NewFilePath);
                     }
+                }
+            }
+        }
+
+        private void lvShows_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvShows.SelectedItems.Count > 0)
+            {
+                lvList1.Items.Clear();
+                lvList2.Items.Clear();
+                foreach (ShowInfo showInfo in ShowList[lvShows.SelectedIndices[0]])
+                {
+                    lvList1.Items.Add(showInfo.DefaultFilePath);
+                    lvList2.Items.Add(showInfo.NewFilePath);
                 }
             }
         }
@@ -240,6 +254,14 @@ namespace RenamerX
         {
             return Convert.ToInt32(str);
         }
+    }
+
+    public struct ShowInfo
+    {
+        public string DefaultFileName;
+        public string DefaultFilePath;
+        public string NewFileName;
+        public string NewFilePath;
     }
 
     public class Show : IEnumerable
@@ -272,6 +294,11 @@ namespace RenamerX
         public IEnumerator GetEnumerator()
         {
             return Seasons.GetEnumerator();
+        }
+
+        public bool Contains(string showName)
+        {
+            return this.ShowName == showName;
         }
     }
 

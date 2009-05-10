@@ -33,6 +33,8 @@
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tpMain = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.lvShows = new System.Windows.Forms.ListView();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.cbShowErrors = new System.Windows.Forms.CheckBox();
             this.btnChange = new System.Windows.Forms.Button();
             this.btnDirClear = new System.Windows.Forms.Button();
@@ -44,11 +46,12 @@
             this.btnDirRemove = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.txtNameFormat = new System.Windows.Forms.TextBox();
-            this.lbDirs = new System.Windows.Forms.ListBox();
             this.btnDirAdd = new System.Windows.Forms.Button();
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
-            this.treeView1 = new System.Windows.Forms.TreeView();
-            this.treeView2 = new System.Windows.Forms.TreeView();
+            this.lvList1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.lvList2 = new System.Windows.Forms.ListView();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.tpOptions = new System.Windows.Forms.TabPage();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -124,6 +127,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.lvShows);
             this.splitContainer1.Panel1.Controls.Add(this.cbShowErrors);
             this.splitContainer1.Panel1.Controls.Add(this.btnChange);
             this.splitContainer1.Panel1.Controls.Add(this.btnDirClear);
@@ -135,7 +139,6 @@
             this.splitContainer1.Panel1.Controls.Add(this.btnDirRemove);
             this.splitContainer1.Panel1.Controls.Add(this.btnRefresh);
             this.splitContainer1.Panel1.Controls.Add(this.txtNameFormat);
-            this.splitContainer1.Panel1.Controls.Add(this.lbDirs);
             this.splitContainer1.Panel1.Controls.Add(this.btnDirAdd);
             this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(3);
             // 
@@ -143,9 +146,29 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tlpMain);
             this.splitContainer1.Size = new System.Drawing.Size(994, 604);
-            this.splitContainer1.SplitterDistance = 90;
+            this.splitContainer1.SplitterDistance = 130;
             this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 3;
+            // 
+            // lvShows
+            // 
+            this.lvShows.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3});
+            this.lvShows.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lvShows.FullRowSelect = true;
+            this.lvShows.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lvShows.HideSelection = false;
+            this.lvShows.Location = new System.Drawing.Point(3, 3);
+            this.lvShows.Name = "lvShows";
+            this.lvShows.Size = new System.Drawing.Size(333, 124);
+            this.lvShows.TabIndex = 14;
+            this.lvShows.UseCompatibleStateImageBehavior = false;
+            this.lvShows.View = System.Windows.Forms.View.Details;
+            this.lvShows.SelectedIndexChanged += new System.EventHandler(this.lvShows_SelectedIndexChanged);
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Width = 250;
             // 
             // cbShowErrors
             // 
@@ -252,16 +275,6 @@
             this.txtNameFormat.Text = "$N - S$S2E$E2 - $T";
             this.toolTip1.SetToolTip(this.txtNameFormat, resources.GetString("txtNameFormat.ToolTip"));
             // 
-            // lbDirs
-            // 
-            this.lbDirs.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lbDirs.FormattingEnabled = true;
-            this.lbDirs.IntegralHeight = false;
-            this.lbDirs.Location = new System.Drawing.Point(3, 3);
-            this.lbDirs.Name = "lbDirs";
-            this.lbDirs.Size = new System.Drawing.Size(336, 84);
-            this.lbDirs.TabIndex = 6;
-            // 
             // btnDirAdd
             // 
             this.btnDirAdd.Location = new System.Drawing.Point(344, 8);
@@ -277,33 +290,51 @@
             this.tlpMain.ColumnCount = 2;
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpMain.Controls.Add(this.treeView1, 0, 0);
-            this.tlpMain.Controls.Add(this.treeView2, 1, 0);
+            this.tlpMain.Controls.Add(this.lvList1, 0, 0);
+            this.tlpMain.Controls.Add(this.lvList2, 1, 0);
             this.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpMain.Location = new System.Drawing.Point(0, 0);
             this.tlpMain.Name = "tlpMain";
             this.tlpMain.RowCount = 1;
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMain.Size = new System.Drawing.Size(994, 512);
+            this.tlpMain.Size = new System.Drawing.Size(994, 472);
             this.tlpMain.TabIndex = 2;
             // 
-            // treeView1
+            // lvList1
             // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.Location = new System.Drawing.Point(3, 3);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.ShowNodeToolTips = true;
-            this.treeView1.Size = new System.Drawing.Size(491, 506);
-            this.treeView1.TabIndex = 0;
+            this.lvList1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.lvList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvList1.FullRowSelect = true;
+            this.lvList1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lvList1.Location = new System.Drawing.Point(3, 3);
+            this.lvList1.Name = "lvList1";
+            this.lvList1.Size = new System.Drawing.Size(491, 466);
+            this.lvList1.TabIndex = 0;
+            this.lvList1.UseCompatibleStateImageBehavior = false;
+            this.lvList1.View = System.Windows.Forms.View.Details;
             // 
-            // treeView2
+            // columnHeader1
             // 
-            this.treeView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView2.Location = new System.Drawing.Point(500, 3);
-            this.treeView2.Name = "treeView2";
-            this.treeView2.ShowNodeToolTips = true;
-            this.treeView2.Size = new System.Drawing.Size(491, 506);
-            this.treeView2.TabIndex = 1;
+            this.columnHeader1.Width = 500;
+            // 
+            // lvList2
+            // 
+            this.lvList2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2});
+            this.lvList2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvList2.FullRowSelect = true;
+            this.lvList2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lvList2.Location = new System.Drawing.Point(500, 3);
+            this.lvList2.Name = "lvList2";
+            this.lvList2.Size = new System.Drawing.Size(491, 466);
+            this.lvList2.TabIndex = 1;
+            this.lvList2.UseCompatibleStateImageBehavior = false;
+            this.lvList2.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Width = 500;
             // 
             // tpOptions
             // 
@@ -351,7 +382,7 @@
             this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.newToolStripMenuItem.Text = "&New";
             // 
             // openToolStripMenuItem
@@ -360,14 +391,14 @@
             this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(143, 6);
             // 
             // saveToolStripMenuItem
             // 
@@ -375,19 +406,19 @@
             this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
             // 
             // printToolStripMenuItem
             // 
@@ -395,7 +426,7 @@
             this.printToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
             this.printToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.printToolStripMenuItem.Text = "&Print";
             // 
             // printPreviewToolStripMenuItem
@@ -403,18 +434,18 @@
             this.printPreviewToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("printPreviewToolStripMenuItem.Image")));
             this.printPreviewToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.printPreviewToolStripMenuItem.Name = "printPreviewToolStripMenuItem";
-            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.printPreviewToolStripMenuItem.Text = "Print Pre&view";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(143, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             // 
             // editToolStripMenuItem
@@ -501,13 +532,13 @@
             // customizeToolStripMenuItem
             // 
             this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.customizeToolStripMenuItem.Text = "&Customize";
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // helpToolStripMenuItem
@@ -624,10 +655,7 @@
         private System.Windows.Forms.TextBox txtFileFilter;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.TreeView treeView2;
         private System.Windows.Forms.Button btnDirAdd;
-        private System.Windows.Forms.ListBox lbDirs;
         private System.Windows.Forms.Button btnDirRemove;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TableLayoutPanel tlpMain;
@@ -638,5 +666,11 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btnChange;
         private System.Windows.Forms.CheckBox cbShowErrors;
+        private System.Windows.Forms.ListView lvList1;
+        private System.Windows.Forms.ListView lvList2;
+        private System.Windows.Forms.ListView lvShows;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
     }
 }

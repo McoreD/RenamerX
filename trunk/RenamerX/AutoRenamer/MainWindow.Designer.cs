@@ -52,7 +52,8 @@
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.lvList2 = new System.Windows.Forms.ListView();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.tpOptions = new System.Windows.Forms.TabPage();
+            this.tpConsole = new System.Windows.Forms.TabPage();
+            this.txtConsole = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,13 +91,14 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tlpMain.SuspendLayout();
+            this.tpConsole.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcMain
             // 
             this.tcMain.Controls.Add(this.tpMain);
-            this.tcMain.Controls.Add(this.tpOptions);
+            this.tcMain.Controls.Add(this.tpConsole);
             this.tcMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcMain.Location = new System.Drawing.Point(0, 24);
             this.tcMain.Name = "tcMain";
@@ -336,15 +338,25 @@
             // 
             this.columnHeader2.Width = 500;
             // 
-            // tpOptions
+            // tpConsole
             // 
-            this.tpOptions.Location = new System.Drawing.Point(4, 24);
-            this.tpOptions.Name = "tpOptions";
-            this.tpOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.tpOptions.Size = new System.Drawing.Size(1000, 610);
-            this.tpOptions.TabIndex = 1;
-            this.tpOptions.Text = "Options";
-            this.tpOptions.UseVisualStyleBackColor = true;
+            this.tpConsole.Controls.Add(this.txtConsole);
+            this.tpConsole.Location = new System.Drawing.Point(4, 24);
+            this.tpConsole.Name = "tpConsole";
+            this.tpConsole.Padding = new System.Windows.Forms.Padding(3);
+            this.tpConsole.Size = new System.Drawing.Size(1000, 610);
+            this.tpConsole.TabIndex = 1;
+            this.tpConsole.Text = "Console";
+            this.tpConsole.UseVisualStyleBackColor = true;
+            // 
+            // txtConsole
+            // 
+            this.txtConsole.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtConsole.Location = new System.Drawing.Point(3, 3);
+            this.txtConsole.Multiline = true;
+            this.txtConsole.Name = "txtConsole";
+            this.txtConsole.Size = new System.Drawing.Size(994, 604);
+            this.txtConsole.TabIndex = 0;
             // 
             // menuStrip1
             // 
@@ -606,6 +618,8 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
             this.tlpMain.ResumeLayout(false);
+            this.tpConsole.ResumeLayout(false);
+            this.tpConsole.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -617,7 +631,7 @@
 
         private System.Windows.Forms.TabControl tcMain;
         private System.Windows.Forms.TabPage tpMain;
-        private System.Windows.Forms.TabPage tpOptions;
+        private System.Windows.Forms.TabPage tpConsole;
         private System.Windows.Forms.TextBox txtNameFormat;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -669,5 +683,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.TextBox txtConsole;
     }
 }

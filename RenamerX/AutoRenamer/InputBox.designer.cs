@@ -59,10 +59,12 @@
             // 
             // txtAns
             // 
+            this.txtAns.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ShowName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.txtAns.Location = new System.Drawing.Point(88, 16);
             this.txtAns.Name = "txtAns";
             this.txtAns.Size = new System.Drawing.Size(196, 20);
             this.txtAns.TabIndex = 2;
+            this.txtAns.Text = global::RenamerX.Properties.Settings.Default.ShowName;
             // 
             // lblShowName
             // 

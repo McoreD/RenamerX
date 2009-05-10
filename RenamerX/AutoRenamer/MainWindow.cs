@@ -12,6 +12,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Collections.Specialized;
 using System.Runtime.InteropServices;
+using RenamerX.Properties;
 
 namespace RenamerX
 {
@@ -267,6 +268,11 @@ namespace RenamerX
                 }
 
             }
+        }
+
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Settings.Default.Save();
         }
     }
 

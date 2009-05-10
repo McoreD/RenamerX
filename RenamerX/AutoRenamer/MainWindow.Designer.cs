@@ -611,6 +611,7 @@
             this.Name = "MainWindow";
             this.Text = "RenamerX - Rename your files eXpressly";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Resize += new System.EventHandler(this.MainWindow_Resize);
             this.tcMain.ResumeLayout(false);
             this.tpMain.ResumeLayout(false);

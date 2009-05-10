@@ -29,15 +29,15 @@ namespace RenamerX
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            for (int i = 1; i <= 5; i++)
-            {
-                AddShow("Lost", @"E:\TV\Lost\Season " + i);
-            }
-            for (int i = 1; i <= 2; i++)
-            {
-                AddShow("Heroes", @"E:\TV\Heroes\Season " + i);
-            }
-            AddShow("Knight Rider 2008", @"E:\TV\Knight Rider 2008\Knight Rider 2008");
+            //for (int i = 1; i <= 5; i++)
+            //{
+            //    AddShow("Lost", @"E:\TV\Lost\Season " + i);
+            //}
+            //for (int i = 1; i <= 2; i++)
+            //{
+            //    AddShow("Heroes", @"E:\TV\Heroes\Season " + i);
+            //}
+            //AddShow("Knight Rider 2008", @"E:\TV\Knight Rider 2008\Knight Rider 2008");
             RefreshLists();
         }
 

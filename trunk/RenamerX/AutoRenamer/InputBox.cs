@@ -53,6 +53,7 @@ namespace RenamerX
             if (!string.IsNullOrEmpty(txtAns.Text))
             {
                 this.ShowName = txtAns.Text;
+                this.ShowLocation = txtLocation.Text;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

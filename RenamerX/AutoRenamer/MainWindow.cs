@@ -37,6 +37,7 @@ namespace RenamerX
             {
                 AddShow("Heroes", @"E:\TV\Heroes\Season " + i);
             }
+            AddShow("Knight Rider 2008", @"E:\TV\Knight Rider 2008\Knight Rider 2008");
             RefreshLists();
         }
 
@@ -89,7 +90,9 @@ namespace RenamerX
             if (MessageBox.Show("Are you really want to change file names?", this.Text, MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
+                txtConsole.AppendText("Started.\r\n");
                 ChangeNames();
+                txtConsole.AppendText("Finished.\r\n");
             }
         }
 
@@ -158,7 +161,7 @@ namespace RenamerX
             if (string.IsNullOrEmpty(pattern)) return true;
             pattern = "^" + Regex.Escape(pattern).Replace("\\*", ".*").Replace("\\+", ".+").Replace("\\?", ".?").
                 Replace("\\|", "|") + "$";
-            return Regex.IsMatch(file, pattern);
+            return Regex.IsMatch(file, pattern, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
         }
 
         public Show FindShow(string showName)
@@ -199,13 +202,13 @@ namespace RenamerX
                 {
                     string pattern = @"s(?<Season>\d+)e(?<Episode>\d+)|(?<Season>\d{2,})x(?<Episode>\d{2,})|(?<Season>\d+)(?<Episode>\d{2,})";
                     filename.Replace(show.ShowName, "");
-                    Match result = Regex.Match(filename, pattern, RegexOptions.IgnoreCase | RegexOptions.RightToLeft);
+                    Match result = Regex.Match(filename, pattern, RegexOptions.IgnoreCase | RegexOptions.RightToLeft | RegexOptions.CultureInvariant);
                     int season = result.Groups["Season"].Value.ToInt();
                     int episode = result.Groups["Episode"].Value.ToInt();
                     if (season > 0 && episode > 0)
                     {
                         pattern = txtNameFormat.Text;
-                        string extension = filename.Remove(0, filename.LastIndexOf('.'));
+                        string extension = filename.Remove(0, filename.LastIndexOf('.')).ToLowerInvariant();
                         return pattern.Replace("$N", show.ShowName).Replace("$S2", season.ToString("d2")).
                             Replace("$S", season.ToString()).Replace("$E2", episode.ToString("d2")).
                             Replace("$E", episode.ToString()).
@@ -225,11 +228,16 @@ namespace RenamerX
                 {
                     try
                     {
-                        File.Move(showInfo.DefaultFilePath, showInfo.NewFilePath);
+                        if (showInfo.DefaultFilePath != showInfo.NewFilePath)
+                        {
+                            File.Move(showInfo.DefaultFilePath, showInfo.NewFilePath);
+                            txtConsole.AppendText("Moved: " + showInfo.NewFilePath + "\r\n");
+                        }
                     }
                     catch (Exception ex)
                     {
                         if (!cbShowErrors.Checked) MessageBox.Show(ex.Message + "\n" + showInfo.NewFilePath);
+                        txtConsole.AppendText("Error: " + ex.Message + " = " + showInfo.NewFilePath + "\r\n");
                     }
                 }
             }

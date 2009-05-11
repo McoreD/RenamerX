@@ -42,6 +42,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtFileFilter = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.txtShowName = new System.Windows.Forms.TextBox();
             this.btnDirRemove = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.txtNameFormat = new System.Windows.Forms.TextBox();
@@ -84,7 +85,7 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.txtShowName = new System.Windows.Forms.TextBox();
+            this.tpSettings = new System.Windows.Forms.TabPage();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -99,6 +100,7 @@
             // 
             this.tcMain.Controls.Add(this.tpMain);
             this.tcMain.Controls.Add(this.tpConsole);
+            this.tcMain.Controls.Add(this.tpSettings);
             this.tcMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcMain.Location = new System.Drawing.Point(0, 24);
             this.tcMain.Name = "tcMain";
@@ -175,6 +177,8 @@
             // cbShowErrors
             // 
             this.cbShowErrors.AutoSize = true;
+            this.cbShowErrors.Checked = true;
+            this.cbShowErrors.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbShowErrors.Location = new System.Drawing.Point(696, 64);
             this.cbShowErrors.Name = "cbShowErrors";
             this.cbShowErrors.Size = new System.Drawing.Size(287, 17);
@@ -239,6 +243,15 @@
             this.label3.Size = new System.Drawing.Size(73, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Name Format:";
+            // 
+            // txtShowName
+            // 
+            this.txtShowName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ShowName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtShowName.Location = new System.Drawing.Point(504, 8);
+            this.txtShowName.Name = "txtShowName";
+            this.txtShowName.Size = new System.Drawing.Size(176, 20);
+            this.txtShowName.TabIndex = 9;
+            this.txtShowName.Text = global::RenamerX.Properties.Settings.Default.ShowName;
             // 
             // btnDirRemove
             // 
@@ -590,14 +603,15 @@
             this.toolTip1.InitialDelay = 100;
             this.toolTip1.ReshowDelay = 20;
             // 
-            // txtShowName
+            // tpSettings
             // 
-            this.txtShowName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ShowName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtShowName.Location = new System.Drawing.Point(504, 8);
-            this.txtShowName.Name = "txtShowName";
-            this.txtShowName.Size = new System.Drawing.Size(176, 20);
-            this.txtShowName.TabIndex = 9;
-            this.txtShowName.Text = global::RenamerX.Properties.Settings.Default.ShowName;
+            this.tpSettings.Location = new System.Drawing.Point(4, 24);
+            this.tpSettings.Name = "tpSettings";
+            this.tpSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSettings.Size = new System.Drawing.Size(1000, 610);
+            this.tpSettings.TabIndex = 2;
+            this.tpSettings.Text = "Settings";
+            this.tpSettings.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
@@ -686,5 +700,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.TextBox txtConsole;
+        private System.Windows.Forms.TabPage tpSettings;
     }
 }

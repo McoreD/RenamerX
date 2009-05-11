@@ -30,14 +30,14 @@ namespace RenamerX
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //for (int i = 1; i <= 5; i++)
-            //{
-            //    AddShow("Lost", @"E:\TV\Lost\Season " + i);
-            //}
-            //for (int i = 1; i <= 2; i++)
-            //{
-            //    AddShow("Heroes", @"E:\TV\Heroes\Season " + i);
-            //}
+            for (int i = 1; i <= 5; i++)
+            {
+                AddShow("Lost", @"E:\TV\Lost\Season " + i);
+            }
+            for (int i = 1; i <= 2; i++)
+            {
+                AddShow("Heroes", @"E:\TV\Heroes\Season " + i);
+            }
             //AddShow("Knight Rider 2008", @"E:\TV\Knight Rider 2008\Knight Rider 2008");
             RefreshLists();
         }
@@ -50,8 +50,7 @@ namespace RenamerX
         private void BrowseTvShow()
         {
             InputBox ib = new InputBox("Browse for TV Show...", "");
-            ib.ShowDialog();
-            if (ib.DialogResult == DialogResult.OK)
+            if (ib.ShowDialog() == DialogResult.OK)
             {
                 AddShow(ib.ShowName, ib.ShowLocation);
             }
@@ -92,10 +91,20 @@ namespace RenamerX
             if (MessageBox.Show("Are you really want to change file names?", this.Text, MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
-                txtConsole.AppendText("Started.\r\n");
+                ConsoleWriteLine("Started.");
                 ChangeNames();
-                txtConsole.AppendText("Finished.\r\n");
+                ConsoleWriteLine("Finished.");
             }
+        }
+
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Settings.Default.Save();
+        }
+
+        private void lvShows_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshSelected();
         }
 
         #endregion
@@ -204,7 +213,7 @@ namespace RenamerX
                 {
                     string pattern = @"s(?<Season>\d+)e(?<Episode>\d+)|(?<Season>\d{2,})x(?<Episode>\d{2,})|(?<Season>\d+)(?<Episode>\d{2,})";
                     filename.Replace(show.ShowName, "");
-                    Match result = Regex.Match(filename, pattern, RegexOptions.IgnoreCase | RegexOptions.RightToLeft | RegexOptions.CultureInvariant);
+                    Match result = Regex.Match(filename, pattern, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
                     int season = result.Groups["Season"].Value.ToInt();
                     int episode = result.Groups["Episode"].Value.ToInt();
                     if (season > 0 && episode > 0)
@@ -233,46 +242,36 @@ namespace RenamerX
                         if (showInfo.DefaultFilePath != showInfo.NewFilePath)
                         {
                             File.Move(showInfo.DefaultFilePath, showInfo.NewFilePath);
-                            txtConsole.AppendText("Moved: " + showInfo.NewFilePath + "\r\n");
+                            ConsoleWriteLine("Renamed: \"" + showInfo.DefaultFilePath + "\" -> \"" + showInfo.NewFilePath + "\"");
                         }
                     }
                     catch (Exception ex)
                     {
                         if (!cbShowErrors.Checked) MessageBox.Show(ex.Message + "\n" + showInfo.NewFilePath);
-                        txtConsole.AppendText("Error: " + ex.Message + " = " + showInfo.NewFilePath + "\r\n");
+                        ConsoleWriteLine("Error: " + ex.Message + " \"" + showInfo.DefaultFilePath + "\" -> \"" + showInfo.NewFilePath + "\"");
                     }
                 }
             }
-        }
-
-        private void lvShows_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RefreshSelected();
         }
 
         private void RefreshSelected()
         {
-            if (lvShows.SelectedItems.Count > 0 && ShowList.Count > 0)
+            if (lvShows.SelectedItems.Count > 0 && ShowList.Count > 0 && ShowList.Count >= lvShows.Items.Count)
             {
-                if (ShowList.Count >= lvShows.Items.Count)
+                lvList1.Items.Clear();
+                lvList2.Items.Clear();
+
+                foreach (ShowInfo showInfo in ShowList[lvShows.SelectedIndices[0]])
                 {
-                    lvList1.Items.Clear();
-                    lvList2.Items.Clear();
-
-                    foreach (ShowInfo showInfo in ShowList[lvShows.SelectedIndices[0]])
-                    {
-                        lvList1.Items.Add(showInfo.DefaultFilePath);
-                        lvList2.Items.Add(showInfo.NewFilePath);
-                    }
-
+                    lvList1.Items.Add(showInfo.DefaultFilePath);
+                    lvList2.Items.Add(showInfo.NewFilePath);
                 }
-
             }
         }
 
-        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        private void ConsoleWriteLine(string text)
         {
-            Settings.Default.Save();
+            txtConsole.AppendText(DateTime.Now.ToLongTimeString() + " - " + text + Environment.NewLine);
         }
     }
 

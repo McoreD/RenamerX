@@ -45,11 +45,9 @@
             this.btnRefresh = new System.Windows.Forms.Button();
             this.txtNameFormat = new System.Windows.Forms.TextBox();
             this.btnDirAdd = new System.Windows.Forms.Button();
-            this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
-            this.lvList1 = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.lvList2 = new System.Windows.Forms.ListView();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.lvList = new System.Windows.Forms.ListView();
+            this.lvListColumn1 = new System.Windows.Forms.ColumnHeader();
+            this.lvListColumn2 = new System.Windows.Forms.ColumnHeader();
             this.tpConsole = new System.Windows.Forms.TabPage();
             this.txtConsole = new System.Windows.Forms.TextBox();
             this.tpSettings = new System.Windows.Forms.TabPage();
@@ -61,7 +59,6 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.tlpMain.SuspendLayout();
             this.tpConsole.SuspendLayout();
             this.tpSettings.SuspendLayout();
             this.SuspendLayout();
@@ -116,7 +113,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.tlpMain);
+            this.splitContainer1.Panel2.Controls.Add(this.lvList);
             this.splitContainer1.Size = new System.Drawing.Size(994, 628);
             this.splitContainer1.SplitterDistance = 130;
             this.splitContainer1.SplitterWidth = 2;
@@ -244,58 +241,33 @@
             this.btnDirAdd.UseVisualStyleBackColor = true;
             this.btnDirAdd.Click += new System.EventHandler(this.btnDirAdd_Click);
             // 
-            // tlpMain
+            // lvList
             // 
-            this.tlpMain.ColumnCount = 2;
-            this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpMain.Controls.Add(this.lvList1, 0, 0);
-            this.tlpMain.Controls.Add(this.lvList2, 1, 0);
-            this.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpMain.Location = new System.Drawing.Point(0, 0);
-            this.tlpMain.Name = "tlpMain";
-            this.tlpMain.RowCount = 1;
-            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMain.Size = new System.Drawing.Size(994, 496);
-            this.tlpMain.TabIndex = 2;
+            this.lvList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvListColumn1,
+            this.lvListColumn2});
+            this.lvList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvList.FullRowSelect = true;
+            this.lvList.GridLines = true;
+            this.lvList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lvList.HideSelection = false;
+            this.lvList.Location = new System.Drawing.Point(0, 0);
+            this.lvList.Name = "lvList";
+            this.lvList.ShowItemToolTips = true;
+            this.lvList.Size = new System.Drawing.Size(994, 496);
+            this.lvList.TabIndex = 0;
+            this.lvList.UseCompatibleStateImageBehavior = false;
+            this.lvList.View = System.Windows.Forms.View.Details;
             // 
-            // lvList1
+            // lvListColumn1
             // 
-            this.lvList1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-            this.lvList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvList1.FullRowSelect = true;
-            this.lvList1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lvList1.Location = new System.Drawing.Point(3, 3);
-            this.lvList1.Name = "lvList1";
-            this.lvList1.ShowItemToolTips = true;
-            this.lvList1.Size = new System.Drawing.Size(491, 490);
-            this.lvList1.TabIndex = 0;
-            this.lvList1.UseCompatibleStateImageBehavior = false;
-            this.lvList1.View = System.Windows.Forms.View.Details;
+            this.lvListColumn1.Text = "Default Filenames";
+            this.lvListColumn1.Width = 487;
             // 
-            // columnHeader1
+            // lvListColumn2
             // 
-            this.columnHeader1.Width = 487;
-            // 
-            // lvList2
-            // 
-            this.lvList2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader2});
-            this.lvList2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvList2.FullRowSelect = true;
-            this.lvList2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lvList2.Location = new System.Drawing.Point(500, 3);
-            this.lvList2.Name = "lvList2";
-            this.lvList2.ShowItemToolTips = true;
-            this.lvList2.Size = new System.Drawing.Size(491, 490);
-            this.lvList2.TabIndex = 1;
-            this.lvList2.UseCompatibleStateImageBehavior = false;
-            this.lvList2.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Width = 487;
+            this.lvListColumn2.Text = "New Filenames";
+            this.lvListColumn2.Width = 503;
             // 
             // tpConsole
             // 
@@ -303,7 +275,7 @@
             this.tpConsole.Location = new System.Drawing.Point(4, 24);
             this.tpConsole.Name = "tpConsole";
             this.tpConsole.Padding = new System.Windows.Forms.Padding(3);
-            this.tpConsole.Size = new System.Drawing.Size(1000, 610);
+            this.tpConsole.Size = new System.Drawing.Size(1000, 634);
             this.tpConsole.TabIndex = 1;
             this.tpConsole.Text = "Console";
             this.tpConsole.UseVisualStyleBackColor = true;
@@ -314,7 +286,7 @@
             this.txtConsole.Location = new System.Drawing.Point(3, 3);
             this.txtConsole.Multiline = true;
             this.txtConsole.Name = "txtConsole";
-            this.txtConsole.Size = new System.Drawing.Size(994, 604);
+            this.txtConsole.Size = new System.Drawing.Size(994, 628);
             this.txtConsole.TabIndex = 0;
             // 
             // tpSettings
@@ -324,7 +296,7 @@
             this.tpSettings.Location = new System.Drawing.Point(4, 24);
             this.tpSettings.Name = "tpSettings";
             this.tpSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSettings.Size = new System.Drawing.Size(1000, 610);
+            this.tpSettings.Size = new System.Drawing.Size(1000, 634);
             this.tpSettings.TabIndex = 2;
             this.tpSettings.Text = "Settings";
             this.tpSettings.UseVisualStyleBackColor = true;
@@ -372,7 +344,6 @@
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
-            this.tlpMain.ResumeLayout(false);
             this.tpConsole.ResumeLayout(false);
             this.tpConsole.PerformLayout();
             this.tpSettings.ResumeLayout(false);
@@ -393,21 +364,19 @@
         private System.Windows.Forms.Button btnDirAdd;
         private System.Windows.Forms.Button btnDirRemove;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TableLayoutPanel tlpMain;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnDirClear;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btnChange;
         private System.Windows.Forms.CheckBox cbShowErrors;
-        private System.Windows.Forms.ListView lvList1;
-        private System.Windows.Forms.ListView lvList2;
+        private System.Windows.Forms.ListView lvList;
         private System.Windows.Forms.ListView lvShows;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader lvListColumn1;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.TextBox txtConsole;
         private System.Windows.Forms.TabPage tpSettings;
         private System.Windows.Forms.Label lblRegexpPattern;
         private System.Windows.Forms.TextBox txtRegexpPattern;
+        private System.Windows.Forms.ColumnHeader lvListColumn2;
     }
 }

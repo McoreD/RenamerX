@@ -96,8 +96,14 @@ namespace RenamerX
                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 ConsoleWriteLine("Started.");
-                ChangeNames();
-                ConsoleWriteLine("Finished.");
+                if (ChangeNames())
+                {
+                    ConsoleWriteLine("Finished.");
+                }
+                else
+                {
+                    ConsoleWriteLine("Canceled.");
+                }
             }
         }
 
@@ -109,7 +115,6 @@ namespace RenamerX
         private void lvShows_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshSelected();
-            ResizeListviewColumns();
         }
 
         #endregion
@@ -236,7 +241,7 @@ namespace RenamerX
             return filename;
         }
 
-        public void ChangeNames()
+        public bool ChangeNames()
         {
             foreach (List<ShowInfo> showInfos in ShowList)
             {
@@ -252,11 +257,19 @@ namespace RenamerX
                     }
                     catch (Exception ex)
                     {
-                        if (cbShowErrors.Checked) MessageBox.Show(ex.Message + "\n" + showInfo.NewFilePath);
                         ConsoleWriteLine("Error: " + ex.Message + " \"" + showInfo.DefaultFilePath + "\" -> \"" + showInfo.NewFilePath + "\"");
+                        if (cbShowErrors.Checked)
+                        {
+                            if (MessageBox.Show(ex.Message + "\n" + showInfo.NewFilePath, this.Text, MessageBoxButtons.OKCancel,
+                                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Cancel)
+                            {
+                                return false;
+                            }
+                        }
                     }
                 }
             }
+            return true;
         }
 
         private void RefreshSelected()
@@ -273,6 +286,7 @@ namespace RenamerX
                     lvi.SubItems.Add(showInfo.NewFileName);
                     lvList.Items.Add(lvi);
                 }
+                ResizeListviewColumns();
                 lvList.EndUpdate();
             }
         }

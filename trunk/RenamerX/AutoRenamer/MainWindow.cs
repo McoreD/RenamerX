@@ -18,7 +18,6 @@ namespace RenamerX
 {
     public partial class MainWindow : Form
     {
-        public List<List<ShowInfo>> ShowList = new List<List<ShowInfo>>();
         public List<Show> Shows = new List<Show>();
 
         public MainWindow()
@@ -121,22 +120,22 @@ namespace RenamerX
 
         private void AddShow(string showName, string showFolder)
         {
-            string[] info = { showName, showFolder };
-            ListViewItem lvi = lvShows.Items.Add(showName + ": " + GetLastPart(showFolder));
-            lvi.Tag = info;
+            ShowItem si = new ShowItem(showName, showFolder);
+            ListViewItem lvi = lvShows.Items.Add(si.ToString());
+            lvi.Checked = true;
+            lvi.Tag = si;
         }
 
         public void RefreshLists()
         {
-            ShowList = new List<List<ShowInfo>>();
             lvList.Items.Clear();
             for (int i = 0; i < lvShows.Items.Count; i++)
             {
-                string[] info = (string[])lvShows.Items[i].Tag;
+                ShowItem si = (ShowItem)lvShows.Items[i].Tag;
                 Show show = new Show("");
                 foreach (Show shows in Shows)
                 {
-                    if (shows.Contains(info[0]))
+                    if (shows.Contains(si.ShowName))
                     {
                         show = shows;
                         break;
@@ -144,13 +143,13 @@ namespace RenamerX
                 }
                 if (string.IsNullOrEmpty(show.ShowName))
                 {
-                    show = FindShow(info[0]);
+                    show = FindShow(si.ShowName);
                     Shows.Add(show);
                 }
-                if (Directory.Exists(info[1]))
+                if (Directory.Exists(si.ShowDirectory))
                 {
-                    List<ShowInfo> showInfos = new List<ShowInfo>();
-                    foreach (string file in Directory.GetFiles(info[1]))
+                    si.ShowInfos.Clear();
+                    foreach (string file in Directory.GetFiles(si.ShowDirectory))
                     {
                         if (CheckFile(file, txtFileFilter.Text))
                         {
@@ -159,10 +158,9 @@ namespace RenamerX
                             showInfo.DefaultFilePath = file;
                             showInfo.NewFileName = Reformat(show, showInfo.DefaultFileName);
                             showInfo.NewFilePath = ChangeFilePath(showInfo.DefaultFilePath, showInfo.NewFileName);
-                            showInfos.Add(showInfo);
+                            si.ShowInfos.Add(showInfo);
                         }
                     }
-                    ShowList.Add(showInfos);
                 }
             }
         }
@@ -243,27 +241,31 @@ namespace RenamerX
 
         public bool ChangeNames()
         {
-            foreach (List<ShowInfo> showInfos in ShowList)
+            for (int i = 0; i < lvShows.Items.Count; i++)
             {
-                foreach (ShowInfo showInfo in showInfos)
+                ListViewItem lvi = lvShows.Items[i];
+                if (lvi.Checked)
                 {
-                    try
+                    foreach (ShowInfo showInfo in ((ShowItem)lvi.Tag).ShowInfos)
                     {
-                        if (showInfo.DefaultFilePath != showInfo.NewFilePath)
+                        try
                         {
-                            File.Move(showInfo.DefaultFilePath, showInfo.NewFilePath);
-                            ConsoleWriteLine("Renamed: \"" + showInfo.DefaultFilePath + "\" -> \"" + showInfo.NewFilePath + "\"");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        ConsoleWriteLine("Error: " + ex.Message + " \"" + showInfo.DefaultFilePath + "\" -> \"" + showInfo.NewFilePath + "\"");
-                        if (cbShowErrors.Checked)
-                        {
-                            if (MessageBox.Show(ex.Message + "\n" + showInfo.NewFilePath, this.Text, MessageBoxButtons.OKCancel,
-                                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Cancel)
+                            if (showInfo.DefaultFilePath != showInfo.NewFilePath)
                             {
-                                return false;
+                                File.Move(showInfo.DefaultFilePath, showInfo.NewFilePath);
+                                ConsoleWriteLine("Renamed: \"" + showInfo.DefaultFilePath + "\" -> \"" + showInfo.NewFilePath + "\"");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            ConsoleWriteLine("Error: " + ex.Message + " \"" + showInfo.DefaultFilePath + "\" -> \"" + showInfo.NewFilePath + "\"");
+                            if (cbShowErrors.Checked)
+                            {
+                                if (MessageBox.Show(ex.Message + "\n" + showInfo.NewFilePath, this.Text, MessageBoxButtons.OKCancel,
+                                    MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Cancel)
+                                {
+                                    return false;
+                                }
                             }
                         }
                     }
@@ -274,11 +276,11 @@ namespace RenamerX
 
         private void RefreshSelected()
         {
-            if (lvShows.SelectedItems.Count > 0 && ShowList.Count > 0 && ShowList.Count >= lvShows.Items.Count)
+            if (lvShows.SelectedItems.Count > 0)
             {
                 lvList.BeginUpdate();
                 lvList.Items.Clear();
-                foreach (ShowInfo showInfo in ShowList[lvShows.SelectedIndices[0]])
+                foreach (ShowInfo showInfo in ((ShowItem)lvShows.Items[lvShows.SelectedIndices[0]].Tag).ShowInfos)
                 {
                     ListViewItem lvi = new ListViewItem();
                     lvi.Text = showInfo.DefaultFileName;
@@ -318,6 +320,24 @@ namespace RenamerX
         public string DefaultFilePath;
         public string NewFileName;
         public string NewFilePath;
+    }
+
+    public class ShowItem
+    {
+        public string ShowName;
+        public string ShowDirectory;
+        public List<ShowInfo> ShowInfos = new List<ShowInfo>();
+
+        public ShowItem(string showName, string showDirectory)
+        {
+            ShowName = showName;
+            ShowDirectory = showDirectory;
+        }
+
+        public override string ToString()
+        {
+            return ShowName + ": " + ShowDirectory.Remove(0, ShowDirectory.LastIndexOf("\\") + 1);
+        }
     }
 
     public class Show : IEnumerable

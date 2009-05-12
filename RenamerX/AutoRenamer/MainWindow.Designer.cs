@@ -120,6 +120,7 @@
             // 
             // lvShows
             // 
+            this.lvShows.CheckBoxes = true;
             this.lvShows.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.lvShowsColumn1});
             this.lvShows.Dock = System.Windows.Forms.DockStyle.Left;

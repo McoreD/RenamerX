@@ -38,7 +38,7 @@ namespace RenamerX
             {
                 AddShow("Heroes", @"E:\TV\Heroes\Season " + i);
             }
-            AddShow("Knight Rider 2008", @"C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\Testers\Knight Rider 2008 - Season 01\Knight Rider 2008 - Season 01");
+            //AddShow("Knight Rider 2008", @"C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\Testers\Knight Rider 2008 - Season 01\Knight Rider 2008 - Season 01");
             //RefreshLists();
             ResizeListviewColumns();
         }
@@ -83,8 +83,11 @@ namespace RenamerX
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            btnRefresh.Enabled = false;
+            Application.DoEvents();
             RefreshLists();
             RefreshSelected();
+            btnRefresh.Enabled = true;
         }
 
         private void btnChange_Click(object sender, EventArgs e)
@@ -250,7 +253,7 @@ namespace RenamerX
                     }
                     catch (Exception ex)
                     {
-                        if (!cbShowErrors.Checked) MessageBox.Show(ex.Message + "\n" + showInfo.NewFilePath);
+                        if (cbShowErrors.Checked) MessageBox.Show(ex.Message + "\n" + showInfo.NewFilePath);
                         ConsoleWriteLine("Error: " + ex.Message + " \"" + showInfo.DefaultFilePath + "\" -> \"" + showInfo.NewFilePath + "\"");
                     }
                 }
@@ -267,8 +270,8 @@ namespace RenamerX
                 lvList2.Items.Clear();
                 foreach (ShowInfo showInfo in ShowList[lvShows.SelectedIndices[0]])
                 {
-                    lvList1.Items.Add(showInfo.DefaultFileName).Tag = showInfo.DefaultFilePath;
-                    lvList2.Items.Add(showInfo.NewFileName).Tag = showInfo.NewFilePath;
+                    lvList1.Items.Add(showInfo.DefaultFileName).ToolTipText = showInfo.DefaultFilePath;
+                    lvList2.Items.Add(showInfo.NewFileName).ToolTipText = showInfo.NewFilePath;
                 }
                 lvList1.EndUpdate();
                 lvList2.EndUpdate();

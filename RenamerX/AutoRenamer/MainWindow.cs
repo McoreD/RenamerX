@@ -34,7 +34,7 @@ namespace RenamerX
             {
                 AddShow("Lost", @"E:\TV\Lost\Season " + i);
             }
-            for (int i = 1; i <= 2; i++)
+            for (int i = 1; i <= 3; i++)
             {
                 AddShow("Heroes", @"E:\TV\Heroes\Season " + i);
             }
@@ -124,8 +124,7 @@ namespace RenamerX
         public void RefreshLists()
         {
             ShowList = new List<List<ShowInfo>>();
-            lvList1.Items.Clear();
-            lvList2.Items.Clear();
+            lvList.Items.Clear();
             for (int i = 0; i < lvShows.Items.Count; i++)
             {
                 string[] info = (string[])lvShows.Items[i].Tag;
@@ -264,17 +263,17 @@ namespace RenamerX
         {
             if (lvShows.SelectedItems.Count > 0 && ShowList.Count > 0 && ShowList.Count >= lvShows.Items.Count)
             {
-                lvList1.BeginUpdate();
-                lvList2.BeginUpdate();
-                lvList1.Items.Clear();
-                lvList2.Items.Clear();
+                lvList.BeginUpdate();
+                lvList.Items.Clear();
                 foreach (ShowInfo showInfo in ShowList[lvShows.SelectedIndices[0]])
                 {
-                    lvList1.Items.Add(showInfo.DefaultFileName).ToolTipText = showInfo.DefaultFilePath;
-                    lvList2.Items.Add(showInfo.NewFileName).ToolTipText = showInfo.NewFilePath;
+                    ListViewItem lvi = new ListViewItem();
+                    lvi.Text = showInfo.DefaultFileName;
+                    lvi.ToolTipText = showInfo.DefaultFilePath + "\r\n" + showInfo.NewFilePath;
+                    lvi.SubItems.Add(showInfo.NewFileName);
+                    lvList.Items.Add(lvi);
                 }
-                lvList1.EndUpdate();
-                lvList2.EndUpdate();
+                lvList.EndUpdate();
             }
         }
 
@@ -286,8 +285,8 @@ namespace RenamerX
         private void ResizeListviewColumns()
         {
             lvShows.Columns[0].Width = lvShows.ClientSize.Width;
-            lvList1.Columns[0].Width = lvList1.ClientSize.Width;
-            lvList2.Columns[0].Width = lvList2.ClientSize.Width;
+            lvList.Columns[0].Width = lvList.ClientSize.Width / 2;
+            lvList.Columns[1].Width = -2;
         }
     }
 

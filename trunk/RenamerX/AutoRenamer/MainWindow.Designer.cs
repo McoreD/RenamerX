@@ -39,10 +39,8 @@
             this.btnChange = new System.Windows.Forms.Button();
             this.btnDirClear = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.txtFileFilter = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtShowName = new System.Windows.Forms.TextBox();
             this.btnDirRemove = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.txtNameFormat = new System.Windows.Forms.TextBox();
@@ -54,6 +52,9 @@
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.tpConsole = new System.Windows.Forms.TabPage();
             this.txtConsole = new System.Windows.Forms.TextBox();
+            this.tpSettings = new System.Windows.Forms.TabPage();
+            this.lblRegexpPattern = new System.Windows.Forms.Label();
+            this.txtRegexpPattern = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,7 +86,6 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.tpSettings = new System.Windows.Forms.TabPage();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -93,6 +93,7 @@
             this.splitContainer1.SuspendLayout();
             this.tlpMain.SuspendLayout();
             this.tpConsole.SuspendLayout();
+            this.tpSettings.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -136,10 +137,8 @@
             this.splitContainer1.Panel1.Controls.Add(this.btnChange);
             this.splitContainer1.Panel1.Controls.Add(this.btnDirClear);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
-            this.splitContainer1.Panel1.Controls.Add(this.label5);
             this.splitContainer1.Panel1.Controls.Add(this.txtFileFilter);
             this.splitContainer1.Panel1.Controls.Add(this.label3);
-            this.splitContainer1.Panel1.Controls.Add(this.txtShowName);
             this.splitContainer1.Panel1.Controls.Add(this.btnDirRemove);
             this.splitContainer1.Panel1.Controls.Add(this.btnRefresh);
             this.splitContainer1.Panel1.Controls.Add(this.txtNameFormat);
@@ -172,14 +171,14 @@
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Width = 250;
+            this.columnHeader3.Width = 329;
             // 
             // cbShowErrors
             // 
             this.cbShowErrors.AutoSize = true;
-            this.cbShowErrors.Checked = true;
-            this.cbShowErrors.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbShowErrors.Location = new System.Drawing.Point(696, 64);
+            this.cbShowErrors.Checked = global::RenamerX.Properties.Settings.Default.ShowErrors;
+            this.cbShowErrors.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowErrors", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbShowErrors.Location = new System.Drawing.Point(600, 72);
             this.cbShowErrors.Name = "cbShowErrors";
             this.cbShowErrors.Size = new System.Drawing.Size(287, 17);
             this.cbShowErrors.TabIndex = 13;
@@ -190,7 +189,7 @@
             // 
             // btnChange
             // 
-            this.btnChange.Location = new System.Drawing.Point(688, 32);
+            this.btnChange.Location = new System.Drawing.Point(512, 72);
             this.btnChange.Name = "btnChange";
             this.btnChange.Size = new System.Drawing.Size(72, 24);
             this.btnChange.TabIndex = 12;
@@ -211,47 +210,30 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(432, 59);
+            this.label2.Location = new System.Drawing.Point(432, 43);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(51, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "File Filter:";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(432, 11);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(68, 13);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "Show Name:";
-            // 
             // txtFileFilter
             // 
-            this.txtFileFilter.Location = new System.Drawing.Point(504, 56);
+            this.txtFileFilter.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "FileFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtFileFilter.Location = new System.Drawing.Point(512, 40);
             this.txtFileFilter.Name = "txtFileFilter";
             this.txtFileFilter.Size = new System.Drawing.Size(176, 20);
             this.txtFileFilter.TabIndex = 2;
-            this.txtFileFilter.Text = "+.avi|+.mkv|+.srt";
+            this.txtFileFilter.Text = global::RenamerX.Properties.Settings.Default.FileFilter;
             this.toolTip1.SetToolTip(this.txtFileFilter, resources.GetString("txtFileFilter.ToolTip"));
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(432, 35);
+            this.label3.Location = new System.Drawing.Point(432, 19);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Name Format:";
-            // 
-            // txtShowName
-            // 
-            this.txtShowName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ShowName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtShowName.Location = new System.Drawing.Point(504, 8);
-            this.txtShowName.Name = "txtShowName";
-            this.txtShowName.Size = new System.Drawing.Size(176, 20);
-            this.txtShowName.TabIndex = 9;
-            this.txtShowName.Text = global::RenamerX.Properties.Settings.Default.ShowName;
             // 
             // btnDirRemove
             // 
@@ -265,7 +247,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(688, 8);
+            this.btnRefresh.Location = new System.Drawing.Point(432, 72);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(72, 24);
             this.btnRefresh.TabIndex = 0;
@@ -275,11 +257,12 @@
             // 
             // txtNameFormat
             // 
-            this.txtNameFormat.Location = new System.Drawing.Point(504, 32);
+            this.txtNameFormat.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "NameFormat", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtNameFormat.Location = new System.Drawing.Point(512, 16);
             this.txtNameFormat.Name = "txtNameFormat";
             this.txtNameFormat.Size = new System.Drawing.Size(176, 20);
             this.txtNameFormat.TabIndex = 0;
-            this.txtNameFormat.Text = "$N - S$S2E$E2 - $T";
+            this.txtNameFormat.Text = global::RenamerX.Properties.Settings.Default.NameFormat;
             this.toolTip1.SetToolTip(this.txtNameFormat, resources.GetString("txtNameFormat.ToolTip"));
             // 
             // btnDirAdd
@@ -323,7 +306,7 @@
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Width = 500;
+            this.columnHeader1.Width = 487;
             // 
             // lvList2
             // 
@@ -341,7 +324,7 @@
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Width = 500;
+            this.columnHeader2.Width = 487;
             // 
             // tpConsole
             // 
@@ -362,6 +345,36 @@
             this.txtConsole.Name = "txtConsole";
             this.txtConsole.Size = new System.Drawing.Size(994, 604);
             this.txtConsole.TabIndex = 0;
+            // 
+            // tpSettings
+            // 
+            this.tpSettings.Controls.Add(this.lblRegexpPattern);
+            this.tpSettings.Controls.Add(this.txtRegexpPattern);
+            this.tpSettings.Location = new System.Drawing.Point(4, 24);
+            this.tpSettings.Name = "tpSettings";
+            this.tpSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSettings.Size = new System.Drawing.Size(1000, 610);
+            this.tpSettings.TabIndex = 2;
+            this.tpSettings.Text = "Settings";
+            this.tpSettings.UseVisualStyleBackColor = true;
+            // 
+            // lblRegexpPattern
+            // 
+            this.lblRegexpPattern.AutoSize = true;
+            this.lblRegexpPattern.Location = new System.Drawing.Point(16, 16);
+            this.lblRegexpPattern.Name = "lblRegexpPattern";
+            this.lblRegexpPattern.Size = new System.Drawing.Size(259, 13);
+            this.lblRegexpPattern.TabIndex = 1;
+            this.lblRegexpPattern.Text = "Regexp pattern for find season and episode numbers:";
+            // 
+            // txtRegexpPattern
+            // 
+            this.txtRegexpPattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "RegexpPattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtRegexpPattern.Location = new System.Drawing.Point(16, 40);
+            this.txtRegexpPattern.Name = "txtRegexpPattern";
+            this.txtRegexpPattern.Size = new System.Drawing.Size(968, 20);
+            this.txtRegexpPattern.TabIndex = 0;
+            this.txtRegexpPattern.Text = global::RenamerX.Properties.Settings.Default.RegexpPattern;
             // 
             // menuStrip1
             // 
@@ -603,16 +616,6 @@
             this.toolTip1.InitialDelay = 100;
             this.toolTip1.ReshowDelay = 20;
             // 
-            // tpSettings
-            // 
-            this.tpSettings.Location = new System.Drawing.Point(4, 24);
-            this.tpSettings.Name = "tpSettings";
-            this.tpSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSettings.Size = new System.Drawing.Size(1000, 610);
-            this.tpSettings.TabIndex = 2;
-            this.tpSettings.Text = "Settings";
-            this.tpSettings.UseVisualStyleBackColor = true;
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -636,6 +639,8 @@
             this.tlpMain.ResumeLayout(false);
             this.tpConsole.ResumeLayout(false);
             this.tpConsole.PerformLayout();
+            this.tpSettings.ResumeLayout(false);
+            this.tpSettings.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -687,8 +692,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TableLayoutPanel tlpMain;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtShowName;
         private System.Windows.Forms.Button btnDirClear;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btnChange;
@@ -701,5 +704,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.TextBox txtConsole;
         private System.Windows.Forms.TabPage tpSettings;
+        private System.Windows.Forms.Label lblRegexpPattern;
+        private System.Windows.Forms.TextBox txtRegexpPattern;
     }
 }

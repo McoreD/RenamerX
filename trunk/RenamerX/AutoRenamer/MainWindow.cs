@@ -38,16 +38,17 @@ namespace RenamerX
             {
                 AddShow("Heroes", @"E:\TV\Heroes\Season " + i);
             }
-            //AddShow("Knight Rider 2008", @"E:\TV\Knight Rider 2008\Knight Rider 2008");
-            RefreshLists();
+            AddShow("Knight Rider 2008", @"C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\Testers\Knight Rider 2008 - Season 01\Knight Rider 2008 - Season 01");
+            //RefreshLists();
+            ResizeListviewColumns();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            BrowseTvShow();
+            BrowseTVShow();
         }
 
-        private void BrowseTvShow()
+        private void BrowseTVShow()
         {
             InputBox ib = new InputBox("Browse for TV Show...", "");
             if (ib.ShowDialog() == DialogResult.OK)
@@ -58,12 +59,13 @@ namespace RenamerX
 
         private void MainWindow_Resize(object sender, EventArgs e)
         {
+            ResizeListviewColumns();
             this.Refresh();
         }
 
         private void btnDirAdd_Click(object sender, EventArgs e)
         {
-            BrowseTvShow();
+            BrowseTVShow();
         }
 
         private void btnDirRemove_Click(object sender, EventArgs e)
@@ -81,7 +83,6 @@ namespace RenamerX
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            ShowList = new List<List<ShowInfo>>();
             RefreshLists();
             RefreshSelected();
         }
@@ -105,6 +106,7 @@ namespace RenamerX
         private void lvShows_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshSelected();
+            ResizeListviewColumns();
         }
 
         #endregion
@@ -118,6 +120,7 @@ namespace RenamerX
 
         public void RefreshLists()
         {
+            ShowList = new List<List<ShowInfo>>();
             lvList1.Items.Clear();
             lvList2.Items.Clear();
             for (int i = 0; i < lvShows.Items.Count; i++)
@@ -211,7 +214,7 @@ namespace RenamerX
             {
                 try
                 {
-                    string pattern = @"s(?<Season>\d+)e(?<Episode>\d+)|(?<Season>\d{2,})x(?<Episode>\d{2,})|(?<Season>\d+)(?<Episode>\d{2,})";
+                    string pattern = txtRegexpPattern.Text;
                     filename.Replace(show.ShowName, "");
                     Match result = Regex.Match(filename, pattern, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
                     int season = result.Groups["Season"].Value.ToInt();
@@ -258,20 +261,30 @@ namespace RenamerX
         {
             if (lvShows.SelectedItems.Count > 0 && ShowList.Count > 0 && ShowList.Count >= lvShows.Items.Count)
             {
+                lvList1.BeginUpdate();
+                lvList2.BeginUpdate();
                 lvList1.Items.Clear();
                 lvList2.Items.Clear();
-
                 foreach (ShowInfo showInfo in ShowList[lvShows.SelectedIndices[0]])
                 {
-                    lvList1.Items.Add(showInfo.DefaultFilePath);
-                    lvList2.Items.Add(showInfo.NewFilePath);
+                    lvList1.Items.Add(showInfo.DefaultFileName).Tag = showInfo.DefaultFilePath;
+                    lvList2.Items.Add(showInfo.NewFileName).Tag = showInfo.NewFilePath;
                 }
+                lvList1.EndUpdate();
+                lvList2.EndUpdate();
             }
         }
 
         private void ConsoleWriteLine(string text)
         {
             txtConsole.AppendText(DateTime.Now.ToLongTimeString() + " - " + text + Environment.NewLine);
+        }
+
+        private void ResizeListviewColumns()
+        {
+            lvShows.Columns[0].Width = lvShows.ClientSize.Width;
+            lvList1.Columns[0].Width = lvList1.ClientSize.Width;
+            lvList2.Columns[0].Width = lvList2.ClientSize.Width;
         }
     }
 

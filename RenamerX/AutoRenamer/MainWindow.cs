@@ -29,16 +29,7 @@ namespace RenamerX
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            for (int i = 1; i <= 5; i++)
-            {
-                AddShow("Lost", @"E:\TV\Lost\Season " + i);
-            }
-            for (int i = 1; i <= 3; i++)
-            {
-                AddShow("Heroes", @"E:\TV\Heroes\Season " + i);
-            }
-            //AddShow("Knight Rider 2008", @"C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\Testers\Knight Rider 2008 - Season 01\Knight Rider 2008 - Season 01");
-            //RefreshLists();
+            LoadJaex();
             ResizeListviewColumns();
         }
 
@@ -117,6 +108,19 @@ namespace RenamerX
         }
 
         #endregion
+
+        private void LoadJaex()
+        {
+            for (int i = 1; i <= 5; i++)
+            {
+                AddShow("Lost", @"E:\TV\Lost\Season " + i);
+            }
+            for (int i = 1; i <= 3; i++)
+            {
+                AddShow("Heroes", @"E:\TV\Heroes\Season " + i);
+            }
+            //AddShow("Knight Rider 2008", @"C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\Testers\Knight Rider 2008 - Season 01\Knight Rider 2008 - Season 01");
+        }
 
         private void AddShow(string showName, string showFolder)
         {
@@ -246,6 +250,7 @@ namespace RenamerX
                 ListViewItem lvi = lvShows.Items[i];
                 if (lvi.Checked)
                 {
+                    if (cbShowActionMessages.Checked) ConsoleWriteLine("Started: " + lvi.Text);
                     foreach (ShowInfo showInfo in ((ShowItem)lvi.Tag).ShowInfos)
                     {
                         try
@@ -269,6 +274,7 @@ namespace RenamerX
                             }
                         }
                     }
+                    if (cbShowActionMessages.Checked) ConsoleWriteLine("Finished: " + lvi.Text);
                 }
             }
             return true;

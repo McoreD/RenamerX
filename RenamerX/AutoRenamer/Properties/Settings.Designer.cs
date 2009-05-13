@@ -83,5 +83,17 @@ namespace RenamerX.Properties {
                 this["RegexpPattern"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowActionMessages {
+            get {
+                return ((bool)(this["ShowActionMessages"]));
+            }
+            set {
+                this["ShowActionMessages"] = value;
+            }
+        }
     }
 }

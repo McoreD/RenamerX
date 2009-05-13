@@ -35,15 +35,12 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lvShows = new System.Windows.Forms.ListView();
             this.lvShowsColumn1 = new System.Windows.Forms.ColumnHeader();
-            this.cbShowErrors = new System.Windows.Forms.CheckBox();
             this.btnChange = new System.Windows.Forms.Button();
             this.btnDirClear = new System.Windows.Forms.Button();
             this.lblFileFilter = new System.Windows.Forms.Label();
-            this.txtFileFilter = new System.Windows.Forms.TextBox();
             this.lblNameFormat = new System.Windows.Forms.Label();
             this.btnDirRemove = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.txtNameFormat = new System.Windows.Forms.TextBox();
             this.btnDirAdd = new System.Windows.Forms.Button();
             this.lvList = new System.Windows.Forms.ListView();
             this.lvListColumn1 = new System.Windows.Forms.ColumnHeader();
@@ -52,8 +49,12 @@
             this.txtConsole = new System.Windows.Forms.TextBox();
             this.tpSettings = new System.Windows.Forms.TabPage();
             this.lblRegexpPattern = new System.Windows.Forms.Label();
-            this.txtRegexpPattern = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.cbShowActionMessages = new System.Windows.Forms.CheckBox();
+            this.cbShowErrors = new System.Windows.Forms.CheckBox();
+            this.txtFileFilter = new System.Windows.Forms.TextBox();
+            this.txtNameFormat = new System.Windows.Forms.TextBox();
+            this.txtRegexpPattern = new System.Windows.Forms.TextBox();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -139,20 +140,6 @@
             // 
             this.lvShowsColumn1.Width = 329;
             // 
-            // cbShowErrors
-            // 
-            this.cbShowErrors.AutoSize = true;
-            this.cbShowErrors.Checked = global::RenamerX.Properties.Settings.Default.ShowErrors;
-            this.cbShowErrors.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowErrors", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cbShowErrors.Location = new System.Drawing.Point(440, 72);
-            this.cbShowErrors.Name = "cbShowErrors";
-            this.cbShowErrors.Size = new System.Drawing.Size(261, 17);
-            this.cbShowErrors.TabIndex = 13;
-            this.cbShowErrors.Text = "Show error message boxes while changing names";
-            this.toolTip1.SetToolTip(this.cbShowErrors, "If file name have illegal filename chars then giving this error : Illegal charact" +
-                    "ers in path");
-            this.cbShowErrors.UseVisualStyleBackColor = true;
-            // 
             // btnChange
             // 
             this.btnChange.Location = new System.Drawing.Point(528, 96);
@@ -182,16 +169,6 @@
             this.lblFileFilter.TabIndex = 3;
             this.lblFileFilter.Text = "File Filter:";
             // 
-            // txtFileFilter
-            // 
-            this.txtFileFilter.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "FileFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtFileFilter.Location = new System.Drawing.Point(520, 40);
-            this.txtFileFilter.Name = "txtFileFilter";
-            this.txtFileFilter.Size = new System.Drawing.Size(176, 20);
-            this.txtFileFilter.TabIndex = 2;
-            this.txtFileFilter.Text = global::RenamerX.Properties.Settings.Default.FileFilter;
-            this.toolTip1.SetToolTip(this.txtFileFilter, resources.GetString("txtFileFilter.ToolTip"));
-            // 
             // lblNameFormat
             // 
             this.lblNameFormat.AutoSize = true;
@@ -220,16 +197,6 @@
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
-            // txtNameFormat
-            // 
-            this.txtNameFormat.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "NameFormat", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtNameFormat.Location = new System.Drawing.Point(520, 16);
-            this.txtNameFormat.Name = "txtNameFormat";
-            this.txtNameFormat.Size = new System.Drawing.Size(176, 20);
-            this.txtNameFormat.TabIndex = 0;
-            this.txtNameFormat.Text = global::RenamerX.Properties.Settings.Default.NameFormat;
-            this.toolTip1.SetToolTip(this.txtNameFormat, resources.GetString("txtNameFormat.ToolTip"));
             // 
             // btnDirAdd
             // 
@@ -291,6 +258,7 @@
             // 
             // tpSettings
             // 
+            this.tpSettings.Controls.Add(this.cbShowActionMessages);
             this.tpSettings.Controls.Add(this.lblRegexpPattern);
             this.tpSettings.Controls.Add(this.txtRegexpPattern);
             this.tpSettings.Location = new System.Drawing.Point(4, 24);
@@ -310,6 +278,59 @@
             this.lblRegexpPattern.TabIndex = 1;
             this.lblRegexpPattern.Text = "Regexp pattern for find season and episode numbers:";
             // 
+            // toolTip1
+            // 
+            this.toolTip1.AutomaticDelay = 100;
+            this.toolTip1.AutoPopDelay = 5000;
+            this.toolTip1.InitialDelay = 100;
+            this.toolTip1.ReshowDelay = 20;
+            // 
+            // cbShowActionMessages
+            // 
+            this.cbShowActionMessages.AutoSize = true;
+            this.cbShowActionMessages.Checked = global::RenamerX.Properties.Settings.Default.ShowActionMessages;
+            this.cbShowActionMessages.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowActionMessages", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbShowActionMessages.Location = new System.Drawing.Point(16, 72);
+            this.cbShowActionMessages.Name = "cbShowActionMessages";
+            this.cbShowActionMessages.Size = new System.Drawing.Size(264, 17);
+            this.cbShowActionMessages.TabIndex = 2;
+            this.cbShowActionMessages.Text = "Show shows started, finished messages in console";
+            this.cbShowActionMessages.UseVisualStyleBackColor = true;
+            // 
+            // cbShowErrors
+            // 
+            this.cbShowErrors.AutoSize = true;
+            this.cbShowErrors.Checked = global::RenamerX.Properties.Settings.Default.ShowErrors;
+            this.cbShowErrors.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowErrors", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbShowErrors.Location = new System.Drawing.Point(440, 72);
+            this.cbShowErrors.Name = "cbShowErrors";
+            this.cbShowErrors.Size = new System.Drawing.Size(261, 17);
+            this.cbShowErrors.TabIndex = 13;
+            this.cbShowErrors.Text = "Show error message boxes while changing names";
+            this.toolTip1.SetToolTip(this.cbShowErrors, "If file name have illegal filename chars then giving this error : Illegal charact" +
+                    "ers in path");
+            this.cbShowErrors.UseVisualStyleBackColor = true;
+            // 
+            // txtFileFilter
+            // 
+            this.txtFileFilter.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "FileFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtFileFilter.Location = new System.Drawing.Point(520, 40);
+            this.txtFileFilter.Name = "txtFileFilter";
+            this.txtFileFilter.Size = new System.Drawing.Size(176, 20);
+            this.txtFileFilter.TabIndex = 2;
+            this.txtFileFilter.Text = global::RenamerX.Properties.Settings.Default.FileFilter;
+            this.toolTip1.SetToolTip(this.txtFileFilter, resources.GetString("txtFileFilter.ToolTip"));
+            // 
+            // txtNameFormat
+            // 
+            this.txtNameFormat.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "NameFormat", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtNameFormat.Location = new System.Drawing.Point(520, 16);
+            this.txtNameFormat.Name = "txtNameFormat";
+            this.txtNameFormat.Size = new System.Drawing.Size(176, 20);
+            this.txtNameFormat.TabIndex = 0;
+            this.txtNameFormat.Text = global::RenamerX.Properties.Settings.Default.NameFormat;
+            this.toolTip1.SetToolTip(this.txtNameFormat, resources.GetString("txtNameFormat.ToolTip"));
+            // 
             // txtRegexpPattern
             // 
             this.txtRegexpPattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "RegexpPattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
@@ -318,13 +339,6 @@
             this.txtRegexpPattern.Size = new System.Drawing.Size(968, 20);
             this.txtRegexpPattern.TabIndex = 0;
             this.txtRegexpPattern.Text = global::RenamerX.Properties.Settings.Default.RegexpPattern;
-            // 
-            // toolTip1
-            // 
-            this.toolTip1.AutomaticDelay = 100;
-            this.toolTip1.AutoPopDelay = 5000;
-            this.toolTip1.InitialDelay = 100;
-            this.toolTip1.ReshowDelay = 20;
             // 
             // MainWindow
             // 
@@ -379,5 +393,6 @@
         private System.Windows.Forms.Label lblRegexpPattern;
         private System.Windows.Forms.TextBox txtRegexpPattern;
         private System.Windows.Forms.ColumnHeader lvListColumn2;
+        private System.Windows.Forms.CheckBox cbShowActionMessages;
     }
 }

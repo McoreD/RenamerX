@@ -17,5 +17,8 @@
     <Setting Name="RegexpPattern" Type="System.String" Scope="User">
       <Value Profile="(Default)">s(?&lt;Season&gt;\d+)e(?&lt;Episode&gt;\d+)|(?&lt;Season&gt;\d+)x(?&lt;Episode&gt;\d+)|(?&lt;Season&gt;(?&lt;!2)[01]?\d)(?&lt;Episode&gt;\d{2}(?!\d))</Value>
     </Setting>
+    <Setting Name="ShowActionMessages" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

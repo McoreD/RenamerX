@@ -313,13 +313,26 @@ namespace RenamerX
 
         private void lvShows_DragDrop(object sender, DragEventArgs e)
         {
+
+            string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop, true);
+
             InputBox ib = new InputBox("Enter TV Show Name...", "");
             ib.txtLocation.Enabled = false;
             ib.btnBrowse.Enabled = false;
 
+            if (paths.Length == 1)
+            {
+                // guess show name as this folder name
+                ib.ShowName = Path.GetFileName(paths[0]);                
+            }
+            else if (paths.Length > 1)
+            {
+                // guess show name as root folder name
+                ib.ShowName = Path.GetFileName(Path.GetDirectoryName(paths[0]));
+            }
+
             if (ib.ShowDialog() == DialogResult.OK)
             {
-                string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop, true);
                 foreach (string p in paths)
                 {
                     if (Directory.Exists(p))

@@ -310,6 +310,37 @@ namespace RenamerX
             lvList.Columns[0].Width = lvList.ClientSize.Width / 2;
             lvList.Columns[1].Width = -2;
         }
+
+        private void lvShows_DragDrop(object sender, DragEventArgs e)
+        {
+            InputBox ib = new InputBox("Enter TV Show Name...", "");
+            ib.txtLocation.Enabled = false;
+            ib.btnBrowse.Enabled = false;
+
+            if (ib.ShowDialog() == DialogResult.OK)
+            {
+                string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop, true);
+                foreach (string p in paths)
+                {
+                    if (Directory.Exists(p))
+                    {
+                        AddShow(ib.ShowName, p);
+                    }
+                }
+            }
+        }
+
+        private void lvShows_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.All;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
     }
 
     public static class Extensions

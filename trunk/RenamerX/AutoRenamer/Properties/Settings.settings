@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ShowName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Lost</Value>
+      <Value Profile="(Default)">LOST</Value>
     </Setting>
     <Setting Name="NameFormat" Type="System.String" Scope="User">
       <Value Profile="(Default)">$N - S$S2E$E2 - $T</Value>

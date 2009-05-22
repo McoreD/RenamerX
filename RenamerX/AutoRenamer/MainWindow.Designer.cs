@@ -50,10 +50,10 @@
             this.tpSettings = new System.Windows.Forms.TabPage();
             this.lblRegexpPattern = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.cbShowActionMessages = new System.Windows.Forms.CheckBox();
             this.cbShowErrors = new System.Windows.Forms.CheckBox();
             this.txtFileFilter = new System.Windows.Forms.TextBox();
             this.txtNameFormat = new System.Windows.Forms.TextBox();
+            this.cbShowActionMessages = new System.Windows.Forms.CheckBox();
             this.txtRegexpPattern = new System.Windows.Forms.TextBox();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
@@ -121,6 +121,7 @@
             // 
             // lvShows
             // 
+            this.lvShows.AllowDrop = true;
             this.lvShows.CheckBoxes = true;
             this.lvShows.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.lvShowsColumn1});
@@ -135,6 +136,8 @@
             this.lvShows.UseCompatibleStateImageBehavior = false;
             this.lvShows.View = System.Windows.Forms.View.Details;
             this.lvShows.SelectedIndexChanged += new System.EventHandler(this.lvShows_SelectedIndexChanged);
+            this.lvShows.DragDrop += new System.Windows.Forms.DragEventHandler(this.lvShows_DragDrop);
+            this.lvShows.DragEnter += new System.Windows.Forms.DragEventHandler(this.lvShows_DragEnter);
             // 
             // lvShowsColumn1
             // 
@@ -285,18 +288,6 @@
             this.toolTip1.InitialDelay = 100;
             this.toolTip1.ReshowDelay = 20;
             // 
-            // cbShowActionMessages
-            // 
-            this.cbShowActionMessages.AutoSize = true;
-            this.cbShowActionMessages.Checked = global::RenamerX.Properties.Settings.Default.ShowActionMessages;
-            this.cbShowActionMessages.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowActionMessages", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cbShowActionMessages.Location = new System.Drawing.Point(16, 72);
-            this.cbShowActionMessages.Name = "cbShowActionMessages";
-            this.cbShowActionMessages.Size = new System.Drawing.Size(264, 17);
-            this.cbShowActionMessages.TabIndex = 2;
-            this.cbShowActionMessages.Text = "Show shows started, finished messages in console";
-            this.cbShowActionMessages.UseVisualStyleBackColor = true;
-            // 
             // cbShowErrors
             // 
             this.cbShowErrors.AutoSize = true;
@@ -330,6 +321,18 @@
             this.txtNameFormat.TabIndex = 0;
             this.txtNameFormat.Text = global::RenamerX.Properties.Settings.Default.NameFormat;
             this.toolTip1.SetToolTip(this.txtNameFormat, resources.GetString("txtNameFormat.ToolTip"));
+            // 
+            // cbShowActionMessages
+            // 
+            this.cbShowActionMessages.AutoSize = true;
+            this.cbShowActionMessages.Checked = global::RenamerX.Properties.Settings.Default.ShowActionMessages;
+            this.cbShowActionMessages.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowActionMessages", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbShowActionMessages.Location = new System.Drawing.Point(16, 72);
+            this.cbShowActionMessages.Name = "cbShowActionMessages";
+            this.cbShowActionMessages.Size = new System.Drawing.Size(264, 17);
+            this.cbShowActionMessages.TabIndex = 2;
+            this.cbShowActionMessages.Text = "Show shows started, finished messages in console";
+            this.cbShowActionMessages.UseVisualStyleBackColor = true;
             // 
             // txtRegexpPattern
             // 

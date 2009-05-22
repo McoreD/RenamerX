@@ -134,10 +134,10 @@
 
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.TextBox txtAns;
-        private System.Windows.Forms.Label lblShowName;
+        internal System.Windows.Forms.TextBox txtAns;
+        internal System.Windows.Forms.Label lblShowName;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtLocation;
-        private System.Windows.Forms.Button btnBrowse;
+        internal System.Windows.Forms.TextBox txtLocation;
+        internal System.Windows.Forms.Button btnBrowse;
     }
 }

@@ -60,7 +60,7 @@ namespace RenamerX
 
         private void btnDirRemove_Click(object sender, EventArgs e)
         {
-            if (lvShows.SelectedItems.Count > -1)
+            if (lvShows.SelectedItems.Count > 0)
             {
                 lvShows.Items.RemoveAt(lvShows.SelectedIndices[0]);
             }
@@ -76,7 +76,6 @@ namespace RenamerX
             btnRefresh.Enabled = false;
             Application.DoEvents();
             RefreshLists();
-            RefreshSelected();
             btnRefresh.Enabled = true;
         }
 
@@ -94,6 +93,7 @@ namespace RenamerX
                 {
                     ConsoleWriteLine("Canceled.");
                 }
+                RefreshLists();
             }
         }
 
@@ -168,6 +168,7 @@ namespace RenamerX
                     }
                 }
             }
+            RefreshSelected();
             UpdateItemsCount();
         }
 
@@ -186,19 +187,15 @@ namespace RenamerX
                     }
                 }
             }
-            lblItemsCount.Text = itemcount + " / " + itemmaxcount;
             if (itemcount == itemmaxcount)
             {
-                lblItemsCount.ForeColor = Color.Green;
-            }
-            else if (itemcount == 0)
-            {
-                lblItemsCount.ForeColor = Color.Red;
+                lblItemsCount.ForeColor = Color.FromArgb(0, 255, 0);
             }
             else
             {
-                lblItemsCount.ForeColor = Color.Yellow;
+                lblItemsCount.ForeColor = Color.FromArgb(255 - (int)((float)itemcount / itemmaxcount * 255), 255, 0);
             }
+            lblItemsCount.Text = itemcount + " / " + itemmaxcount;
         }
 
         public static string ChangeFilePath(string filePath, string fileName)

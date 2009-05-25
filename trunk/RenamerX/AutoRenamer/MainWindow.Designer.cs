@@ -125,9 +125,10 @@
             // 
             this.lblItemsCount.BackColor = System.Drawing.Color.Black;
             this.lblItemsCount.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblItemsCount.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblItemsCount.Location = new System.Drawing.Point(344, 96);
             this.lblItemsCount.Name = "lblItemsCount";
-            this.lblItemsCount.Size = new System.Drawing.Size(70, 21);
+            this.lblItemsCount.Size = new System.Drawing.Size(72, 21);
             this.lblItemsCount.TabIndex = 15;
             this.lblItemsCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -173,7 +174,7 @@
             this.btnChange.Name = "btnChange";
             this.btnChange.Size = new System.Drawing.Size(80, 24);
             this.btnChange.TabIndex = 12;
-            this.btnChange.Text = "&Rename";
+            this.btnChange.Text = "&Rename all";
             this.btnChange.UseVisualStyleBackColor = true;
             this.btnChange.Click += new System.EventHandler(this.btnChange_Click);
             // 
@@ -275,12 +276,12 @@
             // 
             // lvListColumn1
             // 
-            this.lvListColumn1.Text = "Default Filenames";
+            this.lvListColumn1.Text = "Default filenames";
             this.lvListColumn1.Width = 450;
             // 
             // lvListColumn2
             // 
-            this.lvListColumn2.Text = "New Filenames";
+            this.lvListColumn2.Text = "New filenames";
             this.lvListColumn2.Width = 450;
             // 
             // tpConsole

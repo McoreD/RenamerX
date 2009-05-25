@@ -119,6 +119,7 @@ namespace RenamerX
             {
                 AddShow("Heroes", @"E:\TV\Heroes\Season " + i);
             }
+            AddShow("Fringe", @"E:\TV\Fringe\Season 1");
             //AddShow("Knight Rider 2008", @"C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\Testers\Knight Rider 2008 - Season 01\Knight Rider 2008 - Season 01");
         }
 
@@ -166,6 +167,37 @@ namespace RenamerX
                         }
                     }
                 }
+            }
+            UpdateItemsCount();
+        }
+
+        public void UpdateItemsCount()
+        {
+            int itemcount = 0, itemmaxcount = 0;
+            foreach (ListViewItem lvi in lvShows.Items)
+            {
+                ShowItem showItem = (ShowItem)lvi.Tag;
+                foreach (ShowInfo showInfo in showItem.ShowInfos)
+                {
+                    itemmaxcount++;
+                    if (showInfo.DefaultFilePath == showInfo.NewFilePath)
+                    {
+                        itemcount++;
+                    }
+                }
+            }
+            lblItemsCount.Text = itemcount + " / " + itemmaxcount;
+            if (itemcount == itemmaxcount)
+            {
+                lblItemsCount.ForeColor = Color.Green;
+            }
+            else if (itemcount == 0)
+            {
+                lblItemsCount.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblItemsCount.ForeColor = Color.Yellow;
             }
         }
 
@@ -323,7 +355,7 @@ namespace RenamerX
             if (paths.Length == 1)
             {
                 // guess show name as this folder name
-                ib.ShowName = Path.GetFileName(paths[0]);                
+                ib.ShowName = Path.GetFileName(paths[0]);
             }
             else if (paths.Length > 1)
             {

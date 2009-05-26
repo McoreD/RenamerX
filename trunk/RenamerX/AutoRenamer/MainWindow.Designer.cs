@@ -149,6 +149,8 @@
             this.lvShows.UseCompatibleStateImageBehavior = false;
             this.lvShows.View = System.Windows.Forms.View.Details;
             this.lvShows.SelectedIndexChanged += new System.EventHandler(this.lvShows_SelectedIndexChanged);
+            this.lvShows.DragDrop += new System.Windows.Forms.DragEventHandler(this.lvShows_DragDrop_1);
+            this.lvShows.DragEnter += new System.Windows.Forms.DragEventHandler(this.lvShows_DragEnter_1);
             // 
             // lvShowsColumn1
             // 

@@ -343,6 +343,28 @@ namespace RenamerX
         private void lvShows_DragDrop(object sender, DragEventArgs e)
         {
 
+
+        }
+
+        private void lvShows_DragEnter(object sender, DragEventArgs e)
+        {
+ 
+        }
+
+        private void lvShows_DragEnter_1(object sender, DragEventArgs e)
+        {
+           if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.All;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void lvShows_DragDrop_1(object sender, DragEventArgs e)
+        {
             string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop, true);
 
             InputBox ib = new InputBox("Enter TV Show Name...", "");
@@ -369,18 +391,6 @@ namespace RenamerX
                         AddShow(ib.ShowName, p);
                     }
                 }
-            }
-        }
-
-        private void lvShows_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                e.Effect = DragDropEffects.All;
-            }
-            else
-            {
-                e.Effect = DragDropEffects.None;
             }
         }
     }

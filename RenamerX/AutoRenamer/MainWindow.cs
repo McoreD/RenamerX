@@ -102,27 +102,29 @@ namespace RenamerX
         private void lvShows_DragDrop(object sender, DragEventArgs e)
         {
             string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop, true);
-
-            InputBox ib = new InputBox("Enter TV Show Name...", "");
-            ib.txtLocation.Enabled = false;
-            ib.btnBrowse.Enabled = false;
+            string showName = "", showLocation = "";
 
             if (paths.Length == 1) //guess show name as this folder name
             {
-                ib.ShowName = Path.GetFileName(paths[0]);
+                showName = Path.GetFileName(paths[0]);
+                showLocation = paths[0];
             }
             else if (paths.Length > 1) //guess show name as root folder name
             {
-                ib.ShowName = Path.GetFileName(Path.GetDirectoryName(paths[0]));
+                showName = Path.GetFileName(Path.GetDirectoryName(paths[0]));
             }
+
+            InputBox ib = new InputBox("Enter TV Show Name...", showName, showLocation);
+            ib.txtShowLocation.Enabled = false;
+            ib.btnBrowse.Enabled = false;
 
             if (ib.ShowDialog() == DialogResult.OK)
             {
-                foreach (string p in paths)
+                foreach (string path in paths)
                 {
-                    if (Directory.Exists(p))
+                    if (Directory.Exists(path))
                     {
-                        AddShow(ib.ShowName, p);
+                        AddShow(ib.ShowName, path);
                     }
                 }
             }
@@ -144,7 +146,7 @@ namespace RenamerX
 
         private void BrowseTVShow()
         {
-            InputBox ib = new InputBox("Browse for TV Show...", "");
+            InputBox ib = new InputBox("Browse for TV Show...", "", "");
             if (ib.ShowDialog() == DialogResult.OK)
             {
                 AddShow(ib.ShowName, ib.ShowLocation);

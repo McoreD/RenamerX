@@ -156,7 +156,8 @@ namespace RenamerX
         private void AddShow(string showName, string showFolder)
         {
             ShowItem si = new ShowItem(showName, showFolder);
-            ListViewItem lvi = lvShows.Items.Add(new ListViewItem(si.ToString()) { Checked = true, Tag = si });
+            ListViewItem lvi = new ListViewItem(si.ToString()) { Checked = true, Tag = si, ToolTipText = si.ShowDirectory };
+            lvShows.Items.Add(lvi);
         }
 
         private void RefreshLists()
@@ -191,6 +192,10 @@ namespace RenamerX
                             showInfo.DefaultFilePath = file;
                             showInfo.NewFileName = Reformat(show, showInfo.DefaultFileName);
                             showInfo.NewFilePath = Path.Combine(Path.GetDirectoryName(showInfo.DefaultFilePath), showInfo.NewFileName);
+                            if (showInfo.Invalid = IsInvalidFileName(showInfo.NewFileName))
+                            {
+                                showInfo.NewFileName = "Illegal characters in file name: " + showInfo.NewFileName;
+                            }
                             si.ShowInfos.Add(showInfo);
                         }
                     }
@@ -198,6 +203,19 @@ namespace RenamerX
             }
             RefreshSelected();
             UpdateItemsCount();
+        }
+
+        private bool IsInvalidFileName(string filename)
+        {
+            char[] invalidchars = Path.GetInvalidFileNameChars();
+            foreach (char c in filename)
+            {
+                foreach (char invalidchar in invalidchars)
+                {
+                    if (c == invalidchar) return true;
+                }
+            }
+            return false;
         }
 
         private void UpdateItemsCount()
@@ -335,8 +353,13 @@ namespace RenamerX
                 foreach (ShowInfo showInfo in ((ShowItem)lvShows.Items[lvShows.SelectedIndices[0]].Tag).ShowInfos)
                 {
                     ListViewItem lvi = new ListViewItem();
+                    if (showInfo.Invalid)
+                    {
+                        lvi.BackColor = Color.DarkRed;
+                        lvi.ForeColor = Color.White;
+                    }
                     lvi.Text = showInfo.DefaultFileName;
-                    lvi.ToolTipText = showInfo.DefaultFilePath + "\r\n" + showInfo.NewFilePath;
+                    lvi.ToolTipText = "Default: " + showInfo.DefaultFilePath + "\r\nNew: " + showInfo.NewFilePath;
                     lvi.SubItems.Add(showInfo.NewFileName);
                     lvList.Items.Add(lvi);
                 }
@@ -373,6 +396,7 @@ namespace RenamerX
         public string DefaultFilePath;
         public string NewFileName;
         public string NewFilePath;
+        public bool Invalid;
     }
 
     public class ShowItem

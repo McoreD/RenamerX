@@ -30,18 +30,18 @@
         {
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.txtAns = new System.Windows.Forms.TextBox();
+            this.txtShowName = new System.Windows.Forms.TextBox();
             this.lblShowName = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtLocation = new System.Windows.Forms.TextBox();
+            this.lblShowLocation = new System.Windows.Forms.Label();
+            this.txtShowLocation = new System.Windows.Forms.TextBox();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(215, 88);
+            this.btnOK.Location = new System.Drawing.Point(200, 64);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.Size = new System.Drawing.Size(83, 23);
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -49,55 +49,55 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(296, 88);
+            this.btnCancel.Location = new System.Drawing.Point(288, 64);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(83, 23);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // txtAns
+            // txtShowName
             // 
-            this.txtAns.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ShowName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtAns.Location = new System.Drawing.Point(88, 16);
-            this.txtAns.Name = "txtAns";
-            this.txtAns.Size = new System.Drawing.Size(196, 20);
-            this.txtAns.TabIndex = 2;
-            this.txtAns.Text = global::RenamerX.Properties.Settings.Default.ShowName;
+            this.txtShowName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ShowName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtShowName.Location = new System.Drawing.Point(80, 8);
+            this.txtShowName.Name = "txtShowName";
+            this.txtShowName.Size = new System.Drawing.Size(200, 20);
+            this.txtShowName.TabIndex = 2;
+            this.txtShowName.Text = global::RenamerX.Properties.Settings.Default.ShowName;
             // 
             // lblShowName
             // 
             this.lblShowName.AutoSize = true;
-            this.lblShowName.Location = new System.Drawing.Point(16, 19);
+            this.lblShowName.Location = new System.Drawing.Point(8, 12);
             this.lblShowName.Name = "lblShowName";
-            this.lblShowName.Size = new System.Drawing.Size(65, 13);
+            this.lblShowName.Size = new System.Drawing.Size(68, 13);
             this.lblShowName.TabIndex = 3;
-            this.lblShowName.Text = "Show Name";
+            this.lblShowName.Text = "Show Name:";
             // 
-            // label1
+            // lblShowLocation
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 51);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Location";
+            this.lblShowLocation.AutoSize = true;
+            this.lblShowLocation.Location = new System.Drawing.Point(8, 36);
+            this.lblShowLocation.Name = "lblShowLocation";
+            this.lblShowLocation.Size = new System.Drawing.Size(51, 13);
+            this.lblShowLocation.TabIndex = 4;
+            this.lblShowLocation.Text = "Location:";
             // 
-            // txtLocation
+            // txtShowLocation
             // 
-            this.txtLocation.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.txtLocation.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
-            this.txtLocation.Location = new System.Drawing.Point(88, 48);
-            this.txtLocation.Name = "txtLocation";
-            this.txtLocation.Size = new System.Drawing.Size(196, 20);
-            this.txtLocation.TabIndex = 5;
+            this.txtShowLocation.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtShowLocation.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
+            this.txtShowLocation.Location = new System.Drawing.Point(80, 32);
+            this.txtShowLocation.Name = "txtShowLocation";
+            this.txtShowLocation.Size = new System.Drawing.Size(200, 20);
+            this.txtShowLocation.TabIndex = 5;
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Location = new System.Drawing.Point(296, 48);
+            this.btnBrowse.Location = new System.Drawing.Point(288, 32);
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(75, 23);
+            this.btnBrowse.Size = new System.Drawing.Size(83, 23);
             this.btnBrowse.TabIndex = 6;
             this.btnBrowse.Text = "&Browse...";
             this.btnBrowse.UseVisualStyleBackColor = true;
@@ -108,12 +108,12 @@
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(386, 126);
+            this.ClientSize = new System.Drawing.Size(381, 97);
             this.Controls.Add(this.btnBrowse);
-            this.Controls.Add(this.txtLocation);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtShowLocation);
+            this.Controls.Add(this.lblShowLocation);
             this.Controls.Add(this.lblShowName);
-            this.Controls.Add(this.txtAns);
+            this.Controls.Add(this.txtShowName);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -134,10 +134,10 @@
 
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
-        internal System.Windows.Forms.TextBox txtAns;
+        internal System.Windows.Forms.TextBox txtShowName;
         internal System.Windows.Forms.Label lblShowName;
-        private System.Windows.Forms.Label label1;
-        internal System.Windows.Forms.TextBox txtLocation;
+        private System.Windows.Forms.Label lblShowLocation;
+        internal System.Windows.Forms.TextBox txtShowLocation;
         internal System.Windows.Forms.Button btnBrowse;
     }
 }

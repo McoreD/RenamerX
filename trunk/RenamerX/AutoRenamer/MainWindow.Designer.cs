@@ -37,7 +37,7 @@
             this.lvShows = new System.Windows.Forms.ListView();
             this.lvShowsColumn1 = new System.Windows.Forms.ColumnHeader();
             this.cbShowErrors = new System.Windows.Forms.CheckBox();
-            this.btnChange = new System.Windows.Forms.Button();
+            this.btnRenameAll = new System.Windows.Forms.Button();
             this.btnDirClear = new System.Windows.Forms.Button();
             this.lblFileFilter = new System.Windows.Forms.Label();
             this.txtFileFilter = new System.Windows.Forms.TextBox();
@@ -103,7 +103,7 @@
             this.splitContainer1.Panel1.Controls.Add(this.lblItemsCount);
             this.splitContainer1.Panel1.Controls.Add(this.lvShows);
             this.splitContainer1.Panel1.Controls.Add(this.cbShowErrors);
-            this.splitContainer1.Panel1.Controls.Add(this.btnChange);
+            this.splitContainer1.Panel1.Controls.Add(this.btnRenameAll);
             this.splitContainer1.Panel1.Controls.Add(this.btnDirClear);
             this.splitContainer1.Panel1.Controls.Add(this.lblFileFilter);
             this.splitContainer1.Panel1.Controls.Add(this.txtFileFilter);
@@ -149,8 +149,8 @@
             this.lvShows.UseCompatibleStateImageBehavior = false;
             this.lvShows.View = System.Windows.Forms.View.Details;
             this.lvShows.SelectedIndexChanged += new System.EventHandler(this.lvShows_SelectedIndexChanged);
-            this.lvShows.DragDrop += new System.Windows.Forms.DragEventHandler(this.lvShows_DragDrop_1);
-            this.lvShows.DragEnter += new System.Windows.Forms.DragEventHandler(this.lvShows_DragEnter_1);
+            this.lvShows.DragDrop += new System.Windows.Forms.DragEventHandler(this.lvShows_DragDrop);
+            this.lvShows.DragEnter += new System.Windows.Forms.DragEventHandler(this.lvShows_DragEnter);
             // 
             // lvShowsColumn1
             // 
@@ -170,15 +170,15 @@
                     "ers in path");
             this.cbShowErrors.UseVisualStyleBackColor = true;
             // 
-            // btnChange
+            // btnRenameAll
             // 
-            this.btnChange.Location = new System.Drawing.Point(528, 96);
-            this.btnChange.Name = "btnChange";
-            this.btnChange.Size = new System.Drawing.Size(80, 24);
-            this.btnChange.TabIndex = 12;
-            this.btnChange.Text = "&Rename all";
-            this.btnChange.UseVisualStyleBackColor = true;
-            this.btnChange.Click += new System.EventHandler(this.btnChange_Click);
+            this.btnRenameAll.Location = new System.Drawing.Point(528, 96);
+            this.btnRenameAll.Name = "btnRenameAll";
+            this.btnRenameAll.Size = new System.Drawing.Size(80, 24);
+            this.btnRenameAll.TabIndex = 12;
+            this.btnRenameAll.Text = "&Rename all";
+            this.btnRenameAll.UseVisualStyleBackColor = true;
+            this.btnRenameAll.Click += new System.EventHandler(this.btnRenameAll_Click);
             // 
             // btnDirClear
             // 
@@ -303,8 +303,10 @@
             this.txtConsole.Location = new System.Drawing.Point(3, 3);
             this.txtConsole.Multiline = true;
             this.txtConsole.Name = "txtConsole";
+            this.txtConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtConsole.Size = new System.Drawing.Size(988, 602);
             this.txtConsole.TabIndex = 0;
+            this.txtConsole.WordWrap = false;
             // 
             // tpSettings
             // 
@@ -366,7 +368,7 @@
             this.Name = "MainWindow";
             this.Padding = new System.Windows.Forms.Padding(3);
             this.Text = "RenamerX - Rename your files eXpressly";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Resize += new System.EventHandler(this.MainWindow_Resize);
             this.tcMain.ResumeLayout(false);
@@ -398,7 +400,7 @@
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnDirClear;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Button btnChange;
+        private System.Windows.Forms.Button btnRenameAll;
         private System.Windows.Forms.CheckBox cbShowErrors;
         private System.Windows.Forms.ListView lvList;
         private System.Windows.Forms.ListView lvShows;

@@ -126,8 +126,8 @@ After first character: 0, 1, 2... (Numbers)
 Last characters: gb, mb, kb, b (File size unit)
 
 Examples:
-&gt;10mb (File size must be larger than 10 Megabytes)
-&lt;250mb (File size must be smaller than 250 Megabytes)
+&gt;10mb (File size must be larger than 10 mebibytes)
+&lt;250mb (File size must be smaller than 250 mebibytes)
 &gt;900kb ( File size must be larger than 900 Kilobytes)</value>
   </data>
   <data name="txtExtractFileFilter.ToolTip" xml:space="preserve">

@@ -155,5 +155,17 @@ namespace RenamerX.Properties {
                 this["LastRenameFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastExtractFolder {
+            get {
+                return ((string)(this["LastExtractFolder"]));
+            }
+            set {
+                this["LastExtractFolder"] = value;
+            }
+        }
     }
 }

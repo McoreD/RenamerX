@@ -43,7 +43,7 @@ namespace RenamerX
         private void btnBrowse_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog dlg = new FolderBrowserDialog();
-            if (!string.IsNullOrEmpty(txtShowLocation.Text) && Directory.Exists(Path.GetDirectoryName(txtShowLocation.Text)))
+            if (!string.IsNullOrEmpty(txtShowLocation.Text) && Directory.Exists(txtShowLocation.Text))
             {
                 dlg.SelectedPath = txtShowLocation.Text;
             }

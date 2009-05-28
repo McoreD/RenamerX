@@ -503,7 +503,7 @@ namespace RenamerX
             {
                 foreach (string file in Directory.GetFiles(folder))
                 {
-                    if (CheckFile(file, txtExtractFileFilter.Text))
+                    if (CheckFile(file, txtExtractFileFilter.Text) && CheckFileSize(file, txtExtractFileSizeFilter.Text))
                     {
                         ListViewItem lvi = new ListViewItem(file);
                         lvExtractList.Items.Add(lvi);
@@ -518,6 +518,43 @@ namespace RenamerX
                     }
                 }
             }
+        }
+
+        private bool CheckFileSize(string file, string filter)
+        {
+            if ((filter[0] == '<' || filter[0] == '>') && char.IsDigit(filter[1]))
+            {
+                for (int i = 2; i < filter.Length; i++)
+                {
+                    if (!char.IsDigit(filter[i]))
+                    {
+                        long number = long.Parse(filter.Substring(1, i - 1));
+                        switch (filter.Remove(0, i))
+                        {
+                            case "gb":
+                                number *= 1073741824;
+                                break;
+                            case "mb":
+                                number *= 1048576;
+                                break;
+                            case "kb":
+                                number *= 1024;
+                                break;
+                            case "b":
+                                break;
+                            default:
+                                return false;
+                        }
+                        FileInfo fi = new FileInfo(file);
+                        if ((filter[0] == '<' && fi.Length < number) || (filter[0] == '>' && fi.Length > number))
+                        {
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+            }
+            return false;
         }
 
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)

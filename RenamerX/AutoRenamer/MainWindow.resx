@@ -117,6 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="txtExtractFileSizeFilter.ToolTip" xml:space="preserve">
+    <value>First char: &lt;, &gt; (If file need to be smaller than or bigger than number)
+After first char: 0, 1, 2... (Numbers)
+Last chars: gb, mb, kb, b (File size type)
+
+Examples:
+&gt;10mb ( File size need to be bigger than 10 megabyte )
+&lt;250mb ( File size need to be smaller than 250 megabyte )
+&gt;900kb ( File size need to be bigger than 900 kilobyte )</value>
+  </data>
+  <data name="txtExtractFileFilter.ToolTip" xml:space="preserve">
+    <value>* = Zero or more characters
++ = One or more characters
+? = Exactly zero or one character
+| = Alternatives ( "or" operator )
+
+Example: "+.rar|+.r00" with this file filter only
+showing winrar files.
+
+Empty file filter: Allow all files.</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -129,7 +153,7 @@
 Example: "+.avi|+.mkv" with this file filter only
 showing avi and mkv files.
 
-Empty file filter : Allow all files.</value>
+Empty file filter: Allow all files.</value>
   </data>
   <data name="txtNameFormat.ToolTip" xml:space="preserve">
     <value>$N = Show name

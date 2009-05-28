@@ -134,7 +134,7 @@ namespace RenamerX.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool SearchSubFolders {
             get {
                 return ((bool)(this["SearchSubFolders"]));
@@ -165,6 +165,18 @@ namespace RenamerX.Properties {
             }
             set {
                 this["LastExtractFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(">10mb")]
+        public string ExtractFileSizeFilter {
+            get {
+                return ((string)(this["ExtractFileSizeFilter"]));
+            }
+            set {
+                this["ExtractFileSizeFilter"] = value;
             }
         }
     }

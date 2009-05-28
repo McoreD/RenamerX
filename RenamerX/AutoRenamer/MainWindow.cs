@@ -40,7 +40,7 @@ namespace RenamerX
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            LoadJaex();
+            // LoadJaex();
             ResizeListviewColumns();
             propertyGrid1.SelectedObject = Settings.Default;
         }
@@ -593,29 +593,29 @@ namespace RenamerX
                             long number = long.Parse(filter.Substring(1, i - 1));
                             switch (filter.Remove(0, i))
                             {
-                                case "gigabyte":
-                                case "gb":
+                                case "gibibyte":
+                                case "GiB":
                                     number *= 1073741824;
                                     break;
-                                case "megabyte":
-                                case "mb":
+                                case "mebibyte":
+                                case "MiB":
                                     number *= 1048576;
                                     break;
-                                case "kilobyte":
-                                case "kb":
+                                case "kibibyte":
+                                case "KiB":
                                     number *= 1024;
                                     break;
                                 case "byte":
-                                case "b":
+                                case "B":
                                     break;
                                 default:
-                                    throw new Exception("File size filter not end with file size type. (gb, mb, kb, b)");
+                                    throw new Exception("File size filter not end with file size type. (GiB, MiB, KiB, B)");
                             }
                             result.FileSize = number;
                             return result;
                         }
                     }
-                    throw new Exception("File size filter not end with file size type. (gb, mb, kb, b)");
+                    throw new Exception("File size filter not end with file size type. (GiB, MiB, KiB, B)");
                 }
                 else
                 {

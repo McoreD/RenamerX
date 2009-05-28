@@ -200,7 +200,15 @@ namespace RenamerX
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 Settings.Default.LastExtractFolder = fbd.SelectedPath;
-                AddExtract(fbd.SelectedPath);
+                try
+                {
+                    FileSizeFilter filter = ParseFileSizeFilter(txtExtractFileSizeFilter.Text);
+                    AddExtractList(fbd.SelectedPath, filter);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
@@ -209,12 +217,14 @@ namespace RenamerX
             if (lvExtractList.SelectedIndices.Count > 0)
             {
                 lvExtractList.Items.RemoveAt(lvExtractList.SelectedIndices[0]);
+                UpdateExtractFileCount();
             }
         }
 
         private void btnExtractClear_Click(object sender, EventArgs e)
         {
             lvExtractList.Items.Clear();
+            UpdateExtractFileCount();
         }
 
         private void btnExtractAll_Click(object sender, EventArgs e)
@@ -247,11 +257,19 @@ namespace RenamerX
 
         private void lvExtractList_DragDrop(object sender, DragEventArgs e)
         {
-            string[] folders = (string[])e.Data.GetData(DataFormats.FileDrop, true);
-            Array.Sort(folders);
-            foreach (string folder in folders)
+            try
             {
-                AddExtract(folder);
+                string[] folders = (string[])e.Data.GetData(DataFormats.FileDrop, true);
+                Array.Sort(folders);
+                FileSizeFilter filter = ParseFileSizeFilter(txtExtractFileSizeFilter.Text);
+                foreach (string folder in folders)
+                {
+                    AddExtractList(folder, filter);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -497,64 +515,107 @@ namespace RenamerX
             lvExtractList.Columns[0].Width = lvExtractList.ClientSize.Width;
         }
 
-        private void AddExtract(string folder)
+        private void AddExtractList(string folder, FileSizeFilter filter)
         {
-            if (Directory.Exists(folder))
+            try
             {
-                foreach (string file in Directory.GetFiles(folder))
+                if (Directory.Exists(folder))
                 {
-                    if (CheckFile(file, txtExtractFileFilter.Text) && CheckFileSize(file, txtExtractFileSizeFilter.Text))
+                    foreach (string file in Directory.GetFiles(folder))
                     {
-                        ListViewItem lvi = new ListViewItem(file);
-                        lvExtractList.Items.Add(lvi);
-                        break;
+                        if (CheckFile(file, txtExtractFileFilter.Text) && CheckFileSize(file, filter))
+                        {
+                            ListViewItem lvi = new ListViewItem(file);
+                            lvExtractList.Items.Add(lvi);
+                            UpdateExtractFileCount();
+                            break;
+                        }
+                    }
+                    if (cbSearchSubFolders.Checked)
+                    {
+                        foreach (string directory in Directory.GetDirectories(folder))
+                        {
+                            AddExtractList(directory, filter);
+                        }
                     }
                 }
-                if (cbSearchSubFolders.Checked)
-                {
-                    foreach (string directory in Directory.GetDirectories(folder))
-                    {
-                        AddExtract(directory);
-                    }
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        private bool CheckFileSize(string file, string filter)
+        private void UpdateExtractFileCount()
         {
-            if ((filter[0] == '<' || filter[0] == '>') && char.IsDigit(filter[1]))
+            lblFileCount.Text = "File count: " + lvExtractList.Items.Count;
+        }
+
+        private bool CheckFileSize(string file, FileSizeFilter filter)
+        {
+            FileInfo fi = new FileInfo(file);
+            if ((filter.MathOperator == '<' && fi.Length < filter.FileSize) || (filter.MathOperator == '>' && fi.Length > filter.FileSize))
             {
-                for (int i = 2; i < filter.Length; i++)
-                {
-                    if (!char.IsDigit(filter[i]))
-                    {
-                        long number = long.Parse(filter.Substring(1, i - 1));
-                        switch (filter.Remove(0, i))
-                        {
-                            case "gb":
-                                number *= 1073741824;
-                                break;
-                            case "mb":
-                                number *= 1048576;
-                                break;
-                            case "kb":
-                                number *= 1024;
-                                break;
-                            case "b":
-                                break;
-                            default:
-                                return false;
-                        }
-                        FileInfo fi = new FileInfo(file);
-                        if ((filter[0] == '<' && fi.Length < number) || (filter[0] == '>' && fi.Length > number))
-                        {
-                            return true;
-                        }
-                        return false;
-                    }
-                }
+                return true;
             }
             return false;
+        }
+
+        private struct FileSizeFilter
+        {
+            public long FileSize { get; set; }
+            public char MathOperator { get; set; }
+        }
+
+        private FileSizeFilter ParseFileSizeFilter(string filter)
+        {
+            filter = filter.Trim();
+            if (!string.IsNullOrEmpty(filter) && (filter[0] == '<' || filter[0] == '>'))
+            {
+                FileSizeFilter result = new FileSizeFilter();
+                result.MathOperator = filter[0];
+                if (filter.Length > 1 && char.IsDigit(filter[1]))
+                {
+                    for (int i = 2; i < filter.Length; i++)
+                    {
+                        if (!char.IsDigit(filter[i]))
+                        {
+                            long number = long.Parse(filter.Substring(1, i - 1));
+                            switch (filter.Remove(0, i))
+                            {
+                                case "gigabyte":
+                                case "gb":
+                                    number *= 1073741824;
+                                    break;
+                                case "megabyte":
+                                case "mb":
+                                    number *= 1048576;
+                                    break;
+                                case "kilobyte":
+                                case "kb":
+                                    number *= 1024;
+                                    break;
+                                case "byte":
+                                case "b":
+                                    break;
+                                default:
+                                    throw new Exception("File size filter not end with file size type. (gb, mb, kb, b)");
+                            }
+                            result.FileSize = number;
+                            return result;
+                        }
+                    }
+                    throw new Exception("File size filter not end with file size type. (gb, mb, kb, b)");
+                }
+                else
+                {
+                    throw new Exception("File size filter need to have number after math operator.");
+                }
+            }
+            else
+            {
+                throw new Exception("File size filter not start with math operator. (< or >)");
+            }
         }
 
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)

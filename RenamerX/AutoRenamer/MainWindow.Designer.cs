@@ -68,16 +68,17 @@
             this.lblRegexpPattern = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.lblExtractFileSizeFilter = new System.Windows.Forms.Label();
-            this.txtExtractFileSizeFilter = new System.Windows.Forms.TextBox();
             this.cbShowErrors = new System.Windows.Forms.CheckBox();
             this.txtRenameFileFilter = new System.Windows.Forms.TextBox();
             this.txtNameFormat = new System.Windows.Forms.TextBox();
+            this.txtExtractFileSizeFilter = new System.Windows.Forms.TextBox();
             this.txtExtractFileFilter = new System.Windows.Forms.TextBox();
             this.txtExtractPath = new System.Windows.Forms.TextBox();
             this.txtUnRARPath = new System.Windows.Forms.TextBox();
             this.cbSearchSubFolders = new System.Windows.Forms.CheckBox();
             this.txtRegexpPattern = new System.Windows.Forms.TextBox();
             this.cbShowActionMessages = new System.Windows.Forms.CheckBox();
+            this.lblFileCount = new System.Windows.Forms.Label();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.scRename.Panel1.SuspendLayout();
@@ -302,6 +303,7 @@
             // 
             // scExtract.Panel1
             // 
+            this.scExtract.Panel1.Controls.Add(this.lblFileCount);
             this.scExtract.Panel1.Controls.Add(this.txtExtractFileSizeFilter);
             this.scExtract.Panel1.Controls.Add(this.lblExtractFileSizeFilter);
             this.scExtract.Panel1.Controls.Add(this.lblExtractPath);
@@ -524,16 +526,6 @@
             this.lblExtractFileSizeFilter.TabIndex = 12;
             this.lblExtractFileSizeFilter.Text = "File size filter:";
             // 
-            // txtExtractFileSizeFilter
-            // 
-            this.txtExtractFileSizeFilter.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ExtractFileSizeFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtExtractFileSizeFilter.Location = new System.Drawing.Point(776, 40);
-            this.txtExtractFileSizeFilter.Name = "txtExtractFileSizeFilter";
-            this.txtExtractFileSizeFilter.Size = new System.Drawing.Size(176, 20);
-            this.txtExtractFileSizeFilter.TabIndex = 13;
-            this.txtExtractFileSizeFilter.Text = global::RenamerX.Properties.Settings.Default.ExtractFileSizeFilter;
-            this.toolTip1.SetToolTip(this.txtExtractFileSizeFilter, resources.GetString("txtExtractFileSizeFilter.ToolTip"));
-            // 
             // cbShowErrors
             // 
             this.cbShowErrors.AutoSize = true;
@@ -567,6 +559,16 @@
             this.txtNameFormat.TabIndex = 0;
             this.txtNameFormat.Text = global::RenamerX.Properties.Settings.Default.NameFormat;
             this.toolTip1.SetToolTip(this.txtNameFormat, resources.GetString("txtNameFormat.ToolTip"));
+            // 
+            // txtExtractFileSizeFilter
+            // 
+            this.txtExtractFileSizeFilter.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ExtractFileSizeFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtExtractFileSizeFilter.Location = new System.Drawing.Point(776, 40);
+            this.txtExtractFileSizeFilter.Name = "txtExtractFileSizeFilter";
+            this.txtExtractFileSizeFilter.Size = new System.Drawing.Size(176, 20);
+            this.txtExtractFileSizeFilter.TabIndex = 13;
+            this.txtExtractFileSizeFilter.Text = global::RenamerX.Properties.Settings.Default.ExtractFileSizeFilter;
+            this.toolTip1.SetToolTip(this.txtExtractFileSizeFilter, resources.GetString("txtExtractFileSizeFilter.ToolTip"));
             // 
             // txtExtractFileFilter
             // 
@@ -603,6 +605,7 @@
             // 
             this.cbSearchSubFolders.AutoSize = true;
             this.cbSearchSubFolders.Checked = global::RenamerX.Properties.Settings.Default.SearchSubFolders;
+            this.cbSearchSubFolders.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbSearchSubFolders.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "SearchSubFolders", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cbSearchSubFolders.Location = new System.Drawing.Point(24, 68);
             this.cbSearchSubFolders.Name = "cbSearchSubFolders";
@@ -631,6 +634,15 @@
             this.cbShowActionMessages.TabIndex = 2;
             this.cbShowActionMessages.Text = "Show shows started, finished messages in console";
             this.cbShowActionMessages.UseVisualStyleBackColor = true;
+            // 
+            // lblFileCount
+            // 
+            this.lblFileCount.AutoSize = true;
+            this.lblFileCount.Location = new System.Drawing.Point(864, 104);
+            this.lblFileCount.Name = "lblFileCount";
+            this.lblFileCount.Size = new System.Drawing.Size(65, 13);
+            this.lblFileCount.TabIndex = 14;
+            this.lblFileCount.Text = "File count: 0";
             // 
             // MainWindow
             // 
@@ -715,5 +727,6 @@
         private System.Windows.Forms.SplitContainer scExtract;
         private System.Windows.Forms.TextBox txtExtractFileSizeFilter;
         private System.Windows.Forms.Label lblExtractFileSizeFilter;
+        private System.Windows.Forms.Label lblFileCount;
     }
 }

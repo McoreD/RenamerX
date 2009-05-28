@@ -193,11 +193,11 @@
             this.cbShowErrors.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowErrors", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cbShowErrors.Location = new System.Drawing.Point(440, 72);
             this.cbShowErrors.Name = "cbShowErrors";
-            this.cbShowErrors.Size = new System.Drawing.Size(261, 17);
+            this.cbShowErrors.Size = new System.Drawing.Size(278, 17);
             this.cbShowErrors.TabIndex = 13;
-            this.cbShowErrors.Text = "Show error message boxes while changing names";
-            this.toolTip1.SetToolTip(this.cbShowErrors, "If file name have illegal filename chars then giving this error : Illegal charact" +
-                    "ers in path");
+            this.cbShowErrors.Text = "Show error message dialog boxes while renaming files";
+            this.toolTip1.SetToolTip(this.cbShowErrors, "Example: If a filename contains illegal characters then \"Illegal characters in pa" +
+                    "th\" error will be shown.");
             this.cbShowErrors.UseVisualStyleBackColor = true;
             // 
             // btnRenameAll
@@ -464,9 +464,9 @@
             this.cbSearchSubFolders.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "SearchSubFolders", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cbSearchSubFolders.Location = new System.Drawing.Point(24, 68);
             this.cbSearchSubFolders.Name = "cbSearchSubFolders";
-            this.cbSearchSubFolders.Size = new System.Drawing.Size(132, 17);
+            this.cbSearchSubFolders.Size = new System.Drawing.Size(114, 17);
             this.cbSearchSubFolders.TabIndex = 7;
-            this.cbSearchSubFolders.Text = "Search sub folders too";
+            this.cbSearchSubFolders.Text = "Search sub folders";
             this.cbSearchSubFolders.UseVisualStyleBackColor = true;
             // 
             // btnExtractRemove
@@ -632,9 +632,10 @@
             this.cbShowActionMessages.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowActionMessages", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cbShowActionMessages.Location = new System.Drawing.Point(16, 80);
             this.cbShowActionMessages.Name = "cbShowActionMessages";
-            this.cbShowActionMessages.Size = new System.Drawing.Size(264, 17);
+            this.cbShowActionMessages.Size = new System.Drawing.Size(447, 17);
             this.cbShowActionMessages.TabIndex = 2;
-            this.cbShowActionMessages.Text = "Show shows started, finished messages in console";
+            this.cbShowActionMessages.Text = "Add important debug information (start and finish messages) for every show to the" +
+                " console";
             this.cbShowActionMessages.UseVisualStyleBackColor = true;
             // 
             // lblRegexpPattern
@@ -642,9 +643,9 @@
             this.lblRegexpPattern.AutoSize = true;
             this.lblRegexpPattern.Location = new System.Drawing.Point(16, 24);
             this.lblRegexpPattern.Name = "lblRegexpPattern";
-            this.lblRegexpPattern.Size = new System.Drawing.Size(259, 13);
+            this.lblRegexpPattern.Size = new System.Drawing.Size(273, 13);
             this.lblRegexpPattern.TabIndex = 1;
-            this.lblRegexpPattern.Text = "Regexp pattern for find season and episode numbers:";
+            this.lblRegexpPattern.Text = "Regexp pattern for finding season and episode numbers:";
             // 
             // toolTip1
             // 

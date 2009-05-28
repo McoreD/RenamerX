@@ -6,12 +6,17 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
+using RenamerX.Properties;
+using System.Diagnostics;
+using System.ComponentModel;
+using System.Linq;
 
 namespace RenamerX
 {
     public partial class MainWindow : Form
     {
         private List<Show> Shows = new List<Show>();
+        private List<string> ExtractList = new List<string>();
 
         public MainWindow()
         {
@@ -37,6 +42,7 @@ namespace RenamerX
         {
             LoadJaex();
             ResizeListviewColumns();
+            propertyGrid1.SelectedObject = Settings.Default;
         }
 
         private void MainWindow_Resize(object sender, EventArgs e)
@@ -47,56 +53,26 @@ namespace RenamerX
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            RenamerX.Properties.Settings.Default.Save();
+            Settings.Default.Save();
         }
 
-        private void btnDirAdd_Click(object sender, EventArgs e)
-        {
-            BrowseTVShow();
-        }
-
-        private void btnDirRemove_Click(object sender, EventArgs e)
-        {
-            if (lvShows.SelectedIndices.Count > 0)
-            {
-                lvShows.Items.RemoveAt(lvShows.SelectedIndices[0]);
-            }
-        }
-
-        private void btnDirClear_Click(object sender, EventArgs e)
-        {
-            lvShows.Items.Clear();
-        }
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            btnRefresh.Enabled = false;
-            Application.DoEvents();
-            RefreshLists();
-            btnRefresh.Enabled = true;
-        }
-
-        private void btnRenameAll_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Are you really want to change file names?", this.Text, MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-            {
-                ConsoleWriteLine("Started.");
-                if (ChangeNames())
-                {
-                    ConsoleWriteLine("Finished.");
-                }
-                else
-                {
-                    ConsoleWriteLine("Canceled.");
-                }
-                RefreshLists();
-            }
-        }
+        #region Rename Tab Events
 
         private void lvShows_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshSelected();
+        }
+
+        private void lvShows_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.All;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
         }
 
         private void lvShows_DragDrop(object sender, DragEventArgs e)
@@ -130,17 +106,156 @@ namespace RenamerX
             }
         }
 
-        private void lvShows_DragEnter(object sender, DragEventArgs e)
+        private void btnRenameAdd_Click(object sender, EventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            BrowseTVShow();
+        }
+
+        private void btnRenameRemove_Click(object sender, EventArgs e)
+        {
+            if (lvShows.SelectedIndices.Count > 0)
             {
-                e.Effect = DragDropEffects.All;
+                lvShows.Items.RemoveAt(lvShows.SelectedIndices[0]);
+            }
+        }
+
+        private void btnRenameClear_Click(object sender, EventArgs e)
+        {
+            lvShows.Items.Clear();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            btnRefresh.Enabled = false;
+            Application.DoEvents();
+            RefreshLists();
+            btnRefresh.Enabled = true;
+        }
+
+        private void btnRenameAll_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you really want to change file names?", this.Text, MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                ConsoleWriteLine("Renaming started.");
+                if (ChangeNames())
+                {
+                    ConsoleWriteLine("Renaming finished.");
+                }
+                else
+                {
+                    ConsoleWriteLine("Renaming canceled.");
+                }
+                RefreshLists();
+            }
+        }
+
+        #endregion
+
+        #region Extract Tab Events
+
+        private void txtExtractPath_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.All;
+        }
+
+        private void txtExtractPath_DragDrop(object sender, DragEventArgs e)
+        {
+            txtExtractPath.Text = ((string[])e.Data.GetData(DataFormats.FileDrop, true))[0];
+        }
+
+        private void btnExtractBrowse_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (!string.IsNullOrEmpty(txtExtractPath.Text) && Directory.Exists(txtExtractPath.Text))
+            {
+                fbd.SelectedPath = txtExtractPath.Text;
+            }
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                txtExtractPath.Text = fbd.SelectedPath;
+            }
+        }
+
+        private void btnUnRARBrowse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (!string.IsNullOrEmpty(txtUnRARPath.Text) && Directory.Exists(Path.GetDirectoryName(txtUnRARPath.Text)))
+            {
+                ofd.InitialDirectory = txtUnRARPath.Text;
+            }
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                txtUnRARPath.Text = ofd.FileName;
+            }
+        }
+
+        private void btnExtractAdd_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (!string.IsNullOrEmpty(Settings.Default.LastExtractFolder) && Directory.Exists(Settings.Default.LastExtractFolder))
+            {
+                fbd.SelectedPath = Settings.Default.LastExtractFolder;
+            }
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                Settings.Default.LastExtractFolder = fbd.SelectedPath;
+                AddExtract(fbd.SelectedPath);
+            }
+        }
+
+        private void btnExtractRemove_Click(object sender, EventArgs e)
+        {
+            if (lvExtractList.SelectedIndices.Count > 0)
+            {
+                lvExtractList.Items.RemoveAt(lvExtractList.SelectedIndices[0]);
+            }
+        }
+
+        private void btnExtractClear_Click(object sender, EventArgs e)
+        {
+            lvExtractList.Items.Clear();
+        }
+
+        private void btnExtractAll_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists(txtExtractPath.Text) && File.Exists(txtUnRARPath.Text))
+            {
+                btnExtractAll.Enabled = false;
+                ExtractList.Clear();
+                foreach (ListViewItem lvi in lvExtractList.Items)
+                {
+                    ExtractList.Add(lvi.Text);
+                }
+                BackgroundWorker bw = new BackgroundWorker();
+                bw.DoWork += new DoWorkEventHandler(ExtractThread);
+                bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+                bw.WorkerReportsProgress = true;
+                bw.RunWorkerAsync(bw);
             }
             else
             {
-                e.Effect = DragDropEffects.None;
+                MessageBox.Show("Extract path or UnRAR.exe path not exist.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void lvExtractList_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.All;
+        }
+
+        private void lvExtractList_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] folders = (string[])e.Data.GetData(DataFormats.FileDrop, true);
+            Array.Sort(folders);
+            foreach (string folder in folders)
+            {
+                AddExtract(folder);
+            }
+        }
+
+        #endregion
 
         #endregion
 
@@ -379,44 +494,10 @@ namespace RenamerX
             lvShows.Columns[0].Width = lvShows.ClientSize.Width;
             lvList.Columns[0].Width = lvList.ClientSize.Width / 2;
             lvList.Columns[1].Width = -2;
+            lvExtractList.Columns[0].Width = lvExtractList.ClientSize.Width;
         }
 
-        private void btnExtractBrowse_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            if (!string.IsNullOrEmpty(txtExtractPath.Text) && Directory.Exists(Path.GetDirectoryName(txtExtractPath.Text)))
-            {
-                fbd.SelectedPath = txtExtractPath.Text;
-            }
-            if (fbd.ShowDialog() == DialogResult.OK)
-            {
-                txtExtractPath.Text = fbd.SelectedPath;
-            }
-        }
-
-        private void btnUnRARBrowse_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            if (!string.IsNullOrEmpty(txtUnRARPath.Text) && Directory.Exists(Path.GetDirectoryName(txtUnRARPath.Text)))
-            {
-                ofd.InitialDirectory = txtUnRARPath.Text;
-            }
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                txtUnRARPath.Text = ofd.FileName;
-            }
-        }
-
-        private void btnExtractAdd_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            if (fbd.ShowDialog() == DialogResult.OK)
-            {
-                AddExtract(fbd.SelectedPath);
-            }
-        }
-
-        private bool AddExtract(string folder)
+        private void AddExtract(string folder)
         {
             if (Directory.Exists(folder))
             {
@@ -426,41 +507,56 @@ namespace RenamerX
                     {
                         ListViewItem lvi = new ListViewItem(file);
                         lvExtractList.Items.Add(lvi);
-                        return true;
+                        break;
+                    }
+                }
+                if (cbSearchSubFolders.Checked)
+                {
+                    foreach (string directory in Directory.GetDirectories(folder))
+                    {
+                        AddExtract(directory);
                     }
                 }
             }
-            return false;
         }
 
-        private void lvExtractList_DragEnter(object sender, DragEventArgs e)
+        private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.ProgressPercentage == 0)
             {
-                e.Effect = DragDropEffects.All;
+                ConsoleWriteLine((string)e.UserState);
             }
         }
 
-        private void lvExtractList_DragDrop(object sender, DragEventArgs e)
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            string[] folders = (string[])e.Data.GetData(DataFormats.FileDrop, true);
-            foreach (string folder in folders)
-            {
-                AddExtract(folder);
-            }
+            btnExtractAll.Enabled = true;
         }
 
-        private void btnExtractRemove_Click(object sender, EventArgs e)
+        private void ExtractThread(object sender, DoWorkEventArgs e)
         {
-            if (lvExtractList.SelectedIndices.Count > 0)
+            try
             {
-                lvExtractList.Items.RemoveAt(lvExtractList.SelectedIndices[0]);
+                BackgroundWorker bw = (BackgroundWorker)e.Argument;
+                for (int i = 0; i < ExtractList.Count; i++)
+                {
+                    if (File.Exists(ExtractList[i]))
+                    {
+                        Process process = new Process();
+                        ProcessStartInfo psi = new ProcessStartInfo(txtUnRARPath.Text);
+                        psi.Arguments = "x \"" + ExtractList[i] + "\" \"" + txtExtractPath.Text + "\"";
+                        bw.ReportProgress(0, "(" + (i + 1) + "/" + ExtractList.Count + ") Started to extract: " + psi.Arguments.Remove(0, 2));
+                        process.StartInfo = psi;
+                        process.Start();
+                        process.WaitForExit();
+                        bw.ReportProgress(0, "(" + (i + 1) + "/" + ExtractList.Count + ") Extracted: " + psi.Arguments.Remove(0, 2));
+                    }
+                }
             }
-        }
-
-        private void btnExtractClear_Click(object sender, EventArgs e)
-        {
-            lvExtractList.Items.Clear();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

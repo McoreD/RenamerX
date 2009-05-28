@@ -24,11 +24,11 @@ namespace RenamerX
 
     public struct ShowInfo
     {
-        public string DefaultFileName;
-        public string DefaultFilePath;
-        public string NewFileName;
-        public string NewFilePath;
-        public bool Invalid;
+        public string DefaultFileName { get; set; }
+        public string DefaultFilePath { get; set; }
+        public string NewFileName { get; set; }
+        public string NewFilePath { get; set; }
+        public bool Invalid { get; set; }
     }
 
     public class Show : IEnumerable

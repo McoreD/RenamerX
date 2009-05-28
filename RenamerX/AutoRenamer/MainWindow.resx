@@ -120,6 +120,26 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="txtExtractFileSizeFilter.ToolTip" xml:space="preserve">
+    <value>First character: &lt;, &gt; (Files must be smaller or larger than the following number)
+After first character: 0, 1, 2... (Numbers)
+Last characters: gb, mb, kb, b (File size unit)
+
+Examples:
+&gt;10mb (File size must be larger than 10 Megabytes)
+&lt;250mb (File size must be smaller than 250 Megabytes)
+&gt;900kb ( File size must be larger than 900 Kilobytes)</value>
+  </data>
+  <data name="txtExtractFileFilter.ToolTip" xml:space="preserve">
+    <value>* = Zero or more characters
++ = One or more characters
+? = Exactly zero or one character
+| = Alternatives ( "or" operator )
+
+Example: "+.rar|+.r00" (This file filter will only show winrar files.)
+
+Empty file filter: Allow all files.</value>
+  </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -142,26 +162,6 @@ $E2 = Episode number (Example: 08)
 $T = Episode title
 
 Example: $N - S$S2E$E2 - $T</value>
-  </data>
-  <data name="txtExtractFileSizeFilter.ToolTip" xml:space="preserve">
-    <value>First character: &lt;, &gt; (Files must be smaller or larger than the following number)
-After first character: 0, 1, 2... (Numbers)
-Last characters: gb, mb, kb, b (File size unit)
-
-Examples:
-&gt;10mb (File size must be larger than 10 MegaBytes)
-&lt;250mb (File size must be smaller than 250 MegaBytes)
-&gt;900kb ( File size must be larger than 900 KiloBytes)</value>
-  </data>
-  <data name="txtExtractFileFilter.ToolTip" xml:space="preserve">
-    <value>* = Zero or more characters
-+ = One or more characters
-? = Exactly zero or one character
-| = Alternatives ( "or" operator )
-
-Example: "+.rar|+.r00" (This file filter will only show winrar files.)
-
-Empty file filter: Allow all files.</value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>43</value>

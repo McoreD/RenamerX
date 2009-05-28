@@ -36,26 +36,40 @@
             this.lblItemsCount = new System.Windows.Forms.Label();
             this.lvShows = new System.Windows.Forms.ListView();
             this.lvShowsColumn1 = new System.Windows.Forms.ColumnHeader();
-            this.cbShowErrors = new System.Windows.Forms.CheckBox();
             this.btnRenameAll = new System.Windows.Forms.Button();
-            this.btnDirClear = new System.Windows.Forms.Button();
+            this.btnRenameClear = new System.Windows.Forms.Button();
             this.lblFileFilter = new System.Windows.Forms.Label();
-            this.txtFileFilter = new System.Windows.Forms.TextBox();
             this.lblNameFormat = new System.Windows.Forms.Label();
-            this.btnDirRemove = new System.Windows.Forms.Button();
+            this.btnRenameRemove = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.txtNameFormat = new System.Windows.Forms.TextBox();
-            this.btnDirAdd = new System.Windows.Forms.Button();
+            this.btnRenameAdd = new System.Windows.Forms.Button();
             this.lvList = new System.Windows.Forms.ListView();
             this.lvListColumn1 = new System.Windows.Forms.ColumnHeader();
             this.lvListColumn2 = new System.Windows.Forms.ColumnHeader();
             this.tpConsole = new System.Windows.Forms.TabPage();
             this.txtConsole = new System.Windows.Forms.TextBox();
             this.tpSettings = new System.Windows.Forms.TabPage();
-            this.cbShowActionMessages = new System.Windows.Forms.CheckBox();
             this.lblRegexpPattern = new System.Windows.Forms.Label();
-            this.txtRegexpPattern = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.cbShowErrors = new System.Windows.Forms.CheckBox();
+            this.txtFileFilter = new System.Windows.Forms.TextBox();
+            this.txtNameFormat = new System.Windows.Forms.TextBox();
+            this.cbShowActionMessages = new System.Windows.Forms.CheckBox();
+            this.txtRegexpPattern = new System.Windows.Forms.TextBox();
+            this.tpExtract = new System.Windows.Forms.TabPage();
+            this.lvExtractList = new System.Windows.Forms.ListView();
+            this.txtExtractPath = new System.Windows.Forms.TextBox();
+            this.lblExtractPath = new System.Windows.Forms.Label();
+            this.lblUnRARPath = new System.Windows.Forms.Label();
+            this.txtUnRARPath = new System.Windows.Forms.TextBox();
+            this.gbRename = new System.Windows.Forms.GroupBox();
+            this.btnExtractBrowse = new System.Windows.Forms.Button();
+            this.btnUnRARBrowse = new System.Windows.Forms.Button();
+            this.cbSearchSubFolders = new System.Windows.Forms.CheckBox();
+            this.btnExtractAll = new System.Windows.Forms.Button();
+            this.btnExtractAdd = new System.Windows.Forms.Button();
+            this.btnExtractRemove = new System.Windows.Forms.Button();
+            this.btnExtractClear = new System.Windows.Forms.Button();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -63,11 +77,14 @@
             this.splitContainer1.SuspendLayout();
             this.tpConsole.SuspendLayout();
             this.tpSettings.SuspendLayout();
+            this.tpExtract.SuspendLayout();
+            this.gbRename.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcMain
             // 
             this.tcMain.Controls.Add(this.tpMain);
+            this.tcMain.Controls.Add(this.tpExtract);
             this.tcMain.Controls.Add(this.tpConsole);
             this.tcMain.Controls.Add(this.tpSettings);
             this.tcMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -86,7 +103,7 @@
             this.tpMain.Padding = new System.Windows.Forms.Padding(3);
             this.tpMain.Size = new System.Drawing.Size(994, 608);
             this.tpMain.TabIndex = 0;
-            this.tpMain.Text = "Main";
+            this.tpMain.Text = "Rename";
             this.tpMain.UseVisualStyleBackColor = true;
             // 
             // splitContainer1
@@ -104,14 +121,14 @@
             this.splitContainer1.Panel1.Controls.Add(this.lvShows);
             this.splitContainer1.Panel1.Controls.Add(this.cbShowErrors);
             this.splitContainer1.Panel1.Controls.Add(this.btnRenameAll);
-            this.splitContainer1.Panel1.Controls.Add(this.btnDirClear);
+            this.splitContainer1.Panel1.Controls.Add(this.btnRenameClear);
             this.splitContainer1.Panel1.Controls.Add(this.lblFileFilter);
             this.splitContainer1.Panel1.Controls.Add(this.txtFileFilter);
             this.splitContainer1.Panel1.Controls.Add(this.lblNameFormat);
-            this.splitContainer1.Panel1.Controls.Add(this.btnDirRemove);
+            this.splitContainer1.Panel1.Controls.Add(this.btnRenameRemove);
             this.splitContainer1.Panel1.Controls.Add(this.btnRefresh);
             this.splitContainer1.Panel1.Controls.Add(this.txtNameFormat);
-            this.splitContainer1.Panel1.Controls.Add(this.btnDirAdd);
+            this.splitContainer1.Panel1.Controls.Add(this.btnRenameAdd);
             // 
             // splitContainer1.Panel2
             // 
@@ -157,20 +174,6 @@
             // 
             this.lvShowsColumn1.Width = 329;
             // 
-            // cbShowErrors
-            // 
-            this.cbShowErrors.AutoSize = true;
-            this.cbShowErrors.Checked = global::RenamerX.Properties.Settings.Default.ShowErrors;
-            this.cbShowErrors.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowErrors", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cbShowErrors.Location = new System.Drawing.Point(440, 72);
-            this.cbShowErrors.Name = "cbShowErrors";
-            this.cbShowErrors.Size = new System.Drawing.Size(261, 17);
-            this.cbShowErrors.TabIndex = 13;
-            this.cbShowErrors.Text = "Show error message boxes while changing names";
-            this.toolTip1.SetToolTip(this.cbShowErrors, "If file name have illegal filename chars then giving this error : Illegal charact" +
-                    "ers in path");
-            this.cbShowErrors.UseVisualStyleBackColor = true;
-            // 
             // btnRenameAll
             // 
             this.btnRenameAll.Location = new System.Drawing.Point(528, 96);
@@ -181,15 +184,15 @@
             this.btnRenameAll.UseVisualStyleBackColor = true;
             this.btnRenameAll.Click += new System.EventHandler(this.btnRenameAll_Click);
             // 
-            // btnDirClear
+            // btnRenameClear
             // 
-            this.btnDirClear.Location = new System.Drawing.Point(344, 56);
-            this.btnDirClear.Name = "btnDirClear";
-            this.btnDirClear.Size = new System.Drawing.Size(72, 24);
-            this.btnDirClear.TabIndex = 11;
-            this.btnDirClear.Text = "Clear";
-            this.btnDirClear.UseVisualStyleBackColor = true;
-            this.btnDirClear.Click += new System.EventHandler(this.btnDirClear_Click);
+            this.btnRenameClear.Location = new System.Drawing.Point(344, 56);
+            this.btnRenameClear.Name = "btnRenameClear";
+            this.btnRenameClear.Size = new System.Drawing.Size(72, 24);
+            this.btnRenameClear.TabIndex = 11;
+            this.btnRenameClear.Text = "Clear";
+            this.btnRenameClear.UseVisualStyleBackColor = true;
+            this.btnRenameClear.Click += new System.EventHandler(this.btnDirClear_Click);
             // 
             // lblFileFilter
             // 
@@ -200,16 +203,6 @@
             this.lblFileFilter.TabIndex = 3;
             this.lblFileFilter.Text = "File Filter:";
             // 
-            // txtFileFilter
-            // 
-            this.txtFileFilter.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "FileFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtFileFilter.Location = new System.Drawing.Point(520, 40);
-            this.txtFileFilter.Name = "txtFileFilter";
-            this.txtFileFilter.Size = new System.Drawing.Size(176, 20);
-            this.txtFileFilter.TabIndex = 2;
-            this.txtFileFilter.Text = global::RenamerX.Properties.Settings.Default.FileFilter;
-            this.toolTip1.SetToolTip(this.txtFileFilter, resources.GetString("txtFileFilter.ToolTip"));
-            // 
             // lblNameFormat
             // 
             this.lblNameFormat.AutoSize = true;
@@ -219,15 +212,15 @@
             this.lblNameFormat.TabIndex = 4;
             this.lblNameFormat.Text = "Name Format:";
             // 
-            // btnDirRemove
+            // btnRenameRemove
             // 
-            this.btnDirRemove.Location = new System.Drawing.Point(344, 32);
-            this.btnDirRemove.Name = "btnDirRemove";
-            this.btnDirRemove.Size = new System.Drawing.Size(72, 24);
-            this.btnDirRemove.TabIndex = 8;
-            this.btnDirRemove.Text = "Remove";
-            this.btnDirRemove.UseVisualStyleBackColor = true;
-            this.btnDirRemove.Click += new System.EventHandler(this.btnDirRemove_Click);
+            this.btnRenameRemove.Location = new System.Drawing.Point(344, 32);
+            this.btnRenameRemove.Name = "btnRenameRemove";
+            this.btnRenameRemove.Size = new System.Drawing.Size(72, 24);
+            this.btnRenameRemove.TabIndex = 8;
+            this.btnRenameRemove.Text = "Remove";
+            this.btnRenameRemove.UseVisualStyleBackColor = true;
+            this.btnRenameRemove.Click += new System.EventHandler(this.btnDirRemove_Click);
             // 
             // btnRefresh
             // 
@@ -239,25 +232,15 @@
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // txtNameFormat
+            // btnRenameAdd
             // 
-            this.txtNameFormat.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "NameFormat", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtNameFormat.Location = new System.Drawing.Point(520, 16);
-            this.txtNameFormat.Name = "txtNameFormat";
-            this.txtNameFormat.Size = new System.Drawing.Size(176, 20);
-            this.txtNameFormat.TabIndex = 0;
-            this.txtNameFormat.Text = global::RenamerX.Properties.Settings.Default.NameFormat;
-            this.toolTip1.SetToolTip(this.txtNameFormat, resources.GetString("txtNameFormat.ToolTip"));
-            // 
-            // btnDirAdd
-            // 
-            this.btnDirAdd.Location = new System.Drawing.Point(344, 8);
-            this.btnDirAdd.Name = "btnDirAdd";
-            this.btnDirAdd.Size = new System.Drawing.Size(72, 24);
-            this.btnDirAdd.TabIndex = 7;
-            this.btnDirAdd.Text = "Add";
-            this.btnDirAdd.UseVisualStyleBackColor = true;
-            this.btnDirAdd.Click += new System.EventHandler(this.btnDirAdd_Click);
+            this.btnRenameAdd.Location = new System.Drawing.Point(344, 8);
+            this.btnRenameAdd.Name = "btnRenameAdd";
+            this.btnRenameAdd.Size = new System.Drawing.Size(72, 24);
+            this.btnRenameAdd.TabIndex = 7;
+            this.btnRenameAdd.Text = "Add";
+            this.btnRenameAdd.UseVisualStyleBackColor = true;
+            this.btnRenameAdd.Click += new System.EventHandler(this.btnDirAdd_Click);
             // 
             // lvList
             // 
@@ -311,9 +294,7 @@
             // 
             // tpSettings
             // 
-            this.tpSettings.Controls.Add(this.cbShowActionMessages);
-            this.tpSettings.Controls.Add(this.lblRegexpPattern);
-            this.tpSettings.Controls.Add(this.txtRegexpPattern);
+            this.tpSettings.Controls.Add(this.gbRename);
             this.tpSettings.Location = new System.Drawing.Point(4, 24);
             this.tpSettings.Name = "tpSettings";
             this.tpSettings.Padding = new System.Windows.Forms.Padding(3);
@@ -322,35 +303,14 @@
             this.tpSettings.Text = "Settings";
             this.tpSettings.UseVisualStyleBackColor = true;
             // 
-            // cbShowActionMessages
-            // 
-            this.cbShowActionMessages.AutoSize = true;
-            this.cbShowActionMessages.Checked = global::RenamerX.Properties.Settings.Default.ShowActionMessages;
-            this.cbShowActionMessages.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowActionMessages", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cbShowActionMessages.Location = new System.Drawing.Point(16, 72);
-            this.cbShowActionMessages.Name = "cbShowActionMessages";
-            this.cbShowActionMessages.Size = new System.Drawing.Size(264, 17);
-            this.cbShowActionMessages.TabIndex = 2;
-            this.cbShowActionMessages.Text = "Show shows started, finished messages in console";
-            this.cbShowActionMessages.UseVisualStyleBackColor = true;
-            // 
             // lblRegexpPattern
             // 
             this.lblRegexpPattern.AutoSize = true;
-            this.lblRegexpPattern.Location = new System.Drawing.Point(16, 16);
+            this.lblRegexpPattern.Location = new System.Drawing.Point(16, 24);
             this.lblRegexpPattern.Name = "lblRegexpPattern";
             this.lblRegexpPattern.Size = new System.Drawing.Size(259, 13);
             this.lblRegexpPattern.TabIndex = 1;
             this.lblRegexpPattern.Text = "Regexp pattern for find season and episode numbers:";
-            // 
-            // txtRegexpPattern
-            // 
-            this.txtRegexpPattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "RegexpPattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtRegexpPattern.Location = new System.Drawing.Point(16, 40);
-            this.txtRegexpPattern.Name = "txtRegexpPattern";
-            this.txtRegexpPattern.Size = new System.Drawing.Size(968, 20);
-            this.txtRegexpPattern.TabIndex = 0;
-            this.txtRegexpPattern.Text = global::RenamerX.Properties.Settings.Default.RegexpPattern;
             // 
             // toolTip1
             // 
@@ -358,6 +318,199 @@
             this.toolTip1.AutoPopDelay = 5000;
             this.toolTip1.InitialDelay = 100;
             this.toolTip1.ReshowDelay = 20;
+            // 
+            // cbShowErrors
+            // 
+            this.cbShowErrors.AutoSize = true;
+            this.cbShowErrors.Checked = global::RenamerX.Properties.Settings.Default.ShowErrors;
+            this.cbShowErrors.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowErrors", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbShowErrors.Location = new System.Drawing.Point(440, 72);
+            this.cbShowErrors.Name = "cbShowErrors";
+            this.cbShowErrors.Size = new System.Drawing.Size(261, 17);
+            this.cbShowErrors.TabIndex = 13;
+            this.cbShowErrors.Text = "Show error message boxes while changing names";
+            this.toolTip1.SetToolTip(this.cbShowErrors, "If file name have illegal filename chars then giving this error : Illegal charact" +
+                    "ers in path");
+            this.cbShowErrors.UseVisualStyleBackColor = true;
+            // 
+            // txtFileFilter
+            // 
+            this.txtFileFilter.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "FileFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtFileFilter.Location = new System.Drawing.Point(520, 40);
+            this.txtFileFilter.Name = "txtFileFilter";
+            this.txtFileFilter.Size = new System.Drawing.Size(176, 20);
+            this.txtFileFilter.TabIndex = 2;
+            this.txtFileFilter.Text = global::RenamerX.Properties.Settings.Default.FileFilter;
+            this.toolTip1.SetToolTip(this.txtFileFilter, resources.GetString("txtFileFilter.ToolTip"));
+            // 
+            // txtNameFormat
+            // 
+            this.txtNameFormat.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "NameFormat", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtNameFormat.Location = new System.Drawing.Point(520, 16);
+            this.txtNameFormat.Name = "txtNameFormat";
+            this.txtNameFormat.Size = new System.Drawing.Size(176, 20);
+            this.txtNameFormat.TabIndex = 0;
+            this.txtNameFormat.Text = global::RenamerX.Properties.Settings.Default.NameFormat;
+            this.toolTip1.SetToolTip(this.txtNameFormat, resources.GetString("txtNameFormat.ToolTip"));
+            // 
+            // cbShowActionMessages
+            // 
+            this.cbShowActionMessages.AutoSize = true;
+            this.cbShowActionMessages.Checked = global::RenamerX.Properties.Settings.Default.ShowActionMessages;
+            this.cbShowActionMessages.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowActionMessages", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbShowActionMessages.Location = new System.Drawing.Point(16, 80);
+            this.cbShowActionMessages.Name = "cbShowActionMessages";
+            this.cbShowActionMessages.Size = new System.Drawing.Size(264, 17);
+            this.cbShowActionMessages.TabIndex = 2;
+            this.cbShowActionMessages.Text = "Show shows started, finished messages in console";
+            this.cbShowActionMessages.UseVisualStyleBackColor = true;
+            // 
+            // txtRegexpPattern
+            // 
+            this.txtRegexpPattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "RegexpPattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtRegexpPattern.Location = new System.Drawing.Point(16, 48);
+            this.txtRegexpPattern.Name = "txtRegexpPattern";
+            this.txtRegexpPattern.Size = new System.Drawing.Size(944, 20);
+            this.txtRegexpPattern.TabIndex = 0;
+            this.txtRegexpPattern.Text = global::RenamerX.Properties.Settings.Default.RegexpPattern;
+            // 
+            // tpExtract
+            // 
+            this.tpExtract.Controls.Add(this.btnExtractClear);
+            this.tpExtract.Controls.Add(this.btnExtractRemove);
+            this.tpExtract.Controls.Add(this.btnExtractAdd);
+            this.tpExtract.Controls.Add(this.btnExtractAll);
+            this.tpExtract.Controls.Add(this.cbSearchSubFolders);
+            this.tpExtract.Controls.Add(this.btnUnRARBrowse);
+            this.tpExtract.Controls.Add(this.btnExtractBrowse);
+            this.tpExtract.Controls.Add(this.txtUnRARPath);
+            this.tpExtract.Controls.Add(this.lblUnRARPath);
+            this.tpExtract.Controls.Add(this.lblExtractPath);
+            this.tpExtract.Controls.Add(this.txtExtractPath);
+            this.tpExtract.Controls.Add(this.lvExtractList);
+            this.tpExtract.Location = new System.Drawing.Point(4, 24);
+            this.tpExtract.Name = "tpExtract";
+            this.tpExtract.Padding = new System.Windows.Forms.Padding(3);
+            this.tpExtract.Size = new System.Drawing.Size(994, 608);
+            this.tpExtract.TabIndex = 3;
+            this.tpExtract.Text = "Extract";
+            this.tpExtract.UseVisualStyleBackColor = true;
+            // 
+            // lvExtractList
+            // 
+            this.lvExtractList.Location = new System.Drawing.Point(8, 120);
+            this.lvExtractList.Name = "lvExtractList";
+            this.lvExtractList.Size = new System.Drawing.Size(976, 272);
+            this.lvExtractList.TabIndex = 0;
+            this.lvExtractList.UseCompatibleStateImageBehavior = false;
+            // 
+            // txtExtractPath
+            // 
+            this.txtExtractPath.Location = new System.Drawing.Point(104, 8);
+            this.txtExtractPath.Name = "txtExtractPath";
+            this.txtExtractPath.Size = new System.Drawing.Size(472, 20);
+            this.txtExtractPath.TabIndex = 1;
+            // 
+            // lblExtractPath
+            // 
+            this.lblExtractPath.AutoSize = true;
+            this.lblExtractPath.Location = new System.Drawing.Point(8, 12);
+            this.lblExtractPath.Name = "lblExtractPath";
+            this.lblExtractPath.Size = new System.Drawing.Size(55, 13);
+            this.lblExtractPath.TabIndex = 2;
+            this.lblExtractPath.Text = "Extract to:";
+            // 
+            // lblUnRARPath
+            // 
+            this.lblUnRARPath.AutoSize = true;
+            this.lblUnRARPath.Location = new System.Drawing.Point(8, 36);
+            this.lblUnRARPath.Name = "lblUnRARPath";
+            this.lblUnRARPath.Size = new System.Drawing.Size(91, 13);
+            this.lblUnRARPath.TabIndex = 3;
+            this.lblUnRARPath.Text = "UnRAR.exe path:";
+            // 
+            // txtUnRARPath
+            // 
+            this.txtUnRARPath.Location = new System.Drawing.Point(104, 32);
+            this.txtUnRARPath.Name = "txtUnRARPath";
+            this.txtUnRARPath.Size = new System.Drawing.Size(472, 20);
+            this.txtUnRARPath.TabIndex = 4;
+            // 
+            // gbRename
+            // 
+            this.gbRename.Controls.Add(this.txtRegexpPattern);
+            this.gbRename.Controls.Add(this.cbShowActionMessages);
+            this.gbRename.Controls.Add(this.lblRegexpPattern);
+            this.gbRename.Location = new System.Drawing.Point(8, 8);
+            this.gbRename.Name = "gbRename";
+            this.gbRename.Size = new System.Drawing.Size(976, 112);
+            this.gbRename.TabIndex = 3;
+            this.gbRename.TabStop = false;
+            this.gbRename.Text = "Rename";
+            // 
+            // btnExtractBrowse
+            // 
+            this.btnExtractBrowse.Location = new System.Drawing.Point(584, 8);
+            this.btnExtractBrowse.Name = "btnExtractBrowse";
+            this.btnExtractBrowse.Size = new System.Drawing.Size(75, 23);
+            this.btnExtractBrowse.TabIndex = 5;
+            this.btnExtractBrowse.Text = "Browse...";
+            this.btnExtractBrowse.UseVisualStyleBackColor = true;
+            // 
+            // btnUnRARBrowse
+            // 
+            this.btnUnRARBrowse.Location = new System.Drawing.Point(584, 32);
+            this.btnUnRARBrowse.Name = "btnUnRARBrowse";
+            this.btnUnRARBrowse.Size = new System.Drawing.Size(75, 23);
+            this.btnUnRARBrowse.TabIndex = 6;
+            this.btnUnRARBrowse.Text = "Browse...";
+            this.btnUnRARBrowse.UseVisualStyleBackColor = true;
+            // 
+            // cbSearchSubFolders
+            // 
+            this.cbSearchSubFolders.AutoSize = true;
+            this.cbSearchSubFolders.Location = new System.Drawing.Point(16, 64);
+            this.cbSearchSubFolders.Name = "cbSearchSubFolders";
+            this.cbSearchSubFolders.Size = new System.Drawing.Size(132, 17);
+            this.cbSearchSubFolders.TabIndex = 7;
+            this.cbSearchSubFolders.Text = "Search sub folders too";
+            this.cbSearchSubFolders.UseVisualStyleBackColor = true;
+            // 
+            // btnExtractAll
+            // 
+            this.btnExtractAll.Location = new System.Drawing.Point(256, 88);
+            this.btnExtractAll.Name = "btnExtractAll";
+            this.btnExtractAll.Size = new System.Drawing.Size(88, 24);
+            this.btnExtractAll.TabIndex = 8;
+            this.btnExtractAll.Text = "Extract all";
+            this.btnExtractAll.UseVisualStyleBackColor = true;
+            // 
+            // btnExtractAdd
+            // 
+            this.btnExtractAdd.Location = new System.Drawing.Point(16, 88);
+            this.btnExtractAdd.Name = "btnExtractAdd";
+            this.btnExtractAdd.Size = new System.Drawing.Size(72, 24);
+            this.btnExtractAdd.TabIndex = 9;
+            this.btnExtractAdd.Text = "Add";
+            this.btnExtractAdd.UseVisualStyleBackColor = true;
+            // 
+            // btnExtractRemove
+            // 
+            this.btnExtractRemove.Location = new System.Drawing.Point(96, 88);
+            this.btnExtractRemove.Name = "btnExtractRemove";
+            this.btnExtractRemove.Size = new System.Drawing.Size(72, 24);
+            this.btnExtractRemove.TabIndex = 10;
+            this.btnExtractRemove.Text = "Remove";
+            this.btnExtractRemove.UseVisualStyleBackColor = true;
+            // 
+            // btnExtractClear
+            // 
+            this.btnExtractClear.Location = new System.Drawing.Point(176, 88);
+            this.btnExtractClear.Name = "btnExtractClear";
+            this.btnExtractClear.Size = new System.Drawing.Size(72, 24);
+            this.btnExtractClear.TabIndex = 11;
+            this.btnExtractClear.Text = "Clear";
+            this.btnExtractClear.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
@@ -381,7 +534,10 @@
             this.tpConsole.ResumeLayout(false);
             this.tpConsole.PerformLayout();
             this.tpSettings.ResumeLayout(false);
-            this.tpSettings.PerformLayout();
+            this.tpExtract.ResumeLayout(false);
+            this.tpExtract.PerformLayout();
+            this.gbRename.ResumeLayout(false);
+            this.gbRename.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -395,11 +551,11 @@
         private System.Windows.Forms.TextBox txtFileFilter;
         private System.Windows.Forms.Label lblNameFormat;
         private System.Windows.Forms.Label lblFileFilter;
-        private System.Windows.Forms.Button btnDirAdd;
-        private System.Windows.Forms.Button btnDirRemove;
+        private System.Windows.Forms.Button btnRenameAdd;
+        private System.Windows.Forms.Button btnRenameRemove;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.Button btnDirClear;
+        private System.Windows.Forms.Button btnRenameClear;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btnRenameAll;
         private System.Windows.Forms.CheckBox cbShowErrors;
@@ -414,5 +570,19 @@
         private System.Windows.Forms.ColumnHeader lvListColumn2;
         private System.Windows.Forms.CheckBox cbShowActionMessages;
         private System.Windows.Forms.Label lblItemsCount;
+        private System.Windows.Forms.TabPage tpExtract;
+        private System.Windows.Forms.Label lblExtractPath;
+        private System.Windows.Forms.TextBox txtExtractPath;
+        private System.Windows.Forms.ListView lvExtractList;
+        private System.Windows.Forms.TextBox txtUnRARPath;
+        private System.Windows.Forms.Label lblUnRARPath;
+        private System.Windows.Forms.GroupBox gbRename;
+        private System.Windows.Forms.Button btnExtractAdd;
+        private System.Windows.Forms.Button btnExtractAll;
+        private System.Windows.Forms.CheckBox cbSearchSubFolders;
+        private System.Windows.Forms.Button btnUnRARBrowse;
+        private System.Windows.Forms.Button btnExtractBrowse;
+        private System.Windows.Forms.Button btnExtractClear;
+        private System.Windows.Forms.Button btnExtractRemove;
     }
 }

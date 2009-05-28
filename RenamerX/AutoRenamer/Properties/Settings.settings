@@ -3,12 +3,12 @@
   <Profiles />
   <Settings>
     <Setting Name="ShowName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Lost</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="NameFormat" Type="System.String" Scope="User">
       <Value Profile="(Default)">$N - S$S2E$E2 - $T</Value>
     </Setting>
-    <Setting Name="FileFilter" Type="System.String" Scope="User">
+    <Setting Name="RenameFileFilter" Type="System.String" Scope="User">
       <Value Profile="(Default)">+.avi|+.mkv|+.srt</Value>
     </Setting>
     <Setting Name="ShowErrors" Type="System.Boolean" Scope="User">
@@ -19,6 +19,21 @@
     </Setting>
     <Setting Name="ShowActionMessages" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ExtractFileFilter" Type="System.String" Scope="User">
+      <Value Profile="(Default)">+.rar|+.r00</Value>
+    </Setting>
+    <Setting Name="ExtractPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="UnRARPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SearchSubFolders" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="LastRenameFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

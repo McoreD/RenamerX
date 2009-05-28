@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.IO;
 
 namespace RenamerX
 {
@@ -23,8 +24,14 @@ namespace RenamerX
 
         private void InputBox_Load(object sender, EventArgs e)
         {
-            txtShowName.Text = ShowName;
-            txtShowLocation.Text = ShowLocation;
+            if (!string.IsNullOrEmpty(ShowName))
+            {
+                txtShowName.Text = ShowName;
+            }
+            if (!string.IsNullOrEmpty(ShowLocation))
+            {
+                txtShowLocation.Text = ShowLocation;
+            }
         }
 
         private void InputBox_Shown(object sender, EventArgs e)
@@ -36,6 +43,10 @@ namespace RenamerX
         private void btnBrowse_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog dlg = new FolderBrowserDialog();
+            if (!string.IsNullOrEmpty(txtShowLocation.Text) && Directory.Exists(Path.GetDirectoryName(txtShowLocation.Text)))
+            {
+                dlg.SelectedPath = txtShowLocation.Text;
+            }
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 ShowLocation = dlg.SelectedPath;
@@ -45,13 +56,10 @@ namespace RenamerX
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtShowName.Text))
-            {
-                ShowName = txtShowName.Text;
-                ShowLocation = txtShowLocation.Text;
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
+            ShowName = txtShowName.Text;
+            ShowLocation = txtShowLocation.Text;
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

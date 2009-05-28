@@ -57,7 +57,7 @@ namespace RenamerX
 
         private void btnDirRemove_Click(object sender, EventArgs e)
         {
-            if (lvShows.SelectedItems.Count > 0)
+            if (lvShows.SelectedIndices.Count > 0)
             {
                 lvShows.Items.RemoveAt(lvShows.SelectedIndices[0]);
             }
@@ -185,7 +185,7 @@ namespace RenamerX
                     si.ShowInfos.Clear();
                     foreach (string file in Directory.GetFiles(si.ShowDirectory))
                     {
-                        if (CheckFile(file, txtFileFilter.Text))
+                        if (CheckFile(file, txtRenameFileFilter.Text))
                         {
                             ShowInfo showInfo = new ShowInfo();
                             showInfo.DefaultFileName = Path.GetFileName(file);
@@ -379,6 +379,88 @@ namespace RenamerX
             lvShows.Columns[0].Width = lvShows.ClientSize.Width;
             lvList.Columns[0].Width = lvList.ClientSize.Width / 2;
             lvList.Columns[1].Width = -2;
+        }
+
+        private void btnExtractBrowse_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (!string.IsNullOrEmpty(txtExtractPath.Text) && Directory.Exists(Path.GetDirectoryName(txtExtractPath.Text)))
+            {
+                fbd.SelectedPath = txtExtractPath.Text;
+            }
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                txtExtractPath.Text = fbd.SelectedPath;
+            }
+        }
+
+        private void btnUnRARBrowse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (!string.IsNullOrEmpty(txtUnRARPath.Text) && Directory.Exists(Path.GetDirectoryName(txtUnRARPath.Text)))
+            {
+                ofd.InitialDirectory = txtUnRARPath.Text;
+            }
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                txtUnRARPath.Text = ofd.FileName;
+            }
+        }
+
+        private void btnExtractAdd_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                AddExtract(fbd.SelectedPath);
+            }
+        }
+
+        private bool AddExtract(string folder)
+        {
+            if (Directory.Exists(folder))
+            {
+                foreach (string file in Directory.GetFiles(folder))
+                {
+                    if (CheckFile(file, txtExtractFileFilter.Text))
+                    {
+                        ListViewItem lvi = new ListViewItem(file);
+                        lvExtractList.Items.Add(lvi);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private void lvExtractList_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.All;
+            }
+        }
+
+        private void lvExtractList_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] folders = (string[])e.Data.GetData(DataFormats.FileDrop, true);
+            foreach (string folder in folders)
+            {
+                AddExtract(folder);
+            }
+        }
+
+        private void btnExtractRemove_Click(object sender, EventArgs e)
+        {
+            if (lvExtractList.SelectedIndices.Count > 0)
+            {
+                lvExtractList.Items.RemoveAt(lvExtractList.SelectedIndices[0]);
+            }
+        }
+
+        private void btnExtractClear_Click(object sender, EventArgs e)
+        {
+            lvExtractList.Items.Clear();
         }
     }
 }

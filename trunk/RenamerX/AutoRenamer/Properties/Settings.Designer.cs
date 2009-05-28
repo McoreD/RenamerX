@@ -25,7 +25,7 @@ namespace RenamerX.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Lost")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ShowName {
             get {
                 return ((string)(this["ShowName"]));
@@ -50,12 +50,12 @@ namespace RenamerX.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("+.avi|+.mkv|+.srt")]
-        public string FileFilter {
+        public string RenameFileFilter {
             get {
-                return ((string)(this["FileFilter"]));
+                return ((string)(this["RenameFileFilter"]));
             }
             set {
-                this["FileFilter"] = value;
+                this["RenameFileFilter"] = value;
             }
         }
         
@@ -93,6 +93,66 @@ namespace RenamerX.Properties {
             }
             set {
                 this["ShowActionMessages"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("+.rar|+.r00")]
+        public string ExtractFileFilter {
+            get {
+                return ((string)(this["ExtractFileFilter"]));
+            }
+            set {
+                this["ExtractFileFilter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ExtractPath {
+            get {
+                return ((string)(this["ExtractPath"]));
+            }
+            set {
+                this["ExtractPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UnRARPath {
+            get {
+                return ((string)(this["UnRARPath"]));
+            }
+            set {
+                this["UnRARPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SearchSubFolders {
+            get {
+                return ((bool)(this["SearchSubFolders"]));
+            }
+            set {
+                this["SearchSubFolders"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastRenameFolder {
+            get {
+                return ((string)(this["LastRenameFolder"]));
+            }
+            set {
+                this["LastRenameFolder"] = value;
             }
         }
     }

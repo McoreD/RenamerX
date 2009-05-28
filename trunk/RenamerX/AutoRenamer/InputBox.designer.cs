@@ -86,7 +86,7 @@
             // 
             // txtShowLocation
             // 
-            this.txtShowLocation.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtShowLocation.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.txtShowLocation.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
             this.txtShowLocation.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "LastRenameFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.txtShowLocation.Location = new System.Drawing.Point(80, 32);

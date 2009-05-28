@@ -134,7 +134,7 @@ namespace RenamerX
 
         private void btnRenameAll_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you really want to change file names?", this.Text, MessageBoxButtons.YesNo,
+            if (MessageBox.Show("Are you sure you wish to rename these files?", this.Text, MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 ConsoleWriteLine("Renaming started.");
@@ -175,6 +175,16 @@ namespace RenamerX
             {
                 txtExtractPath.Text = fbd.SelectedPath;
             }
+        }
+
+        private void txtUnRARPath_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.All;
+        }
+
+        private void txtUnRARPath_DragDrop(object sender, DragEventArgs e)
+        {
+            txtUnRARPath.Text = ((string[])e.Data.GetData(DataFormats.FileDrop, true))[0];
         }
 
         private void btnUnRARBrowse_Click(object sender, EventArgs e)

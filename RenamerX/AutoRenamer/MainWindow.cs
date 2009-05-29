@@ -40,7 +40,7 @@ namespace RenamerX
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            // LoadJaex();
+            LoadJaex();
             ResizeListviewColumns();
             propertyGrid1.SelectedObject = Settings.Default;
         }
@@ -80,27 +80,37 @@ namespace RenamerX
             string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop, true);
             string showName = "", showLocation = "";
 
-            if (paths.Length == 1) //guess show name as this folder name
-            {
-                showName = Path.GetFileName(paths[0]);
-                showLocation = paths[0];
-            }
-            else if (paths.Length > 1) //guess show name as root folder name
+            if (cbGuessShowName.Checked)
             {
                 showName = Path.GetFileName(Path.GetDirectoryName(paths[0]));
             }
-
-            InputBox ib = new InputBox("Enter TV Show Name...", showName, showLocation);
-            ib.txtShowLocation.Enabled = false;
-            ib.btnBrowse.Enabled = false;
-
-            if (ib.ShowDialog() == DialogResult.OK)
+            else
             {
-                foreach (string path in paths)
+                showName = Path.GetFileName(paths[0]);
+            }
+
+            if (paths.Length == 1)
+            {
+                showLocation = paths[0];
+                InputBox ib = new InputBox("Enter TV Show Name...", showName, showLocation);
+                if (ib.ShowDialog() == DialogResult.OK)
                 {
-                    if (Directory.Exists(path))
+                    AddShow(ib.ShowName, ib.ShowLocation);
+                }
+            }
+            else if (paths.Length > 1)
+            {
+                InputBox ib = new InputBox("Enter TV Show Name...", showName, showLocation);
+                ib.txtShowLocation.Enabled = false;
+                ib.btnBrowse.Enabled = false;
+                if (ib.ShowDialog() == DialogResult.OK)
+                {
+                    foreach (string path in paths)
                     {
-                        AddShow(ib.ShowName, path);
+                        if (Directory.Exists(path))
+                        {
+                            AddShow(ib.ShowName, path);
+                        }
                     }
                 }
             }
@@ -591,31 +601,37 @@ namespace RenamerX
                         if (!char.IsDigit(filter[i]))
                         {
                             long number = long.Parse(filter.Substring(1, i - 1));
-                            switch (filter.Remove(0, i))
+                            switch (filter.Remove(0, i).ToLowerInvariant())
                             {
+                                case "gigabyte":
+                                case "gb":
                                 case "gibibyte":
-                                case "GiB":
+                                case "gib":
                                     number *= 1073741824;
                                     break;
+                                case "megabyte":
+                                case "mb":
                                 case "mebibyte":
-                                case "MiB":
+                                case "mib":
                                     number *= 1048576;
                                     break;
+                                case "kilobyte":
+                                case "kb":
                                 case "kibibyte":
-                                case "KiB":
+                                case "kib":
                                     number *= 1024;
                                     break;
                                 case "byte":
-                                case "B":
+                                case "b":
                                     break;
                                 default:
-                                    throw new Exception("File size filter not end with file size type. (GiB, MiB, KiB, B)");
+                                    throw new Exception("File size filter not end with file size type. (B, KiB, MiB, GiB)");
                             }
                             result.FileSize = number;
                             return result;
                         }
                     }
-                    throw new Exception("File size filter not end with file size type. (GiB, MiB, KiB, B)");
+                    throw new Exception("File size filter not end with file size type. (B, KiB, MiB, GiB)");
                 }
                 else
                 {

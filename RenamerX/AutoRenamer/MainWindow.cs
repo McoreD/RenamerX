@@ -17,10 +17,17 @@ namespace RenamerX
     {
         private List<Show> Shows = new List<Show>();
         private List<string> ExtractList = new List<string>();
+        private bool IsExtracting;
+        private BackgroundWorker bwExtract = new BackgroundWorker();
 
         public MainWindow()
         {
             InitializeComponent();
+            bwExtract.DoWork += new DoWorkEventHandler(ExtractThread);
+            bwExtract.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+            bwExtract.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+            bwExtract.WorkerReportsProgress = true;
+            bwExtract.WorkerSupportsCancellation = true;
         }
 
         private void LoadJaex()
@@ -249,32 +256,38 @@ namespace RenamerX
 
         private void btnExtractAll_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure you wish to extract these files?", this.Text, MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                if (File.Exists(txtUnRARPath.Text))
-                {
-                    if (!Directory.Exists(txtExtractPath.Text))
+            if (IsExtracting)
+            {
+                bwExtract.CancelAsync();
+                btnExtractAll.Text = "Stopping...";
+            }
+            else
+            {
+                if (MessageBox.Show("Are you sure you wish to extract these files?", this.Text, MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    if (File.Exists(txtUnRARPath.Text))
                     {
-                        Directory.CreateDirectory(txtExtractPath.Text);
+                        btnExtractAll.Enabled = false;
+                        IsExtracting = true;
+                        btnExtractAll.Text = "Stop";
+                        if (!Directory.Exists(txtExtractPath.Text))
+                        {
+                            Directory.CreateDirectory(txtExtractPath.Text);
+                        }
+                        ExtractList.Clear();
+                        foreach (ListViewItem lvi in lvExtractList.Items)
+                        {
+                            ExtractList.Add(lvi.Text);
+                        }
+                        pbExtract.Maximum = ExtractList.Count;
+                        bwExtract.RunWorkerAsync(bwExtract);
+                        btnExtractAll.Enabled = true;
                     }
-                    btnExtractAll.Enabled = false;
-                    ExtractList.Clear();
-                    foreach (ListViewItem lvi in lvExtractList.Items)
+                    else
                     {
-                        ExtractList.Add(lvi.Text);
+                        MessageBox.Show("UnRAR.exe path not exist.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-                    pbExtract.Maximum = ExtractList.Count;
-                    BackgroundWorker bw = new BackgroundWorker();
-                    bw.DoWork += new DoWorkEventHandler(ExtractThread);
-                    bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
-                    bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
-                    bw.WorkerReportsProgress = true;
-                    bw.RunWorkerAsync(bw);
-                }
-                else
-                {
-                    MessageBox.Show("UnRAR.exe path not exist.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+            }
         }
 
         private void lvExtractList_DragEnter(object sender, DragEventArgs e)
@@ -291,7 +304,16 @@ namespace RenamerX
                 FileSizeFilter filter = ParseFileSizeFilter(txtExtractFileSizeFilter.Text);
                 foreach (string folder in folders)
                 {
-                    AddExtractList(folder, filter);
+                    if (Directory.Exists(folder))
+                    {
+                        AddExtractList(folder, filter);
+                    }
+                    else if (File.Exists(folder))
+                    {
+                        ListViewItem lvi = new ListViewItem(folder);
+                        lvExtractList.Items.Add(lvi);
+                        UpdateExtractFileCount();
+                    }
                 }
             }
             catch (Exception ex)
@@ -549,24 +571,21 @@ namespace RenamerX
         {
             try
             {
-                if (Directory.Exists(folder))
+                foreach (string file in Directory.GetFiles(folder))
                 {
-                    foreach (string file in Directory.GetFiles(folder))
+                    if (CheckFile(file, txtExtractFileFilter.Text) && CheckFileSize(file, filter))
                     {
-                        if (CheckFile(file, txtExtractFileFilter.Text) && CheckFileSize(file, filter))
-                        {
-                            ListViewItem lvi = new ListViewItem(file);
-                            lvExtractList.Items.Add(lvi);
-                            UpdateExtractFileCount();
-                            break;
-                        }
+                        ListViewItem lvi = new ListViewItem(file);
+                        lvExtractList.Items.Add(lvi);
+                        UpdateExtractFileCount();
+                        break;
                     }
-                    if (cbSearchSubFolders.Checked)
+                }
+                if (cbSearchSubFolders.Checked)
+                {
+                    foreach (string directory in Directory.GetDirectories(folder))
                     {
-                        foreach (string directory in Directory.GetDirectories(folder))
-                        {
-                            AddExtractList(directory, filter);
-                        }
+                        AddExtractList(directory, filter);
                     }
                 }
             }
@@ -660,11 +679,25 @@ namespace RenamerX
             ConsoleWriteLine(string.Format("({0}/{1}) {2}", e.ProgressPercentage, ExtractList.Count, message));
             pbExtract.Value = e.ProgressPercentage;
             lblFileCount.Text = string.Format("File count: {0}/{1}", e.ProgressPercentage, ExtractList.Count);
+            if (lvExtractList.Items.Count > e.ProgressPercentage)
+            {
+                lvExtractList.Items[e.ProgressPercentage].Selected = true;
+            }
         }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            btnExtractAll.Enabled = true;
+            if (e.Cancelled)
+            {
+                pbExtract.Value = 0;
+                ConsoleWriteLine("Extract cancelled.");
+            }
+            else
+            {
+                ConsoleWriteLine("Extract finished.");
+            }
+            btnExtractAll.Text = "Extract all";
+            IsExtracting = false;
         }
 
         private void ExtractThread(object sender, DoWorkEventArgs e)
@@ -677,17 +710,39 @@ namespace RenamerX
                 {
                     if (File.Exists(ExtractList[i]))
                     {
-                        Process process = new Process();
-                        arguments = "x \"" + ExtractList[i] + "\" \"" + txtExtractPath.Text + "\"";
+                        List<string> commands = new List<string>();
+                        if (cbExtractOverwrite.Checked)
+                        {
+                            commands.Add("o+"); //Set the overwrite mode (true)
+                        }
+                        else
+                        {
+                            commands.Add("o-"); //Set the overwrite mode (false)
+                        }
+                        if (string.IsNullOrEmpty(txtExtractPassword.Text))
+                        {
+                            commands.Add("p-"); //Do not query password
+                        }
+                        else
+                        {
+                            commands.Add("p" + txtExtractPassword.Text); //Set password
+                        }
+                        string command = string.Join("", commands.Select(x => " -" + x).ToArray());
+                        arguments = string.Format("x {0} \"{1}\" \"{2}\"", command, ExtractList[i], txtExtractPath.Text);
                         ProcessStartInfo psi = new ProcessStartInfo(txtUnRARPath.Text, arguments);
                         psi.CreateNoWindow = true;
                         psi.WindowStyle = ProcessWindowStyle.Hidden;
+                        Process process = new Process();
                         process.StartInfo = psi;
-
-                        bw.ReportProgress(i, "Started to extract: " + arguments.Remove(0, 2));
+                        bw.ReportProgress(i, "Started to extract: " + ExtractList[i] + " -> " + txtExtractPath.Text);
                         process.Start();
                         process.WaitForExit();
-                        bw.ReportProgress(i + 1, "Extracted: " + arguments.Remove(0, 2));
+                        bw.ReportProgress(i + 1, "Extracted: " + ExtractList[i] + " -> " + txtExtractPath.Text);
+                    }
+                    if (bw.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        break;
                     }
                 }
             }

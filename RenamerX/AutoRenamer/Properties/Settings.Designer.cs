@@ -191,5 +191,29 @@ namespace RenamerX.Properties {
                 this["GuessShowName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ExtractOverwrite {
+            get {
+                return ((bool)(this["ExtractOverwrite"]));
+            }
+            set {
+                this["ExtractOverwrite"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ExtractPassword {
+            get {
+                return ((string)(this["ExtractPassword"]));
+            }
+            set {
+                this["ExtractPassword"] = value;
+            }
+        }
     }
 }

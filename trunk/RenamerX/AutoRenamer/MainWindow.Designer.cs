@@ -48,6 +48,8 @@
             this.lvListColumn2 = new System.Windows.Forms.ColumnHeader();
             this.tpExtract = new System.Windows.Forms.TabPage();
             this.scExtract = new System.Windows.Forms.SplitContainer();
+            this.cbExtractOverwrite = new System.Windows.Forms.CheckBox();
+            this.pbExtract = new System.Windows.Forms.ProgressBar();
             this.lblFileCount = new System.Windows.Forms.Label();
             this.lblExtractFileSizeFilter = new System.Windows.Forms.Label();
             this.lblExtractPath = new System.Windows.Forms.Label();
@@ -68,7 +70,8 @@
             this.gbRename = new System.Windows.Forms.GroupBox();
             this.lblRegexpPattern = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.cbGuessShowName = new System.Windows.Forms.CheckBox();
+            this.lblExtractPassword = new System.Windows.Forms.Label();
+            this.txtExtractPassword = new System.Windows.Forms.TextBox();
             this.cbShowErrors = new System.Windows.Forms.CheckBox();
             this.txtRenameFileFilter = new System.Windows.Forms.TextBox();
             this.txtNameFormat = new System.Windows.Forms.TextBox();
@@ -77,9 +80,9 @@
             this.txtExtractPath = new System.Windows.Forms.TextBox();
             this.txtUnRARPath = new System.Windows.Forms.TextBox();
             this.cbSearchSubFolders = new System.Windows.Forms.CheckBox();
+            this.cbGuessShowName = new System.Windows.Forms.CheckBox();
             this.txtRegexpPattern = new System.Windows.Forms.TextBox();
             this.cbShowActionMessages = new System.Windows.Forms.CheckBox();
-            this.pbExtract = new System.Windows.Forms.ProgressBar();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.scRename.Panel1.SuspendLayout();
@@ -193,7 +196,7 @@
             this.btnRenameAll.Name = "btnRenameAll";
             this.btnRenameAll.Size = new System.Drawing.Size(80, 24);
             this.btnRenameAll.TabIndex = 12;
-            this.btnRenameAll.Text = "&Rename all";
+            this.btnRenameAll.Text = "Rename all";
             this.btnRenameAll.UseVisualStyleBackColor = true;
             this.btnRenameAll.Click += new System.EventHandler(this.btnRenameAll_Click);
             // 
@@ -305,6 +308,9 @@
             // 
             // scExtract.Panel1
             // 
+            this.scExtract.Panel1.Controls.Add(this.txtExtractPassword);
+            this.scExtract.Panel1.Controls.Add(this.lblExtractPassword);
+            this.scExtract.Panel1.Controls.Add(this.cbExtractOverwrite);
             this.scExtract.Panel1.Controls.Add(this.pbExtract);
             this.scExtract.Panel1.Controls.Add(this.lblFileCount);
             this.scExtract.Panel1.Controls.Add(this.txtExtractFileSizeFilter);
@@ -330,6 +336,25 @@
             this.scExtract.SplitterDistance = 130;
             this.scExtract.SplitterWidth = 2;
             this.scExtract.TabIndex = 12;
+            // 
+            // cbExtractOverwrite
+            // 
+            this.cbExtractOverwrite.AutoSize = true;
+            this.cbExtractOverwrite.Checked = global::RenamerX.Properties.Settings.Default.ExtractOverwrite;
+            this.cbExtractOverwrite.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ExtractOverwrite", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbExtractOverwrite.Location = new System.Drawing.Point(152, 64);
+            this.cbExtractOverwrite.Name = "cbExtractOverwrite";
+            this.cbExtractOverwrite.Size = new System.Drawing.Size(125, 17);
+            this.cbExtractOverwrite.TabIndex = 16;
+            this.cbExtractOverwrite.Text = "Overwrite existing file";
+            this.cbExtractOverwrite.UseVisualStyleBackColor = true;
+            // 
+            // pbExtract
+            // 
+            this.pbExtract.Location = new System.Drawing.Point(352, 96);
+            this.pbExtract.Name = "pbExtract";
+            this.pbExtract.Size = new System.Drawing.Size(440, 23);
+            this.pbExtract.TabIndex = 15;
             // 
             // lblFileCount
             // 
@@ -445,6 +470,7 @@
             this.lvExtractList.FullRowSelect = true;
             this.lvExtractList.HideSelection = false;
             this.lvExtractList.Location = new System.Drawing.Point(0, 0);
+            this.lvExtractList.MultiSelect = false;
             this.lvExtractList.Name = "lvExtractList";
             this.lvExtractList.Size = new System.Drawing.Size(988, 470);
             this.lvExtractList.TabIndex = 0;
@@ -532,18 +558,23 @@
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ReshowDelay = 20;
             // 
-            // cbGuessShowName
+            // lblExtractPassword
             // 
-            this.cbGuessShowName.AutoSize = true;
-            this.cbGuessShowName.Checked = global::RenamerX.Properties.Settings.Default.GuessShowName;
-            this.cbGuessShowName.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "GuessShowName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cbGuessShowName.Location = new System.Drawing.Point(16, 104);
-            this.cbGuessShowName.Name = "cbGuessShowName";
-            this.cbGuessShowName.Size = new System.Drawing.Size(301, 17);
-            this.cbGuessShowName.TabIndex = 4;
-            this.cbGuessShowName.Text = "Guess show name as root folder name instead folder name";
-            this.toolTip1.SetToolTip(this.cbGuessShowName, resources.GetString("cbGuessShowName.ToolTip"));
-            this.cbGuessShowName.UseVisualStyleBackColor = true;
+            this.lblExtractPassword.AutoSize = true;
+            this.lblExtractPassword.Location = new System.Drawing.Point(296, 67);
+            this.lblExtractPassword.Name = "lblExtractPassword";
+            this.lblExtractPassword.Size = new System.Drawing.Size(56, 13);
+            this.lblExtractPassword.TabIndex = 17;
+            this.lblExtractPassword.Text = "Password:";
+            // 
+            // txtExtractPassword
+            // 
+            this.txtExtractPassword.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ExtractPassword", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtExtractPassword.Location = new System.Drawing.Point(360, 64);
+            this.txtExtractPassword.Name = "txtExtractPassword";
+            this.txtExtractPassword.Size = new System.Drawing.Size(192, 20);
+            this.txtExtractPassword.TabIndex = 18;
+            this.txtExtractPassword.Text = global::RenamerX.Properties.Settings.Default.ExtractPassword;
             // 
             // cbShowErrors
             // 
@@ -637,7 +668,7 @@
             this.cbSearchSubFolders.Checked = global::RenamerX.Properties.Settings.Default.SearchSubFolders;
             this.cbSearchSubFolders.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbSearchSubFolders.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "SearchSubFolders", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cbSearchSubFolders.Location = new System.Drawing.Point(24, 68);
+            this.cbSearchSubFolders.Location = new System.Drawing.Point(16, 64);
             this.cbSearchSubFolders.Name = "cbSearchSubFolders";
             this.cbSearchSubFolders.Size = new System.Drawing.Size(114, 17);
             this.cbSearchSubFolders.TabIndex = 7;
@@ -645,6 +676,19 @@
             this.toolTip1.SetToolTip(this.cbSearchSubFolders, "Example if you added this folder: E:\\TV\\Lost\r\nThen will be search sub folders too" +
                     " (Season 1, Season 2...)");
             this.cbSearchSubFolders.UseVisualStyleBackColor = true;
+            // 
+            // cbGuessShowName
+            // 
+            this.cbGuessShowName.AutoSize = true;
+            this.cbGuessShowName.Checked = global::RenamerX.Properties.Settings.Default.GuessShowName;
+            this.cbGuessShowName.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "GuessShowName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbGuessShowName.Location = new System.Drawing.Point(16, 104);
+            this.cbGuessShowName.Name = "cbGuessShowName";
+            this.cbGuessShowName.Size = new System.Drawing.Size(301, 17);
+            this.cbGuessShowName.TabIndex = 4;
+            this.cbGuessShowName.Text = "Guess show name as root folder name instead folder name";
+            this.toolTip1.SetToolTip(this.cbGuessShowName, resources.GetString("cbGuessShowName.ToolTip"));
+            this.cbGuessShowName.UseVisualStyleBackColor = true;
             // 
             // txtRegexpPattern
             // 
@@ -670,13 +714,6 @@
                 " console";
             this.toolTip1.SetToolTip(this.cbShowActionMessages, resources.GetString("cbShowActionMessages.ToolTip"));
             this.cbShowActionMessages.UseVisualStyleBackColor = true;
-            // 
-            // pbExtract
-            // 
-            this.pbExtract.Location = new System.Drawing.Point(352, 96);
-            this.pbExtract.Name = "pbExtract";
-            this.pbExtract.Size = new System.Drawing.Size(440, 23);
-            this.pbExtract.TabIndex = 15;
             // 
             // MainWindow
             // 
@@ -763,5 +800,8 @@
         private System.Windows.Forms.Label lblFileCount;
         private System.Windows.Forms.CheckBox cbGuessShowName;
         private System.Windows.Forms.ProgressBar pbExtract;
+        private System.Windows.Forms.CheckBox cbExtractOverwrite;
+        private System.Windows.Forms.TextBox txtExtractPassword;
+        private System.Windows.Forms.Label lblExtractPassword;
     }
 }

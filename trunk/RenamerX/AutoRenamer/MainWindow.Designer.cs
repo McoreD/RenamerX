@@ -525,8 +525,9 @@
             // toolTip1
             // 
             this.toolTip1.AutomaticDelay = 100;
-            this.toolTip1.AutoPopDelay = 5000;
+            this.toolTip1.AutoPopDelay = 10000;
             this.toolTip1.InitialDelay = 100;
+            this.toolTip1.IsBalloon = true;
             this.toolTip1.ReshowDelay = 20;
             // 
             // cbGuessShowName
@@ -639,8 +640,8 @@
             this.cbSearchSubFolders.Size = new System.Drawing.Size(114, 17);
             this.cbSearchSubFolders.TabIndex = 7;
             this.cbSearchSubFolders.Text = "Search sub folders";
-            this.toolTip1.SetToolTip(this.cbSearchSubFolders, "Example if you added this folder : E:\\TV\\Lost\r\nThen will be search sub folders to" +
-                    "o (Season 1, Season 2...)");
+            this.toolTip1.SetToolTip(this.cbSearchSubFolders, "Example if you added this folder: E:\\TV\\Lost\r\nThen will be search sub folders too" +
+                    " (Season 1, Season 2...)");
             this.cbSearchSubFolders.UseVisualStyleBackColor = true;
             // 
             // txtRegexpPattern

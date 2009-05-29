@@ -249,25 +249,31 @@ namespace RenamerX
 
         private void btnExtractAll_Click(object sender, EventArgs e)
         {
-            if (Directory.Exists(txtExtractPath.Text) && File.Exists(txtUnRARPath.Text))
-            {
-                btnExtractAll.Enabled = false;
-                ExtractList.Clear();
-                foreach (ListViewItem lvi in lvExtractList.Items)
+            if (MessageBox.Show("Are you sure you wish to extract these files?", this.Text, MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (File.Exists(txtUnRARPath.Text))
                 {
-                    ExtractList.Add(lvi.Text);
+                    if (!Directory.Exists(txtExtractPath.Text))
+                    {
+                        Directory.CreateDirectory(txtExtractPath.Text);
+                    }
+                    btnExtractAll.Enabled = false;
+                    ExtractList.Clear();
+                    foreach (ListViewItem lvi in lvExtractList.Items)
+                    {
+                        ExtractList.Add(lvi.Text);
+                    }
+                    BackgroundWorker bw = new BackgroundWorker();
+                    bw.DoWork += new DoWorkEventHandler(ExtractThread);
+                    bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+                    bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+                    bw.WorkerReportsProgress = true;
+                    bw.RunWorkerAsync(bw);
                 }
-                BackgroundWorker bw = new BackgroundWorker();
-                bw.DoWork += new DoWorkEventHandler(ExtractThread);
-                bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
-                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
-                bw.WorkerReportsProgress = true;
-                bw.RunWorkerAsync(bw);
-            }
-            else
-            {
-                MessageBox.Show("Extract path or UnRAR.exe path not exist.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+                else
+                {
+                    MessageBox.Show("UnRAR.exe path not exist.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
         }
 
         private void lvExtractList_DragEnter(object sender, DragEventArgs e)
@@ -429,7 +435,7 @@ namespace RenamerX
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Console.WriteLine(ex.ToString());
             }
             return seasons;
         }
@@ -441,7 +447,6 @@ namespace RenamerX
                 try
                 {
                     string pattern = txtRegexpPattern.Text;
-                    filename.Replace(show.ShowName, "");
                     Match result = Regex.Match(filename, pattern, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
                     int season = result.Groups["Season"].Value.ToInt();
                     int episode = result.Groups["Episode"].Value.ToInt();
@@ -449,10 +454,12 @@ namespace RenamerX
                     {
                         pattern = txtNameFormat.Text;
                         string extension = filename.Remove(0, filename.LastIndexOf('.')).ToLowerInvariant();
+                        string episodeTitle = "";
+                        Episode findEpisode = show.FindEpisode(season, episode);
+                        if (findEpisode != null) episodeTitle = findEpisode.Title;
                         return pattern.Replace("$N", show.ShowName).Replace("$S2", season.ToString("d2")).
                             Replace("$S", season.ToString()).Replace("$E2", episode.ToString("d2")).
-                            Replace("$E", episode.ToString()).
-                            Replace("$T", show.FindEpisode(season, episode).Title) + extension;
+                            Replace("$E", episode.ToString()).Replace("$T", episodeTitle) + extension;
                     }
                 }
                 catch { }

@@ -55,7 +55,12 @@ namespace RenamerX
 
         public Episode FindEpisode(int season, int episode)
         {
-            return FindSeason(season).FindEpisode(episode);
+            Season findSeason = FindSeason(season);
+            if (findSeason != null)
+            {
+                return findSeason.FindEpisode(episode);
+            }
+            return null;
         }
 
         public IEnumerator GetEnumerator()

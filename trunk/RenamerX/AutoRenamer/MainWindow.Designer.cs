@@ -36,15 +36,12 @@
             this.lblItemsCount = new System.Windows.Forms.Label();
             this.lvShows = new System.Windows.Forms.ListView();
             this.lvShowsColumn1 = new System.Windows.Forms.ColumnHeader();
-            this.cbShowErrors = new System.Windows.Forms.CheckBox();
             this.btnRenameAll = new System.Windows.Forms.Button();
             this.btnRenameClear = new System.Windows.Forms.Button();
             this.lblRenameFileFilter = new System.Windows.Forms.Label();
-            this.txtRenameFileFilter = new System.Windows.Forms.TextBox();
             this.lblNameFormat = new System.Windows.Forms.Label();
             this.btnRenameRemove = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.txtNameFormat = new System.Windows.Forms.TextBox();
             this.btnRenameAdd = new System.Windows.Forms.Button();
             this.lvList = new System.Windows.Forms.ListView();
             this.lvListColumn1 = new System.Windows.Forms.ColumnHeader();
@@ -52,15 +49,10 @@
             this.tpExtract = new System.Windows.Forms.TabPage();
             this.scExtract = new System.Windows.Forms.SplitContainer();
             this.lblFileCount = new System.Windows.Forms.Label();
-            this.txtExtractFileSizeFilter = new System.Windows.Forms.TextBox();
             this.lblExtractFileSizeFilter = new System.Windows.Forms.Label();
             this.lblExtractPath = new System.Windows.Forms.Label();
-            this.txtExtractFileFilter = new System.Windows.Forms.TextBox();
-            this.txtExtractPath = new System.Windows.Forms.TextBox();
             this.lblExtractFileFilter = new System.Windows.Forms.Label();
-            this.txtUnRARPath = new System.Windows.Forms.TextBox();
             this.btnExtractClear = new System.Windows.Forms.Button();
-            this.cbSearchSubFolders = new System.Windows.Forms.CheckBox();
             this.btnExtractRemove = new System.Windows.Forms.Button();
             this.lblUnRARPath = new System.Windows.Forms.Label();
             this.btnExtractAdd = new System.Windows.Forms.Button();
@@ -73,12 +65,20 @@
             this.txtConsole = new System.Windows.Forms.TextBox();
             this.tpSettings = new System.Windows.Forms.TabPage();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
-            this.gbExtract = new System.Windows.Forms.GroupBox();
             this.gbRename = new System.Windows.Forms.GroupBox();
-            this.txtRegexpPattern = new System.Windows.Forms.TextBox();
-            this.cbShowActionMessages = new System.Windows.Forms.CheckBox();
             this.lblRegexpPattern = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.cbGuessShowName = new System.Windows.Forms.CheckBox();
+            this.cbShowErrors = new System.Windows.Forms.CheckBox();
+            this.txtRenameFileFilter = new System.Windows.Forms.TextBox();
+            this.txtNameFormat = new System.Windows.Forms.TextBox();
+            this.txtExtractFileSizeFilter = new System.Windows.Forms.TextBox();
+            this.txtExtractFileFilter = new System.Windows.Forms.TextBox();
+            this.txtExtractPath = new System.Windows.Forms.TextBox();
+            this.txtUnRARPath = new System.Windows.Forms.TextBox();
+            this.cbSearchSubFolders = new System.Windows.Forms.CheckBox();
+            this.txtRegexpPattern = new System.Windows.Forms.TextBox();
+            this.cbShowActionMessages = new System.Windows.Forms.CheckBox();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.scRename.Panel1.SuspendLayout();
@@ -186,20 +186,6 @@
             // 
             this.lvShowsColumn1.Width = 329;
             // 
-            // cbShowErrors
-            // 
-            this.cbShowErrors.AutoSize = true;
-            this.cbShowErrors.Checked = global::RenamerX.Properties.Settings.Default.ShowErrors;
-            this.cbShowErrors.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowErrors", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cbShowErrors.Location = new System.Drawing.Point(440, 72);
-            this.cbShowErrors.Name = "cbShowErrors";
-            this.cbShowErrors.Size = new System.Drawing.Size(278, 17);
-            this.cbShowErrors.TabIndex = 13;
-            this.cbShowErrors.Text = "Show error message dialog boxes while renaming files";
-            this.toolTip1.SetToolTip(this.cbShowErrors, "Example: If a filename contains illegal characters then \"Illegal characters in pa" +
-                    "th\" error will be shown.");
-            this.cbShowErrors.UseVisualStyleBackColor = true;
-            // 
             // btnRenameAll
             // 
             this.btnRenameAll.Location = new System.Drawing.Point(528, 96);
@@ -229,16 +215,6 @@
             this.lblRenameFileFilter.TabIndex = 3;
             this.lblRenameFileFilter.Text = "File filter:";
             // 
-            // txtRenameFileFilter
-            // 
-            this.txtRenameFileFilter.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "RenameFileFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtRenameFileFilter.Location = new System.Drawing.Point(520, 40);
-            this.txtRenameFileFilter.Name = "txtRenameFileFilter";
-            this.txtRenameFileFilter.Size = new System.Drawing.Size(176, 20);
-            this.txtRenameFileFilter.TabIndex = 2;
-            this.txtRenameFileFilter.Text = global::RenamerX.Properties.Settings.Default.RenameFileFilter;
-            this.toolTip1.SetToolTip(this.txtRenameFileFilter, resources.GetString("txtRenameFileFilter.ToolTip"));
-            // 
             // lblNameFormat
             // 
             this.lblNameFormat.AutoSize = true;
@@ -256,6 +232,7 @@
             this.btnRenameRemove.TabIndex = 8;
             this.btnRenameRemove.Text = "Remove";
             this.btnRenameRemove.UseVisualStyleBackColor = true;
+            this.btnRenameRemove.Click += new System.EventHandler(this.btnRenameRemove_Click);
             // 
             // btnRefresh
             // 
@@ -266,16 +243,6 @@
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
-            // txtNameFormat
-            // 
-            this.txtNameFormat.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "NameFormat", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtNameFormat.Location = new System.Drawing.Point(520, 16);
-            this.txtNameFormat.Name = "txtNameFormat";
-            this.txtNameFormat.Size = new System.Drawing.Size(176, 20);
-            this.txtNameFormat.TabIndex = 0;
-            this.txtNameFormat.Text = global::RenamerX.Properties.Settings.Default.NameFormat;
-            this.toolTip1.SetToolTip(this.txtNameFormat, resources.GetString("txtNameFormat.ToolTip"));
             // 
             // btnRenameAdd
             // 
@@ -371,16 +338,6 @@
             this.lblFileCount.TabIndex = 14;
             this.lblFileCount.Text = "File count: 0";
             // 
-            // txtExtractFileSizeFilter
-            // 
-            this.txtExtractFileSizeFilter.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ExtractFileSizeFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtExtractFileSizeFilter.Location = new System.Drawing.Point(776, 40);
-            this.txtExtractFileSizeFilter.Name = "txtExtractFileSizeFilter";
-            this.txtExtractFileSizeFilter.Size = new System.Drawing.Size(176, 20);
-            this.txtExtractFileSizeFilter.TabIndex = 13;
-            this.txtExtractFileSizeFilter.Text = global::RenamerX.Properties.Settings.Default.ExtractFileSizeFilter;
-            this.toolTip1.SetToolTip(this.txtExtractFileSizeFilter, resources.GetString("txtExtractFileSizeFilter.ToolTip"));
-            // 
             // lblExtractFileSizeFilter
             // 
             this.lblExtractFileSizeFilter.AutoSize = true;
@@ -399,30 +356,6 @@
             this.lblExtractPath.TabIndex = 2;
             this.lblExtractPath.Text = "Extract to:";
             // 
-            // txtExtractFileFilter
-            // 
-            this.txtExtractFileFilter.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ExtractFileFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtExtractFileFilter.Location = new System.Drawing.Point(776, 16);
-            this.txtExtractFileFilter.Name = "txtExtractFileFilter";
-            this.txtExtractFileFilter.Size = new System.Drawing.Size(176, 20);
-            this.txtExtractFileFilter.TabIndex = 1;
-            this.txtExtractFileFilter.Text = global::RenamerX.Properties.Settings.Default.ExtractFileFilter;
-            this.toolTip1.SetToolTip(this.txtExtractFileFilter, resources.GetString("txtExtractFileFilter.ToolTip"));
-            // 
-            // txtExtractPath
-            // 
-            this.txtExtractPath.AllowDrop = true;
-            this.txtExtractPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.txtExtractPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
-            this.txtExtractPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ExtractPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtExtractPath.Location = new System.Drawing.Point(112, 12);
-            this.txtExtractPath.Name = "txtExtractPath";
-            this.txtExtractPath.Size = new System.Drawing.Size(472, 20);
-            this.txtExtractPath.TabIndex = 1;
-            this.txtExtractPath.Text = global::RenamerX.Properties.Settings.Default.ExtractPath;
-            this.txtExtractPath.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtExtractPath_DragDrop);
-            this.txtExtractPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtExtractPath_DragEnter);
-            // 
             // lblExtractFileFilter
             // 
             this.lblExtractFileFilter.AutoSize = true;
@@ -431,20 +364,6 @@
             this.lblExtractFileFilter.Size = new System.Drawing.Size(48, 13);
             this.lblExtractFileFilter.TabIndex = 0;
             this.lblExtractFileFilter.Text = "File filter:";
-            // 
-            // txtUnRARPath
-            // 
-            this.txtUnRARPath.AllowDrop = true;
-            this.txtUnRARPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.txtUnRARPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.txtUnRARPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "UnRARPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtUnRARPath.Location = new System.Drawing.Point(112, 36);
-            this.txtUnRARPath.Name = "txtUnRARPath";
-            this.txtUnRARPath.Size = new System.Drawing.Size(472, 20);
-            this.txtUnRARPath.TabIndex = 4;
-            this.txtUnRARPath.Text = global::RenamerX.Properties.Settings.Default.UnRARPath;
-            this.txtUnRARPath.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtUnRARPath_DragDrop);
-            this.txtUnRARPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtUnRARPath_DragEnter);
             // 
             // btnExtractClear
             // 
@@ -455,19 +374,6 @@
             this.btnExtractClear.Text = "Clear";
             this.btnExtractClear.UseVisualStyleBackColor = true;
             this.btnExtractClear.Click += new System.EventHandler(this.btnExtractClear_Click);
-            // 
-            // cbSearchSubFolders
-            // 
-            this.cbSearchSubFolders.AutoSize = true;
-            this.cbSearchSubFolders.Checked = global::RenamerX.Properties.Settings.Default.SearchSubFolders;
-            this.cbSearchSubFolders.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbSearchSubFolders.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "SearchSubFolders", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cbSearchSubFolders.Location = new System.Drawing.Point(24, 68);
-            this.cbSearchSubFolders.Name = "cbSearchSubFolders";
-            this.cbSearchSubFolders.Size = new System.Drawing.Size(114, 17);
-            this.cbSearchSubFolders.TabIndex = 7;
-            this.cbSearchSubFolders.Text = "Search sub folders";
-            this.cbSearchSubFolders.UseVisualStyleBackColor = true;
             // 
             // btnExtractRemove
             // 
@@ -575,7 +481,6 @@
             // tpSettings
             // 
             this.tpSettings.Controls.Add(this.propertyGrid1);
-            this.tpSettings.Controls.Add(this.gbExtract);
             this.tpSettings.Controls.Add(this.gbRename);
             this.tpSettings.Location = new System.Drawing.Point(4, 24);
             this.tpSettings.Name = "tpSettings";
@@ -595,48 +500,18 @@
             this.propertyGrid1.TabIndex = 5;
             this.propertyGrid1.ToolbarVisible = false;
             // 
-            // gbExtract
-            // 
-            this.gbExtract.Location = new System.Drawing.Point(8, 128);
-            this.gbExtract.Name = "gbExtract";
-            this.gbExtract.Size = new System.Drawing.Size(976, 112);
-            this.gbExtract.TabIndex = 4;
-            this.gbExtract.TabStop = false;
-            this.gbExtract.Text = "Extract settings";
-            // 
             // gbRename
             // 
+            this.gbRename.Controls.Add(this.cbGuessShowName);
             this.gbRename.Controls.Add(this.txtRegexpPattern);
             this.gbRename.Controls.Add(this.cbShowActionMessages);
             this.gbRename.Controls.Add(this.lblRegexpPattern);
             this.gbRename.Location = new System.Drawing.Point(8, 8);
             this.gbRename.Name = "gbRename";
-            this.gbRename.Size = new System.Drawing.Size(976, 112);
+            this.gbRename.Size = new System.Drawing.Size(976, 232);
             this.gbRename.TabIndex = 3;
             this.gbRename.TabStop = false;
             this.gbRename.Text = "Rename settings";
-            // 
-            // txtRegexpPattern
-            // 
-            this.txtRegexpPattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "RegexpPattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtRegexpPattern.Location = new System.Drawing.Point(16, 48);
-            this.txtRegexpPattern.Name = "txtRegexpPattern";
-            this.txtRegexpPattern.Size = new System.Drawing.Size(944, 20);
-            this.txtRegexpPattern.TabIndex = 0;
-            this.txtRegexpPattern.Text = global::RenamerX.Properties.Settings.Default.RegexpPattern;
-            // 
-            // cbShowActionMessages
-            // 
-            this.cbShowActionMessages.AutoSize = true;
-            this.cbShowActionMessages.Checked = global::RenamerX.Properties.Settings.Default.ShowActionMessages;
-            this.cbShowActionMessages.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowActionMessages", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cbShowActionMessages.Location = new System.Drawing.Point(16, 80);
-            this.cbShowActionMessages.Name = "cbShowActionMessages";
-            this.cbShowActionMessages.Size = new System.Drawing.Size(447, 17);
-            this.cbShowActionMessages.TabIndex = 2;
-            this.cbShowActionMessages.Text = "Add important debug information (start and finish messages) for every show to the" +
-                " console";
-            this.cbShowActionMessages.UseVisualStyleBackColor = true;
             // 
             // lblRegexpPattern
             // 
@@ -653,6 +528,145 @@
             this.toolTip1.AutoPopDelay = 5000;
             this.toolTip1.InitialDelay = 100;
             this.toolTip1.ReshowDelay = 20;
+            // 
+            // cbGuessShowName
+            // 
+            this.cbGuessShowName.AutoSize = true;
+            this.cbGuessShowName.Checked = global::RenamerX.Properties.Settings.Default.GuessShowName;
+            this.cbGuessShowName.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "GuessShowName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbGuessShowName.Location = new System.Drawing.Point(16, 104);
+            this.cbGuessShowName.Name = "cbGuessShowName";
+            this.cbGuessShowName.Size = new System.Drawing.Size(301, 17);
+            this.cbGuessShowName.TabIndex = 4;
+            this.cbGuessShowName.Text = "Guess show name as root folder name instead folder name";
+            this.toolTip1.SetToolTip(this.cbGuessShowName, resources.GetString("cbGuessShowName.ToolTip"));
+            this.cbGuessShowName.UseVisualStyleBackColor = true;
+            // 
+            // cbShowErrors
+            // 
+            this.cbShowErrors.AutoSize = true;
+            this.cbShowErrors.Checked = global::RenamerX.Properties.Settings.Default.ShowErrors;
+            this.cbShowErrors.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowErrors", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbShowErrors.Location = new System.Drawing.Point(440, 72);
+            this.cbShowErrors.Name = "cbShowErrors";
+            this.cbShowErrors.Size = new System.Drawing.Size(278, 17);
+            this.cbShowErrors.TabIndex = 13;
+            this.cbShowErrors.Text = "Show error message dialog boxes while renaming files";
+            this.toolTip1.SetToolTip(this.cbShowErrors, "Example if a filename contains illegal characters then \"Illegal characters in pat" +
+                    "h\" error will be shown.\r\nIf you press cancel button in this message box then wil" +
+                    "l be stop renaming.");
+            this.cbShowErrors.UseVisualStyleBackColor = true;
+            // 
+            // txtRenameFileFilter
+            // 
+            this.txtRenameFileFilter.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "RenameFileFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtRenameFileFilter.Location = new System.Drawing.Point(520, 40);
+            this.txtRenameFileFilter.Name = "txtRenameFileFilter";
+            this.txtRenameFileFilter.Size = new System.Drawing.Size(176, 20);
+            this.txtRenameFileFilter.TabIndex = 2;
+            this.txtRenameFileFilter.Text = global::RenamerX.Properties.Settings.Default.RenameFileFilter;
+            this.toolTip1.SetToolTip(this.txtRenameFileFilter, resources.GetString("txtRenameFileFilter.ToolTip"));
+            // 
+            // txtNameFormat
+            // 
+            this.txtNameFormat.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "NameFormat", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtNameFormat.Location = new System.Drawing.Point(520, 16);
+            this.txtNameFormat.Name = "txtNameFormat";
+            this.txtNameFormat.Size = new System.Drawing.Size(176, 20);
+            this.txtNameFormat.TabIndex = 0;
+            this.txtNameFormat.Text = global::RenamerX.Properties.Settings.Default.NameFormat;
+            this.toolTip1.SetToolTip(this.txtNameFormat, resources.GetString("txtNameFormat.ToolTip"));
+            // 
+            // txtExtractFileSizeFilter
+            // 
+            this.txtExtractFileSizeFilter.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ExtractFileSizeFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtExtractFileSizeFilter.Location = new System.Drawing.Point(776, 40);
+            this.txtExtractFileSizeFilter.Name = "txtExtractFileSizeFilter";
+            this.txtExtractFileSizeFilter.Size = new System.Drawing.Size(176, 20);
+            this.txtExtractFileSizeFilter.TabIndex = 13;
+            this.txtExtractFileSizeFilter.Text = global::RenamerX.Properties.Settings.Default.ExtractFileSizeFilter;
+            this.toolTip1.SetToolTip(this.txtExtractFileSizeFilter, resources.GetString("txtExtractFileSizeFilter.ToolTip"));
+            // 
+            // txtExtractFileFilter
+            // 
+            this.txtExtractFileFilter.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ExtractFileFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtExtractFileFilter.Location = new System.Drawing.Point(776, 16);
+            this.txtExtractFileFilter.Name = "txtExtractFileFilter";
+            this.txtExtractFileFilter.Size = new System.Drawing.Size(176, 20);
+            this.txtExtractFileFilter.TabIndex = 1;
+            this.txtExtractFileFilter.Text = global::RenamerX.Properties.Settings.Default.ExtractFileFilter;
+            this.toolTip1.SetToolTip(this.txtExtractFileFilter, resources.GetString("txtExtractFileFilter.ToolTip"));
+            // 
+            // txtExtractPath
+            // 
+            this.txtExtractPath.AllowDrop = true;
+            this.txtExtractPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txtExtractPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
+            this.txtExtractPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ExtractPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtExtractPath.Location = new System.Drawing.Point(112, 12);
+            this.txtExtractPath.Name = "txtExtractPath";
+            this.txtExtractPath.Size = new System.Drawing.Size(472, 20);
+            this.txtExtractPath.TabIndex = 1;
+            this.txtExtractPath.Text = global::RenamerX.Properties.Settings.Default.ExtractPath;
+            this.toolTip1.SetToolTip(this.txtExtractPath, "Where are you want to extract all files?");
+            this.txtExtractPath.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtExtractPath_DragDrop);
+            this.txtExtractPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtExtractPath_DragEnter);
+            // 
+            // txtUnRARPath
+            // 
+            this.txtUnRARPath.AllowDrop = true;
+            this.txtUnRARPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txtUnRARPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this.txtUnRARPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "UnRARPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtUnRARPath.Location = new System.Drawing.Point(112, 36);
+            this.txtUnRARPath.Name = "txtUnRARPath";
+            this.txtUnRARPath.Size = new System.Drawing.Size(472, 20);
+            this.txtUnRARPath.TabIndex = 4;
+            this.txtUnRARPath.Text = global::RenamerX.Properties.Settings.Default.UnRARPath;
+            this.toolTip1.SetToolTip(this.txtUnRARPath, "Using WinRAR for extract files. If you have WinRAR then you will find UnRAR.exe i" +
+                    "n WinRAR folder.");
+            this.txtUnRARPath.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtUnRARPath_DragDrop);
+            this.txtUnRARPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtUnRARPath_DragEnter);
+            // 
+            // cbSearchSubFolders
+            // 
+            this.cbSearchSubFolders.AutoSize = true;
+            this.cbSearchSubFolders.Checked = global::RenamerX.Properties.Settings.Default.SearchSubFolders;
+            this.cbSearchSubFolders.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbSearchSubFolders.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "SearchSubFolders", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbSearchSubFolders.Location = new System.Drawing.Point(24, 68);
+            this.cbSearchSubFolders.Name = "cbSearchSubFolders";
+            this.cbSearchSubFolders.Size = new System.Drawing.Size(114, 17);
+            this.cbSearchSubFolders.TabIndex = 7;
+            this.cbSearchSubFolders.Text = "Search sub folders";
+            this.toolTip1.SetToolTip(this.cbSearchSubFolders, "Example if you added this folder : E:\\TV\\Lost\r\nThen will be search sub folders to" +
+                    "o (Season 1, Season 2...)");
+            this.cbSearchSubFolders.UseVisualStyleBackColor = true;
+            // 
+            // txtRegexpPattern
+            // 
+            this.txtRegexpPattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "RegexpPattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtRegexpPattern.Location = new System.Drawing.Point(16, 48);
+            this.txtRegexpPattern.Name = "txtRegexpPattern";
+            this.txtRegexpPattern.Size = new System.Drawing.Size(944, 20);
+            this.txtRegexpPattern.TabIndex = 0;
+            this.txtRegexpPattern.Text = global::RenamerX.Properties.Settings.Default.RegexpPattern;
+            this.toolTip1.SetToolTip(this.txtRegexpPattern, "For find episode name need to know show and episode numbers.\r\nFor find this numbe" +
+                    "rs using regular expression with this pattern.");
+            // 
+            // cbShowActionMessages
+            // 
+            this.cbShowActionMessages.AutoSize = true;
+            this.cbShowActionMessages.Checked = global::RenamerX.Properties.Settings.Default.ShowActionMessages;
+            this.cbShowActionMessages.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowActionMessages", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbShowActionMessages.Location = new System.Drawing.Point(16, 80);
+            this.cbShowActionMessages.Name = "cbShowActionMessages";
+            this.cbShowActionMessages.Size = new System.Drawing.Size(447, 17);
+            this.cbShowActionMessages.TabIndex = 2;
+            this.cbShowActionMessages.Text = "Add important debug information (start and finish messages) for every show to the" +
+                " console";
+            this.toolTip1.SetToolTip(this.cbShowActionMessages, resources.GetString("cbShowActionMessages.ToolTip"));
+            this.cbShowActionMessages.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
@@ -729,7 +743,6 @@
         private System.Windows.Forms.Button btnExtractBrowse;
         private System.Windows.Forms.Button btnExtractClear;
         private System.Windows.Forms.Button btnExtractRemove;
-        private System.Windows.Forms.GroupBox gbExtract;
         private System.Windows.Forms.Label lblExtractFileFilter;
         private System.Windows.Forms.TextBox txtExtractFileFilter;
         private System.Windows.Forms.ColumnHeader columnHeader1;
@@ -738,5 +751,6 @@
         private System.Windows.Forms.TextBox txtExtractFileSizeFilter;
         private System.Windows.Forms.Label lblExtractFileSizeFilter;
         private System.Windows.Forms.Label lblFileCount;
+        private System.Windows.Forms.CheckBox cbGuessShowName;
     }
 }

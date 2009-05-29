@@ -120,29 +120,6 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="txtExtractFileSizeFilter.ToolTip" xml:space="preserve">
-    <value>First character: &lt;, &gt; (Files must be smaller or larger than the following number)
-After first character: 0, 1, 2... (Numbers)
-Last characters: gb, mb, kb, b (File size unit)
-
-Examples:
-&gt;10mb (File size must be larger than 10 mebibytes)
-&lt;250mb (File size must be smaller than 250 mebibytes)
-&gt;900kb ( File size must be larger than 900 Kilobytes)</value>
-  </data>
-  <data name="txtExtractFileFilter.ToolTip" xml:space="preserve">
-    <value>* = Zero or more characters
-+ = One or more characters
-? = Exactly zero or one character
-| = Alternatives ( "or" operator )
-
-Example: "+.rar|+.r00" (This file filter will only show winrar files.)
-
-Empty file filter: Allow all files.</value>
-  </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <data name="txtRenameFileFilter.ToolTip" xml:space="preserve">
     <value>* = Zero or more characters
 + = One or more characters
@@ -161,7 +138,44 @@ $E = Episode number (Example: 8)
 $E2 = Episode number (Example: 08)
 $T = Episode title
 
-Example: $N - S$S2E$E2 - $T</value>
+Example: $N - S$S2E$E2 - $T
+Result: Lost - S01E05 - White Rabbit</value>
+  </data>
+  <data name="txtExtractFileSizeFilter.ToolTip" xml:space="preserve">
+    <value>First character: &lt;, &gt; (Files must be smaller or larger than the following number)
+After first character: 0, 1, 2... (Numbers)
+Last characters: gb "GiB", mb "MiB", kb "KiB", b (File size unit)
+
+Examples:
+&gt;10mb (File size must be larger than 10 mebibytes)
+&lt;250mb (File size must be smaller than 250 mebibytes)
+&gt;900kb (File size must be larger than 900 kibibytes)</value>
+  </data>
+  <data name="txtExtractFileFilter.ToolTip" xml:space="preserve">
+    <value>* = Zero or more characters
++ = One or more characters
+? = Exactly zero or one character
+| = Alternatives ( "or" operator )
+
+Example: "+.rar|+.r00" (This file filter will only show winrar files.)
+
+Empty file filter: Allow all files.</value>
+  </data>
+  <data name="cbGuessShowName.ToolTip" xml:space="preserve">
+    <value>If you drag and drop folders to shows list then trying to guess show name with folder name.
+If you click this checkbox then using root folder name.
+Example:
+Folder path: E:\TV\Lost\Season 1
+Root folder path: E:\TV\Lost
+So if you drag n drop Season 1 folder then show name will be Lost. (Lost - Season 1)</value>
+  </data>
+  <data name="cbShowActionMessages.ToolTip" xml:space="preserve">
+    <value>Adding Started, Finished messages for all shows.
+Example:
+11:20:39 - Started: Lost: Season 1
+11:20:39 - Finished: Lost: Season 1
+11:20:39 - Started: Lost: Season 2
+11:20:39 - Finished: Lost: Season 2</value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>43</value>

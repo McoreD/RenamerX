@@ -263,6 +263,7 @@ namespace RenamerX
                     {
                         ExtractList.Add(lvi.Text);
                     }
+                    pbExtract.Maximum = ExtractList.Count;
                     BackgroundWorker bw = new BackgroundWorker();
                     bw.DoWork += new DoWorkEventHandler(ExtractThread);
                     bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
@@ -446,23 +447,25 @@ namespace RenamerX
             {
                 try
                 {
-                    string pattern = txtRegexpPattern.Text;
-                    Match result = Regex.Match(filename, pattern, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
-                    int season = result.Groups["Season"].Value.ToInt();
-                    int episode = result.Groups["Episode"].Value.ToInt();
+                    Match match = Regex.Match(filename, txtRegexpPattern.Text, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+                    int season = match.Groups["Season"].Value.ToInt();
+                    int episode = match.Groups["Episode"].Value.ToInt();
                     if (season > 0 && episode > 0)
                     {
-                        pattern = txtNameFormat.Text;
-                        string extension = filename.Remove(0, filename.LastIndexOf('.')).ToLowerInvariant();
-                        string episodeTitle = "";
+                        string nameFormat = txtNameFormat.Text;
+                        string extension = Path.GetExtension(filename).ToLowerInvariant();
+                        string title = "";
                         Episode findEpisode = show.FindEpisode(season, episode);
-                        if (findEpisode != null) episodeTitle = findEpisode.Title;
-                        return pattern.Replace("$N", show.ShowName).Replace("$S2", season.ToString("d2")).
+                        if (findEpisode != null) title = findEpisode.Title;
+                        return nameFormat.Replace("$N", show.ShowName).Replace("$S2", season.ToString("d2")).
                             Replace("$S", season.ToString()).Replace("$E2", episode.ToString("d2")).
-                            Replace("$E", episode.ToString()).Replace("$T", episodeTitle) + extension;
+                            Replace("$E", episode.ToString()).Replace("$T", title) + extension;
                     }
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
             }
             return filename;
         }
@@ -653,10 +656,10 @@ namespace RenamerX
 
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if (e.ProgressPercentage == 0)
-            {
-                ConsoleWriteLine((string)e.UserState);
-            }
+            string message = (string)e.UserState;
+            ConsoleWriteLine(string.Format("({0}/{1}) {2}", e.ProgressPercentage, ExtractList.Count, message));
+            pbExtract.Value = e.ProgressPercentage;
+            lblFileCount.Text = string.Format("File count: {0}/{1}", e.ProgressPercentage, ExtractList.Count);
         }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -669,18 +672,22 @@ namespace RenamerX
             try
             {
                 BackgroundWorker bw = (BackgroundWorker)e.Argument;
+                string arguments;
                 for (int i = 0; i < ExtractList.Count; i++)
                 {
                     if (File.Exists(ExtractList[i]))
                     {
                         Process process = new Process();
-                        ProcessStartInfo psi = new ProcessStartInfo(txtUnRARPath.Text);
-                        psi.Arguments = "x \"" + ExtractList[i] + "\" \"" + txtExtractPath.Text + "\"";
-                        bw.ReportProgress(0, "(" + (i + 1) + "/" + ExtractList.Count + ") Started to extract: " + psi.Arguments.Remove(0, 2));
+                        arguments = "x \"" + ExtractList[i] + "\" \"" + txtExtractPath.Text + "\"";
+                        ProcessStartInfo psi = new ProcessStartInfo(txtUnRARPath.Text, arguments);
+                        psi.CreateNoWindow = true;
+                        psi.WindowStyle = ProcessWindowStyle.Hidden;
                         process.StartInfo = psi;
+
+                        bw.ReportProgress(i, "Started to extract: " + arguments.Remove(0, 2));
                         process.Start();
                         process.WaitForExit();
-                        bw.ReportProgress(0, "(" + (i + 1) + "/" + ExtractList.Count + ") Extracted: " + psi.Arguments.Remove(0, 2));
+                        bw.ReportProgress(i + 1, "Extracted: " + arguments.Remove(0, 2));
                     }
                 }
             }

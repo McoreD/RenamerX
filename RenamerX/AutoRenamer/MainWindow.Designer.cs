@@ -79,6 +79,7 @@
             this.cbSearchSubFolders = new System.Windows.Forms.CheckBox();
             this.txtRegexpPattern = new System.Windows.Forms.TextBox();
             this.cbShowActionMessages = new System.Windows.Forms.CheckBox();
+            this.pbExtract = new System.Windows.Forms.ProgressBar();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.scRename.Panel1.SuspendLayout();
@@ -304,6 +305,7 @@
             // 
             // scExtract.Panel1
             // 
+            this.scExtract.Panel1.Controls.Add(this.pbExtract);
             this.scExtract.Panel1.Controls.Add(this.lblFileCount);
             this.scExtract.Panel1.Controls.Add(this.txtExtractFileSizeFilter);
             this.scExtract.Panel1.Controls.Add(this.lblExtractFileSizeFilter);
@@ -669,6 +671,13 @@
             this.toolTip1.SetToolTip(this.cbShowActionMessages, resources.GetString("cbShowActionMessages.ToolTip"));
             this.cbShowActionMessages.UseVisualStyleBackColor = true;
             // 
+            // pbExtract
+            // 
+            this.pbExtract.Location = new System.Drawing.Point(352, 96);
+            this.pbExtract.Name = "pbExtract";
+            this.pbExtract.Size = new System.Drawing.Size(440, 23);
+            this.pbExtract.TabIndex = 15;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -753,5 +762,6 @@
         private System.Windows.Forms.Label lblExtractFileSizeFilter;
         private System.Windows.Forms.Label lblFileCount;
         private System.Windows.Forms.CheckBox cbGuessShowName;
+        private System.Windows.Forms.ProgressBar pbExtract;
     }
 }

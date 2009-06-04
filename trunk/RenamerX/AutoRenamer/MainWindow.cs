@@ -372,12 +372,8 @@ namespace RenamerX
                             ShowInfo showInfo = new ShowInfo();
                             showInfo.DefaultFileName = Path.GetFileName(file);
                             showInfo.DefaultFilePath = file;
-                            showInfo.NewFileName = Reformat(show, showInfo.DefaultFileName);
+                            showInfo.SetShowName(Reformat(show, showInfo.DefaultFileName));
                             showInfo.NewFilePath = Path.Combine(Path.GetDirectoryName(showInfo.DefaultFilePath), showInfo.NewFileName);
-                            if (showInfo.Invalid = IsInvalidFileName(showInfo.NewFileName))
-                            {
-                                showInfo.NewFileName = "Illegal characters in file name: " + showInfo.NewFileName;
-                            }
                             si.ShowInfos.Add(showInfo);
                         }
                     }
@@ -503,7 +499,7 @@ namespace RenamerX
                     foreach (ShowInfo showInfo in ((ShowItem)lvi.Tag).ShowInfos)
                     {
                         try
-                        {
+                        {     
                             if (showInfo.DefaultFilePath != showInfo.NewFilePath)
                             {
                                 File.Move(showInfo.DefaultFilePath, showInfo.NewFilePath);

@@ -69,7 +69,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions.cs" />
+    <Compile Include="Global\Extensions.cs" />
+    <Compile Include="Helpers\Episode.cs" />
+    <Compile Include="Helpers\Season.cs" />
+    <Compile Include="Helpers\Show.cs" />
+    <Compile Include="Helpers\ShowItem.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,7 +110,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="Shows.cs" />
+    <Compile Include="Global\Structs.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

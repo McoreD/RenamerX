@@ -47,9 +47,9 @@ namespace RenamerX
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            LoadJaex();
+            // LoadJaex(); // if we are going public with this, we cant add this line
             ResizeListviewColumns();
-            propertyGrid1.SelectedObject = Settings.Default;
+            pgApp.SelectedObject = Settings.Default;
         }
 
         private void MainWindow_Resize(object sender, EventArgs e)

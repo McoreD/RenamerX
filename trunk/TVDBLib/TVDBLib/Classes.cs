@@ -173,6 +173,27 @@ namespace TVDBLib
         public string SeriesID { get; set; }
     }
 
+    #region Actor
+    /*
+    <Actor>
+        <id>27747</id>
+        <Image>actors/27747.jpg</Image>
+        <Name>Matthew Fox</Name>
+        <Role>Jack Shephard</Role>
+        <SortOrder>0</SortOrder>
+    </Actor>
+     */
+    #endregion
+
+    public class Actor
+    {
+        public string ID { get; set; }
+        public string Image { get; set; }
+        public string Name { get; set; }
+        public string Role { get; set; }
+        public string SortOrder { get; set; }
+    }
+
     #region Banner
     /*
     <Banner>
@@ -208,6 +229,7 @@ namespace TVDBLib
         public Series Series = new Series();
         public List<Episode> Episodes = new List<Episode>();
         public List<Banner> Banners = new List<Banner>();
+        public List<Actor> Actors = new List<Actor>();
 
         public SeriesFull() { }
 
@@ -217,11 +239,12 @@ namespace TVDBLib
             this.Episodes = episodes;
         }
 
-        public SeriesFull(Series series, List<Episode> episodes, List<Banner> banners)
+        public SeriesFull(Series series, List<Episode> episodes, List<Banner> banners, List<Actor> actors)
         {
             this.Series = series;
             this.Episodes = episodes;
             this.Banners = banners;
+            this.Actors = actors;
         }
     }
 

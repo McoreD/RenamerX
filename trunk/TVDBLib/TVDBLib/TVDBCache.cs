@@ -70,6 +70,11 @@ namespace TVDBLib
             return Check(path, string.Format(@"series\{0}\{1}.xml", seriesid, language));
         }
 
+        public XDocument CheckActors(string path, string seriesid)
+        {
+            return Check(path, string.Format(@"series\{0}\actors.xml", seriesid));
+        }
+
         public XDocument CheckBanners(string path, string seriesid)
         {
             return Check(path, string.Format(@"series\{0}\banners.xml", seriesid));

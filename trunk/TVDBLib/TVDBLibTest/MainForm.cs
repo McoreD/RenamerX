@@ -125,7 +125,19 @@ namespace TVDBLibTest
                 seriesCache = tvdb.GetSeriesFullInformation(((Series)lvSeries.SelectedItems[0].Tag).ID.ToString(), FileType.ZIP);
                 plvSeries.SelectedObject = seriesCache.Series;
                 FillEpisodes(seriesCache.Episodes);
+                FillActors(seriesCache.Actors);
                 FillBanners(seriesCache.Banners);
+            }
+        }
+
+        private void FillActors(List<Actor> actors)
+        {
+            lvActors.Items.Clear();
+            foreach (Actor actor in seriesCache.Actors)
+            {
+                ListViewItem lvi = new ListViewItem(actor.Name) { Tag = actor };
+                lvi.SubItems.Add(actor.Role);
+                lvActors.Items.Add(lvi);
             }
         }
 
@@ -199,7 +211,17 @@ namespace TVDBLibTest
             {
                 Banner banner = (Banner)lvBanners.SelectedItems[0].Tag;
                 plvBanners.SelectedObject = banner;
-                pbBanner.ImageLocation = tvdb.GetBannerPath(banner.BannerPath);
+                pbBanner.ImageLocation = tvdb.GetImagePath(banner.BannerPath);
+            }
+        }
+
+        private void lvActors_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvActors.SelectedItems.Count > 0)
+            {
+                Actor actor = (Actor)lvActors.SelectedItems[0].Tag;
+                plvActors.SelectedObject = actor;
+                pbActors.ImageLocation = tvdb.GetImagePath(actor.Image);
             }
         }
     }

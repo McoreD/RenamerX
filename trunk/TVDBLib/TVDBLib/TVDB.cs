@@ -164,13 +164,31 @@ namespace TVDBLib
             return banners;
         }
 
-        public string GetImagePath(string path)
+        public string GetImagePath(string path, string seriesid)
         {
-            if (!string.IsNullOrEmpty(path))
+            string remotePath = CombineAll(CombineType.URL, ActiveMirror, "banners", path);
+            string localPath = CombineAll(CombineType.File, Cache.CachePath, "series", seriesid, path);
+            try
             {
-                return CombineURL(CombineURL(ActiveMirror, "banners"), path);
+                if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(seriesid))
+                {
+                    if (!File.Exists(localPath))
+                    {
+                        string directory = Path.GetDirectoryName(localPath);
+                        if (!Directory.Exists(directory))
+                        {
+                            Directory.CreateDirectory(directory);
+                        }
+                        new WebClient().DownloadFile(remotePath, localPath);
+                    }
+                    return localPath;
+                }
             }
-            return "";
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return remotePath;
         }
 
         //http://thetvdb.com/api/90EAA040C265FB5D/series/73739/default/2/13/en.xml
@@ -487,6 +505,24 @@ namespace TVDBLib
                 url2 = url2.Remove(0, 1);
             }
             return url1 + "/" + url2;
+        }
+
+        private string CombineAll(CombineType type, params string[] paths)
+        {
+            string path = paths[0];
+            for (int i = 1; i < paths.Length; i++)
+            {
+                if (type == CombineType.File)
+                {
+                    path = Path.Combine(path, paths[i]);
+                }
+                else
+                {
+                    path = CombineURL(path, paths[i]);
+                }
+            }
+            if (type == CombineType.File) path = path.Replace('/', '\\');
+            return path;
         }
 
         #endregion

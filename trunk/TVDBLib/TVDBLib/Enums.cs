@@ -30,4 +30,5 @@ namespace TVDBLib
 {
     public enum FileType { ZIP, XML }
     public enum UpdatesType { Series, Episode, All, None }
+    public enum CombineType { File, URL }
 }

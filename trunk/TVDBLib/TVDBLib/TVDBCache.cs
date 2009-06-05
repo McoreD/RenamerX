@@ -70,6 +70,11 @@ namespace TVDBLib
             return Check(path, string.Format(@"series\{0}\{1}.xml", seriesid, language));
         }
 
+        public XDocument CheckBanners(string path, string seriesid)
+        {
+            return Check(path, string.Format(@"series\{0}\banners.xml", seriesid));
+        }
+
         public bool SeriesExist(string seriesid, string language)
         {
             return Directory.Exists(Path.Combine(CachePath, @"series\" + seriesid));
@@ -78,6 +83,11 @@ namespace TVDBLib
         public XDocument CheckSeriesFull(string path, string seriesid, string language)
         {
             return Check(path, string.Format(@"series\{0}\all\{1}.xml", seriesid, language));
+        }
+
+        public List<SeriesPacket> CheckSeriesFullZIP(string path, string seriesid, string language)
+        {
+            return CheckZIP(path, string.Format(@"series\{0}\all", seriesid), language);
         }
 
         public XDocument CheckLanguages(string path)
@@ -90,9 +100,9 @@ namespace TVDBLib
             return Check(path, "mirrors.xml");
         }
 
-        private XDocument Check(string path, string path2)
+        private XDocument Check(string path, string localPath)
         {
-            string localPath = Path.Combine(CachePath, path2);
+            localPath = Path.Combine(CachePath, localPath);
             XDocument xml = null;
             if (CacheLoad)
             {
@@ -100,20 +110,44 @@ namespace TVDBLib
             }
             if (xml == null)
             {
-                if (path.EndsWith(".zip", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    xml = XDocument.Parse(DownloadZIP(path, Path.GetFileName(localPath)));
-                }
-                else
-                {
-                    xml = XDocument.Load(path);
-                }
+                xml = XDocument.Load(path);
                 if (CacheSave)
                 {
                     Save(xml, localPath);
                 }
             }
             return xml;
+        }
+
+        private List<SeriesPacket> CheckZIP(string path, string path2, string language)
+        {
+            string localPath = Path.Combine(CachePath, path2);
+            List<SeriesPacket> seriesPackets = new List<SeriesPacket>();
+            if (CacheLoad)
+            {
+                string[] filenames = new[] { language + ".xml", "actors.xml", "banners.xml" };
+                foreach (string filename in filenames)
+                {
+                    string localPath2 = Path.Combine(localPath, filename);
+                    XDocument load = Load(localPath2);
+                    if (load != null)
+                    {
+                        seriesPackets.Add(new SeriesPacket(filename, load));
+                    }
+                }
+            }
+            if (seriesPackets.Count != 3)
+            {
+                seriesPackets = DownloadZIP(path);
+                foreach (SeriesPacket series in seriesPackets)
+                {
+                    if (CacheSave)
+                    {
+                        Save(series.Data, Path.Combine(localPath, series.Filename));
+                    }
+                }
+            }
+            return seriesPackets;
         }
 
         private XDocument Load(string path)
@@ -136,24 +170,20 @@ namespace TVDBLib
             return true;
         }
 
-        private string DownloadZIP(string path, string filename)
+        private List<SeriesPacket> DownloadZIP(string path)
         {
-            WebClient webClient = new WebClient();
-            byte[] data = webClient.DownloadData(path);
+            List<SeriesPacket> seriesPackets = new List<SeriesPacket>();
+            byte[] data = new WebClient().DownloadData(path);
             ZipInputStream zip = new ZipInputStream(new MemoryStream(data));
-            ZipEntry entry = zip.GetNextEntry();
-            while (entry != null)
+            ZipEntry entry;
+            while ((entry = zip.GetNextEntry()) != null)
             {
                 byte[] buffer = new byte[zip.Length];
                 int count = zip.Read(buffer, 0, (int)zip.Length);
-                if (entry.Name.Equals(filename))
-                {
-                    return Encoding.UTF8.GetString(buffer);
-                }
-                entry = zip.GetNextEntry();
+                seriesPackets.Add(new SeriesPacket(entry.Name, buffer));
             }
             zip.Close();
-            return null;
+            return seriesPackets;
         }
     }
 }

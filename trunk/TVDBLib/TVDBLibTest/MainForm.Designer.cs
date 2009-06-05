@@ -45,10 +45,9 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.propertyListView1 = new TVDBLibTest.PropertyListView();
             this.tvEpisodes = new System.Windows.Forms.TreeView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tpSeries = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lbEpisodeName = new System.Windows.Forms.Label();
             this.lblEpisodeNumber = new System.Windows.Forms.Label();
@@ -57,10 +56,16 @@
             this.txtSeasonNumber = new System.Windows.Forms.TextBox();
             this.txtEpisodeName = new System.Windows.Forms.TextBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.propertyListView2 = new TVDBLibTest.PropertyListView();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tpBanners = new System.Windows.Forms.TabPage();
+            this.pbBanner = new System.Windows.Forms.PictureBox();
+            this.lvBanners = new System.Windows.Forms.ListView();
+            this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
+            this.tpSettings = new System.Windows.Forms.TabPage();
+            this.tpConsole = new System.Windows.Forms.TabPage();
             this.txtConsole = new System.Windows.Forms.TextBox();
+            this.plvEpisodes = new TVDBLibTest.PropertyListView();
+            this.plvSeries = new TVDBLibTest.PropertyListView();
+            this.plvBanners = new TVDBLibTest.PropertyListView();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -68,13 +73,15 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tpSeries.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.tpBanners.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBanner)).BeginInit();
+            this.tpSettings.SuspendLayout();
+            this.tpConsole.SuspendLayout();
             this.SuspendLayout();
             // 
             // lvLanguages
@@ -239,18 +246,10 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.propertyListView1);
+            this.splitContainer1.Panel2.Controls.Add(this.plvSeries);
             this.splitContainer1.Size = new System.Drawing.Size(607, 682);
             this.splitContainer1.SplitterDistance = 280;
             this.splitContainer1.TabIndex = 15;
-            // 
-            // propertyListView1
-            // 
-            this.propertyListView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propertyListView1.Location = new System.Drawing.Point(0, 0);
-            this.propertyListView1.Name = "propertyListView1";
-            this.propertyListView1.Size = new System.Drawing.Size(607, 398);
-            this.propertyListView1.TabIndex = 0;
             // 
             // tvEpisodes
             // 
@@ -264,9 +263,10 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tpSeries);
+            this.tabControl1.Controls.Add(this.tpBanners);
+            this.tabControl1.Controls.Add(this.tpSettings);
+            this.tabControl1.Controls.Add(this.tpConsole);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -274,17 +274,17 @@
             this.tabControl1.Size = new System.Drawing.Size(1203, 765);
             this.tabControl1.TabIndex = 13;
             // 
-            // tabPage1
+            // tpSeries
             // 
-            this.tabPage1.Controls.Add(this.groupBox4);
-            this.tabPage1.Controls.Add(this.groupBox3);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1195, 739);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Series";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tpSeries.Controls.Add(this.groupBox4);
+            this.tpSeries.Controls.Add(this.groupBox3);
+            this.tpSeries.Location = new System.Drawing.Point(4, 22);
+            this.tpSeries.Name = "tpSeries";
+            this.tpSeries.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSeries.Size = new System.Drawing.Size(1195, 739);
+            this.tpSeries.TabIndex = 0;
+            this.tpSeries.Text = "Series";
+            this.tpSeries.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
@@ -367,41 +367,74 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.propertyListView2);
+            this.splitContainer2.Panel2.Controls.Add(this.plvEpisodes);
             this.splitContainer2.Size = new System.Drawing.Size(562, 682);
             this.splitContainer2.SplitterDistance = 298;
             this.splitContainer2.TabIndex = 14;
             // 
-            // propertyListView2
+            // tpBanners
             // 
-            this.propertyListView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propertyListView2.Location = new System.Drawing.Point(0, 0);
-            this.propertyListView2.Name = "propertyListView2";
-            this.propertyListView2.Size = new System.Drawing.Size(562, 380);
-            this.propertyListView2.TabIndex = 0;
+            this.tpBanners.Controls.Add(this.pbBanner);
+            this.tpBanners.Controls.Add(this.plvBanners);
+            this.tpBanners.Controls.Add(this.lvBanners);
+            this.tpBanners.Location = new System.Drawing.Point(4, 22);
+            this.tpBanners.Name = "tpBanners";
+            this.tpBanners.Padding = new System.Windows.Forms.Padding(3);
+            this.tpBanners.Size = new System.Drawing.Size(1195, 739);
+            this.tpBanners.TabIndex = 3;
+            this.tpBanners.Text = "Banners";
+            this.tpBanners.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // pbBanner
             // 
-            this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1195, 739);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Settings";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.pbBanner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbBanner.Location = new System.Drawing.Point(392, 8);
+            this.pbBanner.Name = "pbBanner";
+            this.pbBanner.Size = new System.Drawing.Size(792, 720);
+            this.pbBanner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbBanner.TabIndex = 2;
+            this.pbBanner.TabStop = false;
             // 
-            // tabPage3
+            // lvBanners
             // 
-            this.tabPage3.Controls.Add(this.txtConsole);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1195, 739);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Console";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.lvBanners.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader9});
+            this.lvBanners.FullRowSelect = true;
+            this.lvBanners.Location = new System.Drawing.Point(8, 8);
+            this.lvBanners.Name = "lvBanners";
+            this.lvBanners.Size = new System.Drawing.Size(376, 488);
+            this.lvBanners.TabIndex = 0;
+            this.lvBanners.UseCompatibleStateImageBehavior = false;
+            this.lvBanners.View = System.Windows.Forms.View.Details;
+            this.lvBanners.SelectedIndexChanged += new System.EventHandler(this.lvBanners_SelectedIndexChanged);
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Banner Path";
+            this.columnHeader9.Width = 386;
+            // 
+            // tpSettings
+            // 
+            this.tpSettings.Controls.Add(this.groupBox1);
+            this.tpSettings.Controls.Add(this.groupBox2);
+            this.tpSettings.Location = new System.Drawing.Point(4, 22);
+            this.tpSettings.Name = "tpSettings";
+            this.tpSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSettings.Size = new System.Drawing.Size(1195, 739);
+            this.tpSettings.TabIndex = 1;
+            this.tpSettings.Text = "Settings";
+            this.tpSettings.UseVisualStyleBackColor = true;
+            // 
+            // tpConsole
+            // 
+            this.tpConsole.Controls.Add(this.txtConsole);
+            this.tpConsole.Location = new System.Drawing.Point(4, 22);
+            this.tpConsole.Name = "tpConsole";
+            this.tpConsole.Padding = new System.Windows.Forms.Padding(3);
+            this.tpConsole.Size = new System.Drawing.Size(1195, 739);
+            this.tpConsole.TabIndex = 2;
+            this.tpConsole.Text = "Console";
+            this.tpConsole.UseVisualStyleBackColor = true;
             // 
             // txtConsole
             // 
@@ -412,6 +445,29 @@
             this.txtConsole.Name = "txtConsole";
             this.txtConsole.Size = new System.Drawing.Size(1189, 733);
             this.txtConsole.TabIndex = 0;
+            // 
+            // plvEpisodes
+            // 
+            this.plvEpisodes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plvEpisodes.Location = new System.Drawing.Point(0, 0);
+            this.plvEpisodes.Name = "plvEpisodes";
+            this.plvEpisodes.Size = new System.Drawing.Size(562, 380);
+            this.plvEpisodes.TabIndex = 0;
+            // 
+            // plvSeries
+            // 
+            this.plvSeries.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plvSeries.Location = new System.Drawing.Point(0, 0);
+            this.plvSeries.Name = "plvSeries";
+            this.plvSeries.Size = new System.Drawing.Size(607, 398);
+            this.plvSeries.TabIndex = 0;
+            // 
+            // plvBanners
+            // 
+            this.plvBanners.Location = new System.Drawing.Point(8, 504);
+            this.plvBanners.Name = "plvBanners";
+            this.plvBanners.Size = new System.Drawing.Size(376, 224);
+            this.plvBanners.TabIndex = 1;
             // 
             // MainForm
             // 
@@ -431,15 +487,17 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.tpSeries.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.tpBanners.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbBanner)).EndInit();
+            this.tpSettings.ResumeLayout(false);
+            this.tpConsole.ResumeLayout(false);
+            this.tpConsole.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -464,21 +522,26 @@
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.TreeView tvEpisodes;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tpSeries;
+        private System.Windows.Forms.TabPage tpSettings;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private PropertyListView propertyListView1;
-        private PropertyListView propertyListView2;
+        private PropertyListView plvSeries;
+        private PropertyListView plvEpisodes;
         private System.Windows.Forms.Label lblEpisodeNumber;
         private System.Windows.Forms.Label lblSeasonNumber;
         private System.Windows.Forms.TextBox txtEpisodeNumber;
         private System.Windows.Forms.TextBox txtSeasonNumber;
         private System.Windows.Forms.TextBox txtEpisodeName;
         private System.Windows.Forms.Label lbEpisodeName;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tpConsole;
         private System.Windows.Forms.TextBox txtConsole;
+        private System.Windows.Forms.TabPage tpBanners;
+        private System.Windows.Forms.ListView lvBanners;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.PictureBox pbBanner;
+        private PropertyListView plvBanners;
     }
 }
 

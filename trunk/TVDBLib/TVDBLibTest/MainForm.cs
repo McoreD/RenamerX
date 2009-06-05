@@ -38,7 +38,7 @@ namespace TVDBLibTest
     public partial class MainForm : Form
     {
         private TVDB tvdb;
-        SeriesAll seriesCache;
+        SeriesFull seriesCache;
 
         public MainForm()
         {
@@ -123,8 +123,18 @@ namespace TVDBLibTest
             if (lvSeries.SelectedItems.Count > 0)
             {
                 seriesCache = tvdb.GetSeriesFullInformation(((Series)lvSeries.SelectedItems[0].Tag).ID.ToString(), FileType.ZIP);
-                propertyListView1.SelectedObject = seriesCache.Series;
+                plvSeries.SelectedObject = seriesCache.Series;
                 FillEpisodes(seriesCache.Episodes);
+                FillBanners(seriesCache.Banners);
+            }
+        }
+
+        private void FillBanners(List<Banner> banners)
+        {
+            lvBanners.Items.Clear();
+            foreach (Banner banner in seriesCache.Banners)
+            {
+                lvBanners.Items.Add(banner.BannerPath).Tag = banner;
             }
         }
 
@@ -158,7 +168,7 @@ namespace TVDBLibTest
         {
             if (lvSeries.SelectedItems.Count > 0)
             {
-                propertyListView1.SelectedObject = (Series)lvSeries.SelectedItems[0].Tag;
+                plvSeries.SelectedObject = (Series)lvSeries.SelectedItems[0].Tag;
             }
         }
 
@@ -166,7 +176,7 @@ namespace TVDBLibTest
         {
             if (tvEpisodes.SelectedNode.Tag.GetType() == typeof(Episode))
             {
-                propertyListView2.SelectedObject = (Episode)tvEpisodes.SelectedNode.Tag;
+                plvEpisodes.SelectedObject = (Episode)tvEpisodes.SelectedNode.Tag;
             }
         }
 
@@ -181,6 +191,16 @@ namespace TVDBLibTest
         private void btnLoadSettings_Click(object sender, EventArgs e)
         {
             LoadSettings();
+        }
+
+        private void lvBanners_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvBanners.SelectedItems.Count > 0)
+            {
+                Banner banner = (Banner)lvBanners.SelectedItems[0].Tag;
+                plvBanners.SelectedObject = banner;
+                pbBanner.ImageLocation = tvdb.GetBannerPath(banner.BannerPath);
+            }
         }
     }
 }

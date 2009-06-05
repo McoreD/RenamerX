@@ -127,6 +127,24 @@ namespace TVDBLib
             return series;
         }
 
+        //http://thetvdb.com/api/90EAA040C265FB5D/series/73739/actors.xml
+        public List<Actor> GetActors(string seriesid)
+        {
+            List<Actor> actors = new List<Actor>();
+            string path = string.Format("{0}/api/{1}/series/{2}/actors.xml", ActiveMirror, APIKey, seriesid);
+            ConsoleWriteLine("GetActors: " + path);
+            try
+            {
+                XDocument xml = Cache.CheckBanners(path, seriesid);
+                actors = ParseActors(xml);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return actors;
+        }
+
         //http://thetvdb.com/api/90EAA040C265FB5D/series/73739/banners.xml
         //http://thetvdb.com/wiki/index.php/API:banners.xml
         public List<Banner> GetBanners(string seriesid)
@@ -146,30 +164,13 @@ namespace TVDBLib
             return banners;
         }
 
-        public string GetBannerPath(string path)
+        public string GetImagePath(string path)
         {
             if (!string.IsNullOrEmpty(path))
             {
                 return CombineURL(CombineURL(ActiveMirror, "banners"), path);
             }
             return "";
-        }
-
-        private string CombineURL(string url1, string url2)
-        {
-            if (string.IsNullOrEmpty(url1) || string.IsNullOrEmpty(url2))
-            {
-                return "";
-            }
-            if (url1.EndsWith("/"))
-            {
-                url1 = url1.Substring(0, url1.Length - 1);
-            }
-            if (url2.StartsWith("/"))
-            {
-                url2 = url2.Remove(0, 1);
-            }
-            return url1 + "/" + url2;
         }
 
         //http://thetvdb.com/api/90EAA040C265FB5D/series/73739/default/2/13/en.xml
@@ -215,6 +216,10 @@ namespace TVDBLib
                         {
                             seriesFull.Series = ParseSerie(seriesPacket.Data.Descendants("Series").ElementAt(0));
                             seriesFull.Episodes = ParseEpisodes(seriesPacket.Data);
+                        }
+                        else if (seriesPacket.Filename == "actors.xml")
+                        {
+                            seriesFull.Actors = ParseActors(seriesPacket.Data);
                         }
                         else if (seriesPacket.Filename == "banners.xml")
                         {
@@ -439,6 +444,49 @@ namespace TVDBLib
             banner.ThumbnailPath = xe.ToString("ThumbnailPath");
             banner.VignettePath = xe.ToString("VignettePath");
             return banner;
+        }
+
+        private List<Actor> ParseActors(string path)
+        {
+            return ParseActors(XDocument.Load(path));
+        }
+
+        private List<Actor> ParseActors(XDocument xml)
+        {
+            List<Actor> actors = new List<Actor>();
+            foreach (XElement actor in xml.Descendants("Actor"))
+            {
+                actors.Add(ParseActor(actor));
+            }
+            return actors;
+        }
+
+        private Actor ParseActor(XElement xe)
+        {
+            Actor actor = new Actor();
+            actor.ID = xe.ToString("id");
+            actor.Image = xe.ToString("Image");
+            actor.Name = xe.ToString("Name");
+            actor.Role = xe.ToString("Role");
+            actor.SortOrder = xe.ToString("SortOrder");
+            return actor;
+        }
+
+        private string CombineURL(string url1, string url2)
+        {
+            if (string.IsNullOrEmpty(url1) || string.IsNullOrEmpty(url2))
+            {
+                return "";
+            }
+            if (url1.EndsWith("/"))
+            {
+                url1 = url1.Substring(0, url1.Length - 1);
+            }
+            if (url2.StartsWith("/"))
+            {
+                url2 = url2.Remove(0, 1);
+            }
+            return url1 + "/" + url2;
         }
 
         #endregion

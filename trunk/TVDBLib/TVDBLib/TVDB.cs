@@ -338,14 +338,14 @@ namespace TVDBLib
             return updates;
         }
 
-        #region Private Methods
+        #region Static Methods
 
-        private List<Series> ParseSeries(string path)
+        private static List<Series> ParseSeries(string path)
         {
             return ParseSeries(XDocument.Load(path));
         }
 
-        private List<Series> ParseSeries(XDocument xml)
+        private static List<Series> ParseSeries(XDocument xml)
         {
             List<Series> series = new List<Series>();
             foreach (XElement serie in xml.Descendants("Series"))
@@ -355,7 +355,7 @@ namespace TVDBLib
             return series;
         }
 
-        private Series ParseSerie(XElement xe)
+        private static Series ParseSerie(XElement xe)
         {
             Series series = new Series();
             series.ID = xe.ToString("id");
@@ -385,12 +385,12 @@ namespace TVDBLib
             return series;
         }
 
-        private List<Episode> ParseEpisodes(string path)
+        private static List<Episode> ParseEpisodes(string path)
         {
             return ParseEpisodes(XDocument.Load(path));
         }
 
-        private List<Episode> ParseEpisodes(XDocument xml)
+        private static List<Episode> ParseEpisodes(XDocument xml)
         {
             List<Episode> episodes = new List<Episode>();
             foreach (XElement episode in xml.Descendants("Episode"))
@@ -400,7 +400,7 @@ namespace TVDBLib
             return episodes;
         }
 
-        private Episode ParseEpisode(XElement xe)
+        private static Episode ParseEpisode(XElement xe)
         {
             Episode episode = new Episode();
             episode.ID = xe.ToString("id");
@@ -434,12 +434,12 @@ namespace TVDBLib
             return episode;
         }
 
-        private List<Banner> ParseBanners(string path)
+        private static List<Banner> ParseBanners(string path)
         {
             return ParseBanners(XDocument.Load(path));
         }
 
-        private List<Banner> ParseBanners(XDocument xml)
+        private static List<Banner> ParseBanners(XDocument xml)
         {
             List<Banner> banners = new List<Banner>();
             foreach (XElement banner in xml.Descendants("Banner"))
@@ -449,7 +449,7 @@ namespace TVDBLib
             return banners;
         }
 
-        private Banner ParseBanner(XElement xe)
+        private static Banner ParseBanner(XElement xe)
         {
             Banner banner = new Banner();
             banner.ID = xe.ToString("id");
@@ -464,12 +464,12 @@ namespace TVDBLib
             return banner;
         }
 
-        private List<Actor> ParseActors(string path)
+        private static List<Actor> ParseActors(string path)
         {
             return ParseActors(XDocument.Load(path));
         }
 
-        private List<Actor> ParseActors(XDocument xml)
+        private static List<Actor> ParseActors(XDocument xml)
         {
             List<Actor> actors = new List<Actor>();
             foreach (XElement actor in xml.Descendants("Actor"))
@@ -479,7 +479,7 @@ namespace TVDBLib
             return actors;
         }
 
-        private Actor ParseActor(XElement xe)
+        private static Actor ParseActor(XElement xe)
         {
             Actor actor = new Actor();
             actor.ID = xe.ToString("id");
@@ -490,7 +490,7 @@ namespace TVDBLib
             return actor;
         }
 
-        private string CombineURL(string url1, string url2)
+        public static string CombineURL(string url1, string url2)
         {
             if (string.IsNullOrEmpty(url1) || string.IsNullOrEmpty(url2))
             {
@@ -507,21 +507,32 @@ namespace TVDBLib
             return url1 + "/" + url2;
         }
 
-        private string CombineAll(CombineType type, params string[] paths)
+        public static string CombineAll(params string[] paths)
+        {
+            return CombineAll(CombineType.File, paths);
+        }
+
+        public static string CombineAll(CombineType type, params string[] paths)
         {
             string path = paths[0];
-            for (int i = 1; i < paths.Length; i++)
+            if (paths.Length > 1)
             {
+                for (int i = 1; i < paths.Length; i++)
+                {
+                    if (type == CombineType.File)
+                    {
+                        path = Path.Combine(path, paths[i]);
+                    }
+                    else
+                    {
+                        path = CombineURL(path, paths[i]);
+                    }
+                }
                 if (type == CombineType.File)
                 {
-                    path = Path.Combine(path, paths[i]);
-                }
-                else
-                {
-                    path = CombineURL(path, paths[i]);
+                    path = path.Replace('/', '\\');
                 }
             }
-            if (type == CombineType.File) path = path.Replace('/', '\\');
             return path;
         }
 

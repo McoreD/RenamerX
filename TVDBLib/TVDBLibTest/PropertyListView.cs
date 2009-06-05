@@ -71,13 +71,21 @@ namespace TVDBLibTest
                         lvProperty.Items.Add(property.Name).SubItems.Add(value2);
                     }
                 }
-                AutoSizeColumns();
             }
+            AutoSizeColumns();
         }
 
         private void AutoSizeColumns()
         {
-            lvProperty.Columns[1].Width = lvProperty.ClientSize.Width - lvProperty.Columns[0].Width;
+            int size = lvProperty.ClientSize.Width - lvProperty.Columns[0].Width;
+            if (size > 0)
+            {
+                lvProperty.Columns[1].Width = size;
+            }
+            else
+            {
+                lvProperty.Columns[1].Width = -2;
+            }
         }
 
         protected override void OnPaint(PaintEventArgs e)

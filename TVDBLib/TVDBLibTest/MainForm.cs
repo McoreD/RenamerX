@@ -51,7 +51,7 @@ namespace TVDBLibTest
         {
             if (string.IsNullOrEmpty(Settings.Default.CachePath))
             {
-                Settings.Default.CachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), Path.Combine("TVDB", "TVDB Cache"));
+                Settings.Default.CachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "TVDB Cache");
             }
             tvdb = new TVDB(Settings.Default.CachePath);
             tvdb.Debug += new TVDB.StringEventHandler(tvdb_Debug);
@@ -244,9 +244,9 @@ namespace TVDBLibTest
             if (lvActors.SelectedItems.Count > 0)
             {
                 Actor actor = (Actor)lvActors.SelectedItems[0].Tag;
-                plvActors.SelectedObject = actor;
-                pbActors.SizeMode = PictureBoxSizeMode.CenterImage;
-                pbActors.Image = TVDBLibTest.Properties.Resources.loading;
+                plvBanners.SelectedObject = actor;
+                pbBanner.SizeMode = PictureBoxSizeMode.CenterImage;
+                pbBanner.Image = TVDBLibTest.Properties.Resources.loading;
                 BackgroundWorker bw = new BackgroundWorker();
                 bw.DoWork += new DoWorkEventHandler(Actors_DoWork);
                 bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(Actors_RunWorkerCompleted);
@@ -261,8 +261,14 @@ namespace TVDBLibTest
 
         private void Actors_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            pbActors.Image = new Bitmap(1, 1);
-            pbActors.ImageLocation = (string)e.Result;
+            pbBanner.Image = new Bitmap(1, 1);
+            pbBanner.SizeMode = PictureBoxSizeMode.CenterImage;
+            pbBanner.ImageLocation = (string)e.Result;
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Settings.Default.Save();
         }
     }
 }

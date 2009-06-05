@@ -86,7 +86,7 @@ namespace TVDBLib
                         if (Cache.SeriesExist(seriesid, ActiveLanguage))
                         {
                             ConsoleWriteLine("Update found: " + seriesid);
-                            DownloadSeriesFull(seriesid, FileType.ZIP);
+                            GetSeriesFullInformation(seriesid, FileType.ZIP);
                         }
                     }
                 }
@@ -128,9 +128,48 @@ namespace TVDBLib
         }
 
         //http://thetvdb.com/api/90EAA040C265FB5D/series/73739/banners.xml
-        public void GetBanners(string seriesid) //TODO
+        //http://thetvdb.com/wiki/index.php/API:banners.xml
+        public List<Banner> GetBanners(string seriesid)
         {
+            List<Banner> banners = new List<Banner>();
             string path = string.Format("{0}/api/{1}/series/{2}/banners.xml", ActiveMirror, APIKey, seriesid);
+            ConsoleWriteLine("GetBanners: " + path);
+            try
+            {
+                XDocument xml = Cache.CheckBanners(path, seriesid);
+                banners = ParseBanners(xml);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return banners;
+        }
+
+        public string GetBannerPath(string path)
+        {
+            if (!string.IsNullOrEmpty(path))
+            {
+                return CombineURL(CombineURL(ActiveMirror, "banners"), path);
+            }
+            return "";
+        }
+
+        private string CombineURL(string url1, string url2)
+        {
+            if (string.IsNullOrEmpty(url1) || string.IsNullOrEmpty(url2))
+            {
+                return "";
+            }
+            if (url1.EndsWith("/"))
+            {
+                url1 = url1.Substring(0, url1.Length - 1);
+            }
+            if (url2.StartsWith("/"))
+            {
+                url2 = url2.Remove(0, 1);
+            }
+            return url1 + "/" + url2;
         }
 
         //http://thetvdb.com/api/90EAA040C265FB5D/series/73739/default/2/13/en.xml
@@ -153,27 +192,42 @@ namespace TVDBLib
 
         //http://thetvdb.com/api/90EAA040C265FB5D/series/73739/all/en.xml
         //http://thetvdb.com/api/90EAA040C265FB5D/series/73739/all/en.zip
-        public SeriesAll GetSeriesFullInformation(string seriesid, FileType fileType)
+        public SeriesFull GetSeriesFullInformation(string seriesid, FileType fileType)
         {
+            SeriesFull seriesFull = new SeriesFull();
             try
             {
-                XDocument xml = DownloadSeriesFull(seriesid, fileType);
-                Series series = ParseSerie(xml.Descendants("Series").ElementAt(0));
-                List<Episode> episodes = ParseEpisodes(xml);
-                return new SeriesAll(series, episodes);
+                string path = string.Format("{0}/api/{1}/series/{2}/all/{3}.{4}", ActiveMirror, APIKey, seriesid, ActiveLanguage, fileType.ToString().ToLowerInvariant());
+                ConsoleWriteLine("DownloadSeriesFull: " + path);
+                if (fileType == FileType.XML)
+                {
+                    XDocument xml = Cache.CheckSeriesFull(path, seriesid, ActiveLanguage);
+                    seriesFull.Series = ParseSerie(xml.Descendants("Series").ElementAt(0));
+                    seriesFull.Episodes = ParseEpisodes(xml);
+                }
+                else
+                {
+                    List<SeriesPacket> seriesPackets = Cache.CheckSeriesFullZIP(path, seriesid, ActiveLanguage);
+                    foreach (SeriesPacket seriesPacket in seriesPackets)
+                    {
+                        seriesPacket.Filename = seriesPacket.Filename.ToLowerInvariant();
+                        if (seriesPacket.Filename == ActiveLanguage + ".xml")
+                        {
+                            seriesFull.Series = ParseSerie(seriesPacket.Data.Descendants("Series").ElementAt(0));
+                            seriesFull.Episodes = ParseEpisodes(seriesPacket.Data);
+                        }
+                        else if (seriesPacket.Filename == "banners.xml")
+                        {
+                            seriesFull.Banners = ParseBanners(seriesPacket.Data);
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
-            return null;
-        }
-
-        private XDocument DownloadSeriesFull(string seriesid, FileType fileType)
-        {
-            string path = string.Format("{0}/api/{1}/series/{2}/all/{3}.{4}", ActiveMirror, APIKey, seriesid, ActiveLanguage, fileType.ToString().ToLowerInvariant());
-            ConsoleWriteLine("DownloadSeriesFull: " + path);
-            return Cache.CheckSeriesFull(path, seriesid, ActiveLanguage);
+            return seriesFull;
         }
 
         //http://thetvdb.com/api/90EAA040C265FB5D/languages.xml
@@ -316,16 +370,9 @@ namespace TVDBLib
         private List<Episode> ParseEpisodes(XDocument xml)
         {
             List<Episode> episodes = new List<Episode>();
-            try
+            foreach (XElement episode in xml.Descendants("Episode"))
             {
-                foreach (XElement episode in xml.Descendants("Episode"))
-                {
-                    episodes.Add(ParseEpisode(episode));
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
+                episodes.Add(ParseEpisode(episode));
             }
             return episodes;
         }
@@ -362,6 +409,36 @@ namespace TVDBLib
             episode.SeasonID = xe.ToString("seasonid");
             episode.SeriesID = xe.ToString("seriesid");
             return episode;
+        }
+
+        private List<Banner> ParseBanners(string path)
+        {
+            return ParseBanners(XDocument.Load(path));
+        }
+
+        private List<Banner> ParseBanners(XDocument xml)
+        {
+            List<Banner> banners = new List<Banner>();
+            foreach (XElement banner in xml.Descendants("Banner"))
+            {
+                banners.Add(ParseBanner(banner));
+            }
+            return banners;
+        }
+
+        private Banner ParseBanner(XElement xe)
+        {
+            Banner banner = new Banner();
+            banner.ID = xe.ToString("id");
+            banner.BannerPath = xe.ToString("BannerPath");
+            banner.BannerType = xe.ToString("BannerType");
+            banner.BannerType2 = xe.ToString("BannerType2");
+            banner.Colors = xe.ToString("Colors");
+            banner.Language = xe.ToString("Language");
+            banner.SeriesName = xe.ToString("SeriesName");
+            banner.ThumbnailPath = xe.ToString("ThumbnailPath");
+            banner.VignettePath = xe.ToString("VignettePath");
+            return banner;
         }
 
         #endregion

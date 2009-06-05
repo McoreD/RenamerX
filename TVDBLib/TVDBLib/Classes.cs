@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace TVDBLib
 {
@@ -172,15 +173,55 @@ namespace TVDBLib
         public string SeriesID { get; set; }
     }
 
-    public class SeriesAll
+    #region Banner
+    /*
+    <Banner>
+        <id>23089</id>
+        <BannerPath>fanart/original/73739-15.jpg</BannerPath>
+        <BannerType>fanart</BannerType>
+        <BannerType2>1920x1080</BannerType2>
+        <Colors>|255,255,255|0,0,0|181,199,209|</Colors>
+
+        <Language>en</Language>
+        <SeriesName>false</SeriesName>
+        <ThumbnailPath>_cache/fanart/original/73739-15.jpg</ThumbnailPath>
+        <VignettePath>fanart/vignette/73739-15.jpg</VignettePath>
+    </Banner>
+    */
+    #endregion
+
+    public class Banner
+    {
+        public string ID { get; set; }
+        public string BannerPath { get; set; }
+        public string BannerType { get; set; }
+        public string BannerType2 { get; set; }
+        public string Colors { get; set; }
+        public string Language { get; set; }
+        public string SeriesName { get; set; }
+        public string ThumbnailPath { get; set; }
+        public string VignettePath { get; set; }
+    }
+
+    public class SeriesFull
     {
         public Series Series = new Series();
         public List<Episode> Episodes = new List<Episode>();
+        public List<Banner> Banners = new List<Banner>();
 
-        public SeriesAll(Series series, List<Episode> episodes)
+        public SeriesFull() { }
+
+        public SeriesFull(Series series, List<Episode> episodes)
         {
             this.Series = series;
             this.Episodes = episodes;
+        }
+
+        public SeriesFull(Series series, List<Episode> episodes, List<Banner> banners)
+        {
+            this.Series = series;
+            this.Episodes = episodes;
+            this.Banners = banners;
         }
     }
 
@@ -189,5 +230,23 @@ namespace TVDBLib
         public string Time;
         public List<string> Series = new List<string>();
         public List<string> Episodes = new List<string>();
+    }
+
+    public class SeriesPacket
+    {
+        public string Filename;
+        public XDocument Data;
+
+        public SeriesPacket(string filename, byte[] data)
+        {
+            this.Filename = filename;
+            this.Data = XDocument.Parse(Encoding.UTF8.GetString(data));
+        }
+
+        public SeriesPacket(string filename, XDocument data)
+        {
+            this.Filename = filename;
+            this.Data = data;
+        }
     }
 }

@@ -32,6 +32,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.IO;
 using TVDBLib;
+using TVDBLibTest.Properties;
 
 namespace TVDBLibTest
 {
@@ -48,7 +49,11 @@ namespace TVDBLibTest
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            tvdb = new TVDB(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "TVDB Cache"));
+            if (string.IsNullOrEmpty(Settings.Default.CachePath))
+            {
+                Settings.Default.CachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), Path.Combine("TVDB", "TVDB Cache"));
+            }
+            tvdb = new TVDB(Settings.Default.CachePath);
             tvdb.Debug += new TVDB.StringEventHandler(tvdb_Debug);
             tvdb.CacheWorking = true;
             LoadSettings();

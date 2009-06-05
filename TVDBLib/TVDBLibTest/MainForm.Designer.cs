@@ -60,14 +60,14 @@
             this.pbBanner = new System.Windows.Forms.PictureBox();
             this.lvBanners = new System.Windows.Forms.ListView();
             this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
-            this.tpSettings = new System.Windows.Forms.TabPage();
-            this.tpConsole = new System.Windows.Forms.TabPage();
-            this.txtConsole = new System.Windows.Forms.TextBox();
             this.tpActors = new System.Windows.Forms.TabPage();
+            this.pbActors = new System.Windows.Forms.PictureBox();
             this.lvActors = new System.Windows.Forms.ListView();
             this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
-            this.pbActors = new System.Windows.Forms.PictureBox();
+            this.tpSettings = new System.Windows.Forms.TabPage();
+            this.tpConsole = new System.Windows.Forms.TabPage();
+            this.txtConsole = new System.Windows.Forms.TextBox();
             this.plvEpisodes = new TVDBLibTest.PropertyListView();
             this.plvSeries = new TVDBLibTest.PropertyListView();
             this.plvBanners = new TVDBLibTest.PropertyListView();
@@ -86,10 +86,10 @@
             this.splitContainer2.SuspendLayout();
             this.tpBanners.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBanner)).BeginInit();
-            this.tpSettings.SuspendLayout();
-            this.tpConsole.SuspendLayout();
             this.tpActors.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbActors)).BeginInit();
+            this.tpSettings.SuspendLayout();
+            this.tpConsole.SuspendLayout();
             this.SuspendLayout();
             // 
             // lvLanguages
@@ -397,6 +397,9 @@
             // 
             // pbBanner
             // 
+            this.pbBanner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.pbBanner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbBanner.Location = new System.Drawing.Point(392, 8);
             this.pbBanner.Name = "pbBanner";
@@ -422,6 +425,58 @@
             // 
             this.columnHeader9.Text = "Banner Path";
             this.columnHeader9.Width = 334;
+            // 
+            // tpActors
+            // 
+            this.tpActors.Controls.Add(this.plvActors);
+            this.tpActors.Controls.Add(this.pbActors);
+            this.tpActors.Controls.Add(this.lvActors);
+            this.tpActors.Location = new System.Drawing.Point(4, 22);
+            this.tpActors.Name = "tpActors";
+            this.tpActors.Size = new System.Drawing.Size(1195, 739);
+            this.tpActors.TabIndex = 4;
+            this.tpActors.Text = "Actors";
+            this.tpActors.UseVisualStyleBackColor = true;
+            // 
+            // pbActors
+            // 
+            this.pbActors.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbActors.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbActors.Location = new System.Drawing.Point(504, 8);
+            this.pbActors.Name = "pbActors";
+            this.pbActors.Size = new System.Drawing.Size(680, 720);
+            this.pbActors.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbActors.TabIndex = 1;
+            this.pbActors.TabStop = false;
+            // 
+            // lvActors
+            // 
+            this.lvActors.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader10,
+            this.columnHeader11});
+            this.lvActors.FullRowSelect = true;
+            this.lvActors.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lvActors.HideSelection = false;
+            this.lvActors.Location = new System.Drawing.Point(8, 8);
+            this.lvActors.MultiSelect = false;
+            this.lvActors.Name = "lvActors";
+            this.lvActors.Size = new System.Drawing.Size(488, 576);
+            this.lvActors.TabIndex = 0;
+            this.lvActors.UseCompatibleStateImageBehavior = false;
+            this.lvActors.View = System.Windows.Forms.View.Details;
+            this.lvActors.SelectedIndexChanged += new System.EventHandler(this.lvActors_SelectedIndexChanged);
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Name";
+            this.columnHeader10.Width = 225;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Role";
+            this.columnHeader11.Width = 225;
             // 
             // tpSettings
             // 
@@ -455,55 +510,6 @@
             this.txtConsole.Name = "txtConsole";
             this.txtConsole.Size = new System.Drawing.Size(1189, 733);
             this.txtConsole.TabIndex = 0;
-            // 
-            // tpActors
-            // 
-            this.tpActors.Controls.Add(this.plvActors);
-            this.tpActors.Controls.Add(this.pbActors);
-            this.tpActors.Controls.Add(this.lvActors);
-            this.tpActors.Location = new System.Drawing.Point(4, 22);
-            this.tpActors.Name = "tpActors";
-            this.tpActors.Size = new System.Drawing.Size(1195, 739);
-            this.tpActors.TabIndex = 4;
-            this.tpActors.Text = "Actors";
-            this.tpActors.UseVisualStyleBackColor = true;
-            // 
-            // lvActors
-            // 
-            this.lvActors.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader10,
-            this.columnHeader11});
-            this.lvActors.FullRowSelect = true;
-            this.lvActors.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvActors.HideSelection = false;
-            this.lvActors.Location = new System.Drawing.Point(8, 8);
-            this.lvActors.MultiSelect = false;
-            this.lvActors.Name = "lvActors";
-            this.lvActors.Size = new System.Drawing.Size(488, 576);
-            this.lvActors.TabIndex = 0;
-            this.lvActors.UseCompatibleStateImageBehavior = false;
-            this.lvActors.View = System.Windows.Forms.View.Details;
-            this.lvActors.SelectedIndexChanged += new System.EventHandler(this.lvActors_SelectedIndexChanged);
-            // 
-            // columnHeader10
-            // 
-            this.columnHeader10.Text = "Name";
-            this.columnHeader10.Width = 225;
-            // 
-            // columnHeader11
-            // 
-            this.columnHeader11.Text = "Role";
-            this.columnHeader11.Width = 225;
-            // 
-            // pbActors
-            // 
-            this.pbActors.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbActors.Location = new System.Drawing.Point(504, 8);
-            this.pbActors.Name = "pbActors";
-            this.pbActors.Size = new System.Drawing.Size(680, 720);
-            this.pbActors.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pbActors.TabIndex = 1;
-            this.pbActors.TabStop = false;
             // 
             // plvEpisodes
             // 
@@ -561,11 +567,11 @@
             this.splitContainer2.ResumeLayout(false);
             this.tpBanners.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbBanner)).EndInit();
+            this.tpActors.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbActors)).EndInit();
             this.tpSettings.ResumeLayout(false);
             this.tpConsole.ResumeLayout(false);
             this.tpConsole.PerformLayout();
-            this.tpActors.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbActors)).EndInit();
             this.ResumeLayout(false);
 
         }

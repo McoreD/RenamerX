@@ -197,6 +197,7 @@
             this.txtSearchSeries.Name = "txtSearchSeries";
             this.txtSearchSeries.Size = new System.Drawing.Size(512, 20);
             this.txtSearchSeries.TabIndex = 6;
+            this.txtSearchSeries.Text = "Lost";
             // 
             // btnSearchSeries
             // 

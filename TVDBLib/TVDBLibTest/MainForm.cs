@@ -38,7 +38,8 @@ namespace TVDBLibTest
     public partial class MainForm : Form
     {
         private TVDB tvdb;
-        SeriesFull seriesCache;
+        private SeriesFull seriesCache;
+        private string lastSeries;
 
         public MainForm()
         {
@@ -127,6 +128,7 @@ namespace TVDBLibTest
                 FillEpisodes(seriesCache.Episodes);
                 FillActors(seriesCache.Actors);
                 FillBanners(seriesCache.Banners);
+                lastSeries = seriesCache.Series.ID;
             }
         }
 
@@ -211,8 +213,25 @@ namespace TVDBLibTest
             {
                 Banner banner = (Banner)lvBanners.SelectedItems[0].Tag;
                 plvBanners.SelectedObject = banner;
-                pbBanner.ImageLocation = tvdb.GetImagePath(banner.BannerPath);
+                pbBanner.SizeMode = PictureBoxSizeMode.CenterImage;
+                pbBanner.Image = TVDBLibTest.Properties.Resources.loading;
+                BackgroundWorker bw = new BackgroundWorker();
+                bw.DoWork += new DoWorkEventHandler(Banners_DoWork);
+                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(Banners_RunWorkerCompleted);
+                bw.RunWorkerAsync(banner.BannerPath);
             }
+        }
+
+        private void Banners_DoWork(object sender, DoWorkEventArgs e)
+        {
+            e.Result = tvdb.GetImagePath((string)e.Argument, lastSeries);
+        }
+
+        private void Banners_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            pbBanner.Image = new Bitmap(1, 1);
+            pbBanner.SizeMode = PictureBoxSizeMode.Zoom;
+            pbBanner.ImageLocation = (string)e.Result;
         }
 
         private void lvActors_SelectedIndexChanged(object sender, EventArgs e)
@@ -221,8 +240,24 @@ namespace TVDBLibTest
             {
                 Actor actor = (Actor)lvActors.SelectedItems[0].Tag;
                 plvActors.SelectedObject = actor;
-                pbActors.ImageLocation = tvdb.GetImagePath(actor.Image);
+                pbActors.SizeMode = PictureBoxSizeMode.CenterImage;
+                pbActors.Image = TVDBLibTest.Properties.Resources.loading;
+                BackgroundWorker bw = new BackgroundWorker();
+                bw.DoWork += new DoWorkEventHandler(Actors_DoWork);
+                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(Actors_RunWorkerCompleted);
+                bw.RunWorkerAsync(actor.Image);
             }
+        }
+
+        private void Actors_DoWork(object sender, DoWorkEventArgs e)
+        {
+            e.Result = tvdb.GetImagePath((string)e.Argument, lastSeries);
+        }
+
+        private void Actors_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            pbActors.Image = new Bitmap(1, 1);
+            pbActors.ImageLocation = (string)e.Result;
         }
     }
 }

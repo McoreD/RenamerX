@@ -44,7 +44,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.txtSearchSeries = new System.Windows.Forms.TextBox();
+            this.plvSeries = new TVDBLibTest.PropertyListView();
             this.tvEpisodes = new System.Windows.Forms.TreeView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpSeries = new System.Windows.Forms.TabPage();
@@ -56,6 +56,7 @@
             this.txtSeasonNumber = new System.Windows.Forms.TextBox();
             this.txtEpisodeName = new System.Windows.Forms.TextBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.plvEpisodes = new TVDBLibTest.PropertyListView();
             this.tpImages = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -66,13 +67,16 @@
             this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
             this.pbBanner = new System.Windows.Forms.PictureBox();
+            this.plvBanners = new TVDBLibTest.PropertyListView();
             this.tpSettings = new System.Windows.Forms.TabPage();
+            this.propertyGridApp = new System.Windows.Forms.PropertyGrid();
             this.tpConsole = new System.Windows.Forms.TabPage();
             this.txtConsole = new System.Windows.Forms.TextBox();
-            this.propertyGridApp = new System.Windows.Forms.PropertyGrid();
-            this.plvEpisodes = new TVDBLibTest.PropertyListView();
-            this.plvSeries = new TVDBLibTest.PropertyListView();
-            this.plvBanners = new TVDBLibTest.PropertyListView();
+            this.txtLoadSeries = new System.Windows.Forms.TextBox();
+            this.btnLoadSeries = new System.Windows.Forms.Button();
+            this.lblLoadSeriesID = new System.Windows.Forms.Label();
+            this.lblSearchSeriesName = new System.Windows.Forms.Label();
+            this.txtSearchSeries = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -107,7 +111,7 @@
             this.lvLanguages.Location = new System.Drawing.Point(3, 16);
             this.lvLanguages.MultiSelect = false;
             this.lvLanguages.Name = "lvLanguages";
-            this.lvLanguages.Size = new System.Drawing.Size(562, 213);
+            this.lvLanguages.Size = new System.Drawing.Size(578, 213);
             this.lvLanguages.TabIndex = 0;
             this.lvLanguages.UseCompatibleStateImageBehavior = false;
             this.lvLanguages.View = System.Windows.Forms.View.Details;
@@ -141,7 +145,7 @@
             this.lvMirrors.Location = new System.Drawing.Point(3, 16);
             this.lvMirrors.MultiSelect = false;
             this.lvMirrors.Name = "lvMirrors";
-            this.lvMirrors.Size = new System.Drawing.Size(562, 213);
+            this.lvMirrors.Size = new System.Drawing.Size(578, 213);
             this.lvMirrors.TabIndex = 1;
             this.lvMirrors.UseCompatibleStateImageBehavior = false;
             this.lvMirrors.View = System.Windows.Forms.View.Details;
@@ -195,9 +199,9 @@
             // 
             // btnSearchSeries
             // 
-            this.btnSearchSeries.Location = new System.Drawing.Point(528, 16);
+            this.btnSearchSeries.Location = new System.Drawing.Point(336, 16);
             this.btnSearchSeries.Name = "btnSearchSeries";
-            this.btnSearchSeries.Size = new System.Drawing.Size(75, 23);
+            this.btnSearchSeries.Size = new System.Drawing.Size(72, 24);
             this.btnSearchSeries.TabIndex = 7;
             this.btnSearchSeries.Text = "Search";
             this.btnSearchSeries.UseVisualStyleBackColor = true;
@@ -206,9 +210,9 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lvLanguages);
-            this.groupBox1.Location = new System.Drawing.Point(16, 16);
+            this.groupBox1.Location = new System.Drawing.Point(8, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(568, 232);
+            this.groupBox1.Size = new System.Drawing.Size(584, 232);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Languages.xml";
@@ -216,15 +220,19 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.lvMirrors);
-            this.groupBox2.Location = new System.Drawing.Point(592, 16);
+            this.groupBox2.Location = new System.Drawing.Point(600, 8);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(568, 232);
+            this.groupBox2.Size = new System.Drawing.Size(584, 232);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Mirrors.xml";
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.lblSearchSeriesName);
+            this.groupBox3.Controls.Add(this.lblLoadSeriesID);
+            this.groupBox3.Controls.Add(this.btnLoadSeries);
+            this.groupBox3.Controls.Add(this.txtLoadSeries);
             this.groupBox3.Controls.Add(this.splitContainer1);
             this.groupBox3.Controls.Add(this.txtSearchSeries);
             this.groupBox3.Controls.Add(this.btnSearchSeries);
@@ -254,14 +262,13 @@
             this.splitContainer1.SplitterDistance = 280;
             this.splitContainer1.TabIndex = 15;
             // 
-            // txtSearchSeries
+            // plvSeries
             // 
-            this.txtSearchSeries.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TVDBLibTest.Properties.Settings.Default, "LastSeriesName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtSearchSeries.Location = new System.Drawing.Point(8, 18);
-            this.txtSearchSeries.Name = "txtSearchSeries";
-            this.txtSearchSeries.Size = new System.Drawing.Size(512, 20);
-            this.txtSearchSeries.TabIndex = 6;
-            this.txtSearchSeries.Text = global::TVDBLibTest.Properties.Settings.Default.LastSeriesName;
+            this.plvSeries.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plvSeries.Location = new System.Drawing.Point(0, 0);
+            this.plvSeries.Name = "plvSeries";
+            this.plvSeries.Size = new System.Drawing.Size(607, 398);
+            this.plvSeries.TabIndex = 0;
             // 
             // tvEpisodes
             // 
@@ -384,6 +391,14 @@
             this.splitContainer2.SplitterDistance = 298;
             this.splitContainer2.TabIndex = 14;
             // 
+            // plvEpisodes
+            // 
+            this.plvEpisodes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plvEpisodes.Location = new System.Drawing.Point(0, 0);
+            this.plvEpisodes.Name = "plvEpisodes";
+            this.plvEpisodes.Size = new System.Drawing.Size(562, 380);
+            this.plvEpisodes.TabIndex = 0;
+            // 
             // tpImages
             // 
             this.tpImages.Controls.Add(this.tabControl2);
@@ -482,12 +497,21 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.pbBanner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbBanner.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbBanner.Location = new System.Drawing.Point(408, 8);
             this.pbBanner.Name = "pbBanner";
             this.pbBanner.Size = new System.Drawing.Size(776, 720);
             this.pbBanner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbBanner.TabIndex = 2;
             this.pbBanner.TabStop = false;
+            this.pbBanner.Click += new System.EventHandler(this.pbBanner_Click);
+            // 
+            // plvBanners
+            // 
+            this.plvBanners.Location = new System.Drawing.Point(8, 496);
+            this.plvBanners.Name = "plvBanners";
+            this.plvBanners.Size = new System.Drawing.Size(392, 232);
+            this.plvBanners.TabIndex = 1;
             // 
             // tpSettings
             // 
@@ -501,6 +525,19 @@
             this.tpSettings.TabIndex = 1;
             this.tpSettings.Text = "Settings";
             this.tpSettings.UseVisualStyleBackColor = true;
+            // 
+            // propertyGridApp
+            // 
+            this.propertyGridApp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.propertyGridApp.HelpVisible = false;
+            this.propertyGridApp.Location = new System.Drawing.Point(8, 248);
+            this.propertyGridApp.Name = "propertyGridApp";
+            this.propertyGridApp.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
+            this.propertyGridApp.Size = new System.Drawing.Size(1176, 480);
+            this.propertyGridApp.TabIndex = 13;
+            this.propertyGridApp.ToolbarVisible = false;
             // 
             // tpConsole
             // 
@@ -523,38 +560,51 @@
             this.txtConsole.Size = new System.Drawing.Size(1189, 733);
             this.txtConsole.TabIndex = 0;
             // 
-            // propertyGridApp
+            // txtLoadSeries
             // 
-            this.propertyGridApp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.propertyGridApp.Location = new System.Drawing.Point(16, 256);
-            this.propertyGridApp.Name = "propertyGridApp";
-            this.propertyGridApp.Size = new System.Drawing.Size(1144, 472);
-            this.propertyGridApp.TabIndex = 13;
+            this.txtLoadSeries.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TVDBLibTest.Properties.Settings.Default, "LastSeriesID", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtLoadSeries.Location = new System.Drawing.Point(472, 16);
+            this.txtLoadSeries.Name = "txtLoadSeries";
+            this.txtLoadSeries.Size = new System.Drawing.Size(48, 20);
+            this.txtLoadSeries.TabIndex = 16;
+            this.txtLoadSeries.Text = global::TVDBLibTest.Properties.Settings.Default.LastSeriesID;
             // 
-            // plvEpisodes
+            // btnLoadSeries
             // 
-            this.plvEpisodes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.plvEpisodes.Location = new System.Drawing.Point(0, 0);
-            this.plvEpisodes.Name = "plvEpisodes";
-            this.plvEpisodes.Size = new System.Drawing.Size(562, 380);
-            this.plvEpisodes.TabIndex = 0;
+            this.btnLoadSeries.Location = new System.Drawing.Point(528, 16);
+            this.btnLoadSeries.Name = "btnLoadSeries";
+            this.btnLoadSeries.Size = new System.Drawing.Size(72, 24);
+            this.btnLoadSeries.TabIndex = 17;
+            this.btnLoadSeries.Text = "Load";
+            this.btnLoadSeries.UseVisualStyleBackColor = true;
+            this.btnLoadSeries.Click += new System.EventHandler(this.btnLoadSeries_Click);
             // 
-            // plvSeries
+            // lblLoadSeriesID
             // 
-            this.plvSeries.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.plvSeries.Location = new System.Drawing.Point(0, 0);
-            this.plvSeries.Name = "plvSeries";
-            this.plvSeries.Size = new System.Drawing.Size(607, 398);
-            this.plvSeries.TabIndex = 0;
+            this.lblLoadSeriesID.AutoSize = true;
+            this.lblLoadSeriesID.Location = new System.Drawing.Point(416, 21);
+            this.lblLoadSeriesID.Name = "lblLoadSeriesID";
+            this.lblLoadSeriesID.Size = new System.Drawing.Size(53, 13);
+            this.lblLoadSeriesID.TabIndex = 18;
+            this.lblLoadSeriesID.Text = "Series ID:";
             // 
-            // plvBanners
+            // lblSearchSeriesName
             // 
-            this.plvBanners.Location = new System.Drawing.Point(8, 496);
-            this.plvBanners.Name = "plvBanners";
-            this.plvBanners.Size = new System.Drawing.Size(392, 232);
-            this.plvBanners.TabIndex = 1;
+            this.lblSearchSeriesName.AutoSize = true;
+            this.lblSearchSeriesName.Location = new System.Drawing.Point(11, 21);
+            this.lblSearchSeriesName.Name = "lblSearchSeriesName";
+            this.lblSearchSeriesName.Size = new System.Drawing.Size(68, 13);
+            this.lblSearchSeriesName.TabIndex = 19;
+            this.lblSearchSeriesName.Text = "Series name:";
+            // 
+            // txtSearchSeries
+            // 
+            this.txtSearchSeries.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TVDBLibTest.Properties.Settings.Default, "LastSeriesName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtSearchSeries.Location = new System.Drawing.Point(80, 18);
+            this.txtSearchSeries.Name = "txtSearchSeries";
+            this.txtSearchSeries.Size = new System.Drawing.Size(248, 20);
+            this.txtSearchSeries.TabIndex = 6;
+            this.txtSearchSeries.Text = global::TVDBLibTest.Properties.Settings.Default.LastSeriesName;
             // 
             // MainForm
             // 
@@ -640,6 +690,10 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.PropertyGrid propertyGridApp;
+        private System.Windows.Forms.Button btnLoadSeries;
+        private System.Windows.Forms.TextBox txtLoadSeries;
+        private System.Windows.Forms.Label lblSearchSeriesName;
+        private System.Windows.Forms.Label lblLoadSeriesID;
     }
 }
 

@@ -6,7 +6,10 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="LastSeriesName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">LOST</Value>
+      <Value Profile="(Default)">Lost</Value>
+    </Setting>
+    <Setting Name="LastSeriesID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">73739</Value>
     </Setting>
   </Settings>
 </SettingsFile>

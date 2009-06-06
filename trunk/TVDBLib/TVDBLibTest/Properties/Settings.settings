@@ -6,7 +6,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="LastSeriesName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Lost</Value>
+      <Value Profile="(Default)">LOST</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -46,6 +46,34 @@ namespace TVDBLibTest
         public PropertyListView()
         {
             InitializeComponent();
+            ContextMenu contextMenu = new ContextMenu();
+            contextMenu.MenuItems.Add("Copy name").Click += new EventHandler(PropertyListView_Click_Name);
+            contextMenu.MenuItems.Add("Copy value").Click += new EventHandler(PropertyListView_Click_Value);
+            lvProperty.ContextMenu = contextMenu;
+        }
+
+        private void PropertyListView_Click_Name(object sender, EventArgs e)
+        {
+            if (lvProperty.SelectedItems.Count > 0)
+            {
+                string text = lvProperty.SelectedItems[0].SubItems[0].Text;
+                if (!string.IsNullOrEmpty(text))
+                {
+                    Clipboard.SetText(text);
+                }
+            }
+        }
+
+        private void PropertyListView_Click_Value(object sender, EventArgs e)
+        {
+            if (lvProperty.SelectedItems.Count > 0)
+            {
+                string text = lvProperty.SelectedItems[0].SubItems[1].Text;
+                if (!string.IsNullOrEmpty(text))
+                {
+                    Clipboard.SetText(text);
+                }
+            }
         }
 
         private void SelectObject(object obj)
@@ -57,18 +85,21 @@ namespace TVDBLibTest
                 foreach (PropertyInfo property in type.GetProperties())
                 {
                     object value = property.GetValue(obj, null);
-                    string value2 = null;
-                    if (value.GetType() == typeof(string) && !string.IsNullOrEmpty((string)value))
+                    if (value != null)
                     {
-                        value2 = (string)value;
-                    }
-                    else if (value.GetType() == typeof(int) && (int)value > -1)
-                    {
-                        value2 = ((int)value).ToString();
-                    }
-                    if (!string.IsNullOrEmpty(value2))
-                    {
-                        lvProperty.Items.Add(property.Name).SubItems.Add(value2);
+                        string value2 = null;
+                        if (value.GetType() == typeof(string) && !string.IsNullOrEmpty((string)value))
+                        {
+                            value2 = (string)value;
+                        }
+                        else if (value.GetType() == typeof(int) && (int)value > -1)
+                        {
+                            value2 = ((int)value).ToString();
+                        }
+                        if (!string.IsNullOrEmpty(value2))
+                        {
+                            lvProperty.Items.Add(property.Name).SubItems.Add(value2);
+                        }
                     }
                 }
             }

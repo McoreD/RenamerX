@@ -33,6 +33,7 @@ using System.Reflection;
 using System.IO;
 using TVDBLib;
 using TVDBLibTest.Properties;
+using System.Diagnostics;
 
 namespace TVDBLibTest
 {
@@ -40,7 +41,7 @@ namespace TVDBLibTest
     {
         private TVDB tvdb;
         private SeriesFull seriesCache;
-        private string lastSeries;
+        private string lastSeriesID;
 
         public MainForm()
         {
@@ -130,13 +131,18 @@ namespace TVDBLibTest
         {
             if (lvSeries.SelectedItems.Count > 0)
             {
-                seriesCache = tvdb.GetSeriesFullInformation(((Series)lvSeries.SelectedItems[0].Tag).ID.ToString(), FileType.ZIP);
-                plvSeries.SelectedObject = seriesCache.Series;
-                FillEpisodes(seriesCache.Episodes);
-                FillActors(seriesCache.Actors);
-                FillBanners(seriesCache.Banners);
-                lastSeries = seriesCache.Series.ID;
+                DownloadSeries(((Series)lvSeries.SelectedItems[0].Tag).ID.ToString());
             }
+        }
+
+        private void DownloadSeries(string seriesid)
+        {
+            seriesCache = tvdb.GetSeriesFullInformation(seriesid, FileType.ZIP);
+            plvSeries.SelectedObject = seriesCache.Series;
+            FillEpisodes(seriesCache.Episodes);
+            FillActors(seriesCache.Actors);
+            FillBanners(seriesCache.Banners);
+            lastSeriesID = seriesCache.Series.ID;
         }
 
         private void FillActors(List<Actor> actors)
@@ -231,7 +237,7 @@ namespace TVDBLibTest
 
         private void Banners_DoWork(object sender, DoWorkEventArgs e)
         {
-            e.Result = tvdb.GetImagePath((string)e.Argument, lastSeries);
+            e.Result = tvdb.GetImagePath((string)e.Argument, lastSeriesID);
         }
 
         private void Banners_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -258,7 +264,7 @@ namespace TVDBLibTest
 
         private void Actors_DoWork(object sender, DoWorkEventArgs e)
         {
-            e.Result = tvdb.GetImagePath((string)e.Argument, lastSeries);
+            e.Result = tvdb.GetImagePath((string)e.Argument, lastSeriesID);
         }
 
         private void Actors_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -271,6 +277,19 @@ namespace TVDBLibTest
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Settings.Default.Save();
+        }
+
+        private void pbBanner_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(pbBanner.ImageLocation))
+            {
+                Process.Start(pbBanner.ImageLocation);
+            }
+        }
+
+        private void btnLoadSeries_Click(object sender, EventArgs e)
+        {
+            DownloadSeries(txtLoadSeries.Text);
         }
     }
 }

@@ -49,6 +49,8 @@ namespace TVDBLibTest
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            propertyGridApp.SelectedObject = Settings.Default;
+
             if (string.IsNullOrEmpty(Settings.Default.CachePath))
             {
                 Settings.Default.CachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "TVDB Cache");
@@ -167,7 +169,7 @@ namespace TVDBLibTest
                 {
                     if ((string)seasonNode.Tag == episode.SeasonNumber)
                     {
-                        seasonNode.Nodes.Add(episode.EpisodeNumber + " - " + episode.EpisodeName).Tag = episode;
+                        seasonNode.Nodes.Add(int.Parse(episode.EpisodeNumber).ToString("d2") + " - " + episode.EpisodeName).Tag = episode;
                         found = true;
                         break;
                     }
@@ -176,7 +178,7 @@ namespace TVDBLibTest
                 {
                     TreeNode seasonNode = tvEpisodes.Nodes.Add("Season " + episode.SeasonNumber);
                     seasonNode.Tag = episode.SeasonNumber;
-                    seasonNode.Nodes.Add(episode.EpisodeNumber + " - " + episode.EpisodeName).Tag = episode;
+                    seasonNode.Nodes.Add(int.Parse(episode.EpisodeNumber).ToString("d2") + " - " + episode.EpisodeName).Tag = episode;
                 }
                 found = false;
             }

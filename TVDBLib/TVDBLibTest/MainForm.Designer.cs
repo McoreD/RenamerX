@@ -44,7 +44,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.plvSeries = new TVDBLibTest.PropertyListView();
             this.txtSearchSeries = new System.Windows.Forms.TextBox();
             this.tvEpisodes = new System.Windows.Forms.TreeView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -57,7 +56,6 @@
             this.txtSeasonNumber = new System.Windows.Forms.TextBox();
             this.txtEpisodeName = new System.Windows.Forms.TextBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.plvEpisodes = new TVDBLibTest.PropertyListView();
             this.tpImages = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -68,12 +66,13 @@
             this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
             this.pbBanner = new System.Windows.Forms.PictureBox();
-            this.plvBanners = new TVDBLibTest.PropertyListView();
             this.tpSettings = new System.Windows.Forms.TabPage();
-            this.lblCachePath = new System.Windows.Forms.Label();
-            this.txtCachePath = new System.Windows.Forms.TextBox();
             this.tpConsole = new System.Windows.Forms.TabPage();
             this.txtConsole = new System.Windows.Forms.TextBox();
+            this.propertyGridApp = new System.Windows.Forms.PropertyGrid();
+            this.plvEpisodes = new TVDBLibTest.PropertyListView();
+            this.plvSeries = new TVDBLibTest.PropertyListView();
+            this.plvBanners = new TVDBLibTest.PropertyListView();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -126,7 +125,7 @@
             // 
             // columnHeader6
             // 
-            this.columnHeader6.Text = "Id";
+            this.columnHeader6.Text = "ID";
             this.columnHeader6.Width = 30;
             // 
             // lvMirrors
@@ -142,7 +141,7 @@
             this.lvMirrors.Location = new System.Drawing.Point(3, 16);
             this.lvMirrors.MultiSelect = false;
             this.lvMirrors.Name = "lvMirrors";
-            this.lvMirrors.Size = new System.Drawing.Size(562, 77);
+            this.lvMirrors.Size = new System.Drawing.Size(562, 213);
             this.lvMirrors.TabIndex = 1;
             this.lvMirrors.UseCompatibleStateImageBehavior = false;
             this.lvMirrors.View = System.Windows.Forms.View.Details;
@@ -150,7 +149,7 @@
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "Id";
+            this.columnHeader1.Text = "ID";
             this.columnHeader1.Width = 30;
             // 
             // columnHeader2
@@ -207,7 +206,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lvLanguages);
-            this.groupBox1.Location = new System.Drawing.Point(16, 48);
+            this.groupBox1.Location = new System.Drawing.Point(16, 16);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(568, 232);
             this.groupBox1.TabIndex = 9;
@@ -217,9 +216,9 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.lvMirrors);
-            this.groupBox2.Location = new System.Drawing.Point(16, 288);
+            this.groupBox2.Location = new System.Drawing.Point(592, 16);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(568, 96);
+            this.groupBox2.Size = new System.Drawing.Size(568, 232);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Mirrors.xml";
@@ -254,14 +253,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(607, 682);
             this.splitContainer1.SplitterDistance = 280;
             this.splitContainer1.TabIndex = 15;
-            // 
-            // plvSeries
-            // 
-            this.plvSeries.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.plvSeries.Location = new System.Drawing.Point(0, 0);
-            this.plvSeries.Name = "plvSeries";
-            this.plvSeries.Size = new System.Drawing.Size(607, 398);
-            this.plvSeries.TabIndex = 0;
             // 
             // txtSearchSeries
             // 
@@ -322,7 +313,7 @@
             this.groupBox4.Size = new System.Drawing.Size(568, 733);
             this.groupBox4.TabIndex = 14;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Episodes list";
+            this.groupBox4.Text = "Episodes List";
             // 
             // lbEpisodeName
             // 
@@ -393,14 +384,6 @@
             this.splitContainer2.SplitterDistance = 298;
             this.splitContainer2.TabIndex = 14;
             // 
-            // plvEpisodes
-            // 
-            this.plvEpisodes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.plvEpisodes.Location = new System.Drawing.Point(0, 0);
-            this.plvEpisodes.Name = "plvEpisodes";
-            this.plvEpisodes.Size = new System.Drawing.Size(562, 380);
-            this.plvEpisodes.TabIndex = 0;
-            // 
             // tpImages
             // 
             this.tpImages.Controls.Add(this.tabControl2);
@@ -411,7 +394,7 @@
             this.tpImages.Padding = new System.Windows.Forms.Padding(3);
             this.tpImages.Size = new System.Drawing.Size(1195, 739);
             this.tpImages.TabIndex = 3;
-            this.tpImages.Text = "Actors & Banners";
+            this.tpImages.Text = "Images";
             this.tpImages.UseVisualStyleBackColor = true;
             // 
             // tabControl2
@@ -460,7 +443,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(392, 462);
+            this.tabPage2.Size = new System.Drawing.Size(384, 454);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Actors";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -477,7 +460,7 @@
             this.lvActors.Location = new System.Drawing.Point(3, 3);
             this.lvActors.MultiSelect = false;
             this.lvActors.Name = "lvActors";
-            this.lvActors.Size = new System.Drawing.Size(386, 456);
+            this.lvActors.Size = new System.Drawing.Size(378, 448);
             this.lvActors.TabIndex = 0;
             this.lvActors.UseCompatibleStateImageBehavior = false;
             this.lvActors.View = System.Windows.Forms.View.Details;
@@ -506,19 +489,11 @@
             this.pbBanner.TabIndex = 2;
             this.pbBanner.TabStop = false;
             // 
-            // plvBanners
-            // 
-            this.plvBanners.Location = new System.Drawing.Point(8, 496);
-            this.plvBanners.Name = "plvBanners";
-            this.plvBanners.Size = new System.Drawing.Size(392, 232);
-            this.plvBanners.TabIndex = 1;
-            // 
             // tpSettings
             // 
-            this.tpSettings.Controls.Add(this.lblCachePath);
+            this.tpSettings.Controls.Add(this.propertyGridApp);
             this.tpSettings.Controls.Add(this.groupBox1);
             this.tpSettings.Controls.Add(this.groupBox2);
-            this.tpSettings.Controls.Add(this.txtCachePath);
             this.tpSettings.Location = new System.Drawing.Point(4, 22);
             this.tpSettings.Name = "tpSettings";
             this.tpSettings.Padding = new System.Windows.Forms.Padding(3);
@@ -526,24 +501,6 @@
             this.tpSettings.TabIndex = 1;
             this.tpSettings.Text = "Settings";
             this.tpSettings.UseVisualStyleBackColor = true;
-            // 
-            // lblCachePath
-            // 
-            this.lblCachePath.AutoSize = true;
-            this.lblCachePath.Location = new System.Drawing.Point(16, 24);
-            this.lblCachePath.Name = "lblCachePath";
-            this.lblCachePath.Size = new System.Drawing.Size(65, 13);
-            this.lblCachePath.TabIndex = 12;
-            this.lblCachePath.Text = "Cache path:";
-            // 
-            // txtCachePath
-            // 
-            this.txtCachePath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TVDBLibTest.Properties.Settings.Default, "CachePath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtCachePath.Location = new System.Drawing.Point(88, 16);
-            this.txtCachePath.Name = "txtCachePath";
-            this.txtCachePath.Size = new System.Drawing.Size(568, 20);
-            this.txtCachePath.TabIndex = 11;
-            this.txtCachePath.Text = global::TVDBLibTest.Properties.Settings.Default.CachePath;
             // 
             // tpConsole
             // 
@@ -566,6 +523,39 @@
             this.txtConsole.Size = new System.Drawing.Size(1189, 733);
             this.txtConsole.TabIndex = 0;
             // 
+            // propertyGridApp
+            // 
+            this.propertyGridApp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.propertyGridApp.Location = new System.Drawing.Point(16, 256);
+            this.propertyGridApp.Name = "propertyGridApp";
+            this.propertyGridApp.Size = new System.Drawing.Size(1144, 472);
+            this.propertyGridApp.TabIndex = 13;
+            // 
+            // plvEpisodes
+            // 
+            this.plvEpisodes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plvEpisodes.Location = new System.Drawing.Point(0, 0);
+            this.plvEpisodes.Name = "plvEpisodes";
+            this.plvEpisodes.Size = new System.Drawing.Size(562, 380);
+            this.plvEpisodes.TabIndex = 0;
+            // 
+            // plvSeries
+            // 
+            this.plvSeries.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plvSeries.Location = new System.Drawing.Point(0, 0);
+            this.plvSeries.Name = "plvSeries";
+            this.plvSeries.Size = new System.Drawing.Size(607, 398);
+            this.plvSeries.TabIndex = 0;
+            // 
+            // plvBanners
+            // 
+            this.plvBanners.Location = new System.Drawing.Point(8, 496);
+            this.plvBanners.Name = "plvBanners";
+            this.plvBanners.Size = new System.Drawing.Size(392, 232);
+            this.plvBanners.TabIndex = 1;
+            // 
             // MainForm
             // 
             this.AcceptButton = this.btnSearchSeries;
@@ -574,7 +564,7 @@
             this.ClientSize = new System.Drawing.Size(1203, 765);
             this.Controls.Add(this.tabControl1);
             this.Name = "MainForm";
-            this.Text = "TVDB Test";
+            this.Text = "TVDBLib Tester";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.groupBox1.ResumeLayout(false);
@@ -597,7 +587,6 @@
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbBanner)).EndInit();
             this.tpSettings.ResumeLayout(false);
-            this.tpSettings.PerformLayout();
             this.tpConsole.ResumeLayout(false);
             this.tpConsole.PerformLayout();
             this.ResumeLayout(false);
@@ -650,8 +639,7 @@
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Label lblCachePath;
-        private System.Windows.Forms.TextBox txtCachePath;
+        private System.Windows.Forms.PropertyGrid propertyGridApp;
     }
 }
 

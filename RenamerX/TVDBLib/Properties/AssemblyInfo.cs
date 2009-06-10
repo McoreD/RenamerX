@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("TVDB")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("TVDB")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TVDB")]
 [assembly: AssemblyProduct("TVDB")]
 [assembly: AssemblyCopyright("Copyright © TVDBLib Developers")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("TVDB")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

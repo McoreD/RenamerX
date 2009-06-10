@@ -1,0 +1,20 @@
+C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\bin\Release\RenamerX.exe.config
+C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\bin\Release\RenamerX.exe
+C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\bin\Release\RenamerX.pdb
+C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\obj\Release\ResolveAssemblyReference.cache
+C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\obj\Release\RenamerX.MainWindow.resources
+C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\obj\Release\RenamerX.InputBox.resources
+C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\obj\Release\RenamerX.Properties.Resources.resources
+C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\obj\Release\RenamerX.csproj.GenerateResource.Cache
+C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\obj\Release\RenamerX.exe
+C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\obj\Release\RenamerX.pdb
+C:\Users\PC\Documents\Visual Studio 2008\Projects\C# Projects\RenamerX\AutoRenamer\bin\Release\RenamerX.exe.config
+C:\Users\PC\Documents\Visual Studio 2008\Projects\C# Projects\RenamerX\AutoRenamer\obj\Release\RenamerX.exe
+C:\Users\PC\Documents\Visual Studio 2008\Projects\C# Projects\RenamerX\AutoRenamer\obj\Release\RenamerX.pdb
+C:\Users\PC\Documents\Visual Studio 2008\Projects\C# Projects\RenamerX\AutoRenamer\bin\Release\RenamerX.exe
+C:\Users\PC\Documents\Visual Studio 2008\Projects\C# Projects\RenamerX\AutoRenamer\bin\Release\RenamerX.pdb
+C:\Users\PC\Documents\Visual Studio 2008\Projects\C# Projects\RenamerX\AutoRenamer\obj\Release\ResolveAssemblyReference.cache
+C:\Users\PC\Documents\Visual Studio 2008\Projects\C# Projects\RenamerX\AutoRenamer\obj\Release\RenamerX.MainWindow.resources
+C:\Users\PC\Documents\Visual Studio 2008\Projects\C# Projects\RenamerX\AutoRenamer\obj\Release\RenamerX.InputBox.resources
+C:\Users\PC\Documents\Visual Studio 2008\Projects\C# Projects\RenamerX\AutoRenamer\obj\Release\RenamerX.Properties.Resources.resources
+C:\Users\PC\Documents\Visual Studio 2008\Projects\C# Projects\RenamerX\AutoRenamer\obj\Release\RenamerX.csproj.GenerateResource.Cache

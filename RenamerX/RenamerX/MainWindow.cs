@@ -76,7 +76,10 @@ namespace RenamerX
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            LoadJaex();
+            if (Environment.UserName.Equals("PC"))
+            {
+                LoadJaex();
+            }
             ResizeListviewColumns();
             pgApp.SelectedObject = Settings.Default;
         }
@@ -640,25 +643,31 @@ namespace RenamerX
                 {
                     for (int i = 2; i < filter.Length; i++)
                     {
-                        if (!char.IsDigit(filter[i]))
+                        if (!char.IsDigit(filter[i]) && filter[i] != ' ')
                         {
                             long number = long.Parse(filter.Substring(1, i - 1));
                             switch (filter.Remove(0, i).ToLowerInvariant())
                             {
                                 case "gigabyte":
                                 case "gb":
+                                    number *= 1000 * 1000 * 1000;
+                                    break;
                                 case "gibibyte":
                                 case "gib":
-                                    number *= 1073741824;
+                                    number *= 1024 * 1024 * 1024;
                                     break;
                                 case "megabyte":
                                 case "mb":
+                                    number *= 1000 * 1000;
+                                    break;
                                 case "mebibyte":
                                 case "mib":
-                                    number *= 1048576;
+                                    number *= 1024 * 1024;
                                     break;
                                 case "kilobyte":
                                 case "kb":
+                                    number *= 1000;
+                                    break;
                                 case "kibibyte":
                                 case "kib":
                                     number *= 1024;

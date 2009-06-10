@@ -215,5 +215,29 @@ namespace RenamerX.Properties {
                 this["ExtractPassword"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ReplaceIllegalChars {
+            get {
+                return ((bool)(this["ReplaceIllegalChars"]));
+            }
+            set {
+                this["ReplaceIllegalChars"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ReplaceIllegalCharsWith {
+            get {
+                return ((string)(this["ReplaceIllegalCharsWith"]));
+            }
+            set {
+                this["ReplaceIllegalCharsWith"] = value;
+            }
+        }
     }
 }

@@ -63,9 +63,4 @@ public class Show : IEnumerable
     {
         return Seasons.GetEnumerator();
     }
-
-    public bool Contains(string showName)
-    {
-        return this.Name == showName;
-    }
 }

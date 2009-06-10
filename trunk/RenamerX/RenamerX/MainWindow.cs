@@ -196,6 +196,14 @@ namespace RenamerX
             }
         }
 
+        private void lvList_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvList.SelectedItems.Count > 0)
+            {
+                //File rename inputbox
+            }
+        }
+
         #endregion
 
         #region Extract Tab Events
@@ -393,16 +401,13 @@ namespace RenamerX
                             showInfo.DefaultFileName = Path.GetFileName(file);
                             showInfo.DefaultFilePath = file;
                             showInfo.NewFileName = Reformat(show, showInfo.DefaultFileName);
+                            if (cbReplaceIllegalChars.Checked)
+                            {
+                                showInfo.NewFileName = ReplaceInvalidFileNameChars(showInfo.NewFileName, txtReplaceIllegalChars.Text);
+                            }
                             if (showInfo.Invalid = IsInvalidFileName(showInfo.NewFileName))
                             {
-                                if (cbReplaceIllegalChars.Checked && !string.IsNullOrEmpty(txtReplaceIllegalChars.Text))
-                                {
-                                    showInfo.NewFileName = ReplaceInvalidFileNameChars(showInfo.NewFileName, txtReplaceIllegalChars.Text);
-                                }
-                                else
-                                {
-                                    showInfo.NewFileName = "Illegal characters in file name: " + showInfo.NewFileName;
-                                }
+                                showInfo.NewFileName = "Illegal characters in file name: " + showInfo.NewFileName;
                             }
                             showInfo.NewFilePath = Path.Combine(Path.GetDirectoryName(showInfo.DefaultFilePath), showInfo.NewFileName);
                             si.ShowInfos.Add(showInfo);

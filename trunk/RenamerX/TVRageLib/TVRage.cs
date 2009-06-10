@@ -45,7 +45,7 @@ namespace TVRageLib
             {
                 foreach (Show shows in Cache)
                 {
-                    if (shows.Contains(showName))
+                    if (shows.Name.ToLowerInvariant() == showName.ToLowerInvariant())
                     {
                         return shows;
                     }

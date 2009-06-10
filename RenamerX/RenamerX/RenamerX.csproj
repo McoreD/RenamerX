@@ -69,11 +69,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\Extensions.cs" />
-    <Compile Include="Helpers\Episode.cs" />
-    <Compile Include="Helpers\Season.cs" />
-    <Compile Include="Helpers\Show.cs" />
-    <Compile Include="Helpers\ShowItem.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +81,7 @@
     <Compile Include="InputBox.designer.cs">
       <DependentUpon>InputBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="PathInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainWindow.resx">
@@ -110,7 +106,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="Helpers\PathInfo.cs" />
+    <Compile Include="ShowItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -156,6 +152,12 @@
       <SubType>Form</SubType>
     </Content>
     <Content Include="UnRAR.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TVRageLib\TVRageLib.csproj">
+      <Project>{5E6EF78A-B7F2-4306-A368-BC7768A1F1CA}</Project>
+      <Name>TVRageLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

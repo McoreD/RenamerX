@@ -33,12 +33,14 @@ using RenamerX.Properties;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Linq;
+using System.Xml.Linq;
+using TVRageLib;
 
 namespace RenamerX
 {
     public partial class MainWindow : Form
     {
-        private List<Show> Shows = new List<Show>();
+        private TVRage tvrage = new TVRage();
         private List<string> ExtractList = new List<string>();
         private bool IsExtracting;
         private BackgroundWorker bwExtract = new BackgroundWorker();
@@ -379,20 +381,7 @@ namespace RenamerX
             for (int i = 0; i < lvShows.Items.Count; i++)
             {
                 ShowItem si = (ShowItem)lvShows.Items[i].Tag;
-                Show show = new Show("");
-                foreach (Show shows in Shows)
-                {
-                    if (shows.Contains(si.ShowName))
-                    {
-                        show = shows;
-                        break;
-                    }
-                }
-                if (string.IsNullOrEmpty(show.ShowName))
-                {
-                    show = FindShow(si.ShowName);
-                    Shows.Add(show);
-                }
+                Show show = tvrage.FindShow(si.ShowName);
                 if (Directory.Exists(si.ShowDirectory))
                 {
                     si.ShowInfos.Clear();
@@ -471,36 +460,6 @@ namespace RenamerX
             return Regex.IsMatch(file, pattern, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
         }
 
-        private Show FindShow(string showName)
-        {
-            Show seasons = new Show(showName);
-            try
-            {
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load("http://www.tvrage.com/feeds/episode_list.php?show=" + showName);
-                XmlNode xmlNode = xmlDoc.DocumentElement.SelectSingleNode("Episodelist");
-
-                foreach (XmlNode childs in xmlNode.ChildNodes) //Seasons
-                {
-                    Season season = new Season();
-                    if (childs.Attributes.Count > 0)
-                    {
-                        season.SeasonNumber = childs.Attributes[0].Value.ToInt();
-                    }
-                    foreach (XmlNode childs2 in childs.ChildNodes) //Episodes
-                    {
-                        season.Episodes.Add(new Episode(childs2));
-                    }
-                    seasons.Seasons.Add(season);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-            return seasons;
-        }
-
         private string Reformat(Show show, string filename)
         {
             if (show != null)
@@ -508,8 +467,8 @@ namespace RenamerX
                 try
                 {
                     Match match = Regex.Match(filename, txtRegexpPattern.Text, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
-                    int season = match.Groups["Season"].Value.ToInt();
-                    int episode = match.Groups["Episode"].Value.ToInt();
+                    int season = int.Parse(match.Groups["Season"].Value);
+                    int episode = int.Parse(match.Groups["Episode"].Value);
                     if (season > 0 && episode > 0)
                     {
                         string nameFormat = txtNameFormat.Text;
@@ -517,7 +476,7 @@ namespace RenamerX
                         string title = "";
                         Episode findEpisode = show.FindEpisode(season, episode);
                         if (findEpisode != null) title = findEpisode.Title;
-                        return nameFormat.Replace("$N", show.ShowName).Replace("$S2", season.ToString("d2")).
+                        return nameFormat.Replace("$N", show.Name).Replace("$S2", season.ToString("d2")).
                             Replace("$S", season.ToString()).Replace("$E2", episode.ToString("d2")).
                             Replace("$E", episode.ToString()).Replace("$T", title) + extension;
                     }

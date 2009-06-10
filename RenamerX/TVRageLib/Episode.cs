@@ -1,7 +1,7 @@
 ﻿#region License Information (GPL v2)
 /*
-    RenamerX - Rename your files eXpressly
-    Copyright (C) 2009  RenamerX Developers
+    TVRageLib - C# Library for TVRage Services
+    Copyright (C) 2009  TVRage Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -21,38 +21,26 @@
 */
 #endregion
 
-using System.Xml;
+using System.Xml.Linq;
 
 public class Episode
 {
     public string EpisodeNumber;
-    public string SeasonEpisodeNumber;
+    public string SeasonNumber;
+    public string ProdNumber;
+    public string AirDate;
+    public string Link;
     public string Title;
 
-    public Episode(string episodeNumber, string seasonEpisodeNumber, string title)
-    {
-        EpisodeNumber = episodeNumber;
-        SeasonEpisodeNumber = seasonEpisodeNumber;
-        Title = title;
-    }
+    public Episode() { }
 
-    public Episode(XmlNode xmlNode)
+    public Episode(XElement xe)
     {
-        XmlNode node;
-        node = xmlNode.SelectSingleNode("seasonnum");
-        if (node != null)
-        {
-            EpisodeNumber = node.InnerText;
-        }
-        node = xmlNode.SelectSingleNode("epnum");
-        if (node != null)
-        {
-            SeasonEpisodeNumber = node.InnerText;
-        }
-        node = xmlNode.SelectSingleNode("title");
-        if (node != null)
-        {
-            Title = node.InnerText;
-        }
+        EpisodeNumber = xe.ToString("epnum");
+        SeasonNumber = xe.ToString("seasonnum");
+        ProdNumber = xe.ToString("prodnum");
+        AirDate = xe.ToString("airdate");
+        Link = xe.ToString("link");
+        Title = xe.ToString("title");
     }
 }

@@ -148,9 +148,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="License.txt">
-      <SubType>Form</SubType>
-    </Content>
     <Content Include="UnRAR.txt" />
   </ItemGroup>
   <ItemGroup>

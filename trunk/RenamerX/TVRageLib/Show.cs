@@ -1,7 +1,7 @@
 ﻿#region License Information (GPL v2)
 /*
-    RenamerX - Rename your files eXpressly
-    Copyright (C) 2009  RenamerX Developers
+    TVRageLib - C# Library for TVRage Services
+    Copyright (C) 2009  TVRage Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -26,12 +26,15 @@ using System.Collections;
 
 public class Show : IEnumerable
 {
-    public string ShowName;
+    public string Name;
+    public string TotalSeasons;
     public List<Season> Seasons = new List<Season>();
+
+    public Show() { }
 
     public Show(string showName)
     {
-        ShowName = showName;
+        this.Name = showName;
     }
 
     public Season FindSeason(int number)
@@ -63,6 +66,6 @@ public class Show : IEnumerable
 
     public bool Contains(string showName)
     {
-        return this.ShowName == showName;
+        return this.Name == showName;
     }
 }

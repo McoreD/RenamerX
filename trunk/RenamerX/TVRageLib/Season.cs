@@ -1,7 +1,7 @@
 ﻿#region License Information (GPL v2)
 /*
-    RenamerX - Rename your files eXpressly
-    Copyright (C) 2009  RenamerX Developers
+    TVRageLib - C# Library for TVRage Services
+    Copyright (C) 2009  TVRage Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -21,12 +21,35 @@
 */
 #endregion
 
-using System;
+using System.Collections;
+using System.Collections.Generic;
 
-public static class Extensions
+public class Season : IEnumerable
 {
-    public static int ToInt(this string str)
+    public int SeasonNumber;
+    public List<Episode> Episodes = new List<Episode>();
+
+    public Season() { }
+
+    public Season(int seasonNumber)
     {
-        return Convert.ToInt32(str);
+        SeasonNumber = seasonNumber;
+    }
+
+    public Episode FindEpisode(int number)
+    {
+        foreach (Episode episode in Episodes)
+        {
+            if (int.Parse(episode.SeasonNumber) == number)
+            {
+                return episode;
+            }
+        }
+        return null;
+    }
+
+    public IEnumerator GetEnumerator()
+    {
+        return Episodes.GetEnumerator();
     }
 }

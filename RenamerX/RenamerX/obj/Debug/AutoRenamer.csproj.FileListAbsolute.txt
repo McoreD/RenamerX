@@ -1,0 +1,10 @@
+C:\Users\PC\Documents\Visual Studio 2008\Projects\AutoRenamer\AutoRenamer\bin\Debug\AutoRenamer.exe
+C:\Users\PC\Documents\Visual Studio 2008\Projects\AutoRenamer\AutoRenamer\bin\Debug\AutoRenamer.pdb
+C:\Users\PC\Documents\Visual Studio 2008\Projects\AutoRenamer\AutoRenamer\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\PC\Documents\Visual Studio 2008\Projects\AutoRenamer\AutoRenamer\obj\Debug\AutoRenamer.Form1.resources
+C:\Users\PC\Documents\Visual Studio 2008\Projects\AutoRenamer\AutoRenamer\obj\Debug\AutoRenamer.Properties.Resources.resources
+C:\Users\PC\Documents\Visual Studio 2008\Projects\AutoRenamer\AutoRenamer\obj\Debug\AutoRenamer.csproj.GenerateResource.Cache
+C:\Users\PC\Documents\Visual Studio 2008\Projects\AutoRenamer\AutoRenamer\obj\Debug\AutoRenamer.exe
+C:\Users\PC\Documents\Visual Studio 2008\Projects\AutoRenamer\AutoRenamer\obj\Debug\AutoRenamer.pdb
+C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\obj\Debug\AutoRenamer.exe
+C:\Users\PC\Documents\Visual Studio 2008\Projects\RenamerX\AutoRenamer\obj\Debug\AutoRenamer.pdb

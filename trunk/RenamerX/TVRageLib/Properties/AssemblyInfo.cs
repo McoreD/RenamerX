@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TVRageLib")]
 [assembly: AssemblyProduct("TVRageLib")]
-[assembly: AssemblyCopyright("TVRageLib")]
+[assembly: AssemblyCopyright("Copyright © TVRageLib Developers")]
 [assembly: AssemblyTrademark("TVRageLib")]
 [assembly: AssemblyCulture("")]
 

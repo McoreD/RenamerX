@@ -37,7 +37,6 @@ namespace TVDBLib
     {
         public string CachePath;
         public bool CacheLoad, CacheSave;
-        private string lastSeries;
 
         public TVDBCache(string path)
         {

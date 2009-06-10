@@ -21,36 +21,38 @@
 */
 #endregion
 
-using System;
 using System.Xml.Linq;
 
-public static class Extensions
+namespace TVRageLib
 {
-    public static string ToString(this XElement xe, string name)
+    public static class Extensions
     {
-        XElement xeItem = xe.Element(name);
-        if (xeItem != null)
+        public static string ToString(this XElement xe, string name)
         {
-            return xeItem.Value;
-        }
-        else
-        {
-            return "";
-        }
-    }
-
-    public static int ToInt(this XElement xe, string name)
-    {
-        XElement xeItem = xe.Element(name);
-        if (xeItem != null)
-        {
-            int number;
-            bool result = int.TryParse(xeItem.Value, out number);
-            if (result)
+            XElement xeItem = xe.Element(name);
+            if (xeItem != null)
             {
-                return number;
+                return xeItem.Value;
+            }
+            else
+            {
+                return "";
             }
         }
-        return -1;
+
+        public static int ToInt(this XElement xe, string name)
+        {
+            XElement xeItem = xe.Element(name);
+            if (xeItem != null)
+            {
+                int number;
+                bool result = int.TryParse(xeItem.Value, out number);
+                if (result)
+                {
+                    return number;
+                }
+            }
+            return -1;
+        }
     }
 }

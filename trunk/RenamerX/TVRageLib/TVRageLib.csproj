@@ -45,10 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Episode.cs" />
+    <Compile Include="Classes.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Season.cs" />
-    <Compile Include="Show.cs" />
     <Compile Include="TVRage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

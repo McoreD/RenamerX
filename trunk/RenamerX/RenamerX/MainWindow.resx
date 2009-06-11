@@ -147,9 +147,9 @@ After first character: 0, 1, 2... (Numbers)
 Last characters: gb "GiB", mb "MiB", kb "KiB", b (File Size unit)
 
 Examples:
-&gt;10mb (File size must be larger than 10 mebibytes)
-&lt;250mb (File size must be smaller than 250 mebibytes)
-&gt;900kb (File size must be larger than 900 kibibytes)
+&gt;10 MB (File size must be larger than 10 megabytes)
+&lt;250 MiB (File size must be smaller than 250 mebibytes)
+&gt;900 KB (File size must be larger than 900 kilobytes)
 
 Note:
 1 000 Bytes = 1 KB

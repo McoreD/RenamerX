@@ -33,6 +33,7 @@
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tpMain = new System.Windows.Forms.TabPage();
             this.scRename = new System.Windows.Forms.SplitContainer();
+            this.lblNameFormatPreview = new System.Windows.Forms.Label();
             this.lblItemsCount = new System.Windows.Forms.Label();
             this.lvShows = new System.Windows.Forms.ListView();
             this.lvShowsColumn1 = new System.Windows.Forms.ColumnHeader();
@@ -68,12 +69,10 @@
             this.tpSettings = new System.Windows.Forms.TabPage();
             this.pgApp = new System.Windows.Forms.PropertyGrid();
             this.gbRename = new System.Windows.Forms.GroupBox();
+            this.txtReplaceSpaces = new System.Windows.Forms.TextBox();
+            this.cbReplaceSpaces = new System.Windows.Forms.CheckBox();
             this.lblRegexpPattern = new System.Windows.Forms.Label();
             this.ttApp = new System.Windows.Forms.ToolTip(this.components);
-            this.cbReplaceSpaces = new System.Windows.Forms.CheckBox();
-            this.txtReplaceSpaces = new System.Windows.Forms.TextBox();
-            this.lblNameFormatPreview = new System.Windows.Forms.Label();
-            this.cbShowErrors = new System.Windows.Forms.CheckBox();
             this.txtRenameFileFilter = new System.Windows.Forms.TextBox();
             this.txtNameFormat = new System.Windows.Forms.TextBox();
             this.txtExtractPassword = new System.Windows.Forms.TextBox();
@@ -83,6 +82,7 @@
             this.txtExtractPath = new System.Windows.Forms.TextBox();
             this.txtUnRARPath = new System.Windows.Forms.TextBox();
             this.cbSearchSubFolders = new System.Windows.Forms.CheckBox();
+            this.cbShowErrors = new System.Windows.Forms.CheckBox();
             this.txtReplaceIllegalChars = new System.Windows.Forms.TextBox();
             this.cbReplaceIllegalChars = new System.Windows.Forms.CheckBox();
             this.cbGuessShowName = new System.Windows.Forms.CheckBox();
@@ -158,6 +158,15 @@
             this.scRename.SplitterDistance = 130;
             this.scRename.SplitterWidth = 2;
             this.scRename.TabIndex = 3;
+            // 
+            // lblNameFormatPreview
+            // 
+            this.lblNameFormatPreview.AutoSize = true;
+            this.lblNameFormatPreview.Location = new System.Drawing.Point(704, 20);
+            this.lblNameFormatPreview.Name = "lblNameFormatPreview";
+            this.lblNameFormatPreview.Size = new System.Drawing.Size(107, 13);
+            this.lblNameFormatPreview.TabIndex = 16;
+            this.lblNameFormatPreview.Text = "Name format preview";
             // 
             // lblItemsCount
             // 
@@ -549,6 +558,27 @@
             this.gbRename.TabStop = false;
             this.gbRename.Text = "Rename settings";
             // 
+            // txtReplaceSpaces
+            // 
+            this.txtReplaceSpaces.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ReplaceSpacesString", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtReplaceSpaces.Location = new System.Drawing.Point(200, 152);
+            this.txtReplaceSpaces.Name = "txtReplaceSpaces";
+            this.txtReplaceSpaces.Size = new System.Drawing.Size(40, 20);
+            this.txtReplaceSpaces.TabIndex = 8;
+            this.txtReplaceSpaces.Text = global::RenamerX.Properties.Settings.Default.ReplaceSpacesString;
+            // 
+            // cbReplaceSpaces
+            // 
+            this.cbReplaceSpaces.AutoSize = true;
+            this.cbReplaceSpaces.Checked = global::RenamerX.Properties.Settings.Default.ReplaceSpaces;
+            this.cbReplaceSpaces.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ReplaceSpaces", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbReplaceSpaces.Location = new System.Drawing.Point(16, 152);
+            this.cbReplaceSpaces.Name = "cbReplaceSpaces";
+            this.cbReplaceSpaces.Size = new System.Drawing.Size(181, 17);
+            this.cbReplaceSpaces.TabIndex = 7;
+            this.cbReplaceSpaces.Text = "Replace spaces in filename with:";
+            this.cbReplaceSpaces.UseVisualStyleBackColor = true;
+            // 
             // lblRegexpPattern
             // 
             this.lblRegexpPattern.AutoSize = true;
@@ -565,51 +595,6 @@
             this.ttApp.InitialDelay = 100;
             this.ttApp.IsBalloon = true;
             this.ttApp.ReshowDelay = 20;
-            // 
-            // cbReplaceSpaces
-            // 
-            this.cbReplaceSpaces.AutoSize = true;
-            this.cbReplaceSpaces.Checked = global::RenamerX.Properties.Settings.Default.ReplaceSpaces;
-            this.cbReplaceSpaces.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ReplaceSpaces", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cbReplaceSpaces.Location = new System.Drawing.Point(16, 152);
-            this.cbReplaceSpaces.Name = "cbReplaceSpaces";
-            this.cbReplaceSpaces.Size = new System.Drawing.Size(181, 17);
-            this.cbReplaceSpaces.TabIndex = 7;
-            this.cbReplaceSpaces.Text = "Replace spaces in filename with:";
-            this.cbReplaceSpaces.UseVisualStyleBackColor = true;
-            // 
-            // txtReplaceSpaces
-            // 
-            this.txtReplaceSpaces.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ReplaceSpacesWith", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtReplaceSpaces.Location = new System.Drawing.Point(200, 152);
-            this.txtReplaceSpaces.Name = "txtReplaceSpaces";
-            this.txtReplaceSpaces.Size = new System.Drawing.Size(40, 20);
-            this.txtReplaceSpaces.TabIndex = 8;
-            this.txtReplaceSpaces.Text = global::RenamerX.Properties.Settings.Default.ReplaceSpacesWith;
-            // 
-            // lblNameFormatPreview
-            // 
-            this.lblNameFormatPreview.AutoSize = true;
-            this.lblNameFormatPreview.Location = new System.Drawing.Point(704, 20);
-            this.lblNameFormatPreview.Name = "lblNameFormatPreview";
-            this.lblNameFormatPreview.Size = new System.Drawing.Size(107, 13);
-            this.lblNameFormatPreview.TabIndex = 16;
-            this.lblNameFormatPreview.Text = "Name format preview";
-            // 
-            // cbShowErrors
-            // 
-            this.cbShowErrors.AutoSize = true;
-            this.cbShowErrors.Checked = global::RenamerX.Properties.Settings.Default.ShowErrors;
-            this.cbShowErrors.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowErrors", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cbShowErrors.Location = new System.Drawing.Point(16, 176);
-            this.cbShowErrors.Name = "cbShowErrors";
-            this.cbShowErrors.Size = new System.Drawing.Size(278, 17);
-            this.cbShowErrors.TabIndex = 13;
-            this.cbShowErrors.Text = "Show error message dialog boxes while renaming files";
-            this.ttApp.SetToolTip(this.cbShowErrors, "Example if a filename contains illegal characters then \"Illegal characters in pat" +
-                    "h\" error will be shown.\r\nIf you press cancel button in this message box then wil" +
-                    "l be stop renaming.");
-            this.cbShowErrors.UseVisualStyleBackColor = true;
             // 
             // txtRenameFileFilter
             // 
@@ -718,6 +703,21 @@
             this.ttApp.SetToolTip(this.cbSearchSubFolders, "Example if you added this folder: E:\\TV\\Lost\r\nThen will be search sub folders too" +
                     " (Season 1, Season 2...)");
             this.cbSearchSubFolders.UseVisualStyleBackColor = true;
+            // 
+            // cbShowErrors
+            // 
+            this.cbShowErrors.AutoSize = true;
+            this.cbShowErrors.Checked = global::RenamerX.Properties.Settings.Default.ShowErrors;
+            this.cbShowErrors.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RenamerX.Properties.Settings.Default, "ShowErrors", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbShowErrors.Location = new System.Drawing.Point(16, 176);
+            this.cbShowErrors.Name = "cbShowErrors";
+            this.cbShowErrors.Size = new System.Drawing.Size(278, 17);
+            this.cbShowErrors.TabIndex = 13;
+            this.cbShowErrors.Text = "Show error message dialog boxes while renaming files";
+            this.ttApp.SetToolTip(this.cbShowErrors, "Example if a filename contains illegal characters then \"Illegal characters in pat" +
+                    "h\" error will be shown.\r\nIf you press cancel button in this message box then wil" +
+                    "l be stop renaming.");
+            this.cbShowErrors.UseVisualStyleBackColor = true;
             // 
             // txtReplaceIllegalChars
             // 

@@ -21,7 +21,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ExtractFileFilter" Type="System.String" Scope="User">
-      <Value Profile="(Default)">+.rar|+.r00</Value>
+      <Value Profile="(Default)">*.rar|*.r00</Value>
     </Setting>
     <Setting Name="ExtractPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -59,7 +59,7 @@
     <Setting Name="ReplaceSpaces" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ReplaceSpacesWith" Type="System.String" Scope="User">
+    <Setting Name="ReplaceSpacesString" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

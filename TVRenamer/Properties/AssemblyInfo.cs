@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TVDB")]
-[assembly: AssemblyDescription("TVDB")]
+[assembly: AssemblyTitle("TVRenamer")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("TVDB")]
-[assembly: AssemblyProduct("TVDB")]
-[assembly: AssemblyCopyright("Copyright © TVDBLib Developers")]
-[assembly: AssemblyTrademark("TVDB")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("TVRenamer")]
+[assembly: AssemblyCopyright("Copyright © Contributors 2008-09")]
+[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("8fd8b2b3-0f22-4788-907c-8c4fffeeb1e3")]
+[assembly: Guid("f551ce06-9e2b-436d-918a-06ea647e838e")]
 
 // Version information for an assembly consists of the following four values:
 //

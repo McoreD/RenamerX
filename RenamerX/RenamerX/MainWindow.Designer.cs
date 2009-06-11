@@ -85,6 +85,9 @@
             this.cbShowActionMessages = new System.Windows.Forms.CheckBox();
             this.lblRegexpPattern = new System.Windows.Forms.Label();
             this.ttApp = new System.Windows.Forms.ToolTip(this.components);
+            this.cbReplaceSpaces = new System.Windows.Forms.CheckBox();
+            this.txtReplaceSpaces = new System.Windows.Forms.TextBox();
+            this.lblNameFormatPreview = new System.Windows.Forms.Label();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.scRename.Panel1.SuspendLayout();
@@ -135,6 +138,7 @@
             // 
             // scRename.Panel1
             // 
+            this.scRename.Panel1.Controls.Add(this.lblNameFormatPreview);
             this.scRename.Panel1.Controls.Add(this.lblItemsCount);
             this.scRename.Panel1.Controls.Add(this.lvShows);
             this.scRename.Panel1.Controls.Add(this.cbShowErrors);
@@ -284,6 +288,7 @@
             this.txtNameFormat.TabIndex = 0;
             this.txtNameFormat.Text = global::RenamerX.Properties.Settings.Default.NameFormat;
             this.ttApp.SetToolTip(this.txtNameFormat, resources.GetString("txtNameFormat.ToolTip"));
+            this.txtNameFormat.TextChanged += new System.EventHandler(this.txtNameFormat_TextChanged);
             // 
             // btnRenameAdd
             // 
@@ -652,6 +657,8 @@
             // 
             // gbRename
             // 
+            this.gbRename.Controls.Add(this.txtReplaceSpaces);
+            this.gbRename.Controls.Add(this.cbReplaceSpaces);
             this.gbRename.Controls.Add(this.txtReplaceIllegalChars);
             this.gbRename.Controls.Add(this.cbReplaceIllegalChars);
             this.gbRename.Controls.Add(this.cbGuessShowName);
@@ -740,6 +747,32 @@
             this.ttApp.InitialDelay = 100;
             this.ttApp.IsBalloon = true;
             this.ttApp.ReshowDelay = 20;
+            // 
+            // cbReplaceSpaces
+            // 
+            this.cbReplaceSpaces.AutoSize = true;
+            this.cbReplaceSpaces.Location = new System.Drawing.Point(16, 152);
+            this.cbReplaceSpaces.Name = "cbReplaceSpaces";
+            this.cbReplaceSpaces.Size = new System.Drawing.Size(181, 17);
+            this.cbReplaceSpaces.TabIndex = 7;
+            this.cbReplaceSpaces.Text = "Replace spaces in filename with:";
+            this.cbReplaceSpaces.UseVisualStyleBackColor = true;
+            // 
+            // txtReplaceSpaces
+            // 
+            this.txtReplaceSpaces.Location = new System.Drawing.Point(200, 152);
+            this.txtReplaceSpaces.Name = "txtReplaceSpaces";
+            this.txtReplaceSpaces.Size = new System.Drawing.Size(40, 20);
+            this.txtReplaceSpaces.TabIndex = 8;
+            // 
+            // lblNameFormatPreview
+            // 
+            this.lblNameFormatPreview.AutoSize = true;
+            this.lblNameFormatPreview.Location = new System.Drawing.Point(704, 20);
+            this.lblNameFormatPreview.Name = "lblNameFormatPreview";
+            this.lblNameFormatPreview.Size = new System.Drawing.Size(107, 13);
+            this.lblNameFormatPreview.TabIndex = 16;
+            this.lblNameFormatPreview.Text = "Name format preview";
             // 
             // MainWindow
             // 
@@ -832,5 +865,8 @@
         private System.Windows.Forms.Label lblExtractPassword;
         private System.Windows.Forms.TextBox txtReplaceIllegalChars;
         private System.Windows.Forms.CheckBox cbReplaceIllegalChars;
+        private System.Windows.Forms.TextBox txtReplaceSpaces;
+        private System.Windows.Forms.CheckBox cbReplaceSpaces;
+        private System.Windows.Forms.Label lblNameFormatPreview;
     }
 }

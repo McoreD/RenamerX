@@ -109,6 +109,12 @@ namespace TVRageLib
 
         public Episode() { }
 
+        public Episode(int episodeNumber, string title)
+        {
+            SeasonNumber = episodeNumber.ToString();
+            Title = title;
+        }
+
         public Episode(XElement xe)
         {
             EpisodeNumber = xe.ToString("epnum");

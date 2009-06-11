@@ -44,6 +44,7 @@ namespace RenamerX
         private List<string> ExtractList = new List<string>();
         private bool IsExtracting;
         private BackgroundWorker bwExtract = new BackgroundWorker();
+        private Show fakeShow;
 
         public MainWindow()
         {
@@ -53,6 +54,8 @@ namespace RenamerX
             bwExtract.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
             bwExtract.WorkerReportsProgress = true;
             bwExtract.WorkerSupportsCancellation = true;
+            fakeShow = CreateFakeShow("Show Name", 2, 7, "Episode Title");
+            UpdateNameFormatPreview();
         }
 
         private void LoadJaex()
@@ -483,10 +486,18 @@ namespace RenamerX
                         string extension = Path.GetExtension(filename).ToLowerInvariant();
                         string title = "";
                         Episode findEpisode = show.FindEpisode(season, episode);
-                        if (findEpisode != null) title = findEpisode.Title;
-                        return nameFormat.Replace("$N", show.Name).Replace("$S2", season.ToString("d2")).
+                        if (findEpisode != null)
+                        {
+                            title = findEpisode.Title;
+                        }
+                        string result = nameFormat.Replace("$N", show.Name).Replace("$S2", season.ToString("d2")).
                             Replace("$S", season.ToString()).Replace("$E2", episode.ToString("d2")).
                             Replace("$E", episode.ToString()).Replace("$T", title) + extension;
+                        if (cbReplaceSpaces.Checked)
+                        {
+                            result = result.Replace(" ", txtReplaceSpaces.Text);
+                        }
+                        return result;
                     }
                 }
                 catch (Exception ex)
@@ -772,6 +783,23 @@ namespace RenamerX
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private Show CreateFakeShow(string showName, int seasonNumber, int episodeNumber, string episodeTitle)
+        {
+            List<Episode> episodes = new List<Episode>() { new Episode(episodeNumber, episodeTitle) };
+            List<Season> seasons = new List<Season>() { new Season(seasonNumber) { Episodes = episodes } };
+            return new Show(showName) { Seasons = seasons };
+        }
+
+        private void txtNameFormat_TextChanged(object sender, EventArgs e)
+        {
+            UpdateNameFormatPreview();
+        }
+
+        private void UpdateNameFormatPreview()
+        {
+            lblNameFormatPreview.Text = Reformat(fakeShow, "S02E07.avi");
         }
     }
 }

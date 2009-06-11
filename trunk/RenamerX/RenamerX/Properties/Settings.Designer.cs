@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Collections.Generic;
 namespace RenamerX.Properties {
     
     
@@ -263,5 +264,20 @@ namespace RenamerX.Properties {
                 this["ReplaceSpacesString"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]        
+        public List<ShowItem> ShowItemList
+        {
+            get
+            {
+                return (List<ShowItem>)(this["ShowItemList"]);
+            }
+            set
+            {
+                this["ShowItemList"] = value;
+            }
+        }
+
     }
 }

@@ -79,9 +79,21 @@ namespace RenamerX
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            if (Settings.Default.ShowItemList == null)
+            {
+                Settings.Default.ShowItemList = new List<ShowItem>();
+            }
+
             if (Environment.UserName.Equals("PC"))
             {
                 LoadJaex();
+            }
+            else
+            {
+                foreach (ShowItem si in Settings.Default.ShowItemList)
+                {
+                    AddShow(si.ShowName, si.ShowDirectory);
+                }
             }
             ResizeListviewColumns();
             pgApp.SelectedObject = Settings.Default;
@@ -95,6 +107,11 @@ namespace RenamerX
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Settings.Default.ShowItemList.Clear();
+            foreach (ListViewItem lv in this.lvShows.Items)
+            {
+                Settings.Default.ShowItemList.Add((ShowItem)lv.Tag);
+            }
             Settings.Default.Save();
         }
 
@@ -380,6 +397,11 @@ namespace RenamerX
             {
                 AddShow(ib.ShowName, ib.ShowLocation);
             }
+        }
+
+        private void AddShow(ShowItem si)
+        {
+            AddShow(si.ShowName, si.ShowDirectory);
         }
 
         private void AddShow(string showName, string showFolder)

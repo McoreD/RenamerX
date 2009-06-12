@@ -35,6 +35,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Xml.Linq;
 using TVRageLib;
+using TVDBLib;
 
 namespace RenamerX
 {
@@ -50,7 +51,6 @@ namespace RenamerX
         {
             InitializeComponent();
             LoadSettings();
-            new SearchSeries("Lost").Show();
         }
 
         private void LoadSettings()
@@ -86,6 +86,10 @@ namespace RenamerX
             cbReplaceSpaces.Checked = Program.Settings.ReplaceSpaces;
             txtReplaceSpaces.Text = Program.Settings.ReplaceSpacesWith;
             cbShowErrors.Checked = Program.Settings.ShowErrors;
+
+            // Series Info
+            txtSeriesName.Text = Program.Settings.LastSeriesName;
+            txtSeriesID.Text = Program.Settings.LastSeriesID;
 
             // Others
             bwExtract.DoWork += new DoWorkEventHandler(ExtractThread);
@@ -607,7 +611,7 @@ namespace RenamerX
                         string nameFormat = txtNameFormat.Text;
                         string extension = Path.GetExtension(filename).ToLowerInvariant();
                         string title = "";
-                        Episode findEpisode = show.FindEpisode(season, episode);
+                        TVRageLib.Episode findEpisode = show.FindEpisode(season, episode);
                         if (findEpisode != null)
                         {
                             title = findEpisode.Title;
@@ -909,7 +913,7 @@ namespace RenamerX
 
         private Show CreateFakeShow(string showName, int seasonNumber, int episodeNumber, string episodeTitle)
         {
-            List<Episode> episodes = new List<Episode>() { new Episode(episodeNumber, episodeTitle) };
+            List<TVRageLib.Episode> episodes = new List<TVRageLib.Episode>() { new TVRageLib.Episode(episodeNumber, episodeTitle) };
             List<Season> seasons = new List<Season>() { new Season(seasonNumber) { Episodes = episodes } };
             return new Show(showName) { Seasons = seasons };
         }
@@ -969,10 +973,38 @@ namespace RenamerX
             TVDBLib.SeriesFull series = Program.TVDB.GetSeriesFullInformation(txtSeriesID.Text, TVDBLib.FileType.ZIP);
             plvSeries.SelectedObject = series.Series;
             LoadBanner(series.Series);
+            tvEpisodes.Tag = series.Episodes;
+            FillEpisodes(series.Episodes);
             //FillEpisodes(seriesCache.Episodes);
             //FillActors(seriesCache.Actors);
             //FillBanners(seriesCache.Banners);
             //lastSeriesID = seriesCache.Series.ID;
+        }
+
+        private void FillEpisodes(List<TVDBLib.Episode> episodes)
+        {
+            tvEpisodes.Nodes.Clear();
+            bool found = false;
+            foreach (TVDBLib.Episode episode in episodes)
+            {
+                foreach (TreeNode seasonNode in tvEpisodes.Nodes)
+                {
+                    if ((string)seasonNode.Tag == episode.SeasonNumber)
+                    {
+                        seasonNode.Nodes.Add(int.Parse(episode.EpisodeNumber).ToString("d2") + " - " + episode.EpisodeName).Tag = episode;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    TreeNode seasonNode = tvEpisodes.Nodes.Add("Season " + episode.SeasonNumber);
+                    seasonNode.Tag = episode.SeasonNumber;
+                    seasonNode.Nodes.Add(int.Parse(episode.EpisodeNumber).ToString("d2") + " - " + episode.EpisodeName).Tag = episode;
+                }
+                found = false;
+            }
+            tvEpisodes.ExpandAll();
         }
 
         private void LoadBanner(TVDBLib.Series series)
@@ -995,6 +1027,33 @@ namespace RenamerX
         {
             pbSeriesBanner.SizeMode = PictureBoxSizeMode.StretchImage;
             pbSeriesBanner.ImageLocation = (string)e.Result;
+        }
+
+        private void tvEpisodes_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if (tvEpisodes.SelectedNode.Tag.GetType() == typeof(TVDBLib.Episode))
+            {
+                plvEpisodes.SelectedObject = (TVDBLib.Episode)tvEpisodes.SelectedNode.Tag;
+            }
+        }
+
+        private void EpisodesFilterChanged(object sender, EventArgs e)
+        {
+            List<TVDBLib.Episode> episodes = (List<TVDBLib.Episode>)tvEpisodes.Tag;
+            if (episodes != null)
+            {
+                FillEpisodes(episodes.SearchEpisode(txtEpisodeName.Text, txtSeasonNumber.Text, txtEpisodeNumber.Text));
+            }
+        }
+
+        private void txtSeriesName_TextChanged(object sender, EventArgs e)
+        {
+            Program.Settings.LastSeriesName = txtSeriesName.Text;
+        }
+
+        private void txtSeriesID_TextChanged(object sender, EventArgs e)
+        {
+            Program.Settings.LastSeriesID = txtSeriesID.Text;
         }
     }
 }

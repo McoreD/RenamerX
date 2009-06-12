@@ -63,6 +63,10 @@ namespace RenamerX
         public string ReplaceSpacesWith = "";
         public bool ShowErrors = false;
 
+        // Series Info
+        public string LastSeriesName = "";
+        public string LastSeriesID = "";
+
         // Others
         public string LastRenameFolder = "";
         public string LastExtractFolder = "";

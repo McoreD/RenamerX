@@ -31,8 +31,11 @@ namespace RenamerX
     {
         private static string RootAppFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), Application.ProductName);
         private static string SettingsDir;
+        private static string CacheDir;
         private const string XMLFileName = "Settings.xml";
         private static string XMLFilePath;
+
+        public static TVDBLib.TVDB TVDB;
 
         public static string XMLSettingsFile
         {
@@ -53,6 +56,7 @@ namespace RenamerX
         {
             InitializeDefaultFolderPaths();
             Settings = XMLSettings.Read();
+            TVDB = new TVDBLib.TVDB(CacheDir);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainWindow());
@@ -64,6 +68,7 @@ namespace RenamerX
         public static void InitializeDefaultFolderPaths()
         {
             SettingsDir = Path.Combine(RootAppFolder, "Settings");
+            CacheDir = Path.Combine(RootAppFolder, "TVDB Cache");
             XMLFilePath = Path.Combine(SettingsDir, XMLFileName);
         }
     }

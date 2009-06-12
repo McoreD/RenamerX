@@ -69,6 +69,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ListViewX.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,12 +98,29 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="PropertyListView.resx">
+      <DependentUpon>PropertyListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchSeries.resx">
+      <DependentUpon>SearchSeries.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Settings.cs" />
+    <Compile Include="PropertyListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PropertyListView.designer.cs">
+      <DependentUpon>PropertyListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SearchSeries.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchSeries.Designer.cs">
+      <DependentUpon>SearchSeries.cs</DependentUpon>
+    </Compile>
     <Compile Include="ShowItem.cs" />
     <Compile Include="XMLSettings.cs" />
   </ItemGroup>
@@ -140,6 +160,10 @@
     <Content Include="UnRAR.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TVDBLib\TVDBLib.csproj">
+      <Project>{CCEB61B6-03CC-4697-98A2-0978D9B0E19F}</Project>
+      <Name>TVDBLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TVRageLib\TVRageLib.csproj">
       <Project>{5E6EF78A-B7F2-4306-A368-BC7768A1F1CA}</Project>
       <Name>TVRageLib</Name>

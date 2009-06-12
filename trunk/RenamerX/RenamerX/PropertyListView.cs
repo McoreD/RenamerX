@@ -33,30 +33,45 @@ using System.Reflection;
 
 namespace RenamerX
 {
-    public partial class PropertyListView : UserControl
+    public partial class PropertyListView : ListView
     {
+        public bool ConstantColumnSize { get; set; }
+        public ObjectType SetObjectType { get; set; }
+        public bool AllowEmptyObjects { get; set; }
+        public int NameColumnSize { get; set; }
+
         public object SelectedObject
         {
             set
             {
-                SelectObject(value);
+                SelectObject(value, SetObjectType, AllowEmptyObjects);
             }
         }
 
         public PropertyListView()
         {
-            InitializeComponent();
+            this.ConstantColumnSize = true;
+            this.SetObjectType = ObjectType.Properties;
+            this.AllowEmptyObjects = false;
+            this.FullRowSelect = true;
+            this.HideSelection = false;
+            this.MultiSelect = false;
+            this.GridLines = true;
+            this.View = View.Details;
+            this.NameColumnSize = 125;
+            this.Columns.Add("Name", this.NameColumnSize);
+            this.Columns.Add("Value", 200);
             ContextMenu contextMenu = new ContextMenu();
             contextMenu.MenuItems.Add("Copy name").Click += new EventHandler(PropertyListView_Click_Name);
             contextMenu.MenuItems.Add("Copy value").Click += new EventHandler(PropertyListView_Click_Value);
-            lvProperty.ContextMenu = contextMenu;
+            this.ContextMenu = contextMenu;
         }
 
         private void PropertyListView_Click_Name(object sender, EventArgs e)
         {
-            if (lvProperty.SelectedItems.Count > 0)
+            if (this.SelectedItems.Count > 0)
             {
-                string text = lvProperty.SelectedItems[0].SubItems[0].Text;
+                string text = this.SelectedItems[0].SubItems[0].Text;
                 if (!string.IsNullOrEmpty(text))
                 {
                     Clipboard.SetText(text);
@@ -66,9 +81,9 @@ namespace RenamerX
 
         private void PropertyListView_Click_Value(object sender, EventArgs e)
         {
-            if (lvProperty.SelectedItems.Count > 0)
+            if (this.SelectedItems.Count > 0)
             {
-                string text = lvProperty.SelectedItems[0].SubItems[1].Text;
+                string text = this.SelectedItems[0].SubItems[1].Text;
                 if (!string.IsNullOrEmpty(text))
                 {
                     Clipboard.SetText(text);
@@ -76,29 +91,37 @@ namespace RenamerX
             }
         }
 
-        private void SelectObject(object obj)
+        public enum ObjectType { Fields, Properties }
+
+        public void SelectObject(object obj, ObjectType objType, bool allowEmpty)
         {
-            lvProperty.Items.Clear();
+            this.Items.Clear();
             if (obj != null)
             {
                 Type type = obj.GetType();
-                foreach (PropertyInfo property in type.GetProperties())
+                if (objType == ObjectType.Fields)
                 {
-                    object value = property.GetValue(obj, null);
-                    if (value != null)
+                    foreach (FieldInfo property in type.GetFields())
                     {
-                        string value2 = null;
-                        if (value.GetType() == typeof(string) && !string.IsNullOrEmpty((string)value))
+                        string value = ObjectToString(property.GetValue(obj));
+                        if (!string.IsNullOrEmpty(value) || (value != null && allowEmpty))
                         {
-                            value2 = (string)value;
+                            this.Items.Add(property.Name).SubItems.Add(value);
                         }
-                        else if (value.GetType() == typeof(int) && (int)value > -1)
+                        else
                         {
-                            value2 = ((int)value).ToString();
+                            this.Items.Add(property.Name).BackColor = Color.LightGray;
                         }
-                        if (!string.IsNullOrEmpty(value2))
+                    }
+                }
+                else if (objType == ObjectType.Properties)
+                {
+                    foreach (PropertyInfo property in type.GetProperties())
+                    {
+                        string value = ObjectToString(property.GetValue(obj, null));
+                        if (!string.IsNullOrEmpty(value) || (value != null && allowEmpty))
                         {
-                            lvProperty.Items.Add(property.Name).SubItems.Add(value2);
+                            this.Items.Add(property.Name).SubItems.Add(value);
                         }
                     }
                 }
@@ -106,26 +129,46 @@ namespace RenamerX
             AutoResizeLastColumn();
         }
 
+        private string ObjectToString(object obj)
+        {
+            if (obj != null)
+            {
+                Type type = obj.GetType();
+                if (type == typeof(string) || type == typeof(int) || type == typeof(bool))
+                {
+                    return obj.ToString();
+                }
+            }
+            return null;
+        }
+
         private void AutoResizeLastColumn()
         {
-            if (lvProperty.View == View.Details && lvProperty.Columns.Count > 0)
+            if (this.View == View.Details && this.Columns.Count > 0)
             {
-                int size = lvProperty.ClientSize.Width - lvProperty.Columns[0].Width;
+                if (ConstantColumnSize)
+                {
+                    this.Columns[0].Width = this.NameColumnSize;
+                }
+                int size = this.ClientSize.Width - this.Columns[0].Width;
                 if (size > 0)
                 {
-                    lvProperty.Columns[1].Width = size;
+                    this.Columns[1].Width = size;
                 }
                 else
                 {
-                    lvProperty.Columns[1].Width = -2;
+                    this.Columns[1].Width = -2;
                 }
             }
         }
 
-        protected override void OnPaint(PaintEventArgs e)
+        protected override void WndProc(ref Message m)
         {
-            AutoResizeLastColumn();
-            base.OnPaint(e);
+            if (!this.DesignMode && m.Msg == 0xf)
+            {
+                AutoResizeLastColumn();
+            }
+            base.WndProc(ref m);
         }
     }
 }

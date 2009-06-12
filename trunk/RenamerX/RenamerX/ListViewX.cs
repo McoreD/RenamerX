@@ -59,7 +59,10 @@ namespace RenamerX
 
         protected override void WndProc(ref Message m)
         {
-            if (!this.DesignMode && m.Msg == 0xf) AutoResizeLastColumn();
+            if (!this.DesignMode && m.Msg == 0xf)
+            {
+                AutoResizeLastColumn();
+            }
             base.WndProc(ref m);
         }
     }

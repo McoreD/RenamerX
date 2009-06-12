@@ -98,9 +98,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="PropertyListView.resx">
-      <DependentUpon>PropertyListView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SearchSeries.resx">
       <DependentUpon>SearchSeries.cs</DependentUpon>
     </EmbeddedResource>
@@ -110,10 +107,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="PropertyListView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PropertyListView.designer.cs">
-      <DependentUpon>PropertyListView.cs</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SearchSeries.cs">
       <SubType>Form</SubType>

@@ -14,6 +14,7 @@ namespace RenamerX
         #region Settings
 
         // Rename
+        public List<ShowItem> ShowsList = new List<ShowItem>();
         public string NameFormat = "$N - S$S2E$E2 - $T";
         public string RenameFileFilter = "*.avi|*.mkv|*.srt|*.sub";
 

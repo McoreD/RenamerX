@@ -49,36 +49,17 @@ namespace RenamerX
         public MainWindow()
         {
             InitializeComponent();
-            bwExtract.DoWork += new DoWorkEventHandler(ExtractThread);
-            bwExtract.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
-            bwExtract.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
-            bwExtract.WorkerReportsProgress = true;
-            bwExtract.WorkerSupportsCancellation = true;
-            fakeShow = CreateFakeShow("Show Name", 2, 7, "Episode Title");
-            UpdateNameFormatPreview();
             LoadSettings();
-        }
-
-        private void LoadJaex()
-        {
-            for (int i = 1; i <= 5; i++)
-            {
-                AddShow("Lost", @"E:\TV\Lost\Season " + i);
-            }
-            for (int i = 1; i <= 3; i++)
-            {
-                AddShow("Heroes", @"E:\TV\Heroes\Season " + i);
-            }
-            AddShow("Fringe", @"E:\TV\Fringe\Season 1");
-            for (int i = 1; i <= 3; i++)
-            {
-                AddShow("Prison Break", @"E:\TV\Prison Break\Season " + i);
-            }
         }
 
         private void LoadSettings()
         {
             // Rename
+            lvShows.Items.Clear();
+            foreach (ShowItem si in Program.Settings.ShowsList)
+            {
+                AddShow(si);
+            }
             txtNameFormat.Text = Program.Settings.NameFormat;
             txtRenameFileFilter.Text = Program.Settings.RenameFileFilter;
 
@@ -100,13 +81,21 @@ namespace RenamerX
             cbReplaceSpaces.Checked = Program.Settings.ReplaceSpaces;
             txtReplaceSpaces.Text = Program.Settings.ReplaceSpacesWith;
             cbShowErrors.Checked = Program.Settings.ShowErrors;
+
+            // Others
+            bwExtract.DoWork += new DoWorkEventHandler(ExtractThread);
+            bwExtract.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+            bwExtract.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+            bwExtract.WorkerReportsProgress = true;
+            bwExtract.WorkerSupportsCancellation = true;
+            fakeShow = CreateFakeShow("Show Name", 2, 7, "Episode Title");
+            UpdateNameFormatPreview();
         }
 
         #region Form Events
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            if (Environment.UserName.Equals("PC")) LoadJaex();
             ResizeListviewColumns();
         }
 
@@ -118,7 +107,7 @@ namespace RenamerX
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            Program.Settings.Save();
         }
 
         #region Rename Tab Events
@@ -179,11 +168,29 @@ namespace RenamerX
                     }
                 }
             }
+
+            SaveShowsList();
+        }
+
+        private void txtNameFormat_TextChanged(object sender, EventArgs e)
+        {
+            Program.Settings.NameFormat = txtNameFormat.Text;
+            UpdateNameFormatPreview();
+        }
+
+        private void txtRenameFileFilter_TextChanged(object sender, EventArgs e)
+        {
+            Program.Settings.RenameFileFilter = txtRenameFileFilter.Text;
         }
 
         private void btnRenameAdd_Click(object sender, EventArgs e)
         {
-            BrowseTVShow();
+            InputBox ib = new InputBox("Browse for TV Show...", "", "");
+            if (ib.ShowDialog() == DialogResult.OK)
+            {
+                AddShow(ib.ShowName, ib.ShowLocation);
+                SaveShowsList();
+            }
         }
 
         private void btnRenameRemove_Click(object sender, EventArgs e)
@@ -191,12 +198,14 @@ namespace RenamerX
             if (lvShows.SelectedIndices.Count > 0)
             {
                 lvShows.Items.RemoveAt(lvShows.SelectedIndices[0]);
+                SaveShowsList();
             }
         }
 
         private void btnRenameClear_Click(object sender, EventArgs e)
         {
             lvShows.Items.Clear();
+            SaveShowsList();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -237,6 +246,43 @@ namespace RenamerX
 
         #region Extract Tab Events
 
+        #region Extract Tab Settings
+
+        private void txtExtractPath_TextChanged(object sender, EventArgs e)
+        {
+            Program.Settings.ExtractPath = txtExtractPath.Text;
+        }
+
+        private void txtUnRARPath_TextChanged(object sender, EventArgs e)
+        {
+            Program.Settings.UnRARPath = txtUnRARPath.Text;
+        }
+
+        private void txtExtractFileFilter_TextChanged(object sender, EventArgs e)
+        {
+            Program.Settings.ExtractFileFilter = txtExtractFileFilter.Text;
+        }
+
+        private void txtExtractFileSizeFilter_TextChanged(object sender, EventArgs e)
+        {
+            Program.Settings.ExtractFileSizeFilter = txtExtractFileSizeFilter.Text;
+        }
+
+        private void cbSearchSubFolders_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Settings.SearchSubFolders = cbSearchSubFolders.Checked;
+        }
+
+        private void cbExtractOverwrite_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Settings.ExtractOverwrite = cbExtractOverwrite.Checked;
+        }
+
+        private void txtExtractPassword_TextChanged(object sender, EventArgs e)
+        {
+            Program.Settings.ExtractPassword = txtExtractPassword.Text;
+        }
+
         private void txtExtractPath_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.All;
@@ -246,6 +292,8 @@ namespace RenamerX
         {
             txtExtractPath.Text = ((string[])e.Data.GetData(DataFormats.FileDrop, true))[0];
         }
+
+        #endregion
 
         private void btnExtractBrowse_Click(object sender, EventArgs e)
         {
@@ -394,25 +442,60 @@ namespace RenamerX
 
         #endregion
 
+        #region Settings Tab Events
+
+        private void txtRegexpPattern_TextChanged(object sender, EventArgs e)
+        {
+            Program.Settings.RegexpPattern = txtRegexpPattern.Text;
+        }
+
+        private void cbShowActionMessages_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Settings.ShowActionMessages = cbShowActionMessages.Checked;
+        }
+
+        private void cbGuessShowName_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Settings.GuessShowName = cbGuessShowName.Checked;
+        }
+
+        private void cbReplaceIllegalChars_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Settings.ReplaceIllegalChars = cbReplaceIllegalChars.Checked;
+        }
+
+        private void txtReplaceIllegalChars_TextChanged(object sender, EventArgs e)
+        {
+            Program.Settings.ReplaceIllegalCharsWith = txtReplaceIllegalChars.Text;
+        }
+
+        private void cbReplaceSpaces_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Settings.ReplaceSpaces = cbReplaceSpaces.Checked;
+        }
+
+        private void txtReplaceSpaces_TextChanged(object sender, EventArgs e)
+        {
+            Program.Settings.ReplaceSpacesWith = txtReplaceSpaces.Text;
+        }
+
+        private void cbShowErrors_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Settings.ShowErrors = cbShowErrors.Checked;
+        }
+
         #endregion
 
-        private void BrowseTVShow()
-        {
-            InputBox ib = new InputBox("Browse for TV Show...", "", "");
-            if (ib.ShowDialog() == DialogResult.OK)
-            {
-                AddShow(ib.ShowName, ib.ShowLocation);
-            }
-        }
+        #endregion
 
         private void AddShow(ShowItem si)
         {
             AddShow(si.ShowName, si.ShowDirectory);
         }
 
-        private void AddShow(string showName, string showFolder)
+        private void AddShow(string showName, string showDirectory)
         {
-            ShowItem si = new ShowItem(showName, showFolder);
+            ShowItem si = new ShowItem(showName, showDirectory);
             ListViewItem lvi = new ListViewItem(si.ToString()) { Checked = true, Tag = si, ToolTipText = si.ShowDirectory };
             lvShows.Items.Add(lvi);
         }
@@ -820,14 +903,36 @@ namespace RenamerX
             return new Show(showName) { Seasons = seasons };
         }
 
-        private void txtNameFormat_TextChanged(object sender, EventArgs e)
-        {
-            UpdateNameFormatPreview();
-        }
-
         private void UpdateNameFormatPreview()
         {
             lblNameFormatPreview.Text = Reformat(fakeShow, "S02E07.avi");
+        }
+
+        private void SaveShowsList()
+        {
+            Program.Settings.ShowsList.Clear();
+            foreach (ListViewItem lvi in lvShows.Items)
+            {
+                ShowItem si = (ShowItem)lvi.Tag;
+                Program.Settings.ShowsList.Add(new ShowItem(si.ShowName, si.ShowDirectory));
+            }
+        }
+
+        private void LoadJaex()
+        {
+            for (int i = 1; i <= 5; i++)
+            {
+                AddShow("Lost", @"E:\TV\Lost\Season " + i);
+            }
+            for (int i = 1; i <= 3; i++)
+            {
+                AddShow("Heroes", @"E:\TV\Heroes\Season " + i);
+            }
+            AddShow("Fringe", @"E:\TV\Fringe\Season 1");
+            for (int i = 1; i <= 3; i++)
+            {
+                AddShow("Prison Break", @"E:\TV\Prison Break\Season " + i);
+            }
         }
     }
 }

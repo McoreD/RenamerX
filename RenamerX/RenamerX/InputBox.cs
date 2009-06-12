@@ -36,7 +36,14 @@ namespace RenamerX
         {
             this.Text = title;
             ShowName = showName;
-            ShowLocation = showLocation;
+            if (string.IsNullOrEmpty(showLocation))
+            {
+                ShowLocation = Program.Settings.LastRenameFolder;
+            }
+            else
+            {
+                ShowLocation = showLocation;
+            }
         }
 
         public InputBox()
@@ -88,6 +95,11 @@ namespace RenamerX
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void txtShowLocation_TextChanged(object sender, EventArgs e)
+        {
+            Program.Settings.LastRenameFolder = txtShowLocation.Text;
         }
     }
 }

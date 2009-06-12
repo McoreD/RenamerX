@@ -89,37 +89,37 @@
             this.cbShowActionMessages = new System.Windows.Forms.CheckBox();
             this.lblRegexpPattern = new System.Windows.Forms.Label();
             this.tpSeriesInfo = new System.Windows.Forms.TabPage();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tcSeriesInfo = new System.Windows.Forms.TabControl();
+            this.tpSeries = new System.Windows.Forms.TabPage();
             this.pbSeriesBanner = new System.Windows.Forms.PictureBox();
             this.btnQuickSearchSeries = new System.Windows.Forms.Button();
             this.btnLoadSeries = new System.Windows.Forms.Button();
             this.btnSearchSeries = new System.Windows.Forms.Button();
             this.txtSeriesName = new System.Windows.Forms.TextBox();
             this.txtSeriesID = new System.Windows.Forms.TextBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.plvSeries = new RenamerX.PropertyListView();
+            this.tpEpisodes = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtEpisodeNumber = new System.Windows.Forms.TextBox();
             this.txtSeasonNumber = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblEpisodeNumber = new System.Windows.Forms.Label();
+            this.lblSeasonNumber = new System.Windows.Forms.Label();
             this.txtEpisodeName = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblEpisodeName = new System.Windows.Forms.Label();
             this.tvEpisodes = new System.Windows.Forms.TreeView();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.ttApp = new System.Windows.Forms.ToolTip(this.components);
+            this.plvEpisodes = new RenamerX.PropertyListView();
+            this.tpSeriesImages = new System.Windows.Forms.TabPage();
+            this.pbBanner = new System.Windows.Forms.PictureBox();
+            this.plvBanners = new RenamerX.PropertyListView();
             this.tcSeriesImages = new System.Windows.Forms.TabControl();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.lvBanners = new ListViewX();
+            this.tpBanners = new System.Windows.Forms.TabPage();
+            this.lvBanners = new RenamerX.ListViewX();
             this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.lvActors = new ListViewX();
+            this.tpActors = new System.Windows.Forms.TabPage();
+            this.lvActors = new RenamerX.ListViewX();
             this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
-            this.pbBanner = new System.Windows.Forms.PictureBox();
-            this.plvSeries = new RenamerX.PropertyListView();
-            this.plvEpisodes = new RenamerX.PropertyListView();
-            this.plvBanners = new RenamerX.PropertyListView();
+            this.ttApp = new System.Windows.Forms.ToolTip(this.components);
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.scRename.Panel1.SuspendLayout();
@@ -134,25 +134,25 @@
             this.gbGeneralSettings.SuspendLayout();
             this.gbRenameSettings.SuspendLayout();
             this.tpSeriesInfo.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tcSeriesInfo.SuspendLayout();
+            this.tpSeries.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSeriesBanner)).BeginInit();
-            this.tabPage2.SuspendLayout();
+            this.tpEpisodes.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.tcSeriesImages.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.tabPage5.SuspendLayout();
+            this.tpSeriesImages.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBanner)).BeginInit();
+            this.tcSeriesImages.SuspendLayout();
+            this.tpBanners.SuspendLayout();
+            this.tpActors.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcMain
             // 
             this.tcMain.Controls.Add(this.tpMain);
             this.tcMain.Controls.Add(this.tpExtract);
+            this.tcMain.Controls.Add(this.tpSeriesInfo);
             this.tcMain.Controls.Add(this.tpConsole);
             this.tcMain.Controls.Add(this.tpSettings);
-            this.tcMain.Controls.Add(this.tpSeriesInfo);
             this.tcMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcMain.Location = new System.Drawing.Point(3, 3);
             this.tcMain.Name = "tcMain";
@@ -811,7 +811,7 @@
             // 
             // tpSeriesInfo
             // 
-            this.tpSeriesInfo.Controls.Add(this.tabControl1);
+            this.tpSeriesInfo.Controls.Add(this.tcSeriesInfo);
             this.tpSeriesInfo.Location = new System.Drawing.Point(4, 24);
             this.tpSeriesInfo.Name = "tpSeriesInfo";
             this.tpSeriesInfo.Padding = new System.Windows.Forms.Padding(3);
@@ -820,34 +820,34 @@
             this.tpSeriesInfo.Text = "Series Info";
             this.tpSeriesInfo.UseVisualStyleBackColor = true;
             // 
-            // tabControl1
+            // tcSeriesInfo
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(3, 3);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(990, 602);
-            this.tabControl1.TabIndex = 0;
+            this.tcSeriesInfo.Controls.Add(this.tpSeries);
+            this.tcSeriesInfo.Controls.Add(this.tpEpisodes);
+            this.tcSeriesInfo.Controls.Add(this.tpSeriesImages);
+            this.tcSeriesInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tcSeriesInfo.Location = new System.Drawing.Point(3, 3);
+            this.tcSeriesInfo.Name = "tcSeriesInfo";
+            this.tcSeriesInfo.SelectedIndex = 0;
+            this.tcSeriesInfo.Size = new System.Drawing.Size(990, 602);
+            this.tcSeriesInfo.TabIndex = 0;
             // 
-            // tabPage1
+            // tpSeries
             // 
-            this.tabPage1.Controls.Add(this.pbSeriesBanner);
-            this.tabPage1.Controls.Add(this.btnQuickSearchSeries);
-            this.tabPage1.Controls.Add(this.btnLoadSeries);
-            this.tabPage1.Controls.Add(this.btnSearchSeries);
-            this.tabPage1.Controls.Add(this.txtSeriesName);
-            this.tabPage1.Controls.Add(this.txtSeriesID);
-            this.tabPage1.Controls.Add(this.plvSeries);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(982, 576);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Series";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tpSeries.Controls.Add(this.pbSeriesBanner);
+            this.tpSeries.Controls.Add(this.btnQuickSearchSeries);
+            this.tpSeries.Controls.Add(this.btnLoadSeries);
+            this.tpSeries.Controls.Add(this.btnSearchSeries);
+            this.tpSeries.Controls.Add(this.txtSeriesName);
+            this.tpSeries.Controls.Add(this.txtSeriesID);
+            this.tpSeries.Controls.Add(this.plvSeries);
+            this.tpSeries.Location = new System.Drawing.Point(4, 22);
+            this.tpSeries.Name = "tpSeries";
+            this.tpSeries.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSeries.Size = new System.Drawing.Size(982, 576);
+            this.tpSeries.TabIndex = 0;
+            this.tpSeries.Text = "Series";
+            this.tpSeries.UseVisualStyleBackColor = true;
             // 
             // pbSeriesBanner
             // 
@@ -904,27 +904,34 @@
             this.txtSeriesID.TabIndex = 1;
             this.txtSeriesID.TextChanged += new System.EventHandler(this.txtSeriesID_TextChanged);
             // 
-            // tabPage2
+            // plvSeries
             // 
-            this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Controls.Add(this.tvEpisodes);
-            this.tabPage2.Controls.Add(this.plvEpisodes);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(982, 576);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Episodes";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.plvSeries.Location = new System.Drawing.Point(8, 128);
+            this.plvSeries.Name = "plvSeries";
+            this.plvSeries.Size = new System.Drawing.Size(968, 438);
+            this.plvSeries.TabIndex = 0;
+            // 
+            // tpEpisodes
+            // 
+            this.tpEpisodes.Controls.Add(this.groupBox1);
+            this.tpEpisodes.Controls.Add(this.tvEpisodes);
+            this.tpEpisodes.Controls.Add(this.plvEpisodes);
+            this.tpEpisodes.Location = new System.Drawing.Point(4, 22);
+            this.tpEpisodes.Name = "tpEpisodes";
+            this.tpEpisodes.Padding = new System.Windows.Forms.Padding(3);
+            this.tpEpisodes.Size = new System.Drawing.Size(982, 576);
+            this.tpEpisodes.TabIndex = 1;
+            this.tpEpisodes.Text = "Episodes";
+            this.tpEpisodes.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.txtEpisodeNumber);
             this.groupBox1.Controls.Add(this.txtSeasonNumber);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.lblEpisodeNumber);
+            this.groupBox1.Controls.Add(this.lblSeasonNumber);
             this.groupBox1.Controls.Add(this.txtEpisodeName);
-            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.lblEpisodeName);
             this.groupBox1.Location = new System.Drawing.Point(8, 8);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(960, 48);
@@ -948,23 +955,23 @@
             this.txtSeasonNumber.TabIndex = 4;
             this.txtSeasonNumber.TextChanged += new System.EventHandler(this.EpisodesFilterChanged);
             // 
-            // label3
+            // lblEpisodeNumber
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(432, 24);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(86, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Episode number:";
+            this.lblEpisodeNumber.AutoSize = true;
+            this.lblEpisodeNumber.Location = new System.Drawing.Point(432, 24);
+            this.lblEpisodeNumber.Name = "lblEpisodeNumber";
+            this.lblEpisodeNumber.Size = new System.Drawing.Size(86, 13);
+            this.lblEpisodeNumber.TabIndex = 3;
+            this.lblEpisodeNumber.Text = "Episode number:";
             // 
-            // label2
+            // lblSeasonNumber
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(312, 24);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Season number:";
+            this.lblSeasonNumber.AutoSize = true;
+            this.lblSeasonNumber.Location = new System.Drawing.Point(312, 24);
+            this.lblSeasonNumber.Name = "lblSeasonNumber";
+            this.lblSeasonNumber.Size = new System.Drawing.Size(84, 13);
+            this.lblSeasonNumber.TabIndex = 2;
+            this.lblSeasonNumber.Text = "Season number:";
             // 
             // txtEpisodeName
             // 
@@ -974,14 +981,14 @@
             this.txtEpisodeName.TabIndex = 1;
             this.txtEpisodeName.TextChanged += new System.EventHandler(this.EpisodesFilterChanged);
             // 
-            // label1
+            // lblEpisodeName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Episode name:";
+            this.lblEpisodeName.AutoSize = true;
+            this.lblEpisodeName.Location = new System.Drawing.Point(16, 24);
+            this.lblEpisodeName.Name = "lblEpisodeName";
+            this.lblEpisodeName.Size = new System.Drawing.Size(77, 13);
+            this.lblEpisodeName.TabIndex = 0;
+            this.lblEpisodeName.Text = "Episode name:";
             // 
             // tvEpisodes
             // 
@@ -991,47 +998,63 @@
             this.tvEpisodes.TabIndex = 0;
             this.tvEpisodes.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvEpisodes_AfterSelect);
             // 
-            // tabPage3
+            // plvEpisodes
             // 
-            this.tabPage3.Controls.Add(this.pbBanner);
-            this.tabPage3.Controls.Add(this.plvBanners);
-            this.tabPage3.Controls.Add(this.tcSeriesImages);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(982, 576);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Images";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.plvEpisodes.Location = new System.Drawing.Point(520, 64);
+            this.plvEpisodes.Name = "plvEpisodes";
+            this.plvEpisodes.Size = new System.Drawing.Size(456, 504);
+            this.plvEpisodes.TabIndex = 1;
             // 
-            // ttApp
+            // tpSeriesImages
             // 
-            this.ttApp.AutomaticDelay = 100;
-            this.ttApp.AutoPopDelay = 10000;
-            this.ttApp.InitialDelay = 750;
-            this.ttApp.IsBalloon = true;
-            this.ttApp.ReshowDelay = 0;
-            this.ttApp.UseFading = false;
+            this.tpSeriesImages.Controls.Add(this.pbBanner);
+            this.tpSeriesImages.Controls.Add(this.plvBanners);
+            this.tpSeriesImages.Controls.Add(this.tcSeriesImages);
+            this.tpSeriesImages.Location = new System.Drawing.Point(4, 22);
+            this.tpSeriesImages.Name = "tpSeriesImages";
+            this.tpSeriesImages.Size = new System.Drawing.Size(982, 576);
+            this.tpSeriesImages.TabIndex = 2;
+            this.tpSeriesImages.Text = "Images";
+            this.tpSeriesImages.UseVisualStyleBackColor = true;
+            // 
+            // pbBanner
+            // 
+            this.pbBanner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbBanner.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbBanner.Location = new System.Drawing.Point(408, 8);
+            this.pbBanner.Name = "pbBanner";
+            this.pbBanner.Size = new System.Drawing.Size(560, 552);
+            this.pbBanner.TabIndex = 6;
+            this.pbBanner.TabStop = false;
+            this.pbBanner.Click += new System.EventHandler(this.pbBanner_Click);
+            // 
+            // plvBanners
+            // 
+            this.plvBanners.Location = new System.Drawing.Point(8, 392);
+            this.plvBanners.Name = "plvBanners";
+            this.plvBanners.Size = new System.Drawing.Size(392, 168);
+            this.plvBanners.TabIndex = 5;
             // 
             // tcSeriesImages
             // 
-            this.tcSeriesImages.Controls.Add(this.tabPage4);
-            this.tcSeriesImages.Controls.Add(this.tabPage5);
+            this.tcSeriesImages.Controls.Add(this.tpBanners);
+            this.tcSeriesImages.Controls.Add(this.tpActors);
             this.tcSeriesImages.Location = new System.Drawing.Point(8, 8);
             this.tcSeriesImages.Name = "tcSeriesImages";
             this.tcSeriesImages.SelectedIndex = 0;
             this.tcSeriesImages.Size = new System.Drawing.Size(392, 376);
             this.tcSeriesImages.TabIndex = 4;
             // 
-            // tabPage4
+            // tpBanners
             // 
-            this.tabPage4.Controls.Add(this.lvBanners);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(384, 350);
-            this.tabPage4.TabIndex = 0;
-            this.tabPage4.Text = "Banners";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tpBanners.Controls.Add(this.lvBanners);
+            this.tpBanners.Location = new System.Drawing.Point(4, 22);
+            this.tpBanners.Name = "tpBanners";
+            this.tpBanners.Padding = new System.Windows.Forms.Padding(3);
+            this.tpBanners.Size = new System.Drawing.Size(384, 350);
+            this.tpBanners.TabIndex = 0;
+            this.tpBanners.Text = "Banners";
+            this.tpBanners.UseVisualStyleBackColor = true;
             // 
             // lvBanners
             // 
@@ -1039,7 +1062,9 @@
             this.columnHeader9});
             this.lvBanners.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvBanners.FullRowSelect = true;
+            this.lvBanners.HideSelection = false;
             this.lvBanners.Location = new System.Drawing.Point(3, 3);
+            this.lvBanners.MultiSelect = false;
             this.lvBanners.Name = "lvBanners";
             this.lvBanners.Size = new System.Drawing.Size(378, 344);
             this.lvBanners.TabIndex = 0;
@@ -1052,16 +1077,16 @@
             this.columnHeader9.Text = "Banner Path";
             this.columnHeader9.Width = 350;
             // 
-            // tabPage5
+            // tpActors
             // 
-            this.tabPage5.Controls.Add(this.lvActors);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(384, 350);
-            this.tabPage5.TabIndex = 1;
-            this.tabPage5.Text = "Actors";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.tpActors.Controls.Add(this.lvActors);
+            this.tpActors.Location = new System.Drawing.Point(4, 22);
+            this.tpActors.Name = "tpActors";
+            this.tpActors.Padding = new System.Windows.Forms.Padding(3);
+            this.tpActors.Size = new System.Drawing.Size(384, 350);
+            this.tpActors.TabIndex = 1;
+            this.tpActors.Text = "Actors";
+            this.tpActors.UseVisualStyleBackColor = true;
             // 
             // lvActors
             // 
@@ -1091,37 +1116,14 @@
             this.columnHeader11.Text = "Role";
             this.columnHeader11.Width = 175;
             // 
-            // pbBanner
+            // ttApp
             // 
-            this.pbBanner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbBanner.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbBanner.Location = new System.Drawing.Point(408, 8);
-            this.pbBanner.Name = "pbBanner";
-            this.pbBanner.Size = new System.Drawing.Size(560, 552);
-            this.pbBanner.TabIndex = 6;
-            this.pbBanner.TabStop = false;
-            this.pbBanner.Click += new System.EventHandler(this.pbBanner_Click);
-            // 
-            // plvSeries
-            // 
-            this.plvSeries.Location = new System.Drawing.Point(8, 128);
-            this.plvSeries.Name = "plvSeries";
-            this.plvSeries.Size = new System.Drawing.Size(968, 438);
-            this.plvSeries.TabIndex = 0;
-            // 
-            // plvEpisodes
-            // 
-            this.plvEpisodes.Location = new System.Drawing.Point(520, 64);
-            this.plvEpisodes.Name = "plvEpisodes";
-            this.plvEpisodes.Size = new System.Drawing.Size(456, 504);
-            this.plvEpisodes.TabIndex = 1;
-            // 
-            // plvBanners
-            // 
-            this.plvBanners.Location = new System.Drawing.Point(8, 392);
-            this.plvBanners.Name = "plvBanners";
-            this.plvBanners.Size = new System.Drawing.Size(392, 168);
-            this.plvBanners.TabIndex = 5;
+            this.ttApp.AutomaticDelay = 100;
+            this.ttApp.AutoPopDelay = 10000;
+            this.ttApp.InitialDelay = 750;
+            this.ttApp.IsBalloon = true;
+            this.ttApp.ReshowDelay = 0;
+            this.ttApp.UseFading = false;
             // 
             // MainWindow
             // 
@@ -1156,18 +1158,18 @@
             this.gbRenameSettings.ResumeLayout(false);
             this.gbRenameSettings.PerformLayout();
             this.tpSeriesInfo.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tcSeriesInfo.ResumeLayout(false);
+            this.tpSeries.ResumeLayout(false);
+            this.tpSeries.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSeriesBanner)).EndInit();
-            this.tabPage2.ResumeLayout(false);
+            this.tpEpisodes.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tcSeriesImages.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage5.ResumeLayout(false);
+            this.tpSeriesImages.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbBanner)).EndInit();
+            this.tcSeriesImages.ResumeLayout(false);
+            this.tpBanners.ResumeLayout(false);
+            this.tpActors.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1234,33 +1236,33 @@
         private System.Windows.Forms.GroupBox gbGeneralSettings;
         private System.Windows.Forms.CheckBox cbShowHelpTooltips;
         private System.Windows.Forms.TabPage tpSeriesInfo;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabControl tcSeriesInfo;
+        private System.Windows.Forms.TabPage tpSeries;
         private PropertyListView plvSeries;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tpEpisodes;
         private System.Windows.Forms.Button btnLoadSeries;
         private System.Windows.Forms.Button btnSearchSeries;
         private System.Windows.Forms.TextBox txtSeriesName;
         private System.Windows.Forms.TextBox txtSeriesID;
         private System.Windows.Forms.Button btnQuickSearchSeries;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tpSeriesImages;
         private System.Windows.Forms.PictureBox pbSeriesBanner;
         private System.Windows.Forms.TreeView tvEpisodes;
         private PropertyListView plvEpisodes;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtEpisodeNumber;
         private System.Windows.Forms.TextBox txtSeasonNumber;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblEpisodeNumber;
+        private System.Windows.Forms.Label lblSeasonNumber;
         private System.Windows.Forms.TextBox txtEpisodeName;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblEpisodeName;
         private System.Windows.Forms.PictureBox pbBanner;
         private PropertyListView plvBanners;
         private System.Windows.Forms.TabControl tcSeriesImages;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tpBanners;
         private ListViewX lvBanners;
         private System.Windows.Forms.ColumnHeader columnHeader9;
-        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage tpActors;
         private ListViewX lvActors;
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private System.Windows.Forms.ColumnHeader columnHeader11;

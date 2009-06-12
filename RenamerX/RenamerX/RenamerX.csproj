@@ -157,6 +157,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\loading1.gif" />
     <Content Include="UnRAR.txt" />
   </ItemGroup>
   <ItemGroup>

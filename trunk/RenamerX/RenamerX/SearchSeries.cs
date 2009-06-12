@@ -19,9 +19,24 @@ namespace RenamerX
             InitializeComponent();
         }
 
+        public SearchSeries(string showname)
+            : this()
+        {
+            if (!string.IsNullOrEmpty(showname))
+            {
+                txtSeriesName.Text = showname;
+                Search(showname);
+            }
+        }
+
         private void btnSearchSeries_Click(object sender, EventArgs e)
         {
-            List<Series> series = Program.TVDB.GetSeriesList(txtSeriesName.Text);
+            Search(txtSeriesName.Text);
+        }
+
+        private void Search(string showname)
+        {
+            List<Series> series = Program.TVDB.GetSeriesList(showname);
             lvSeriesList.Items.Clear();
             foreach (Series serie in series)
             {
@@ -84,6 +99,14 @@ namespace RenamerX
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void txtSeriesName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((Keys)e.KeyChar == Keys.Enter)
+            {
+                Search(txtSeriesName.Text);
+            }
         }
     }
 }

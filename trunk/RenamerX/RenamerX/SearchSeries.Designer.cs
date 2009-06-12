@@ -58,6 +58,7 @@
             this.txtSeriesName.Name = "txtSeriesName";
             this.txtSeriesName.Size = new System.Drawing.Size(312, 20);
             this.txtSeriesName.TabIndex = 2;
+            this.txtSeriesName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSeriesName_KeyPress);
             // 
             // btnSearchSeries
             // 
@@ -163,8 +164,9 @@
             this.Controls.Add(this.txtSeriesName);
             this.Controls.Add(this.lblSeriesName);
             this.Controls.Add(this.lvSeriesList);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "SearchSeries";
-            this.Text = "SearchSeries";
+            this.Text = "Search Series";
             ((System.ComponentModel.ISupportInitialize)(this.pbSeriesBanner)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

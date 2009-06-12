@@ -50,6 +50,7 @@ namespace RenamerX
         {
             InitializeComponent();
             LoadSettings();
+            new SearchSeries("Lost").Show();
         }
 
         private void LoadSettings()
@@ -101,7 +102,6 @@ namespace RenamerX
         private void MainWindow_Load(object sender, EventArgs e)
         {
             ResizeListviewColumns();
-            new SearchSeries().Show();
         }
 
         private void MainWindow_Resize(object sender, EventArgs e)
@@ -944,6 +944,57 @@ namespace RenamerX
             {
                 AddShow("Prison Break", @"E:\TV\Prison Break\Season " + i);
             }
+        }
+
+        private void btnSearchSeries_Click(object sender, EventArgs e)
+        {
+            SearchSeries search = new SearchSeries(txtSeriesName.Text);
+            if (search.ShowDialog() == DialogResult.OK)
+            {
+                txtSeriesID.Text = search.SeriesID;
+            }
+        }
+
+        private void btnQuickSearchSeries_Click(object sender, EventArgs e)
+        {
+            TVDBLib.Series series = Program.TVDB.GetFirstSeries(txtSeriesName.Text);
+            if (series != null)
+            {
+                txtSeriesID.Text = series.ID;
+            }
+        }
+
+        private void btnLoadSeries_Click(object sender, EventArgs e)
+        {
+            TVDBLib.SeriesFull series = Program.TVDB.GetSeriesFullInformation(txtSeriesID.Text, TVDBLib.FileType.ZIP);
+            plvSeries.SelectedObject = series.Series;
+            LoadBanner(series.Series);
+            //FillEpisodes(seriesCache.Episodes);
+            //FillActors(seriesCache.Actors);
+            //FillBanners(seriesCache.Banners);
+            //lastSeriesID = seriesCache.Series.ID;
+        }
+
+        private void LoadBanner(TVDBLib.Series series)
+        {
+            //pbSeriesBanner.SizeMode = PictureBoxSizeMode.CenterImage;
+            //pbSeriesBanner.Image = TVDBLibTest.Properties.Resources.loading;
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.DoWork += new DoWorkEventHandler(Banners_DoWork);
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(Banners_RunWorkerCompleted);
+            bw.RunWorkerAsync(series);
+        }
+
+        private void Banners_DoWork(object sender, DoWorkEventArgs e)
+        {
+            TVDBLib.Series series = (TVDBLib.Series)e.Argument;
+            e.Result = Program.TVDB.GetImagePath(series.Banner, series.ID);
+        }
+
+        private void Banners_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            pbSeriesBanner.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbSeriesBanner.ImageLocation = (string)e.Result;
         }
     }
 }

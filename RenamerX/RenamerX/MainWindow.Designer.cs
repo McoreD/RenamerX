@@ -76,6 +76,8 @@
             this.tpConsole = new System.Windows.Forms.TabPage();
             this.txtConsole = new System.Windows.Forms.TextBox();
             this.tpSettings = new System.Windows.Forms.TabPage();
+            this.gbGeneralSettings = new System.Windows.Forms.GroupBox();
+            this.cbShowHelpTooltips = new System.Windows.Forms.CheckBox();
             this.gbRenameSettings = new System.Windows.Forms.GroupBox();
             this.txtReplaceSpaces = new System.Windows.Forms.TextBox();
             this.cbShowErrors = new System.Windows.Forms.CheckBox();
@@ -87,8 +89,18 @@
             this.cbShowActionMessages = new System.Windows.Forms.CheckBox();
             this.lblRegexpPattern = new System.Windows.Forms.Label();
             this.ttApp = new System.Windows.Forms.ToolTip(this.components);
-            this.gbGeneralSettings = new System.Windows.Forms.GroupBox();
-            this.cbShowHelpTooltips = new System.Windows.Forms.CheckBox();
+            this.tpSeriesInfo = new System.Windows.Forms.TabPage();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.txtSeriesID = new System.Windows.Forms.TextBox();
+            this.txtSeriesName = new System.Windows.Forms.TextBox();
+            this.btnSearchSeries = new System.Windows.Forms.Button();
+            this.btnLoadSeries = new System.Windows.Forms.Button();
+            this.btnQuickSearchSeries = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.pbSeriesBanner = new System.Windows.Forms.PictureBox();
+            this.plvSeries = new RenamerX.PropertyListView();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.scRename.Panel1.SuspendLayout();
@@ -100,8 +112,12 @@
             this.scExtract.SuspendLayout();
             this.tpConsole.SuspendLayout();
             this.tpSettings.SuspendLayout();
-            this.gbRenameSettings.SuspendLayout();
             this.gbGeneralSettings.SuspendLayout();
+            this.gbRenameSettings.SuspendLayout();
+            this.tpSeriesInfo.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSeriesBanner)).BeginInit();
             this.SuspendLayout();
             // 
             // tcMain
@@ -110,6 +126,7 @@
             this.tcMain.Controls.Add(this.tpExtract);
             this.tcMain.Controls.Add(this.tpConsole);
             this.tcMain.Controls.Add(this.tpSettings);
+            this.tcMain.Controls.Add(this.tpSeriesInfo);
             this.tcMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcMain.Location = new System.Drawing.Point(3, 3);
             this.tcMain.Name = "tcMain";
@@ -631,6 +648,27 @@
             this.tpSettings.Text = "Settings";
             this.tpSettings.UseVisualStyleBackColor = true;
             // 
+            // gbGeneralSettings
+            // 
+            this.gbGeneralSettings.Controls.Add(this.cbShowHelpTooltips);
+            this.gbGeneralSettings.Location = new System.Drawing.Point(8, 8);
+            this.gbGeneralSettings.Name = "gbGeneralSettings";
+            this.gbGeneralSettings.Size = new System.Drawing.Size(976, 88);
+            this.gbGeneralSettings.TabIndex = 4;
+            this.gbGeneralSettings.TabStop = false;
+            this.gbGeneralSettings.Text = "General Settings";
+            // 
+            // cbShowHelpTooltips
+            // 
+            this.cbShowHelpTooltips.AutoSize = true;
+            this.cbShowHelpTooltips.Location = new System.Drawing.Point(16, 24);
+            this.cbShowHelpTooltips.Name = "cbShowHelpTooltips";
+            this.cbShowHelpTooltips.Size = new System.Drawing.Size(112, 17);
+            this.cbShowHelpTooltips.TabIndex = 0;
+            this.cbShowHelpTooltips.Text = "Show help tooltips";
+            this.cbShowHelpTooltips.UseVisualStyleBackColor = true;
+            this.cbShowHelpTooltips.CheckedChanged += new System.EventHandler(this.cbShowHelpTooltips_CheckedChanged);
+            // 
             // gbRenameSettings
             // 
             this.gbRenameSettings.Controls.Add(this.txtReplaceSpaces);
@@ -754,26 +792,124 @@
             this.ttApp.ReshowDelay = 0;
             this.ttApp.UseFading = false;
             // 
-            // gbGeneralSettings
+            // tpSeriesInfo
             // 
-            this.gbGeneralSettings.Controls.Add(this.cbShowHelpTooltips);
-            this.gbGeneralSettings.Location = new System.Drawing.Point(8, 8);
-            this.gbGeneralSettings.Name = "gbGeneralSettings";
-            this.gbGeneralSettings.Size = new System.Drawing.Size(976, 88);
-            this.gbGeneralSettings.TabIndex = 4;
-            this.gbGeneralSettings.TabStop = false;
-            this.gbGeneralSettings.Text = "General Settings";
+            this.tpSeriesInfo.Controls.Add(this.tabControl1);
+            this.tpSeriesInfo.Location = new System.Drawing.Point(4, 24);
+            this.tpSeriesInfo.Name = "tpSeriesInfo";
+            this.tpSeriesInfo.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSeriesInfo.Size = new System.Drawing.Size(996, 608);
+            this.tpSeriesInfo.TabIndex = 4;
+            this.tpSeriesInfo.Text = "Series Info";
+            this.tpSeriesInfo.UseVisualStyleBackColor = true;
             // 
-            // cbShowHelpTooltips
+            // tabControl1
             // 
-            this.cbShowHelpTooltips.AutoSize = true;
-            this.cbShowHelpTooltips.Location = new System.Drawing.Point(16, 24);
-            this.cbShowHelpTooltips.Name = "cbShowHelpTooltips";
-            this.cbShowHelpTooltips.Size = new System.Drawing.Size(112, 17);
-            this.cbShowHelpTooltips.TabIndex = 0;
-            this.cbShowHelpTooltips.Text = "Show help tooltips";
-            this.cbShowHelpTooltips.UseVisualStyleBackColor = true;
-            this.cbShowHelpTooltips.CheckedChanged += new System.EventHandler(this.cbShowHelpTooltips_CheckedChanged);
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(3, 3);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(990, 602);
+            this.tabControl1.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.pbSeriesBanner);
+            this.tabPage1.Controls.Add(this.btnQuickSearchSeries);
+            this.tabPage1.Controls.Add(this.btnLoadSeries);
+            this.tabPage1.Controls.Add(this.btnSearchSeries);
+            this.tabPage1.Controls.Add(this.txtSeriesName);
+            this.tabPage1.Controls.Add(this.txtSeriesID);
+            this.tabPage1.Controls.Add(this.plvSeries);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(982, 576);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Series";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(982, 576);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Episodes";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // txtSeriesID
+            // 
+            this.txtSeriesID.Location = new System.Drawing.Point(416, 8);
+            this.txtSeriesID.Name = "txtSeriesID";
+            this.txtSeriesID.Size = new System.Drawing.Size(100, 20);
+            this.txtSeriesID.TabIndex = 1;
+            // 
+            // txtSeriesName
+            // 
+            this.txtSeriesName.Location = new System.Drawing.Point(8, 8);
+            this.txtSeriesName.Name = "txtSeriesName";
+            this.txtSeriesName.Size = new System.Drawing.Size(216, 20);
+            this.txtSeriesName.TabIndex = 2;
+            // 
+            // btnSearchSeries
+            // 
+            this.btnSearchSeries.Location = new System.Drawing.Point(232, 8);
+            this.btnSearchSeries.Name = "btnSearchSeries";
+            this.btnSearchSeries.Size = new System.Drawing.Size(75, 23);
+            this.btnSearchSeries.TabIndex = 3;
+            this.btnSearchSeries.Text = "Search";
+            this.btnSearchSeries.UseVisualStyleBackColor = true;
+            this.btnSearchSeries.Click += new System.EventHandler(this.btnSearchSeries_Click);
+            // 
+            // btnLoadSeries
+            // 
+            this.btnLoadSeries.Location = new System.Drawing.Point(520, 8);
+            this.btnLoadSeries.Name = "btnLoadSeries";
+            this.btnLoadSeries.Size = new System.Drawing.Size(64, 24);
+            this.btnLoadSeries.TabIndex = 4;
+            this.btnLoadSeries.Text = "Load";
+            this.btnLoadSeries.UseVisualStyleBackColor = true;
+            this.btnLoadSeries.Click += new System.EventHandler(this.btnLoadSeries_Click);
+            // 
+            // btnQuickSearchSeries
+            // 
+            this.btnQuickSearchSeries.Location = new System.Drawing.Point(312, 8);
+            this.btnQuickSearchSeries.Name = "btnQuickSearchSeries";
+            this.btnQuickSearchSeries.Size = new System.Drawing.Size(96, 23);
+            this.btnQuickSearchSeries.TabIndex = 5;
+            this.btnQuickSearchSeries.Text = "Quick Search";
+            this.btnQuickSearchSeries.UseVisualStyleBackColor = true;
+            this.btnQuickSearchSeries.Click += new System.EventHandler(this.btnQuickSearchSeries_Click);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(982, 576);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Images";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // pbSeriesBanner
+            // 
+            this.pbSeriesBanner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbSeriesBanner.Location = new System.Drawing.Point(8, 40);
+            this.pbSeriesBanner.Name = "pbSeriesBanner";
+            this.pbSeriesBanner.Size = new System.Drawing.Size(496, 80);
+            this.pbSeriesBanner.TabIndex = 6;
+            this.pbSeriesBanner.TabStop = false;
+            // 
+            // plvSeries
+            // 
+            this.plvSeries.Location = new System.Drawing.Point(8, 128);
+            this.plvSeries.Name = "plvSeries";
+            this.plvSeries.Size = new System.Drawing.Size(968, 438);
+            this.plvSeries.TabIndex = 0;
             // 
             // MainWindow
             // 
@@ -803,10 +939,15 @@
             this.tpConsole.ResumeLayout(false);
             this.tpConsole.PerformLayout();
             this.tpSettings.ResumeLayout(false);
-            this.gbRenameSettings.ResumeLayout(false);
-            this.gbRenameSettings.PerformLayout();
             this.gbGeneralSettings.ResumeLayout(false);
             this.gbGeneralSettings.PerformLayout();
+            this.gbRenameSettings.ResumeLayout(false);
+            this.gbRenameSettings.PerformLayout();
+            this.tpSeriesInfo.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSeriesBanner)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -872,5 +1013,17 @@
         private System.Windows.Forms.Label lblNameFormatPreview;
         private System.Windows.Forms.GroupBox gbGeneralSettings;
         private System.Windows.Forms.CheckBox cbShowHelpTooltips;
+        private System.Windows.Forms.TabPage tpSeriesInfo;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private PropertyListView plvSeries;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Button btnLoadSeries;
+        private System.Windows.Forms.Button btnSearchSeries;
+        private System.Windows.Forms.TextBox txtSeriesName;
+        private System.Windows.Forms.TextBox txtSeriesID;
+        private System.Windows.Forms.Button btnQuickSearchSeries;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.PictureBox pbSeriesBanner;
     }
 }

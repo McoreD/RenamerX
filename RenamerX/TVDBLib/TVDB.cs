@@ -109,6 +109,16 @@ namespace TVDBLib
             return ParseSeries(path);
         }
 
+        public Series GetFirstSeries(string seriesName)
+        {
+            List<Series> series = GetSeriesList(seriesName);
+            if (series.Count > 0)
+            {
+                return series[0];
+            }
+            return null;
+        }
+
         //http://thetvdb.com/api/90EAA040C265FB5D/series/73739/en.xml
         public Series GetSeriesInformation(string seriesid)
         {

@@ -69,8 +69,8 @@ namespace RenamerX
 
         private void LoadBanner(Series series)
         {
-            //pbSeriesBanner.SizeMode = PictureBoxSizeMode.CenterImage;
-            //pbSeriesBanner.Image = TVDBLibTest.Properties.Resources.loading;
+            pbSeriesBanner.SizeMode = PictureBoxSizeMode.CenterImage;
+            pbSeriesBanner.Image = RenamerX.Properties.Resources.loading1;
             BackgroundWorker bw = new BackgroundWorker();
             bw.DoWork += new DoWorkEventHandler(Banners_DoWork);
             bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(Banners_RunWorkerCompleted);

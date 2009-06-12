@@ -568,8 +568,8 @@ namespace RenamerX
             {
                 Banner banner = (Banner)lvBanners.SelectedItems[0].Tag;
                 plvBanners.SelectedObject = banner;
-                //pbBanner.SizeMode = PictureBoxSizeMode.CenterImage;
-                //pbBanner.Image = TVDBLibTest.Properties.Resources.loading;
+                pbBanner.SizeMode = PictureBoxSizeMode.CenterImage;
+                pbBanner.Image = RenamerX.Properties.Resources.loading1;
                 BackgroundWorker bw = new BackgroundWorker();
                 bw.DoWork += new DoWorkEventHandler(Banners_DoWork);
                 bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(Banners_RunWorkerCompleted);
@@ -583,8 +583,8 @@ namespace RenamerX
             {
                 Actor actor = (Actor)lvActors.SelectedItems[0].Tag;
                 plvBanners.SelectedObject = actor;
-                //pbBanner.SizeMode = PictureBoxSizeMode.CenterImage;
-                //pbBanner.Image = TVDBLibTest.Properties.Resources.loading;
+                pbBanner.SizeMode = PictureBoxSizeMode.CenterImage;
+                pbBanner.Image = RenamerX.Properties.Resources.loading1;
                 BackgroundWorker bw = new BackgroundWorker();
                 bw.DoWork += new DoWorkEventHandler(Actors_DoWork);
                 bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(Actors_RunWorkerCompleted);
@@ -1099,8 +1099,8 @@ namespace RenamerX
 
         private void LoadBanner(TVDBLib.Series series)
         {
-            //pbSeriesBanner.SizeMode = PictureBoxSizeMode.CenterImage;
-            //pbSeriesBanner.Image = TVDBLibTest.Properties.Resources.loading;
+            pbSeriesBanner.SizeMode = PictureBoxSizeMode.CenterImage;
+            pbSeriesBanner.Image = RenamerX.Properties.Resources.loading1;
             BackgroundWorker bw = new BackgroundWorker();
             bw.DoWork += new DoWorkEventHandler(SeriesBanner_DoWork);
             bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(SeriesBanner_RunWorkerCompleted);
@@ -1115,6 +1115,7 @@ namespace RenamerX
 
         private void SeriesBanner_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            pbBanner.Image = new Bitmap(1, 1);
             pbSeriesBanner.SizeMode = PictureBoxSizeMode.StretchImage;
             pbSeriesBanner.ImageLocation = (string)e.Result;
         }

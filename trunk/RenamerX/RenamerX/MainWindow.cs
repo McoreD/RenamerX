@@ -501,6 +501,107 @@ namespace RenamerX
 
         #endregion
 
+        #region Series Info Tab Events
+
+        private void txtSeriesName_TextChanged(object sender, EventArgs e)
+        {
+            Program.Settings.LastSeriesName = txtSeriesName.Text;
+        }
+
+        private void txtSeriesID_TextChanged(object sender, EventArgs e)
+        {
+            Program.Settings.LastSeriesID = txtSeriesID.Text;
+        }
+
+        private void btnSearchSeries_Click(object sender, EventArgs e)
+        {
+            SearchSeries search = new SearchSeries(txtSeriesName.Text);
+            if (search.ShowDialog() == DialogResult.OK)
+            {
+                txtSeriesID.Text = search.SeriesID;
+            }
+        }
+
+        private void btnQuickSearchSeries_Click(object sender, EventArgs e)
+        {
+            TVDBLib.Series series = Program.TVDB.GetFirstSeries(txtSeriesName.Text);
+            if (series != null)
+            {
+                txtSeriesID.Text = series.ID;
+            }
+        }
+
+        private void btnLoadSeries_Click(object sender, EventArgs e)
+        {
+            TVDBLib.SeriesFull series = Program.TVDB.GetSeriesFullInformation(txtSeriesID.Text, TVDBLib.FileType.ZIP);
+            plvSeries.SelectedObject = series.Series;
+            pbSeriesBanner.Image = new Bitmap(1, 1);
+            LoadBanner(series.Series);
+            tvEpisodes.Tag = series.Episodes;
+            FillEpisodes(series.Episodes);
+            lvBanners.Tag = series.Series.ID;
+            FillBanners(series.Banners);
+            lvActors.Tag = series.Series.ID;
+            FillActors(series.Actors);
+        }
+
+        private void tvEpisodes_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if (tvEpisodes.SelectedNode.Tag.GetType() == typeof(TVDBLib.Episode))
+            {
+                plvEpisodes.SelectedObject = (TVDBLib.Episode)tvEpisodes.SelectedNode.Tag;
+            }
+        }
+
+        private void EpisodesFilterChanged(object sender, EventArgs e)
+        {
+            List<TVDBLib.Episode> episodes = (List<TVDBLib.Episode>)tvEpisodes.Tag;
+            if (episodes != null)
+            {
+                FillEpisodes(episodes.SearchEpisode(txtEpisodeName.Text, txtSeasonNumber.Text, txtEpisodeNumber.Text));
+            }
+        }
+
+        private void lvBanners_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvBanners.SelectedItems.Count > 0)
+            {
+                Banner banner = (Banner)lvBanners.SelectedItems[0].Tag;
+                plvBanners.SelectedObject = banner;
+                //pbBanner.SizeMode = PictureBoxSizeMode.CenterImage;
+                //pbBanner.Image = TVDBLibTest.Properties.Resources.loading;
+                BackgroundWorker bw = new BackgroundWorker();
+                bw.DoWork += new DoWorkEventHandler(Banners_DoWork);
+                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(Banners_RunWorkerCompleted);
+                bw.RunWorkerAsync(banner.BannerPath);
+            }
+        }
+
+        private void lvActors_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvActors.SelectedItems.Count > 0)
+            {
+                Actor actor = (Actor)lvActors.SelectedItems[0].Tag;
+                plvBanners.SelectedObject = actor;
+                //pbBanner.SizeMode = PictureBoxSizeMode.CenterImage;
+                //pbBanner.Image = TVDBLibTest.Properties.Resources.loading;
+                BackgroundWorker bw = new BackgroundWorker();
+                bw.DoWork += new DoWorkEventHandler(Actors_DoWork);
+                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(Actors_RunWorkerCompleted);
+                bw.RunWorkerAsync(actor.Image);
+            }
+        }
+
+        private void pbBanner_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(pbBanner.ImageLocation))
+            {
+                Process.Start(pbBanner.ImageLocation);
+            }
+        }
+
+        #endregion
+
         #endregion
 
         private void AddShow(ShowItem si)
@@ -950,37 +1051,6 @@ namespace RenamerX
             }
         }
 
-        private void btnSearchSeries_Click(object sender, EventArgs e)
-        {
-            SearchSeries search = new SearchSeries(txtSeriesName.Text);
-            if (search.ShowDialog() == DialogResult.OK)
-            {
-                txtSeriesID.Text = search.SeriesID;
-            }
-        }
-
-        private void btnQuickSearchSeries_Click(object sender, EventArgs e)
-        {
-            TVDBLib.Series series = Program.TVDB.GetFirstSeries(txtSeriesName.Text);
-            if (series != null)
-            {
-                txtSeriesID.Text = series.ID;
-            }
-        }
-
-        private void btnLoadSeries_Click(object sender, EventArgs e)
-        {
-            TVDBLib.SeriesFull series = Program.TVDB.GetSeriesFullInformation(txtSeriesID.Text, TVDBLib.FileType.ZIP);
-            plvSeries.SelectedObject = series.Series;
-            LoadBanner(series.Series);
-            tvEpisodes.Tag = series.Episodes;
-            FillEpisodes(series.Episodes);
-            //FillEpisodes(seriesCache.Episodes);
-            //FillActors(seriesCache.Actors);
-            //FillBanners(seriesCache.Banners);
-            //lastSeriesID = seriesCache.Series.ID;
-        }
-
         private void FillEpisodes(List<TVDBLib.Episode> episodes)
         {
             tvEpisodes.Nodes.Clear();
@@ -1007,53 +1077,70 @@ namespace RenamerX
             tvEpisodes.ExpandAll();
         }
 
+        private void FillActors(List<Actor> actors)
+        {
+            lvActors.Items.Clear();
+            foreach (Actor actor in actors)
+            {
+                ListViewItem lvi = new ListViewItem(actor.Name) { Tag = actor };
+                lvi.SubItems.Add(actor.Role);
+                lvActors.Items.Add(lvi);
+            }
+        }
+
+        private void FillBanners(List<Banner> banners)
+        {
+            lvBanners.Items.Clear();
+            foreach (Banner banner in banners)
+            {
+                lvBanners.Items.Add(banner.BannerPath).Tag = banner;
+            }
+        }
+
         private void LoadBanner(TVDBLib.Series series)
         {
             //pbSeriesBanner.SizeMode = PictureBoxSizeMode.CenterImage;
             //pbSeriesBanner.Image = TVDBLibTest.Properties.Resources.loading;
             BackgroundWorker bw = new BackgroundWorker();
-            bw.DoWork += new DoWorkEventHandler(Banners_DoWork);
-            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(Banners_RunWorkerCompleted);
+            bw.DoWork += new DoWorkEventHandler(SeriesBanner_DoWork);
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(SeriesBanner_RunWorkerCompleted);
             bw.RunWorkerAsync(series);
         }
 
-        private void Banners_DoWork(object sender, DoWorkEventArgs e)
+        private void SeriesBanner_DoWork(object sender, DoWorkEventArgs e)
         {
             TVDBLib.Series series = (TVDBLib.Series)e.Argument;
             e.Result = Program.TVDB.GetImagePath(series.Banner, series.ID);
         }
 
-        private void Banners_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void SeriesBanner_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             pbSeriesBanner.SizeMode = PictureBoxSizeMode.StretchImage;
             pbSeriesBanner.ImageLocation = (string)e.Result;
         }
 
-        private void tvEpisodes_AfterSelect(object sender, TreeViewEventArgs e)
+        private void Banners_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (tvEpisodes.SelectedNode.Tag.GetType() == typeof(TVDBLib.Episode))
-            {
-                plvEpisodes.SelectedObject = (TVDBLib.Episode)tvEpisodes.SelectedNode.Tag;
-            }
+            e.Result = Program.TVDB.GetImagePath((string)e.Argument, (string)lvBanners.Tag);
         }
 
-        private void EpisodesFilterChanged(object sender, EventArgs e)
+        private void Banners_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            List<TVDBLib.Episode> episodes = (List<TVDBLib.Episode>)tvEpisodes.Tag;
-            if (episodes != null)
-            {
-                FillEpisodes(episodes.SearchEpisode(txtEpisodeName.Text, txtSeasonNumber.Text, txtEpisodeNumber.Text));
-            }
+            pbBanner.Image = new Bitmap(1, 1);
+            pbBanner.SizeMode = PictureBoxSizeMode.Zoom;
+            pbBanner.ImageLocation = (string)e.Result;
         }
 
-        private void txtSeriesName_TextChanged(object sender, EventArgs e)
+        private void Actors_DoWork(object sender, DoWorkEventArgs e)
         {
-            Program.Settings.LastSeriesName = txtSeriesName.Text;
+            e.Result = Program.TVDB.GetImagePath((string)e.Argument, (string)lvBanners.Tag);
         }
 
-        private void txtSeriesID_TextChanged(object sender, EventArgs e)
+        private void Actors_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            Program.Settings.LastSeriesID = txtSeriesID.Text;
+            pbBanner.Image = new Bitmap(1, 1);
+            pbBanner.SizeMode = PictureBoxSizeMode.CenterImage;
+            pbBanner.ImageLocation = (string)e.Result;
         }
     }
 }

@@ -57,6 +57,8 @@ namespace RenamerX
             InitializeDefaultFolderPaths();
             Settings = XMLSettings.Read();
             TVDB = new TVDBLib.TVDB(CacheDir);
+            TVDB.CacheWorking = true;
+            TVDB.CheckUpdates();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainWindow());

@@ -72,6 +72,10 @@ namespace RenamerX
             cbExtractOverwrite.Checked = Program.Settings.ExtractOverwrite;
             txtExtractPassword.Text = Program.Settings.ExtractPassword;
 
+            // General Settings
+            cbShowHelpTooltips.Checked = Program.Settings.ShowHelpTooltips;
+            ttApp.Active = Program.Settings.ShowHelpTooltips;
+
             // Rename Settings
             txtRegexpPattern.Text = Program.Settings.RegexpPattern;
             cbShowActionMessages.Checked = Program.Settings.ShowActionMessages;
@@ -443,6 +447,12 @@ namespace RenamerX
         #endregion
 
         #region Settings Tab Events
+
+        private void cbShowHelpTooltips_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Settings.ShowHelpTooltips = cbShowHelpTooltips.Checked;
+            ttApp.Active = Program.Settings.ShowHelpTooltips;
+        }
 
         private void txtRegexpPattern_TextChanged(object sender, EventArgs e)
         {

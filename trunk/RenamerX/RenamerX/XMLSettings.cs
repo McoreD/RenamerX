@@ -27,6 +27,9 @@ namespace RenamerX
         public bool ExtractOverwrite = false;
         public string ExtractPassword = "";
 
+        // General Settings
+        public bool ShowHelpTooltips = true;
+
         // Rename Settings
         public string RegexpPattern = @"s(?<Season>\d+)e(?<Episode>\d+)|(?<Season>\d+)x(?<Episode>\d+)|(?<Season>(?<!2)[01]?\d)(?<Episode>\d{2}(?!\d))";
         public bool ShowActionMessages = false;

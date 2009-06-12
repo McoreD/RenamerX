@@ -40,7 +40,7 @@ namespace RenamerX
 {
     public partial class MainWindow : Form
     {
-        private TVRage tvrage = new TVRage();
+        public TVRage tvrage = new TVRage();
         private List<string> ExtractList = new List<string>();
         private bool IsExtracting;
         private BackgroundWorker bwExtract = new BackgroundWorker();
@@ -101,6 +101,7 @@ namespace RenamerX
         private void MainWindow_Load(object sender, EventArgs e)
         {
             ResizeListviewColumns();
+            new SearchSeries().Show();
         }
 
         private void MainWindow_Resize(object sender, EventArgs e)

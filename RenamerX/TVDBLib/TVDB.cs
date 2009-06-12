@@ -66,7 +66,7 @@ namespace TVDBLib
 
         private void ConsoleWriteLine(string text)
         {
-            Debug(text);
+            if (Debug != null) Debug(text);
         }
 
         public void CheckUpdates()

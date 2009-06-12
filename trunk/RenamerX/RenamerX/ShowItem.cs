@@ -31,6 +31,8 @@ public class ShowItem
     public string ShowDirectory { get; set; }
     public List<PathInfo> ShowInfos = new List<PathInfo>();
 
+    public ShowItem() { }
+
     public ShowItem(string showName, string showDirectory)
     {
         ShowName = showName;

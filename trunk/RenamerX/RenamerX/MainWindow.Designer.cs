@@ -240,6 +240,7 @@
             this.txtRenameFileFilter.Size = new System.Drawing.Size(176, 20);
             this.txtRenameFileFilter.TabIndex = 2;
             this.ttApp.SetToolTip(this.txtRenameFileFilter, resources.GetString("txtRenameFileFilter.ToolTip"));
+            this.txtRenameFileFilter.TextChanged += new System.EventHandler(this.txtRenameFileFilter_TextChanged);
             // 
             // lblNameFormat
             // 
@@ -375,6 +376,7 @@
             this.txtExtractPassword.Name = "txtExtractPassword";
             this.txtExtractPassword.Size = new System.Drawing.Size(192, 20);
             this.txtExtractPassword.TabIndex = 18;
+            this.txtExtractPassword.TextChanged += new System.EventHandler(this.txtExtractPassword_TextChanged);
             // 
             // lblExtractPassword
             // 
@@ -394,6 +396,7 @@
             this.cbExtractOverwrite.TabIndex = 16;
             this.cbExtractOverwrite.Text = "Overwrite existing file";
             this.cbExtractOverwrite.UseVisualStyleBackColor = true;
+            this.cbExtractOverwrite.CheckedChanged += new System.EventHandler(this.cbExtractOverwrite_CheckedChanged);
             // 
             // pbExtract
             // 
@@ -418,6 +421,7 @@
             this.txtExtractFileSizeFilter.Size = new System.Drawing.Size(176, 20);
             this.txtExtractFileSizeFilter.TabIndex = 13;
             this.ttApp.SetToolTip(this.txtExtractFileSizeFilter, resources.GetString("txtExtractFileSizeFilter.ToolTip"));
+            this.txtExtractFileSizeFilter.TextChanged += new System.EventHandler(this.txtExtractFileSizeFilter_TextChanged);
             // 
             // lblExtractFileSizeFilter
             // 
@@ -444,6 +448,7 @@
             this.txtExtractFileFilter.Size = new System.Drawing.Size(176, 20);
             this.txtExtractFileFilter.TabIndex = 1;
             this.ttApp.SetToolTip(this.txtExtractFileFilter, resources.GetString("txtExtractFileFilter.ToolTip"));
+            this.txtExtractFileFilter.TextChanged += new System.EventHandler(this.txtExtractFileFilter_TextChanged);
             // 
             // txtExtractPath
             // 
@@ -455,6 +460,7 @@
             this.txtExtractPath.Size = new System.Drawing.Size(472, 20);
             this.txtExtractPath.TabIndex = 1;
             this.ttApp.SetToolTip(this.txtExtractPath, "Where are you want to extract all files?");
+            this.txtExtractPath.TextChanged += new System.EventHandler(this.txtExtractPath_TextChanged);
             this.txtExtractPath.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtExtractPath_DragDrop);
             this.txtExtractPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtExtractPath_DragEnter);
             // 
@@ -478,6 +484,7 @@
             this.txtUnRARPath.TabIndex = 4;
             this.ttApp.SetToolTip(this.txtUnRARPath, "Using WinRAR for extract files. If you have WinRAR then you will find UnRAR.exe i" +
                     "n WinRAR folder.");
+            this.txtUnRARPath.TextChanged += new System.EventHandler(this.txtUnRARPath_TextChanged);
             this.txtUnRARPath.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtUnRARPath_DragDrop);
             this.txtUnRARPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtUnRARPath_DragEnter);
             // 
@@ -504,6 +511,7 @@
             this.ttApp.SetToolTip(this.cbSearchSubFolders, "Example if you added this folder: E:\\TV\\Lost\r\nThen will be search sub folders too" +
                     " (Season 1, Season 2...)");
             this.cbSearchSubFolders.UseVisualStyleBackColor = true;
+            this.cbSearchSubFolders.CheckedChanged += new System.EventHandler(this.cbSearchSubFolders_CheckedChanged);
             // 
             // btnExtractRemove
             // 
@@ -655,6 +663,7 @@
             this.txtReplaceSpaces.Name = "txtReplaceSpaces";
             this.txtReplaceSpaces.Size = new System.Drawing.Size(40, 20);
             this.txtReplaceSpaces.TabIndex = 8;
+            this.txtReplaceSpaces.TextChanged += new System.EventHandler(this.txtReplaceSpaces_TextChanged);
             // 
             // cbShowErrors
             // 
@@ -668,6 +677,7 @@
                     "h\" error will be shown.\r\nIf you press cancel button in this message box then wil" +
                     "l be stop renaming.");
             this.cbShowErrors.UseVisualStyleBackColor = true;
+            this.cbShowErrors.CheckedChanged += new System.EventHandler(this.cbShowErrors_CheckedChanged);
             // 
             // cbReplaceSpaces
             // 
@@ -678,6 +688,7 @@
             this.cbReplaceSpaces.TabIndex = 7;
             this.cbReplaceSpaces.Text = "Replace spaces in filename with:";
             this.cbReplaceSpaces.UseVisualStyleBackColor = true;
+            this.cbReplaceSpaces.CheckedChanged += new System.EventHandler(this.cbReplaceSpaces_CheckedChanged);
             // 
             // txtReplaceIllegalChars
             // 
@@ -685,6 +696,7 @@
             this.txtReplaceIllegalChars.Name = "txtReplaceIllegalChars";
             this.txtReplaceIllegalChars.Size = new System.Drawing.Size(40, 20);
             this.txtReplaceIllegalChars.TabIndex = 6;
+            this.txtReplaceIllegalChars.TextChanged += new System.EventHandler(this.txtReplaceIllegalChars_TextChanged);
             // 
             // cbReplaceIllegalChars
             // 
@@ -695,6 +707,7 @@
             this.cbReplaceIllegalChars.TabIndex = 5;
             this.cbReplaceIllegalChars.Text = "If filename have illegal characters then replace with:";
             this.cbReplaceIllegalChars.UseVisualStyleBackColor = true;
+            this.cbReplaceIllegalChars.CheckedChanged += new System.EventHandler(this.cbReplaceIllegalChars_CheckedChanged);
             // 
             // cbGuessShowName
             // 
@@ -706,6 +719,7 @@
             this.cbGuessShowName.Text = "Guess show name as root folder name instead folder name";
             this.ttApp.SetToolTip(this.cbGuessShowName, resources.GetString("cbGuessShowName.ToolTip"));
             this.cbGuessShowName.UseVisualStyleBackColor = true;
+            this.cbGuessShowName.CheckedChanged += new System.EventHandler(this.cbGuessShowName_CheckedChanged);
             // 
             // txtRegexpPattern
             // 
@@ -715,6 +729,7 @@
             this.txtRegexpPattern.TabIndex = 0;
             this.ttApp.SetToolTip(this.txtRegexpPattern, "For find episode name need to know show and episode numbers.\r\nFor find this numbe" +
                     "rs using regular expression with this pattern.");
+            this.txtRegexpPattern.TextChanged += new System.EventHandler(this.txtRegexpPattern_TextChanged);
             // 
             // cbShowActionMessages
             // 
@@ -727,6 +742,7 @@
                 " console";
             this.ttApp.SetToolTip(this.cbShowActionMessages, resources.GetString("cbShowActionMessages.ToolTip"));
             this.cbShowActionMessages.UseVisualStyleBackColor = true;
+            this.cbShowActionMessages.CheckedChanged += new System.EventHandler(this.cbShowActionMessages_CheckedChanged);
             // 
             // lblRegexpPattern
             // 
@@ -741,9 +757,10 @@
             // 
             this.ttApp.AutomaticDelay = 100;
             this.ttApp.AutoPopDelay = 10000;
-            this.ttApp.InitialDelay = 100;
+            this.ttApp.InitialDelay = 750;
             this.ttApp.IsBalloon = true;
-            this.ttApp.ReshowDelay = 20;
+            this.ttApp.ReshowDelay = 0;
+            this.ttApp.UseFading = false;
             // 
             // MainWindow
             // 

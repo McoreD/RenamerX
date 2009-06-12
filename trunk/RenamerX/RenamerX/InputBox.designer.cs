@@ -90,6 +90,7 @@
             this.txtShowLocation.Name = "txtShowLocation";
             this.txtShowLocation.Size = new System.Drawing.Size(200, 20);
             this.txtShowLocation.TabIndex = 5;
+            this.txtShowLocation.TextChanged += new System.EventHandler(this.txtShowLocation_TextChanged);
             // 
             // btnBrowse
             // 

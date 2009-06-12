@@ -535,7 +535,6 @@ namespace RenamerX
         {
             TVDBLib.SeriesFull series = Program.TVDB.GetSeriesFullInformation(txtSeriesID.Text, TVDBLib.FileType.ZIP);
             plvSeries.SelectedObject = series.Series;
-            pbSeriesBanner.Image = new Bitmap(1, 1);
             LoadBanner(series.Series);
             tvEpisodes.Tag = series.Episodes;
             FillEpisodes(series.Episodes);

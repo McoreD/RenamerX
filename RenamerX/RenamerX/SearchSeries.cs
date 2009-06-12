@@ -57,11 +57,7 @@ namespace RenamerX
             {
                 Series series = (Series)lvSeriesList.SelectedItems[0].Tag;
                 plvSeriesInfo.SelectedObject = series;
-                pbSeriesBanner.Image = new Bitmap(1, 1);
-                if (!string.IsNullOrEmpty(series.Banner))
-                {
-                    LoadBanner(series);
-                }
+                LoadBanner(series);
                 SeriesID = series.ID;
                 txtSeriesID.Text = SeriesID;
             }
@@ -85,6 +81,7 @@ namespace RenamerX
 
         private void Banners_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            pbSeriesBanner.Image = new Bitmap(1, 1);
             pbSeriesBanner.SizeMode = PictureBoxSizeMode.StretchImage;
             pbSeriesBanner.ImageLocation = (string)e.Result;
         }

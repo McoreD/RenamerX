@@ -56,6 +56,7 @@ namespace RenamerX
             bwExtract.WorkerSupportsCancellation = true;
             fakeShow = CreateFakeShow("Show Name", 2, 7, "Episode Title");
             UpdateNameFormatPreview();
+            LoadSettings();
         }
 
         private void LoadJaex()
@@ -75,28 +76,38 @@ namespace RenamerX
             }
         }
 
+        private void LoadSettings()
+        {
+            // Rename
+            txtNameFormat.Text = Program.Settings.NameFormat;
+            txtRenameFileFilter.Text = Program.Settings.RenameFileFilter;
+
+            // Extract
+            txtExtractPath.Text = Program.Settings.ExtractPath;
+            txtUnRARPath.Text = Program.Settings.UnRARPath;
+            txtExtractFileFilter.Text = Program.Settings.ExtractFileFilter;
+            txtExtractFileSizeFilter.Text = Program.Settings.ExtractFileSizeFilter;
+            cbSearchSubFolders.Checked = Program.Settings.SearchSubFolders;
+            cbExtractOverwrite.Checked = Program.Settings.ExtractOverwrite;
+            txtExtractPassword.Text = Program.Settings.ExtractPassword;
+
+            // Rename Settings
+            txtRegexpPattern.Text = Program.Settings.RegexpPattern;
+            cbShowActionMessages.Checked = Program.Settings.ShowActionMessages;
+            cbGuessShowName.Checked = Program.Settings.GuessShowName;
+            cbReplaceIllegalChars.Checked = Program.Settings.ReplaceIllegalChars;
+            txtReplaceIllegalChars.Text = Program.Settings.ReplaceIllegalCharsWith;
+            cbReplaceSpaces.Checked = Program.Settings.ReplaceSpaces;
+            txtReplaceSpaces.Text = Program.Settings.ReplaceSpacesWith;
+            cbShowErrors.Checked = Program.Settings.ShowErrors;
+        }
+
         #region Form Events
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            if (Settings.Default.ShowItemList == null)
-            {
-                Settings.Default.ShowItemList = new List<ShowItem>();
-            }
-
-            if (Environment.UserName.Equals("PC"))
-            {
-                LoadJaex();
-            }
-            else
-            {
-                foreach (ShowItem si in Settings.Default.ShowItemList)
-                {
-                    AddShow(si.ShowName, si.ShowDirectory);
-                }
-            }
+            if (Environment.UserName.Equals("PC")) LoadJaex();
             ResizeListviewColumns();
-            pgApp.SelectedObject = Settings.Default;
         }
 
         private void MainWindow_Resize(object sender, EventArgs e)
@@ -107,12 +118,7 @@ namespace RenamerX
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Settings.Default.ShowItemList.Clear();
-            foreach (ListViewItem lv in this.lvShows.Items)
-            {
-                Settings.Default.ShowItemList.Add((ShowItem)lv.Tag);
-            }
-            Settings.Default.Save();
+
         }
 
         #region Rename Tab Events
@@ -280,9 +286,9 @@ namespace RenamerX
         private void btnExtractAdd_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
-            if (!string.IsNullOrEmpty(Settings.Default.LastExtractFolder) && Directory.Exists(Settings.Default.LastExtractFolder))
+            if (!string.IsNullOrEmpty(Program.Settings.LastExtractFolder) && Directory.Exists(Program.Settings.LastExtractFolder))
             {
-                fbd.SelectedPath = Settings.Default.LastExtractFolder;
+                fbd.SelectedPath = Program.Settings.LastExtractFolder;
             }
             else if (!string.IsNullOrEmpty(txtExtractPath.Text) && Directory.Exists(txtExtractPath.Text))
             {
@@ -290,7 +296,7 @@ namespace RenamerX
             }
             if (fbd.ShowDialog() == DialogResult.OK)
             {
-                Settings.Default.LastExtractFolder = fbd.SelectedPath;
+                Program.Settings.LastExtractFolder = fbd.SelectedPath;
                 try
                 {
                     FileSizeFilter filter = ParseFileSizeFilter(txtExtractFileSizeFilter.Text);

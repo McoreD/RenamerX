@@ -23,17 +23,48 @@
 
 using System;
 using System.Windows.Forms;
+using System.IO;
 
 namespace RenamerX
 {
     static class Program
     {
+        private static string RootAppFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), Application.ProductName);
+        private static string SettingsDir;
+        private const string XMLFileName = "Settings.xml";
+        private static string XMLFilePath;
+
+        public static string XMLSettingsFile
+        {
+            get
+            {
+                if (!Directory.Exists(SettingsDir))
+                {
+                    Directory.CreateDirectory(SettingsDir);
+                }
+                return XMLFilePath;
+            }
+        }
+
+        public static XMLSettings Settings;
+
         [STAThread]
         static void Main()
         {
+            InitializeDefaultFolderPaths();
+            Settings = XMLSettings.Read();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainWindow());
+        }
+
+        /// <summary>
+        /// Function to update Default Folder Paths based on Root folder
+        /// </summary>
+        public static void InitializeDefaultFolderPaths()
+        {
+            SettingsDir = Path.Combine(RootAppFolder, "Settings");
+            XMLFilePath = Path.Combine(SettingsDir, XMLFileName);
         }
     }
 }

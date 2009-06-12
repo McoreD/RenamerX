@@ -76,8 +76,7 @@
             this.tpConsole = new System.Windows.Forms.TabPage();
             this.txtConsole = new System.Windows.Forms.TextBox();
             this.tpSettings = new System.Windows.Forms.TabPage();
-            this.pgApp = new System.Windows.Forms.PropertyGrid();
-            this.gbRename = new System.Windows.Forms.GroupBox();
+            this.gbRenameSettings = new System.Windows.Forms.GroupBox();
             this.txtReplaceSpaces = new System.Windows.Forms.TextBox();
             this.cbShowErrors = new System.Windows.Forms.CheckBox();
             this.cbReplaceSpaces = new System.Windows.Forms.CheckBox();
@@ -88,6 +87,8 @@
             this.cbShowActionMessages = new System.Windows.Forms.CheckBox();
             this.lblRegexpPattern = new System.Windows.Forms.Label();
             this.ttApp = new System.Windows.Forms.ToolTip(this.components);
+            this.gbGeneralSettings = new System.Windows.Forms.GroupBox();
+            this.cbShowHelpTooltips = new System.Windows.Forms.CheckBox();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.scRename.Panel1.SuspendLayout();
@@ -99,7 +100,8 @@
             this.scExtract.SuspendLayout();
             this.tpConsole.SuspendLayout();
             this.tpSettings.SuspendLayout();
-            this.gbRename.SuspendLayout();
+            this.gbRenameSettings.SuspendLayout();
+            this.gbGeneralSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcMain
@@ -619,8 +621,8 @@
             // 
             // tpSettings
             // 
-            this.tpSettings.Controls.Add(this.pgApp);
-            this.tpSettings.Controls.Add(this.gbRename);
+            this.tpSettings.Controls.Add(this.gbGeneralSettings);
+            this.tpSettings.Controls.Add(this.gbRenameSettings);
             this.tpSettings.Location = new System.Drawing.Point(4, 24);
             this.tpSettings.Name = "tpSettings";
             this.tpSettings.Padding = new System.Windows.Forms.Padding(3);
@@ -629,33 +631,23 @@
             this.tpSettings.Text = "Settings";
             this.tpSettings.UseVisualStyleBackColor = true;
             // 
-            // pgApp
+            // gbRenameSettings
             // 
-            this.pgApp.HelpVisible = false;
-            this.pgApp.Location = new System.Drawing.Point(8, 248);
-            this.pgApp.Name = "pgApp";
-            this.pgApp.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
-            this.pgApp.Size = new System.Drawing.Size(976, 352);
-            this.pgApp.TabIndex = 5;
-            this.pgApp.ToolbarVisible = false;
-            // 
-            // gbRename
-            // 
-            this.gbRename.Controls.Add(this.txtReplaceSpaces);
-            this.gbRename.Controls.Add(this.cbShowErrors);
-            this.gbRename.Controls.Add(this.cbReplaceSpaces);
-            this.gbRename.Controls.Add(this.txtReplaceIllegalChars);
-            this.gbRename.Controls.Add(this.cbReplaceIllegalChars);
-            this.gbRename.Controls.Add(this.cbGuessShowName);
-            this.gbRename.Controls.Add(this.txtRegexpPattern);
-            this.gbRename.Controls.Add(this.cbShowActionMessages);
-            this.gbRename.Controls.Add(this.lblRegexpPattern);
-            this.gbRename.Location = new System.Drawing.Point(8, 8);
-            this.gbRename.Name = "gbRename";
-            this.gbRename.Size = new System.Drawing.Size(976, 232);
-            this.gbRename.TabIndex = 3;
-            this.gbRename.TabStop = false;
-            this.gbRename.Text = "Rename settings";
+            this.gbRenameSettings.Controls.Add(this.txtReplaceSpaces);
+            this.gbRenameSettings.Controls.Add(this.cbShowErrors);
+            this.gbRenameSettings.Controls.Add(this.cbReplaceSpaces);
+            this.gbRenameSettings.Controls.Add(this.txtReplaceIllegalChars);
+            this.gbRenameSettings.Controls.Add(this.cbReplaceIllegalChars);
+            this.gbRenameSettings.Controls.Add(this.cbGuessShowName);
+            this.gbRenameSettings.Controls.Add(this.txtRegexpPattern);
+            this.gbRenameSettings.Controls.Add(this.cbShowActionMessages);
+            this.gbRenameSettings.Controls.Add(this.lblRegexpPattern);
+            this.gbRenameSettings.Location = new System.Drawing.Point(8, 104);
+            this.gbRenameSettings.Name = "gbRenameSettings";
+            this.gbRenameSettings.Size = new System.Drawing.Size(976, 208);
+            this.gbRenameSettings.TabIndex = 3;
+            this.gbRenameSettings.TabStop = false;
+            this.gbRenameSettings.Text = "Rename settings";
             // 
             // txtReplaceSpaces
             // 
@@ -762,6 +754,27 @@
             this.ttApp.ReshowDelay = 0;
             this.ttApp.UseFading = false;
             // 
+            // gbGeneralSettings
+            // 
+            this.gbGeneralSettings.Controls.Add(this.cbShowHelpTooltips);
+            this.gbGeneralSettings.Location = new System.Drawing.Point(8, 8);
+            this.gbGeneralSettings.Name = "gbGeneralSettings";
+            this.gbGeneralSettings.Size = new System.Drawing.Size(976, 88);
+            this.gbGeneralSettings.TabIndex = 4;
+            this.gbGeneralSettings.TabStop = false;
+            this.gbGeneralSettings.Text = "General Settings";
+            // 
+            // cbShowHelpTooltips
+            // 
+            this.cbShowHelpTooltips.AutoSize = true;
+            this.cbShowHelpTooltips.Location = new System.Drawing.Point(16, 24);
+            this.cbShowHelpTooltips.Name = "cbShowHelpTooltips";
+            this.cbShowHelpTooltips.Size = new System.Drawing.Size(112, 17);
+            this.cbShowHelpTooltips.TabIndex = 0;
+            this.cbShowHelpTooltips.Text = "Show help tooltips";
+            this.cbShowHelpTooltips.UseVisualStyleBackColor = true;
+            this.cbShowHelpTooltips.CheckedChanged += new System.EventHandler(this.cbShowHelpTooltips_CheckedChanged);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -790,8 +803,10 @@
             this.tpConsole.ResumeLayout(false);
             this.tpConsole.PerformLayout();
             this.tpSettings.ResumeLayout(false);
-            this.gbRename.ResumeLayout(false);
-            this.gbRename.PerformLayout();
+            this.gbRenameSettings.ResumeLayout(false);
+            this.gbRenameSettings.PerformLayout();
+            this.gbGeneralSettings.ResumeLayout(false);
+            this.gbGeneralSettings.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -830,7 +845,7 @@
         private System.Windows.Forms.ListView lvExtractList;
         private System.Windows.Forms.TextBox txtUnRARPath;
         private System.Windows.Forms.Label lblUnRARPath;
-        private System.Windows.Forms.GroupBox gbRename;
+        private System.Windows.Forms.GroupBox gbRenameSettings;
         private System.Windows.Forms.Button btnExtractAdd;
         private System.Windows.Forms.Button btnExtractAll;
         private System.Windows.Forms.CheckBox cbSearchSubFolders;
@@ -841,7 +856,6 @@
         private System.Windows.Forms.Label lblExtractFileFilter;
         private System.Windows.Forms.TextBox txtExtractFileFilter;
         private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.PropertyGrid pgApp;
         private System.Windows.Forms.SplitContainer scExtract;
         private System.Windows.Forms.TextBox txtExtractFileSizeFilter;
         private System.Windows.Forms.Label lblExtractFileSizeFilter;
@@ -856,5 +870,7 @@
         private System.Windows.Forms.TextBox txtReplaceSpaces;
         private System.Windows.Forms.CheckBox cbReplaceSpaces;
         private System.Windows.Forms.Label lblNameFormatPreview;
+        private System.Windows.Forms.GroupBox gbGeneralSettings;
+        private System.Windows.Forms.CheckBox cbShowHelpTooltips;
     }
 }

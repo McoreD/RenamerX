@@ -59,12 +59,10 @@
             // 
             // txtShowName
             // 
-            this.txtShowName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "ShowName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.txtShowName.Location = new System.Drawing.Point(80, 8);
             this.txtShowName.Name = "txtShowName";
             this.txtShowName.Size = new System.Drawing.Size(200, 20);
             this.txtShowName.TabIndex = 2;
-            this.txtShowName.Text = global::RenamerX.Properties.Settings.Default.ShowName;
             // 
             // lblShowName
             // 
@@ -88,12 +86,10 @@
             // 
             this.txtShowLocation.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.txtShowLocation.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
-            this.txtShowLocation.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RenamerX.Properties.Settings.Default, "LastRenameFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.txtShowLocation.Location = new System.Drawing.Point(80, 32);
             this.txtShowLocation.Name = "txtShowLocation";
             this.txtShowLocation.Size = new System.Drawing.Size(200, 20);
             this.txtShowLocation.TabIndex = 5;
-            this.txtShowLocation.Text = global::RenamerX.Properties.Settings.Default.LastRenameFolder;
             // 
             // btnBrowse
             // 

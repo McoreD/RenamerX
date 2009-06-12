@@ -99,6 +99,7 @@ namespace RenamerX
             bwExtract.WorkerSupportsCancellation = true;
             fakeShow = CreateFakeShow("Show Name", 2, 7, "Episode Title");
             UpdateNameFormatPreview();
+            plvSettings.SelectedObject = Program.Settings;
         }
 
         #region Form Events
@@ -1141,6 +1142,11 @@ namespace RenamerX
             pbBanner.Image = new Bitmap(1, 1);
             pbBanner.SizeMode = PictureBoxSizeMode.CenterImage;
             pbBanner.ImageLocation = (string)e.Result;
+        }
+
+        private void btnRefreshSettings_Click(object sender, EventArgs e)
+        {
+            plvSettings.SelectedObject = Program.Settings;
         }
     }
 }

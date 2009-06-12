@@ -117,10 +117,18 @@
             // 
             // plvSeriesInfo
             // 
+            this.plvSeriesInfo.AllowEmptyObjects = false;
+            this.plvSeriesInfo.ConstantColumnSize = true;
+            this.plvSeriesInfo.FullRowSelect = true;
+            this.plvSeriesInfo.HideSelection = false;
             this.plvSeriesInfo.Location = new System.Drawing.Point(8, 328);
+            this.plvSeriesInfo.MultiSelect = false;
             this.plvSeriesInfo.Name = "plvSeriesInfo";
+            this.plvSeriesInfo.SetObjectType = RenamerX.PropertyListView.ObjectType.Properties;
             this.plvSeriesInfo.Size = new System.Drawing.Size(464, 176);
             this.plvSeriesInfo.TabIndex = 4;
+            this.plvSeriesInfo.UseCompatibleStateImageBehavior = false;
+            this.plvSeriesInfo.View = System.Windows.Forms.View.Details;
             // 
             // lvSeriesList
             // 

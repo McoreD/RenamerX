@@ -35,6 +35,8 @@ namespace RenamerX
 {
     public partial class PropertyListView : ListView
     {
+        public enum ObjectType { Fields, Properties }
+
         public bool ConstantColumnSize { get; set; }
         public ObjectType SetObjectType { get; set; }
         public bool AllowEmptyObjects { get; set; }
@@ -44,7 +46,7 @@ namespace RenamerX
         {
             set
             {
-                SelectObject(value, SetObjectType, AllowEmptyObjects);
+                SelectObject(value);
             }
         }
 
@@ -91,42 +93,47 @@ namespace RenamerX
             }
         }
 
-        public enum ObjectType { Fields, Properties }
-
-        public void SelectObject(object obj, ObjectType objType, bool allowEmpty)
+        public void SelectObject(object obj)
         {
             this.Items.Clear();
             if (obj != null)
             {
                 Type type = obj.GetType();
-                if (objType == ObjectType.Fields)
+                if (SetObjectType == ObjectType.Fields)
                 {
                     foreach (FieldInfo property in type.GetFields())
                     {
-                        string value = ObjectToString(property.GetValue(obj));
-                        if (!string.IsNullOrEmpty(value) || (value != null && allowEmpty))
-                        {
-                            this.Items.Add(property.Name).SubItems.Add(value);
-                        }
-                        else
-                        {
-                            this.Items.Add(property.Name).BackColor = Color.LightGray;
-                        }
+                        AddObject(property.GetValue(obj), property.Name);
                     }
                 }
-                else if (objType == ObjectType.Properties)
+                else if (SetObjectType == ObjectType.Properties)
                 {
                     foreach (PropertyInfo property in type.GetProperties())
                     {
-                        string value = ObjectToString(property.GetValue(obj, null));
-                        if (!string.IsNullOrEmpty(value) || (value != null && allowEmpty))
-                        {
-                            this.Items.Add(property.Name).SubItems.Add(value);
-                        }
+                        AddObject(property.GetValue(obj, null), property.Name);
                     }
                 }
             }
-            AutoResizeLastColumn();
+        }
+
+        private void AddObject(object obj, string name)
+        {
+            string value = ObjectToString(obj);
+            if (!string.IsNullOrEmpty(value) || AllowEmptyObjects)
+            {
+                ListViewItem lvi = new ListViewItem(name);
+                lvi.Tag = obj;
+                if (value == null)
+                {
+                    lvi.SubItems.Add(obj.GetType().ToString());
+                    lvi.BackColor = Color.LightGray;
+                }
+                else
+                {
+                    lvi.SubItems.Add(value);
+                }
+                this.Items.Add(lvi);
+            }
         }
 
         private string ObjectToString(object obj)
@@ -134,7 +141,8 @@ namespace RenamerX
             if (obj != null)
             {
                 Type type = obj.GetType();
-                if (type == typeof(string) || type == typeof(int) || type == typeof(bool))
+                if (type == typeof(string) || type == typeof(byte) || type == typeof(short) || type == typeof(int) ||
+                    type == typeof(long) || type == typeof(bool) || type == typeof(char))
                 {
                     return obj.ToString();
                 }

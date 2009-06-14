@@ -1115,7 +1115,7 @@ namespace RenamerX
 
         private void SeriesBanner_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            pbBanner.Image = new Bitmap(1, 1);
+            pbSeriesBanner.Image = new Bitmap(1, 1);
             pbSeriesBanner.SizeMode = PictureBoxSizeMode.StretchImage;
             pbSeriesBanner.ImageLocation = (string)e.Result;
         }

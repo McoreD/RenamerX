@@ -31,10 +31,8 @@
             this.lblSeriesName = new System.Windows.Forms.Label();
             this.txtSeriesName = new System.Windows.Forms.TextBox();
             this.btnSearchSeries = new System.Windows.Forms.Button();
-            this.btnOK = new System.Windows.Forms.Button();
             this.txtSeriesID = new System.Windows.Forms.TextBox();
             this.lblSeriesID = new System.Windows.Forms.Label();
-            this.tnCancel = new System.Windows.Forms.Button();
             this.pbSeriesBanner = new System.Windows.Forms.PictureBox();
             this.plvSeriesInfo = new RenamerX.PropertyListView();
             this.lvSeriesList = new RenamerX.ListViewX();
@@ -56,7 +54,7 @@
             // 
             this.txtSeriesName.Location = new System.Drawing.Point(80, 9);
             this.txtSeriesName.Name = "txtSeriesName";
-            this.txtSeriesName.Size = new System.Drawing.Size(312, 20);
+            this.txtSeriesName.Size = new System.Drawing.Size(216, 20);
             this.txtSeriesName.TabIndex = 2;
             this.txtSeriesName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSeriesName_KeyPress);
             // 
@@ -70,19 +68,9 @@
             this.btnSearchSeries.UseVisualStyleBackColor = true;
             this.btnSearchSeries.Click += new System.EventHandler(this.btnSearchSeries_Click);
             // 
-            // btnOK
-            // 
-            this.btnOK.Location = new System.Drawing.Point(320, 512);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
-            this.btnOK.TabIndex = 5;
-            this.btnOK.Text = "OK";
-            this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
-            // 
             // txtSeriesID
             // 
-            this.txtSeriesID.Location = new System.Drawing.Point(248, 512);
+            this.txtSeriesID.Location = new System.Drawing.Point(328, 8);
             this.txtSeriesID.Name = "txtSeriesID";
             this.txtSeriesID.Size = new System.Drawing.Size(64, 20);
             this.txtSeriesID.TabIndex = 6;
@@ -90,21 +78,11 @@
             // lblSeriesID
             // 
             this.lblSeriesID.AutoSize = true;
-            this.lblSeriesID.Location = new System.Drawing.Point(224, 516);
+            this.lblSeriesID.Location = new System.Drawing.Point(304, 12);
             this.lblSeriesID.Name = "lblSeriesID";
             this.lblSeriesID.Size = new System.Drawing.Size(21, 13);
             this.lblSeriesID.TabIndex = 7;
             this.lblSeriesID.Text = "ID:";
-            // 
-            // tnCancel
-            // 
-            this.tnCancel.Location = new System.Drawing.Point(400, 512);
-            this.tnCancel.Name = "tnCancel";
-            this.tnCancel.Size = new System.Drawing.Size(75, 23);
-            this.tnCancel.TabIndex = 8;
-            this.tnCancel.Text = "Cancel";
-            this.tnCancel.UseVisualStyleBackColor = true;
-            this.tnCancel.Click += new System.EventHandler(this.tnCancel_Click);
             // 
             // pbSeriesBanner
             // 
@@ -161,23 +139,18 @@
             // 
             // SearchSeries
             // 
-            this.AcceptButton = this.btnSearchSeries;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 543);
             this.Controls.Add(this.pbSeriesBanner);
-            this.Controls.Add(this.tnCancel);
             this.Controls.Add(this.lblSeriesID);
             this.Controls.Add(this.txtSeriesID);
-            this.Controls.Add(this.btnOK);
             this.Controls.Add(this.plvSeriesInfo);
             this.Controls.Add(this.btnSearchSeries);
             this.Controls.Add(this.txtSeriesName);
             this.Controls.Add(this.lblSeriesName);
             this.Controls.Add(this.lvSeriesList);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "SearchSeries";
-            this.Text = "Search Series";
+            this.Size = new System.Drawing.Size(482, 517);
             ((System.ComponentModel.ISupportInitialize)(this.pbSeriesBanner)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -190,13 +163,11 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.Label lblSeriesName;
-        private System.Windows.Forms.TextBox txtSeriesName;
-        private System.Windows.Forms.Button btnSearchSeries;
+        internal System.Windows.Forms.TextBox txtSeriesName;
+        internal System.Windows.Forms.Button btnSearchSeries;
         private PropertyListView plvSeriesInfo;
-        private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.TextBox txtSeriesID;
         private System.Windows.Forms.Label lblSeriesID;
-        private System.Windows.Forms.Button tnCancel;
         private System.Windows.Forms.PictureBox pbSeriesBanner;
     }
 }

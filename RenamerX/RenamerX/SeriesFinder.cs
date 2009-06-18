@@ -19,15 +19,24 @@ namespace RenamerX
         public SeriesFinder(string showname)
             : this()
         {
+            this.Search(showname);
+        }
+
+        private void Search(string showname)
+        {
             if (!string.IsNullOrEmpty(showname))
             {
-               searchResults.txtSeriesName.Text = showname;
-               searchResults.Search(showname);
+                searchResults.txtSeriesName.Text = showname;
+                searchResults.Search(showname);
             }
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(searchResults.txtSeriesName.Text))
+            {
+                this.Search(searchResults.txtSeriesName.Text);
+            }
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -36,11 +45,6 @@ namespace RenamerX
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
-        }
-
-        private void searchResults_Load(object sender, EventArgs e)
-        {
-
         }
 
     }

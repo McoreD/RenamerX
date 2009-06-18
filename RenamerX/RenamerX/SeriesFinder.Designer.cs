@@ -60,8 +60,7 @@
             this.searchResults.SeriesID = null;
             this.searchResults.SeriesName = null;
             this.searchResults.Size = new System.Drawing.Size(482, 512);
-            this.searchResults.TabIndex = 11;
-            this.searchResults.Load += new System.EventHandler(this.searchResults_Load);
+            this.searchResults.TabIndex = 11;            
             // 
             // SeriesFinder
             // 
@@ -74,7 +73,7 @@
             this.Controls.Add(this.btnOK);
             this.Name = "SeriesFinder";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Search Series";
+            this.Text = "Search Series";            
             this.ResumeLayout(false);
 
         }

@@ -519,7 +519,7 @@ namespace RenamerX
             SearchSeries search = new SearchSeries(txtSeriesName.Text);
             if (search.ShowDialog() == DialogResult.OK)
             {
-                txtSeriesID.Text = search.SeriesID;
+                txtSeriesID.Text = search.SeriesID;                
             }
         }
 

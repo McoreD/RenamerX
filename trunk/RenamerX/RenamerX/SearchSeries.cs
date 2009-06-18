@@ -12,7 +12,8 @@ namespace RenamerX
 {
     public partial class SearchSeries : Form
     {
-        public string SeriesID;
+        public string SeriesID { get; set; }
+        public string SeriesName { get; set; }
 
         public SearchSeries()
         {
@@ -57,8 +58,9 @@ namespace RenamerX
             {
                 Series series = (Series)lvSeriesList.SelectedItems[0].Tag;
                 plvSeriesInfo.SelectedObject = series;
-                LoadBanner(series);
-                SeriesID = series.ID;
+                LoadBanner(series);                
+                this.SeriesID = series.ID;
+                this.SeriesName = series.SeriesName;
                 txtSeriesID.Text = SeriesID;
             }
         }

@@ -33,7 +33,7 @@
             this.lblShowLocation = new System.Windows.Forms.Label();
             this.txtShowLocation = new System.Windows.Forms.TextBox();
             this.btnBrowse = new System.Windows.Forms.Button();
-            this.searchSeries1 = new RenamerX.SearchSeries();
+            this.searchResults = new RenamerX.SearchSeries();
             this.SuspendLayout();
             // 
             // btnOK
@@ -87,12 +87,12 @@
             // 
             // searchSeries1
             // 
-            this.searchSeries1.Location = new System.Drawing.Point(8, 40);
-            this.searchSeries1.Name = "searchSeries1";
-            this.searchSeries1.SeriesID = null;
-            this.searchSeries1.SeriesName = null;
-            this.searchSeries1.Size = new System.Drawing.Size(482, 517);
-            this.searchSeries1.TabIndex = 7;
+            this.searchResults.Location = new System.Drawing.Point(8, 40);
+            this.searchResults.Name = "searchSeries1";
+            this.searchResults.SeriesID = null;
+            this.searchResults.SeriesName = null;
+            this.searchResults.Size = new System.Drawing.Size(482, 517);
+            this.searchResults.TabIndex = 7;
             // 
             // InputBox
             // 
@@ -100,7 +100,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(502, 603);
-            this.Controls.Add(this.searchSeries1);
+            this.Controls.Add(this.searchResults);
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.txtShowLocation);
             this.Controls.Add(this.lblShowLocation);
@@ -127,6 +127,6 @@
         private System.Windows.Forms.Label lblShowLocation;
         internal System.Windows.Forms.TextBox txtShowLocation;
         internal System.Windows.Forms.Button btnBrowse;
-        private SearchSeries searchSeries1;
+        private SearchSeries searchResults;
     }
 }

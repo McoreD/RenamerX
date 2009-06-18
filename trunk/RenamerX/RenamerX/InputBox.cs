@@ -35,7 +35,8 @@ namespace RenamerX
             : this()
         {
             this.Text = title;
-            ShowName = showName;
+            this.ShowName = showName;
+
             if (string.IsNullOrEmpty(showLocation))
             {
                 ShowLocation = Program.Settings.LastRenameFolder;
@@ -44,6 +45,8 @@ namespace RenamerX
             {
                 ShowLocation = showLocation;
             }
+
+            this.Search(this.ShowName);
         }
 
         public InputBox()
@@ -51,12 +54,17 @@ namespace RenamerX
             InitializeComponent();
         }
 
-        private void InputBox_Load(object sender, EventArgs e)
+        private void Search(string showname)
         {
-            if (!string.IsNullOrEmpty(ShowName))
+            if (!string.IsNullOrEmpty(showname))
             {
-               searchSeries1.txtSeriesName.Text = ShowName;
+                searchResults.txtSeriesName.Text = showname;
+                searchResults.Search(showname);
             }
+        }
+
+        private void InputBox_Load(object sender, EventArgs e)
+        {  
             if (!string.IsNullOrEmpty(ShowLocation))
             {
                 txtShowLocation.Text = ShowLocation;
@@ -65,8 +73,8 @@ namespace RenamerX
 
         private void InputBox_Shown(object sender, EventArgs e)
         {
-            searchSeries1.txtSeriesName.Focus();
-            searchSeries1.txtSeriesName.SelectionLength = searchSeries1.txtSeriesName.Text.Length;
+            searchResults.txtSeriesName.Focus();
+            searchResults.txtSeriesName.SelectionLength = searchResults.txtSeriesName.Text.Length;
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -85,7 +93,11 @@ namespace RenamerX
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            this.ShowName = searchSeries1.SeriesName;
+            if (string.IsNullOrEmpty(searchResults.SeriesName))
+            {
+                this.Search(searchResults.txtSeriesName.Text);
+            }
+            this.ShowName = searchResults.SeriesName;
             this.ShowLocation = txtShowLocation.Text;
             this.DialogResult = DialogResult.OK;
             this.Close();

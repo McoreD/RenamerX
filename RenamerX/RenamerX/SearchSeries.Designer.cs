@@ -48,9 +48,9 @@
             this.lblSeriesName.AutoSize = true;
             this.lblSeriesName.Location = new System.Drawing.Point(8, 13);
             this.lblSeriesName.Name = "lblSeriesName";
-            this.lblSeriesName.Size = new System.Drawing.Size(68, 13);
+            this.lblSeriesName.Size = new System.Drawing.Size(70, 13);
             this.lblSeriesName.TabIndex = 1;
-            this.lblSeriesName.Text = "Series name:";
+            this.lblSeriesName.Text = "Series Name:";
             // 
             // txtSeriesName
             // 
@@ -120,10 +120,12 @@
             this.plvSeriesInfo.AllowEmptyObjects = false;
             this.plvSeriesInfo.ConstantColumnSize = true;
             this.plvSeriesInfo.FullRowSelect = true;
+            this.plvSeriesInfo.GridLines = true;
             this.plvSeriesInfo.HideSelection = false;
             this.plvSeriesInfo.Location = new System.Drawing.Point(8, 328);
             this.plvSeriesInfo.MultiSelect = false;
             this.plvSeriesInfo.Name = "plvSeriesInfo";
+            this.plvSeriesInfo.NameColumnSize = 125;
             this.plvSeriesInfo.SetObjectType = RenamerX.PropertyListView.ObjectType.Properties;
             this.plvSeriesInfo.Size = new System.Drawing.Size(464, 176);
             this.plvSeriesInfo.TabIndex = 4;
@@ -159,6 +161,7 @@
             // 
             // SearchSeries
             // 
+            this.AcceptButton = this.btnSearchSeries;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(482, 543);

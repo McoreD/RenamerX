@@ -56,10 +56,13 @@ namespace RenamerX
         private void LoadSettings()
         {
             // Rename
-            lvShows.Items.Clear();
-            foreach (ShowItem si in Program.Settings.ShowsList)
+            if (Program.Settings.RememberList)
             {
-                AddShow(si);
+                lvShows.Items.Clear();
+                foreach (ShowItem si in Program.Settings.ShowsList)
+                {
+                    AddShow(si);
+                }
             }
             txtNameFormat.Text = Program.Settings.NameFormat;
             txtRenameFileFilter.Text = Program.Settings.RenameFileFilter;

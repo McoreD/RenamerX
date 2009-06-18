@@ -37,6 +37,7 @@ namespace RenamerX
         #region Settings
 
         // Rename
+        public bool RememberList = false;
         public List<ShowItem> ShowsList = new List<ShowItem>();
         public string NameFormat = "$N - S$S2E$E2 - $T";
         public string RenameFileFilter = "*.avi|*.mkv|*.srt|*.sub";
@@ -57,7 +58,7 @@ namespace RenamerX
         public string RegexpPattern = @"s(?<Season>\d+)e(?<Episode>\d+)|(?<Season>\d+)x(?<Episode>\d+)|(?<Season>(?<!2)[01]?\d)(?<Episode>\d{2}(?!\d))";
         public bool ShowActionMessages = false;
         public bool GuessShowName = false;
-        public bool ReplaceIllegalChars = false;
+        public bool ReplaceIllegalChars = true;
         public string ReplaceIllegalCharsWith = "";
         public bool ReplaceSpaces = false;
         public string ReplaceSpacesWith = "";

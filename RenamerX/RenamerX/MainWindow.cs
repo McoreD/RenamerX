@@ -516,10 +516,12 @@ namespace RenamerX
 
         private void btnSearchSeries_Click(object sender, EventArgs e)
         {
-            SearchSeries search = new SearchSeries(txtSeriesName.Text);
-            if (search.ShowDialog() == DialogResult.OK)
+            SeriesFinder seriesFinder = new SeriesFinder(txtSeriesName.Text);
+            if (seriesFinder.ShowDialog() == DialogResult.OK)
             {
-                txtSeriesID.Text = search.SeriesID;                
+                txtSeriesID.Text = seriesFinder.searchResults.SeriesID;
+                txtSeriesName.Text = seriesFinder.searchResults.SeriesName;
+                this.LoadShow();
             }
         }
 
@@ -532,7 +534,7 @@ namespace RenamerX
             }
         }
 
-        private void btnLoadSeries_Click(object sender, EventArgs e)
+        private void LoadShow()
         {
             TVDBLib.SeriesFull series = Program.TVDB.GetSeriesFullInformation(txtSeriesID.Text, TVDBLib.FileType.ZIP);
             plvSeries.SelectedObject = series.Series;
@@ -543,6 +545,11 @@ namespace RenamerX
             FillBanners(series.Banners);
             lvActors.Tag = series.Series.ID;
             FillActors(series.Actors);
+        }
+
+        private void btnLoadSeries_Click(object sender, EventArgs e)
+        {
+            LoadShow();
         }
 
         private void tvEpisodes_AfterSelect(object sender, TreeViewEventArgs e)

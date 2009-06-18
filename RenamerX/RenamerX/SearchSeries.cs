@@ -10,7 +10,7 @@ using TVDBLib;
 
 namespace RenamerX
 {
-    public partial class SearchSeries : Form
+    public partial class SearchSeries : UserControl
     {
         public string SeriesID { get; set; }
         public string SeriesName { get; set; }
@@ -20,22 +20,12 @@ namespace RenamerX
             InitializeComponent();
         }
 
-        public SearchSeries(string showname)
-            : this()
-        {
-            if (!string.IsNullOrEmpty(showname))
-            {
-                txtSeriesName.Text = showname;
-                Search(showname);
-            }
-        }
-
         private void btnSearchSeries_Click(object sender, EventArgs e)
         {
             Search(txtSeriesName.Text);
         }
 
-        private void Search(string showname)
+        public void Search(string showname)
         {
             List<Series> series = Program.TVDB.GetSeriesList(showname);
             lvSeriesList.Items.Clear();
@@ -86,18 +76,6 @@ namespace RenamerX
             pbSeriesBanner.Image = new Bitmap(1, 1);
             pbSeriesBanner.SizeMode = PictureBoxSizeMode.StretchImage;
             pbSeriesBanner.ImageLocation = (string)e.Result;
-        }
-
-        private void btnOK_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.OK;
-            this.Close();
-        }
-
-        private void tnCancel_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
         }
 
         private void txtSeriesName_KeyPress(object sender, KeyPressEventArgs e)

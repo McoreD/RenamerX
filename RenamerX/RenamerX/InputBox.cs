@@ -55,7 +55,7 @@ namespace RenamerX
         {
             if (!string.IsNullOrEmpty(ShowName))
             {
-                txtShowName.Text = ShowName;
+               searchSeries1.txtSeriesName.Text = ShowName;
             }
             if (!string.IsNullOrEmpty(ShowLocation))
             {
@@ -65,8 +65,8 @@ namespace RenamerX
 
         private void InputBox_Shown(object sender, EventArgs e)
         {
-            txtShowName.Focus();
-            txtShowName.SelectionLength = txtShowName.Text.Length;
+            searchSeries1.txtSeriesName.Focus();
+            searchSeries1.txtSeriesName.SelectionLength = searchSeries1.txtSeriesName.Text.Length;
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -85,8 +85,8 @@ namespace RenamerX
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            ShowName = txtShowName.Text;
-            ShowLocation = txtShowLocation.Text;
+            this.ShowName = searchSeries1.SeriesName;
+            this.ShowLocation = txtShowLocation.Text;
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

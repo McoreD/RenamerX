@@ -101,6 +101,9 @@
     <EmbeddedResource Include="SearchSeries.resx">
       <DependentUpon>SearchSeries.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SeriesFinder.resx">
+      <DependentUpon>SeriesFinder.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -110,10 +113,16 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SearchSeries.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="SearchSeries.Designer.cs">
       <DependentUpon>SearchSeries.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SeriesFinder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeriesFinder.Designer.cs">
+      <DependentUpon>SeriesFinder.cs</DependentUpon>
     </Compile>
     <Compile Include="ShowItem.cs" />
     <Compile Include="XMLSettings.cs" />

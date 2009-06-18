@@ -53,17 +53,19 @@
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
-            // searchSeries1
+            // searchResults
             // 
             this.searchResults.Location = new System.Drawing.Point(8, 8);
-            this.searchResults.Name = "searchSeries1";
+            this.searchResults.Name = "searchResults";
             this.searchResults.SeriesID = null;
             this.searchResults.SeriesName = null;
             this.searchResults.Size = new System.Drawing.Size(482, 512);
             this.searchResults.TabIndex = 11;
+            this.searchResults.Load += new System.EventHandler(this.searchResults_Load);
             // 
             // SeriesFinder
             // 
+            this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(505, 562);

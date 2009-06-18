@@ -38,5 +38,10 @@ namespace RenamerX
             this.Close();
         }
 
+        private void searchResults_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

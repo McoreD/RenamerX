@@ -203,6 +203,8 @@ namespace RenamerX
             if (ib.ShowDialog() == DialogResult.OK)
             {
                 AddShow(ib.ShowName, ib.ShowLocation);
+                txtSeriesName.Text = ib.ShowName;
+                this.LoadShow(ib.searchResults.SeriesID);
                 SaveShowsList();
             }
         }
@@ -518,15 +520,20 @@ namespace RenamerX
             Program.Settings.LastSeriesID = txtSeriesID.Text;
         }
 
-        private void btnSearchSeries_Click(object sender, EventArgs e)
+        private void SearchSeries(string seriesName)
         {
-            SeriesFinder seriesFinder = new SeriesFinder(txtSeriesName.Text);
+         SeriesFinder seriesFinder = new SeriesFinder(seriesName);
             if (seriesFinder.ShowDialog() == DialogResult.OK)
             {
                 txtSeriesID.Text = seriesFinder.searchResults.SeriesID;
                 txtSeriesName.Text = seriesFinder.searchResults.SeriesName;
-                this.LoadShow();
+                this.LoadShow(txtSeriesID.Text);
             }
+        }
+
+        private void btnSearchSeries_Click(object sender, EventArgs e)
+        {
+            this.SearchSeries(txtSeriesName.Text);
         }
 
         private void btnQuickSearchSeries_Click(object sender, EventArgs e)
@@ -538,9 +545,9 @@ namespace RenamerX
             }
         }
 
-        private void LoadShow()
+        private void LoadShow(string showID)
         {
-            TVDBLib.SeriesFull series = Program.TVDB.GetSeriesFullInformation(txtSeriesID.Text, TVDBLib.FileType.ZIP);
+            TVDBLib.SeriesFull series = Program.TVDB.GetSeriesFullInformation(showID, TVDBLib.FileType.ZIP);
             plvSeries.SelectedObject = series.Series;
             LoadBanner(series.Series);
             tvEpisodes.Tag = series.Episodes;
@@ -551,9 +558,9 @@ namespace RenamerX
             FillActors(series.Actors);
         }
 
-        private void btnLoadSeries_Click(object sender, EventArgs e)
+        private void btnReloadSeries_Click(object sender, EventArgs e)
         {
-            LoadShow();
+            LoadShow(txtSeriesID.Text);
         }
 
         private void tvEpisodes_AfterSelect(object sender, TreeViewEventArgs e)

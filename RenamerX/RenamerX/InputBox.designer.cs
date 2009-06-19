@@ -85,10 +85,10 @@
             this.btnBrowse.UseVisualStyleBackColor = true;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
-            // searchSeries1
+            // searchResults
             // 
             this.searchResults.Location = new System.Drawing.Point(8, 40);
-            this.searchResults.Name = "searchSeries1";
+            this.searchResults.Name = "searchResults";
             this.searchResults.SeriesID = null;
             this.searchResults.SeriesName = null;
             this.searchResults.Size = new System.Drawing.Size(482, 517);
@@ -127,6 +127,6 @@
         private System.Windows.Forms.Label lblShowLocation;
         internal System.Windows.Forms.TextBox txtShowLocation;
         internal System.Windows.Forms.Button btnBrowse;
-        private SearchSeries searchResults;
+        internal SearchSeries searchResults;
     }
 }

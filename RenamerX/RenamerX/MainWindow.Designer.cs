@@ -45,7 +45,7 @@
             this.btnRenameRemove = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.txtNameFormat = new System.Windows.Forms.TextBox();
-            this.btnRenameAdd = new System.Windows.Forms.Button();
+            this.btnAddShow = new System.Windows.Forms.Button();
             this.lvList = new System.Windows.Forms.ListView();
             this.lvListColumn1 = new System.Windows.Forms.ColumnHeader();
             this.lvListColumn2 = new System.Windows.Forms.ColumnHeader();
@@ -76,12 +76,12 @@
             this.tpSeriesInfo = new System.Windows.Forms.TabPage();
             this.tcSeriesInfo = new System.Windows.Forms.TabControl();
             this.tpSeries = new System.Windows.Forms.TabPage();
+            this.pbSeriesBanner = new System.Windows.Forms.PictureBox();
             this.btnQuickSearchSeries = new System.Windows.Forms.Button();
             this.btnLoadSeries = new System.Windows.Forms.Button();
             this.btnSearchSeries = new System.Windows.Forms.Button();
             this.txtSeriesName = new System.Windows.Forms.TextBox();
             this.txtSeriesID = new System.Windows.Forms.TextBox();
-            this.plvSeries = new RenamerX.PropertyListView();
             this.tpEpisodes = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtEpisodeNumber = new System.Windows.Forms.TextBox();
@@ -91,22 +91,15 @@
             this.txtEpisodeName = new System.Windows.Forms.TextBox();
             this.lblEpisodeName = new System.Windows.Forms.Label();
             this.tvEpisodes = new System.Windows.Forms.TreeView();
-            this.plvEpisodes = new RenamerX.PropertyListView();
             this.tpSeriesImages = new System.Windows.Forms.TabPage();
+            this.pbBanner = new System.Windows.Forms.PictureBox();
             this.tcSeriesImages = new System.Windows.Forms.TabControl();
             this.tpBanners = new System.Windows.Forms.TabPage();
-            this.lvBanners = new RenamerX.ListViewX();
-            this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
             this.tpActors = new System.Windows.Forms.TabPage();
-            this.lvActors = new RenamerX.ListViewX();
-            this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
-            this.plvBanners = new RenamerX.PropertyListView();
             this.tpConsole = new System.Windows.Forms.TabPage();
             this.txtConsole = new System.Windows.Forms.TextBox();
             this.tpSettings = new System.Windows.Forms.TabPage();
             this.btnRefreshSettings = new System.Windows.Forms.Button();
-            this.plvSettings = new RenamerX.PropertyListView();
             this.gbGeneralSettings = new System.Windows.Forms.GroupBox();
             this.cbShowHelpTooltips = new System.Windows.Forms.CheckBox();
             this.gbRenameSettings = new System.Windows.Forms.GroupBox();
@@ -119,11 +112,18 @@
             this.txtRegexpPattern = new System.Windows.Forms.TextBox();
             this.cbShowActionMessages = new System.Windows.Forms.CheckBox();
             this.lblRegexpPattern = new System.Windows.Forms.Label();
-            this.ttApp = new System.Windows.Forms.ToolTip(this.components);
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.pbSeriesBanner = new System.Windows.Forms.PictureBox();
-            this.pbBanner = new System.Windows.Forms.PictureBox();
+            this.tpAdvanced = new System.Windows.Forms.TabPage();
             this.propertyGridApp = new System.Windows.Forms.PropertyGrid();
+            this.ttApp = new System.Windows.Forms.ToolTip(this.components);
+            this.plvSeries = new RenamerX.PropertyListView();
+            this.plvEpisodes = new RenamerX.PropertyListView();
+            this.lvBanners = new RenamerX.ListViewX();
+            this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
+            this.lvActors = new RenamerX.ListViewX();
+            this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
+            this.plvBanners = new RenamerX.PropertyListView();
+            this.plvSettings = new RenamerX.PropertyListView();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.scRename.Panel1.SuspendLayout();
@@ -136,9 +136,11 @@
             this.tpSeriesInfo.SuspendLayout();
             this.tcSeriesInfo.SuspendLayout();
             this.tpSeries.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSeriesBanner)).BeginInit();
             this.tpEpisodes.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tpSeriesImages.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBanner)).BeginInit();
             this.tcSeriesImages.SuspendLayout();
             this.tpBanners.SuspendLayout();
             this.tpActors.SuspendLayout();
@@ -146,19 +148,17 @@
             this.tpSettings.SuspendLayout();
             this.gbGeneralSettings.SuspendLayout();
             this.gbRenameSettings.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSeriesBanner)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBanner)).BeginInit();
+            this.tpAdvanced.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcMain
             // 
             this.tcMain.Controls.Add(this.tpMain);
-            this.tcMain.Controls.Add(this.tpExtract);
             this.tcMain.Controls.Add(this.tpSeriesInfo);
-            this.tcMain.Controls.Add(this.tpConsole);
+            this.tcMain.Controls.Add(this.tpExtract);
             this.tcMain.Controls.Add(this.tpSettings);
-            this.tcMain.Controls.Add(this.tabPage1);
+            this.tcMain.Controls.Add(this.tpAdvanced);
+            this.tcMain.Controls.Add(this.tpConsole);
             this.tcMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcMain.Location = new System.Drawing.Point(3, 3);
             this.tcMain.Name = "tcMain";
@@ -200,7 +200,7 @@
             this.scRename.Panel1.Controls.Add(this.btnRenameRemove);
             this.scRename.Panel1.Controls.Add(this.btnRefresh);
             this.scRename.Panel1.Controls.Add(this.txtNameFormat);
-            this.scRename.Panel1.Controls.Add(this.btnRenameAdd);
+            this.scRename.Panel1.Controls.Add(this.btnAddShow);
             // 
             // scRename.Panel2
             // 
@@ -261,7 +261,7 @@
             this.btnRenameAll.Name = "btnRenameAll";
             this.btnRenameAll.Size = new System.Drawing.Size(80, 24);
             this.btnRenameAll.TabIndex = 12;
-            this.btnRenameAll.Text = "Rename all";
+            this.btnRenameAll.Text = "Rename All...";
             this.btnRenameAll.UseVisualStyleBackColor = true;
             this.btnRenameAll.Click += new System.EventHandler(this.btnRenameAll_Click);
             // 
@@ -331,15 +331,15 @@
             this.ttApp.SetToolTip(this.txtNameFormat, resources.GetString("txtNameFormat.ToolTip"));
             this.txtNameFormat.TextChanged += new System.EventHandler(this.txtNameFormat_TextChanged);
             // 
-            // btnRenameAdd
+            // btnAddShow
             // 
-            this.btnRenameAdd.Location = new System.Drawing.Point(344, 8);
-            this.btnRenameAdd.Name = "btnRenameAdd";
-            this.btnRenameAdd.Size = new System.Drawing.Size(72, 24);
-            this.btnRenameAdd.TabIndex = 7;
-            this.btnRenameAdd.Text = "Add";
-            this.btnRenameAdd.UseVisualStyleBackColor = true;
-            this.btnRenameAdd.Click += new System.EventHandler(this.btnRenameAdd_Click);
+            this.btnAddShow.Location = new System.Drawing.Point(344, 8);
+            this.btnAddShow.Name = "btnAddShow";
+            this.btnAddShow.Size = new System.Drawing.Size(72, 24);
+            this.btnAddShow.TabIndex = 7;
+            this.btnAddShow.Text = "Add";
+            this.btnAddShow.UseVisualStyleBackColor = true;
+            this.btnAddShow.Click += new System.EventHandler(this.btnRenameAdd_Click);
             // 
             // lvList
             // 
@@ -654,7 +654,7 @@
             this.tpSeriesInfo.Padding = new System.Windows.Forms.Padding(3);
             this.tpSeriesInfo.Size = new System.Drawing.Size(996, 608);
             this.tpSeriesInfo.TabIndex = 4;
-            this.tpSeriesInfo.Text = "Database";
+            this.tpSeriesInfo.Text = "TVDB";
             this.tpSeriesInfo.UseVisualStyleBackColor = true;
             // 
             // tcSeriesInfo
@@ -686,6 +686,15 @@
             this.tpSeries.Text = "Series";
             this.tpSeries.UseVisualStyleBackColor = true;
             // 
+            // pbSeriesBanner
+            // 
+            this.pbSeriesBanner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbSeriesBanner.Location = new System.Drawing.Point(8, 40);
+            this.pbSeriesBanner.Name = "pbSeriesBanner";
+            this.pbSeriesBanner.Size = new System.Drawing.Size(496, 80);
+            this.pbSeriesBanner.TabIndex = 6;
+            this.pbSeriesBanner.TabStop = false;
+            // 
             // btnQuickSearchSeries
             // 
             this.btnQuickSearchSeries.Location = new System.Drawing.Point(312, 8);
@@ -704,7 +713,7 @@
             this.btnLoadSeries.TabIndex = 4;
             this.btnLoadSeries.Text = "Reload";
             this.btnLoadSeries.UseVisualStyleBackColor = true;
-            this.btnLoadSeries.Click += new System.EventHandler(this.btnLoadSeries_Click);
+            this.btnLoadSeries.Click += new System.EventHandler(this.btnReloadSeries_Click);
             // 
             // btnSearchSeries
             // 
@@ -731,23 +740,6 @@
             this.txtSeriesID.Size = new System.Drawing.Size(88, 20);
             this.txtSeriesID.TabIndex = 1;
             this.txtSeriesID.TextChanged += new System.EventHandler(this.txtSeriesID_TextChanged);
-            // 
-            // plvSeries
-            // 
-            this.plvSeries.AllowEmptyObjects = false;
-            this.plvSeries.ConstantColumnSize = true;
-            this.plvSeries.FullRowSelect = true;
-            this.plvSeries.GridLines = true;
-            this.plvSeries.HideSelection = false;
-            this.plvSeries.Location = new System.Drawing.Point(8, 128);
-            this.plvSeries.MultiSelect = false;
-            this.plvSeries.Name = "plvSeries";
-            this.plvSeries.NameColumnSize = 150;
-            this.plvSeries.SetObjectType = RenamerX.PropertyListView.ObjectType.Properties;
-            this.plvSeries.Size = new System.Drawing.Size(968, 438);
-            this.plvSeries.TabIndex = 0;
-            this.plvSeries.UseCompatibleStateImageBehavior = false;
-            this.plvSeries.View = System.Windows.Forms.View.Details;
             // 
             // tpEpisodes
             // 
@@ -836,23 +828,6 @@
             this.tvEpisodes.TabIndex = 0;
             this.tvEpisodes.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvEpisodes_AfterSelect);
             // 
-            // plvEpisodes
-            // 
-            this.plvEpisodes.AllowEmptyObjects = false;
-            this.plvEpisodes.ConstantColumnSize = true;
-            this.plvEpisodes.FullRowSelect = true;
-            this.plvEpisodes.GridLines = true;
-            this.plvEpisodes.HideSelection = false;
-            this.plvEpisodes.Location = new System.Drawing.Point(520, 64);
-            this.plvEpisodes.MultiSelect = false;
-            this.plvEpisodes.Name = "plvEpisodes";
-            this.plvEpisodes.NameColumnSize = 150;
-            this.plvEpisodes.SetObjectType = RenamerX.PropertyListView.ObjectType.Properties;
-            this.plvEpisodes.Size = new System.Drawing.Size(456, 504);
-            this.plvEpisodes.TabIndex = 1;
-            this.plvEpisodes.UseCompatibleStateImageBehavior = false;
-            this.plvEpisodes.View = System.Windows.Forms.View.Details;
-            // 
             // tpSeriesImages
             // 
             this.tpSeriesImages.Controls.Add(this.pbBanner);
@@ -864,6 +839,20 @@
             this.tpSeriesImages.TabIndex = 2;
             this.tpSeriesImages.Text = "Images";
             this.tpSeriesImages.UseVisualStyleBackColor = true;
+            // 
+            // pbBanner
+            // 
+            this.pbBanner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbBanner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbBanner.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbBanner.Location = new System.Drawing.Point(408, 8);
+            this.pbBanner.Name = "pbBanner";
+            this.pbBanner.Size = new System.Drawing.Size(560, 552);
+            this.pbBanner.TabIndex = 6;
+            this.pbBanner.TabStop = false;
+            this.pbBanner.Click += new System.EventHandler(this.pbBanner_Click);
             // 
             // tcSeriesImages
             // 
@@ -886,27 +875,6 @@
             this.tpBanners.Text = "Banners";
             this.tpBanners.UseVisualStyleBackColor = true;
             // 
-            // lvBanners
-            // 
-            this.lvBanners.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader9});
-            this.lvBanners.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvBanners.FullRowSelect = true;
-            this.lvBanners.HideSelection = false;
-            this.lvBanners.Location = new System.Drawing.Point(3, 3);
-            this.lvBanners.MultiSelect = false;
-            this.lvBanners.Name = "lvBanners";
-            this.lvBanners.Size = new System.Drawing.Size(378, 344);
-            this.lvBanners.TabIndex = 0;
-            this.lvBanners.UseCompatibleStateImageBehavior = false;
-            this.lvBanners.View = System.Windows.Forms.View.Details;
-            this.lvBanners.SelectedIndexChanged += new System.EventHandler(this.lvBanners_SelectedIndexChanged);
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.Text = "Banner Path";
-            this.columnHeader9.Width = 350;
-            // 
             // tpActors
             // 
             this.tpActors.Controls.Add(this.lvActors);
@@ -917,51 +885,6 @@
             this.tpActors.TabIndex = 1;
             this.tpActors.Text = "Actors";
             this.tpActors.UseVisualStyleBackColor = true;
-            // 
-            // lvActors
-            // 
-            this.lvActors.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader10,
-            this.columnHeader11});
-            this.lvActors.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvActors.FullRowSelect = true;
-            this.lvActors.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvActors.HideSelection = false;
-            this.lvActors.Location = new System.Drawing.Point(3, 3);
-            this.lvActors.MultiSelect = false;
-            this.lvActors.Name = "lvActors";
-            this.lvActors.Size = new System.Drawing.Size(378, 344);
-            this.lvActors.TabIndex = 0;
-            this.lvActors.UseCompatibleStateImageBehavior = false;
-            this.lvActors.View = System.Windows.Forms.View.Details;
-            this.lvActors.SelectedIndexChanged += new System.EventHandler(this.lvActors_SelectedIndexChanged);
-            // 
-            // columnHeader10
-            // 
-            this.columnHeader10.Text = "Name";
-            this.columnHeader10.Width = 175;
-            // 
-            // columnHeader11
-            // 
-            this.columnHeader11.Text = "Role";
-            this.columnHeader11.Width = 175;
-            // 
-            // plvBanners
-            // 
-            this.plvBanners.AllowEmptyObjects = false;
-            this.plvBanners.ConstantColumnSize = true;
-            this.plvBanners.FullRowSelect = true;
-            this.plvBanners.GridLines = true;
-            this.plvBanners.HideSelection = false;
-            this.plvBanners.Location = new System.Drawing.Point(8, 392);
-            this.plvBanners.MultiSelect = false;
-            this.plvBanners.Name = "plvBanners";
-            this.plvBanners.NameColumnSize = 150;
-            this.plvBanners.SetObjectType = RenamerX.PropertyListView.ObjectType.Properties;
-            this.plvBanners.Size = new System.Drawing.Size(392, 168);
-            this.plvBanners.TabIndex = 5;
-            this.plvBanners.UseCompatibleStateImageBehavior = false;
-            this.plvBanners.View = System.Windows.Forms.View.Details;
             // 
             // tpConsole
             // 
@@ -1008,23 +931,6 @@
             this.btnRefreshSettings.Text = "Refresh";
             this.btnRefreshSettings.UseVisualStyleBackColor = true;
             this.btnRefreshSettings.Click += new System.EventHandler(this.btnRefreshSettings_Click);
-            // 
-            // plvSettings
-            // 
-            this.plvSettings.AllowEmptyObjects = true;
-            this.plvSettings.ConstantColumnSize = true;
-            this.plvSettings.FullRowSelect = true;
-            this.plvSettings.GridLines = true;
-            this.plvSettings.HideSelection = false;
-            this.plvSettings.Location = new System.Drawing.Point(8, 280);
-            this.plvSettings.MultiSelect = false;
-            this.plvSettings.Name = "plvSettings";
-            this.plvSettings.NameColumnSize = 150;
-            this.plvSettings.SetObjectType = RenamerX.PropertyListView.ObjectType.Fields;
-            this.plvSettings.Size = new System.Drawing.Size(976, 320);
-            this.plvSettings.TabIndex = 5;
-            this.plvSettings.UseCompatibleStateImageBehavior = false;
-            this.plvSettings.View = System.Windows.Forms.View.Details;
             // 
             // gbGeneralSettings
             // 
@@ -1161,6 +1067,25 @@
             this.lblRegexpPattern.TabIndex = 1;
             this.lblRegexpPattern.Text = "Regexp pattern for finding season and episode numbers:";
             // 
+            // tpAdvanced
+            // 
+            this.tpAdvanced.Controls.Add(this.propertyGridApp);
+            this.tpAdvanced.Location = new System.Drawing.Point(4, 24);
+            this.tpAdvanced.Name = "tpAdvanced";
+            this.tpAdvanced.Padding = new System.Windows.Forms.Padding(3);
+            this.tpAdvanced.Size = new System.Drawing.Size(996, 608);
+            this.tpAdvanced.TabIndex = 5;
+            this.tpAdvanced.Text = "Advanced";
+            this.tpAdvanced.UseVisualStyleBackColor = true;
+            // 
+            // propertyGridApp
+            // 
+            this.propertyGridApp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertyGridApp.Location = new System.Drawing.Point(3, 3);
+            this.propertyGridApp.Name = "propertyGridApp";
+            this.propertyGridApp.Size = new System.Drawing.Size(990, 602);
+            this.propertyGridApp.TabIndex = 0;
+            // 
             // ttApp
             // 
             this.ttApp.AutomaticDelay = 100;
@@ -1170,47 +1095,122 @@
             this.ttApp.ReshowDelay = 0;
             this.ttApp.UseFading = false;
             // 
-            // tabPage1
+            // plvSeries
             // 
-            this.tabPage1.Controls.Add(this.propertyGridApp);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(996, 608);
-            this.tabPage1.TabIndex = 5;
-            this.tabPage1.Text = "Advanced";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.plvSeries.AllowEmptyObjects = false;
+            this.plvSeries.ConstantColumnSize = true;
+            this.plvSeries.FullRowSelect = true;
+            this.plvSeries.GridLines = true;
+            this.plvSeries.HideSelection = false;
+            this.plvSeries.Location = new System.Drawing.Point(8, 128);
+            this.plvSeries.MultiSelect = false;
+            this.plvSeries.Name = "plvSeries";
+            this.plvSeries.NameColumnSize = 150;
+            this.plvSeries.SetObjectType = RenamerX.PropertyListView.ObjectType.Properties;
+            this.plvSeries.Size = new System.Drawing.Size(968, 438);
+            this.plvSeries.TabIndex = 0;
+            this.plvSeries.UseCompatibleStateImageBehavior = false;
+            this.plvSeries.View = System.Windows.Forms.View.Details;
             // 
-            // pbSeriesBanner
+            // plvEpisodes
             // 
-            this.pbSeriesBanner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbSeriesBanner.Location = new System.Drawing.Point(8, 40);
-            this.pbSeriesBanner.Name = "pbSeriesBanner";
-            this.pbSeriesBanner.Size = new System.Drawing.Size(496, 80);
-            this.pbSeriesBanner.TabIndex = 6;
-            this.pbSeriesBanner.TabStop = false;
+            this.plvEpisodes.AllowEmptyObjects = false;
+            this.plvEpisodes.ConstantColumnSize = true;
+            this.plvEpisodes.FullRowSelect = true;
+            this.plvEpisodes.GridLines = true;
+            this.plvEpisodes.HideSelection = false;
+            this.plvEpisodes.Location = new System.Drawing.Point(520, 64);
+            this.plvEpisodes.MultiSelect = false;
+            this.plvEpisodes.Name = "plvEpisodes";
+            this.plvEpisodes.NameColumnSize = 150;
+            this.plvEpisodes.SetObjectType = RenamerX.PropertyListView.ObjectType.Properties;
+            this.plvEpisodes.Size = new System.Drawing.Size(456, 504);
+            this.plvEpisodes.TabIndex = 1;
+            this.plvEpisodes.UseCompatibleStateImageBehavior = false;
+            this.plvEpisodes.View = System.Windows.Forms.View.Details;
             // 
-            // pbBanner
+            // lvBanners
             // 
-            this.pbBanner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbBanner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbBanner.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbBanner.Location = new System.Drawing.Point(408, 8);
-            this.pbBanner.Name = "pbBanner";
-            this.pbBanner.Size = new System.Drawing.Size(560, 552);
-            this.pbBanner.TabIndex = 6;
-            this.pbBanner.TabStop = false;
-            this.pbBanner.Click += new System.EventHandler(this.pbBanner_Click);
+            this.lvBanners.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader9});
+            this.lvBanners.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvBanners.FullRowSelect = true;
+            this.lvBanners.HideSelection = false;
+            this.lvBanners.Location = new System.Drawing.Point(3, 3);
+            this.lvBanners.MultiSelect = false;
+            this.lvBanners.Name = "lvBanners";
+            this.lvBanners.Size = new System.Drawing.Size(378, 344);
+            this.lvBanners.TabIndex = 0;
+            this.lvBanners.UseCompatibleStateImageBehavior = false;
+            this.lvBanners.View = System.Windows.Forms.View.Details;
+            this.lvBanners.SelectedIndexChanged += new System.EventHandler(this.lvBanners_SelectedIndexChanged);
             // 
-            // propertyGridApp
+            // columnHeader9
             // 
-            this.propertyGridApp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propertyGridApp.Location = new System.Drawing.Point(3, 3);
-            this.propertyGridApp.Name = "propertyGridApp";
-            this.propertyGridApp.Size = new System.Drawing.Size(990, 602);
-            this.propertyGridApp.TabIndex = 0;
+            this.columnHeader9.Text = "Banner Path";
+            this.columnHeader9.Width = 350;
+            // 
+            // lvActors
+            // 
+            this.lvActors.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader10,
+            this.columnHeader11});
+            this.lvActors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvActors.FullRowSelect = true;
+            this.lvActors.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lvActors.HideSelection = false;
+            this.lvActors.Location = new System.Drawing.Point(3, 3);
+            this.lvActors.MultiSelect = false;
+            this.lvActors.Name = "lvActors";
+            this.lvActors.Size = new System.Drawing.Size(378, 344);
+            this.lvActors.TabIndex = 0;
+            this.lvActors.UseCompatibleStateImageBehavior = false;
+            this.lvActors.View = System.Windows.Forms.View.Details;
+            this.lvActors.SelectedIndexChanged += new System.EventHandler(this.lvActors_SelectedIndexChanged);
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Name";
+            this.columnHeader10.Width = 175;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Role";
+            this.columnHeader11.Width = 175;
+            // 
+            // plvBanners
+            // 
+            this.plvBanners.AllowEmptyObjects = false;
+            this.plvBanners.ConstantColumnSize = true;
+            this.plvBanners.FullRowSelect = true;
+            this.plvBanners.GridLines = true;
+            this.plvBanners.HideSelection = false;
+            this.plvBanners.Location = new System.Drawing.Point(8, 392);
+            this.plvBanners.MultiSelect = false;
+            this.plvBanners.Name = "plvBanners";
+            this.plvBanners.NameColumnSize = 150;
+            this.plvBanners.SetObjectType = RenamerX.PropertyListView.ObjectType.Properties;
+            this.plvBanners.Size = new System.Drawing.Size(392, 168);
+            this.plvBanners.TabIndex = 5;
+            this.plvBanners.UseCompatibleStateImageBehavior = false;
+            this.plvBanners.View = System.Windows.Forms.View.Details;
+            // 
+            // plvSettings
+            // 
+            this.plvSettings.AllowEmptyObjects = true;
+            this.plvSettings.ConstantColumnSize = true;
+            this.plvSettings.FullRowSelect = true;
+            this.plvSettings.GridLines = true;
+            this.plvSettings.HideSelection = false;
+            this.plvSettings.Location = new System.Drawing.Point(8, 280);
+            this.plvSettings.MultiSelect = false;
+            this.plvSettings.Name = "plvSettings";
+            this.plvSettings.NameColumnSize = 150;
+            this.plvSettings.SetObjectType = RenamerX.PropertyListView.ObjectType.Fields;
+            this.plvSettings.Size = new System.Drawing.Size(976, 320);
+            this.plvSettings.TabIndex = 5;
+            this.plvSettings.UseCompatibleStateImageBehavior = false;
+            this.plvSettings.View = System.Windows.Forms.View.Details;
             // 
             // MainWindow
             // 
@@ -1241,10 +1241,12 @@
             this.tcSeriesInfo.ResumeLayout(false);
             this.tpSeries.ResumeLayout(false);
             this.tpSeries.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSeriesBanner)).EndInit();
             this.tpEpisodes.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tpSeriesImages.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbBanner)).EndInit();
             this.tcSeriesImages.ResumeLayout(false);
             this.tpBanners.ResumeLayout(false);
             this.tpActors.ResumeLayout(false);
@@ -1255,9 +1257,7 @@
             this.gbGeneralSettings.PerformLayout();
             this.gbRenameSettings.ResumeLayout(false);
             this.gbRenameSettings.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbSeriesBanner)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBanner)).EndInit();
+            this.tpAdvanced.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1271,7 +1271,7 @@
         private System.Windows.Forms.TextBox txtRenameFileFilter;
         private System.Windows.Forms.Label lblNameFormat;
         private System.Windows.Forms.Label lblRenameFileFilter;
-        private System.Windows.Forms.Button btnRenameAdd;
+        private System.Windows.Forms.Button btnAddShow;
         private System.Windows.Forms.Button btnRenameRemove;
         private System.Windows.Forms.SplitContainer scRename;
         private System.Windows.Forms.Button btnRefresh;
@@ -1356,7 +1356,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader11;
         private PropertyListView plvSettings;
         private System.Windows.Forms.Button btnRefreshSettings;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tpAdvanced;
         private System.Windows.Forms.PropertyGrid propertyGridApp;
     }
 }

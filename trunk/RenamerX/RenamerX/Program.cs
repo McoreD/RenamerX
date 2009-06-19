@@ -24,6 +24,7 @@
 using System;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
 
 namespace RenamerX
 {
@@ -50,6 +51,7 @@ namespace RenamerX
         }
 
         public static XMLSettings Settings;
+        public static Mutex mAppMutex;
 
         [STAThread]
         static void Main()
@@ -61,6 +63,24 @@ namespace RenamerX
             TVDB.CheckUpdates();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            bool bGrantedOwnership;
+            try
+            {
+                Guid assemblyGuid = Guid.Empty;
+                object[] assemblyObjects = System.Reflection.Assembly.GetEntryAssembly().GetCustomAttributes(typeof(System.Runtime.InteropServices.GuidAttribute), true);
+                if (assemblyObjects.Length > 0)
+                {
+                    assemblyGuid = new Guid(((System.Runtime.InteropServices.GuidAttribute)assemblyObjects[0]).Value);
+                }
+                mAppMutex = new Mutex(true, assemblyGuid.ToString(), out bGrantedOwnership);
+
+            }
+            catch (UnauthorizedAccessException)
+            {
+                bGrantedOwnership = false;
+            }
+
             Application.Run(new MainWindow());
         }
 

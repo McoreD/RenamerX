@@ -76,7 +76,6 @@
             this.tpSeriesInfo = new System.Windows.Forms.TabPage();
             this.tcSeriesInfo = new System.Windows.Forms.TabControl();
             this.tpSeries = new System.Windows.Forms.TabPage();
-            this.pbSeriesBanner = new System.Windows.Forms.PictureBox();
             this.btnQuickSearchSeries = new System.Windows.Forms.Button();
             this.btnLoadSeries = new System.Windows.Forms.Button();
             this.btnSearchSeries = new System.Windows.Forms.Button();
@@ -94,7 +93,6 @@
             this.tvEpisodes = new System.Windows.Forms.TreeView();
             this.plvEpisodes = new RenamerX.PropertyListView();
             this.tpSeriesImages = new System.Windows.Forms.TabPage();
-            this.pbBanner = new System.Windows.Forms.PictureBox();
             this.tcSeriesImages = new System.Windows.Forms.TabControl();
             this.tpBanners = new System.Windows.Forms.TabPage();
             this.lvBanners = new RenamerX.ListViewX();
@@ -122,6 +120,10 @@
             this.cbShowActionMessages = new System.Windows.Forms.CheckBox();
             this.lblRegexpPattern = new System.Windows.Forms.Label();
             this.ttApp = new System.Windows.Forms.ToolTip(this.components);
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.pbSeriesBanner = new System.Windows.Forms.PictureBox();
+            this.pbBanner = new System.Windows.Forms.PictureBox();
+            this.propertyGridApp = new System.Windows.Forms.PropertyGrid();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.scRename.Panel1.SuspendLayout();
@@ -134,11 +136,9 @@
             this.tpSeriesInfo.SuspendLayout();
             this.tcSeriesInfo.SuspendLayout();
             this.tpSeries.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSeriesBanner)).BeginInit();
             this.tpEpisodes.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tpSeriesImages.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBanner)).BeginInit();
             this.tcSeriesImages.SuspendLayout();
             this.tpBanners.SuspendLayout();
             this.tpActors.SuspendLayout();
@@ -146,6 +146,9 @@
             this.tpSettings.SuspendLayout();
             this.gbGeneralSettings.SuspendLayout();
             this.gbRenameSettings.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSeriesBanner)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBanner)).BeginInit();
             this.SuspendLayout();
             // 
             // tcMain
@@ -155,6 +158,7 @@
             this.tcMain.Controls.Add(this.tpSeriesInfo);
             this.tcMain.Controls.Add(this.tpConsole);
             this.tcMain.Controls.Add(this.tpSettings);
+            this.tcMain.Controls.Add(this.tabPage1);
             this.tcMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcMain.Location = new System.Drawing.Point(3, 3);
             this.tcMain.Name = "tcMain";
@@ -682,15 +686,6 @@
             this.tpSeries.Text = "Series";
             this.tpSeries.UseVisualStyleBackColor = true;
             // 
-            // pbSeriesBanner
-            // 
-            this.pbSeriesBanner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbSeriesBanner.Location = new System.Drawing.Point(8, 40);
-            this.pbSeriesBanner.Name = "pbSeriesBanner";
-            this.pbSeriesBanner.Size = new System.Drawing.Size(496, 80);
-            this.pbSeriesBanner.TabIndex = 6;
-            this.pbSeriesBanner.TabStop = false;
-            // 
             // btnQuickSearchSeries
             // 
             this.btnQuickSearchSeries.Location = new System.Drawing.Point(312, 8);
@@ -869,20 +864,6 @@
             this.tpSeriesImages.TabIndex = 2;
             this.tpSeriesImages.Text = "Images";
             this.tpSeriesImages.UseVisualStyleBackColor = true;
-            // 
-            // pbBanner
-            // 
-            this.pbBanner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbBanner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbBanner.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbBanner.Location = new System.Drawing.Point(408, 8);
-            this.pbBanner.Name = "pbBanner";
-            this.pbBanner.Size = new System.Drawing.Size(560, 552);
-            this.pbBanner.TabIndex = 6;
-            this.pbBanner.TabStop = false;
-            this.pbBanner.Click += new System.EventHandler(this.pbBanner_Click);
             // 
             // tcSeriesImages
             // 
@@ -1189,6 +1170,48 @@
             this.ttApp.ReshowDelay = 0;
             this.ttApp.UseFading = false;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.propertyGridApp);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(996, 608);
+            this.tabPage1.TabIndex = 5;
+            this.tabPage1.Text = "Advanced";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // pbSeriesBanner
+            // 
+            this.pbSeriesBanner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbSeriesBanner.Location = new System.Drawing.Point(8, 40);
+            this.pbSeriesBanner.Name = "pbSeriesBanner";
+            this.pbSeriesBanner.Size = new System.Drawing.Size(496, 80);
+            this.pbSeriesBanner.TabIndex = 6;
+            this.pbSeriesBanner.TabStop = false;
+            // 
+            // pbBanner
+            // 
+            this.pbBanner.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbBanner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbBanner.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbBanner.Location = new System.Drawing.Point(408, 8);
+            this.pbBanner.Name = "pbBanner";
+            this.pbBanner.Size = new System.Drawing.Size(560, 552);
+            this.pbBanner.TabIndex = 6;
+            this.pbBanner.TabStop = false;
+            this.pbBanner.Click += new System.EventHandler(this.pbBanner_Click);
+            // 
+            // propertyGridApp
+            // 
+            this.propertyGridApp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertyGridApp.Location = new System.Drawing.Point(3, 3);
+            this.propertyGridApp.Name = "propertyGridApp";
+            this.propertyGridApp.Size = new System.Drawing.Size(990, 602);
+            this.propertyGridApp.TabIndex = 0;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1218,12 +1241,10 @@
             this.tcSeriesInfo.ResumeLayout(false);
             this.tpSeries.ResumeLayout(false);
             this.tpSeries.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSeriesBanner)).EndInit();
             this.tpEpisodes.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tpSeriesImages.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbBanner)).EndInit();
             this.tcSeriesImages.ResumeLayout(false);
             this.tpBanners.ResumeLayout(false);
             this.tpActors.ResumeLayout(false);
@@ -1234,6 +1255,9 @@
             this.gbGeneralSettings.PerformLayout();
             this.gbRenameSettings.ResumeLayout(false);
             this.gbRenameSettings.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbSeriesBanner)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBanner)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1332,5 +1356,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader11;
         private PropertyListView plvSettings;
         private System.Windows.Forms.Button btnRefreshSettings;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.PropertyGrid propertyGridApp;
     }
 }

@@ -103,6 +103,7 @@ namespace RenamerX
             fakeShow = CreateFakeShow("Show Name", 2, 7, "Episode Title");
             UpdateNameFormatPreview();
             plvSettings.SelectedObject = Program.Settings;
+            propertyGridApp.SelectedObject = Program.Settings;
         }
 
         #region Form Events

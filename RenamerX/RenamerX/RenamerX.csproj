@@ -98,6 +98,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="PropertyListView.resx">
+      <DependentUpon>PropertyListView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SearchSeries.resx">
       <DependentUpon>SearchSeries.cs</DependentUpon>
     </EmbeddedResource>

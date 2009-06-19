@@ -28,6 +28,7 @@ using System.Text;
 using System.Xml.Serialization;
 using System.IO;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace RenamerX
 {
@@ -37,7 +38,8 @@ namespace RenamerX
         #region Settings
 
         // Rename
-        public bool RememberList = false;
+        [Category("Options / Shows"), Description("Remember TV Show List.")]
+        public bool RememberList { get; set; }
         public List<ShowItem> ShowsList = new List<ShowItem>();
         public string NameFormat = "$N - S$S2E$E2 - $T";
         public string RenameFileFilter = "*.avi|*.mkv|*.srt|*.sub";
@@ -75,6 +77,14 @@ namespace RenamerX
         #endregion
 
         #region I/O Methods
+
+        /// <summary>
+        /// Default Settings
+        /// </summary>
+        public XMLSettings()
+        {
+            RememberList = true;
+        }
 
         public void Save()
         {

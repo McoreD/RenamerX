@@ -62,7 +62,7 @@ namespace RenamerX
             this.View = View.Details;
             this.NameColumnSize = 125;
             this.Columns.Add("Name", this.NameColumnSize);
-            this.Columns.Add("Value", 200);
+            this.Columns.Add("Value", 200);     
             ContextMenu contextMenu = new ContextMenu();
             contextMenu.MenuItems.Add("Copy name").Click += new EventHandler(PropertyListView_Click_Name);
             contextMenu.MenuItems.Add("Copy value").Click += new EventHandler(PropertyListView_Click_Value);
@@ -177,6 +177,13 @@ namespace RenamerX
                 AutoResizeLastColumn();
             }
             base.WndProc(ref m);
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            this.ResumeLayout(false);
+
         }
     }
 }

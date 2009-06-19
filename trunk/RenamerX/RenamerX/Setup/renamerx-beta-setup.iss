@@ -120,12 +120,6 @@ Name: "{group}\Uninstall {#ExeName}"; Filename: "{uninstallexe}"
 Filename: "{app}\RenamerX.exe."; Description: "{cm:LaunchProgram,RenamerX}"; Flags: nowait postinstall skipifsilent
 ;Filename: "{app}\RenamerX-manual.pdf"; Description: "{cm:LaunchProgram,RenamerX Manual}"; Flags: nowait unchecked postinstall shellexec skipifsilent
 
-[InstallDelete]
-Type: filesandordirs; Name: "{app}\ru"
-Type: filesandordirs; Name: "{app}\en"
-Type: filesandordirs; Name: "{app}\nl"
-Type: files; Name: "{app}\ImageUploader.dll"
-
 [Code]
 function InitializeSetup(): Boolean;
 var

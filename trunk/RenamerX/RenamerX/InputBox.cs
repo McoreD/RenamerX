@@ -93,8 +93,26 @@ namespace RenamerX
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            // Notify the user that the directory does not exist.
+            if (!Directory.Exists(txtShowLocation.Text))
+            {
+                MessageBox.Show("The specified directory does not exist.",
+                                "Invalid Show Location",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
             if (string.IsNullOrEmpty(searchResults.SeriesName))
             {
+                // The search result may be valid and the text box empty..but they cannot both be empty.
+                if (string.IsNullOrEmpty(searchResults.txtSeriesName.Text))
+                {
+                    MessageBox.Show("The series name cannot be left blank.",
+                                    "Invalid Series Name",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                    return;
+                }
                 this.Search(searchResults.txtSeriesName.Text);
             }
             this.ShowName = searchResults.SeriesName;

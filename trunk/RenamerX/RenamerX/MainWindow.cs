@@ -522,7 +522,7 @@ namespace RenamerX
 
         private void SearchSeries(string seriesName)
         {
-         SeriesFinder seriesFinder = new SeriesFinder(seriesName);
+            SeriesFinder seriesFinder = new SeriesFinder(seriesName);
             if (seriesFinder.ShowDialog() == DialogResult.OK)
             {
                 txtSeriesID.Text = seriesFinder.searchResults.SeriesID;
@@ -1006,10 +1006,11 @@ namespace RenamerX
                             commands.Add("p" + txtExtractPassword.Text); //Set password
                         }
                         string command = string.Join("", commands.Select(x => " -" + x).ToArray());
-                        arguments = string.Format("x {0} \"{1}\" \"{2}\"", command, ExtractList[i], txtExtractPath.Text);
+                        string destDir = Program.Settings.AppendFileNameAsFolder ? Path.Combine(txtExtractPath.Text, Path.GetFileName(Path.GetDirectoryName(ExtractList[i]))) : txtExtractPath.Text;
+                        arguments = string.Format("x {0} \"{1}\" \"{2}\"", command, ExtractList[i], destDir);
                         ProcessStartInfo psi = new ProcessStartInfo(txtUnRARPath.Text, arguments);
-                        psi.CreateNoWindow = true;
-                        psi.WindowStyle = ProcessWindowStyle.Hidden;
+                        // psi.CreateNoWindow = true;
+                        psi.WindowStyle = ProcessWindowStyle.Normal;
                         Process process = new Process();
                         process.StartInfo = psi;
                         bw.ReportProgress(i, "Started to extract: " + ExtractList[i] + " -> " + txtExtractPath.Text);

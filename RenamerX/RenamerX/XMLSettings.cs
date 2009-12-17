@@ -38,7 +38,7 @@ namespace RenamerX
         #region Settings
 
         // Rename
-        [Category("Options / Shows"), Description("Remember TV Show List.")]
+        [Category("Options / Shows"), DefaultValue(true), Description("Remember TV Show List.")]
         public bool RememberList { get; set; }
         public List<ShowItem> ShowsList = new List<ShowItem>();
         public string NameFormat = "$N - S$S2E$E2 - $T";
@@ -52,6 +52,8 @@ namespace RenamerX
         public bool SearchSubFolders = true;
         public bool ExtractOverwrite = false;
         public string ExtractPassword = "";
+        [Category("Options / Extract"), DefaultValue(false), Description("Append file name as a folder")]
+        public bool AppendFileNameAsFolder { get; set; }
 
         // General Settings
         public bool ShowHelpTooltips = true;
@@ -83,7 +85,7 @@ namespace RenamerX
         /// </summary>
         public XMLSettings()
         {
-            RememberList = true;
+            ApplyDefaultValues(this);
         }
 
         public void Save()
@@ -144,5 +146,15 @@ namespace RenamerX
         }
 
         #endregion
+
+        public static void ApplyDefaultValues(object self)
+        {
+            foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(self))
+            {
+                DefaultValueAttribute attr = prop.Attributes[typeof(DefaultValueAttribute)] as DefaultValueAttribute;
+                if (attr == null) continue;
+                prop.SetValue(self, attr.Value);
+            }
+        }
     }
 }

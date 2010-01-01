@@ -69,6 +69,28 @@ namespace RenamerX
 
             // Extract
             txtExtractPath.Text = Program.Settings.ExtractPath;
+            if (string.IsNullOrEmpty(Program.Settings.UnRARPath))
+            {
+                // 7-Zip
+                string p7z = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "7-Zip"), "7z.exe");
+                string pWinrar = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "WinRAR"), "UnRAR.exe");
+                if (File.Exists(p7z))
+                {
+                    Program.Settings.UnRARPath = p7z;
+                }
+                else if (File.Exists(pWinrar))
+                {
+                    Program.Settings.UnRARPath = pWinrar;
+                }
+            }
+            if (Path.GetFileNameWithoutExtension(Program.Settings.UnRARPath).ToLower() == "7z")
+            {
+                Adapter.gExtractorType = ExtratorType.SevenZip;
+            }
+            else if (Path.GetFileNameWithoutExtension(Program.Settings.UnRARPath).ToLower() == "unrar")
+            {
+                Adapter.gExtractorType = ExtratorType.UnRar;
+            }
             txtUnRARPath.Text = Program.Settings.UnRARPath;
             txtExtractFileFilter.Text = Program.Settings.ExtractFileFilter;
             txtExtractFileSizeFilter.Text = Program.Settings.ExtractFileSizeFilter;
@@ -986,37 +1008,21 @@ namespace RenamerX
                 string arguments;
                 for (int i = 0; i < ExtractList.Count; i++)
                 {
-                    if (File.Exists(ExtractList[i]))
+                    string fp = ExtractList[i];
+                    if (File.Exists(fp))
                     {
-                        List<string> commands = new List<string>();
-                        if (cbExtractOverwrite.Checked)
-                        {
-                            commands.Add("o+"); //Set the overwrite mode (true)
-                        }
-                        else
-                        {
-                            commands.Add("o-"); //Set the overwrite mode (false)
-                        }
-                        if (string.IsNullOrEmpty(txtExtractPassword.Text))
-                        {
-                            commands.Add("p-"); //Do not query password
-                        }
-                        else
-                        {
-                            commands.Add("p" + txtExtractPassword.Text); //Set password
-                        }
-                        string command = string.Join("", commands.Select(x => " -" + x).ToArray());
-                        string destDir = Program.Settings.AppendFileNameAsFolder ? Path.Combine(txtExtractPath.Text, Path.GetFileName(Path.GetDirectoryName(ExtractList[i]))) : txtExtractPath.Text;
-                        arguments = string.Format("x {0} \"{1}\" \"{2}\"", command, ExtractList[i], destDir);
+                        string destDir = Program.Settings.AppendFileNameAsFolder ? Path.Combine(txtExtractPath.Text, Path.GetFileName(Path.GetDirectoryName(fp))) : txtExtractPath.Text;
+                        arguments = Adapter.gExtractorType == ExtratorType.UnRar ? GetUnRarCommands(fp, destDir) : Get7zCommands(fp, destDir);
+                        Debug.WriteLine(arguments);
                         ProcessStartInfo psi = new ProcessStartInfo(txtUnRARPath.Text, arguments);
                         // psi.CreateNoWindow = true;
                         psi.WindowStyle = ProcessWindowStyle.Normal;
                         Process process = new Process();
                         process.StartInfo = psi;
-                        bw.ReportProgress(i, "Started to extract: " + ExtractList[i] + " -> " + txtExtractPath.Text);
+                        bw.ReportProgress(i, "Started to extract: " + fp + " -> " + txtExtractPath.Text);
                         process.Start();
                         process.WaitForExit();
-                        bw.ReportProgress(i + 1, "Extracted: " + ExtractList[i] + " -> " + txtExtractPath.Text);
+                        bw.ReportProgress(i + 1, "Extracted: " + fp + " -> " + txtExtractPath.Text);
                     }
                     if (bw.CancellationPending)
                     {
@@ -1029,6 +1035,48 @@ namespace RenamerX
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private string Get7zCommands(string fp, string destDir)
+        {
+            List<string> listCommands = new List<string>();
+            listCommands.Add("e");
+            if (!string.IsNullOrEmpty(txtExtractPassword.Text))
+            {
+                listCommands.Add("p" + txtExtractPassword.Text); //Set password
+            }
+            string commands = string.Join("", listCommands.Select(x => x + " ").ToArray());
+
+            List<string> listSwitches = new List<string>();
+            listSwitches.Add("o\"" + destDir + "\"");
+            // listSwitches.Add("y");
+            string switches = string.Join("", listSwitches.Select(x => " -" + x).ToArray());
+
+            return commands + "\"" + fp + "\"" + switches;
+        }
+
+        private string GetUnRarCommands(string fp, string destDir)
+        {
+            List<string> listCommands = new List<string>();
+            listCommands.Add("x");
+            if (cbExtractOverwrite.Checked)
+            {
+                listCommands.Add("o+"); //Set the overwrite mode (true)
+            }
+            else
+            {
+                listCommands.Add("o-"); //Set the overwrite mode (false)
+            }
+            if (string.IsNullOrEmpty(txtExtractPassword.Text))
+            {
+                listCommands.Add("p-"); //Do not query password
+            }
+            else
+            {
+                listCommands.Add("p" + txtExtractPassword.Text); //Set password
+            }
+            string commands = string.Join("", listCommands.Select(x => " -" + x).ToArray());
+            return string.Format("{0} \"{1}\" \"{2}\"", commands, fp, destDir); ;
         }
 
         private Show CreateFakeShow(string showName, int seasonNumber, int episodeNumber, string episodeTitle)

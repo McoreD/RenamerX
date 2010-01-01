@@ -69,6 +69,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapter.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="ListViewX.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -164,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\loading1.gif" />
+    <Content Include="Docs\7z.txt" />
     <Content Include="Docs\license.txt" />
     <Content Include="Setup\renamerx-beta-setup.iss" />
     <Content Include="Docs\UnRAR.txt" />

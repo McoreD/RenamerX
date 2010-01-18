@@ -71,28 +71,28 @@
   <ItemGroup>
     <Compile Include="Adapter.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="ListViewX.cs">
+    <Compile Include="UserControls\ListViewX.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MainWindow.cs">
+    <Compile Include="GUI\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWindow.Designer.cs">
+    <Compile Include="GUI\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="InputBox.cs">
+    <Compile Include="GUI\InputBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InputBox.designer.cs">
+    <Compile Include="GUI\InputBox.designer.cs">
       <DependentUpon>InputBox.cs</DependentUpon>
     </Compile>
     <Compile Include="PathInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="MainWindow.resx">
+    <EmbeddedResource Include="GUI\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InputBox.resx">
+    <EmbeddedResource Include="GUI\InputBox.resx">
       <DependentUpon>InputBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -100,13 +100,13 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="PropertyListView.resx">
+    <EmbeddedResource Include="UserControls\PropertyListView.resx">
       <DependentUpon>PropertyListView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SearchSeries.resx">
+    <EmbeddedResource Include="UserControls\SearchSeries.resx">
       <DependentUpon>SearchSeries.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SeriesFinder.resx">
+    <EmbeddedResource Include="GUI\SeriesFinder.resx">
       <DependentUpon>SeriesFinder.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -114,19 +114,19 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="PropertyListView.cs">
+    <Compile Include="UserControls\PropertyListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SearchSeries.cs">
+    <Compile Include="UserControls\SearchSeries.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SearchSeries.Designer.cs">
+    <Compile Include="UserControls\SearchSeries.Designer.cs">
       <DependentUpon>SearchSeries.cs</DependentUpon>
     </Compile>
-    <Compile Include="SeriesFinder.cs">
+    <Compile Include="GUI\SeriesFinder.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SeriesFinder.Designer.cs">
+    <Compile Include="GUI\SeriesFinder.Designer.cs">
       <DependentUpon>SeriesFinder.cs</DependentUpon>
     </Compile>
     <Compile Include="ShowItem.cs" />

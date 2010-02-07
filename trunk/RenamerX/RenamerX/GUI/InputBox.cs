@@ -102,7 +102,7 @@ namespace RenamerX
                                 MessageBoxIcon.Error);
                 return;
             }
-            if (string.IsNullOrEmpty(searchResults.SeriesName))
+            if (string.IsNullOrEmpty(searchResults.Info.SeriesName))
             {
                 // The search result may be valid and the text box empty..but they cannot both be empty.
                 if (string.IsNullOrEmpty(searchResults.txtSeriesName.Text))
@@ -115,7 +115,7 @@ namespace RenamerX
                 }
                 this.Search(searchResults.txtSeriesName.Text);
             }
-            this.ShowName = searchResults.SeriesName;
+            this.ShowName = searchResults.Info.SeriesName;
             this.ShowLocation = txtShowLocation.Text;
             this.DialogResult = DialogResult.OK;
             this.Close();

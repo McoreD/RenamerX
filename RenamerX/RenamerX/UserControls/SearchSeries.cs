@@ -12,17 +12,11 @@ namespace RenamerX
 {
     public partial class SearchSeries : UserControl
     {
-        public string SeriesID { get; set; }
-        public string SeriesName { get; set; }
+        public SeriesInfo Info = new SeriesInfo();
 
         public SearchSeries()
         {
             InitializeComponent();
-        }
-
-        private void btnSearchSeries_Click(object sender, EventArgs e)
-        {
-            Search(txtSeriesName.Text);
         }
 
         public void Search(string showname)
@@ -42,16 +36,21 @@ namespace RenamerX
             }
         }
 
+        private void btnSearchSeries_Click(object sender, EventArgs e)
+        {
+            Search(txtSeriesName.Text);
+        }
+
         private void lvSeriesList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lvSeriesList.SelectedItems.Count > 0)
             {
                 Series series = (Series)lvSeriesList.SelectedItems[0].Tag;
                 plvSeriesInfo.SelectedObject = series;
-                LoadBanner(series);                
-                this.SeriesID = series.ID;
-                this.SeriesName = series.SeriesName;
-                txtSeriesID.Text = SeriesID;
+                LoadBanner(series);
+                Info.SeriesID = series.ID;
+                Info.SeriesName = series.SeriesName;
+                txtSeriesID.Text = Info.SeriesID;
             }
         }
 

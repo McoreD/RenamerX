@@ -89,8 +89,6 @@
             // 
             this.searchResults.Location = new System.Drawing.Point(8, 40);
             this.searchResults.Name = "searchResults";
-            this.searchResults.SeriesID = null;
-            this.searchResults.SeriesName = null;
             this.searchResults.Size = new System.Drawing.Size(482, 517);
             this.searchResults.TabIndex = 7;
             // 

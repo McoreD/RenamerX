@@ -58,7 +58,6 @@
             this.btnSearchSeries = new System.Windows.Forms.Button();
             this.txtSeriesName = new System.Windows.Forms.TextBox();
             this.txtSeriesID = new System.Windows.Forms.TextBox();
-            this.plvSeries = new RenamerX.PropertyListView();
             this.tpEpisodes = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtEpisodeNumber = new System.Windows.Forms.TextBox();
@@ -68,18 +67,11 @@
             this.txtEpisodeName = new System.Windows.Forms.TextBox();
             this.lblEpisodeName = new System.Windows.Forms.Label();
             this.tvEpisodes = new System.Windows.Forms.TreeView();
-            this.plvEpisodes = new RenamerX.PropertyListView();
             this.tpSeriesImages = new System.Windows.Forms.TabPage();
             this.pbBanner = new System.Windows.Forms.PictureBox();
             this.tcSeriesImages = new System.Windows.Forms.TabControl();
             this.tpBanners = new System.Windows.Forms.TabPage();
-            this.lvBanners = new RenamerX.ListViewX();
-            this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
             this.tpActors = new System.Windows.Forms.TabPage();
-            this.lvActors = new RenamerX.ListViewX();
-            this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
-            this.plvBanners = new RenamerX.PropertyListView();
             this.tpExtract = new System.Windows.Forms.TabPage();
             this.scExtract = new System.Windows.Forms.SplitContainer();
             this.txtExtractPassword = new System.Windows.Forms.TextBox();
@@ -106,7 +98,6 @@
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.tpSettings = new System.Windows.Forms.TabPage();
             this.btnRefreshSettings = new System.Windows.Forms.Button();
-            this.plvSettings = new RenamerX.PropertyListView();
             this.gbGeneralSettings = new System.Windows.Forms.GroupBox();
             this.cbShowHelpTooltips = new System.Windows.Forms.CheckBox();
             this.gbRenameSettings = new System.Windows.Forms.GroupBox();
@@ -123,7 +114,29 @@
             this.propertyGridApp = new System.Windows.Forms.PropertyGrid();
             this.tpConsole = new System.Windows.Forms.TabPage();
             this.txtConsole = new System.Windows.Forms.TextBox();
+            this.tpCalendar = new System.Windows.Forms.TabPage();
+            this.btnCalendarRefresh = new System.Windows.Forms.Button();
+            this.btnEditSeriesList = new System.Windows.Forms.Button();
             this.ttApp = new System.Windows.Forms.ToolTip(this.components);
+            this.nudMinDays = new System.Windows.Forms.NumericUpDown();
+            this.nudMaxDays = new System.Windows.Forms.NumericUpDown();
+            this.lblMinDays = new System.Windows.Forms.Label();
+            this.lblMaxDays = new System.Windows.Forms.Label();
+            this.plvSeries = new RenamerX.PropertyListView();
+            this.plvEpisodes = new RenamerX.PropertyListView();
+            this.lvBanners = new RenamerX.ListViewX();
+            this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
+            this.lvActors = new RenamerX.ListViewX();
+            this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
+            this.plvBanners = new RenamerX.PropertyListView();
+            this.plvSettings = new RenamerX.PropertyListView();
+            this.lvCalendarList = new RenamerX.ListViewX();
+            this.chSeries = new System.Windows.Forms.ColumnHeader();
+            this.chEpisode = new System.Windows.Forms.ColumnHeader();
+            this.chEpisodeName = new System.Windows.Forms.ColumnHeader();
+            this.chTime = new System.Windows.Forms.ColumnHeader();
+            this.chDate = new System.Windows.Forms.ColumnHeader();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.scRename.Panel1.SuspendLayout();
@@ -149,6 +162,9 @@
             this.gbRenameSettings.SuspendLayout();
             this.tpAdvanced.SuspendLayout();
             this.tpConsole.SuspendLayout();
+            this.tpCalendar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinDays)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxDays)).BeginInit();
             this.SuspendLayout();
             // 
             // tcMain
@@ -156,6 +172,7 @@
             this.tcMain.Controls.Add(this.tpMain);
             this.tcMain.Controls.Add(this.tpSeriesInfo);
             this.tcMain.Controls.Add(this.tpExtract);
+            this.tcMain.Controls.Add(this.tpCalendar);
             this.tcMain.Controls.Add(this.tpSettings);
             this.tcMain.Controls.Add(this.tpAdvanced);
             this.tcMain.Controls.Add(this.tpConsole);
@@ -465,23 +482,6 @@
             this.txtSeriesID.TabIndex = 1;
             this.txtSeriesID.TextChanged += new System.EventHandler(this.txtSeriesID_TextChanged);
             // 
-            // plvSeries
-            // 
-            this.plvSeries.AllowEmptyObjects = false;
-            this.plvSeries.ConstantColumnSize = true;
-            this.plvSeries.FullRowSelect = true;
-            this.plvSeries.GridLines = true;
-            this.plvSeries.HideSelection = false;
-            this.plvSeries.Location = new System.Drawing.Point(8, 128);
-            this.plvSeries.MultiSelect = false;
-            this.plvSeries.Name = "plvSeries";
-            this.plvSeries.NameColumnSize = 150;
-            this.plvSeries.SetObjectType = RenamerX.PropertyListView.ObjectType.Properties;
-            this.plvSeries.Size = new System.Drawing.Size(968, 438);
-            this.plvSeries.TabIndex = 0;
-            this.plvSeries.UseCompatibleStateImageBehavior = false;
-            this.plvSeries.View = System.Windows.Forms.View.Details;
-            // 
             // tpEpisodes
             // 
             this.tpEpisodes.Controls.Add(this.groupBox1);
@@ -569,23 +569,6 @@
             this.tvEpisodes.TabIndex = 0;
             this.tvEpisodes.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvEpisodes_AfterSelect);
             // 
-            // plvEpisodes
-            // 
-            this.plvEpisodes.AllowEmptyObjects = false;
-            this.plvEpisodes.ConstantColumnSize = true;
-            this.plvEpisodes.FullRowSelect = true;
-            this.plvEpisodes.GridLines = true;
-            this.plvEpisodes.HideSelection = false;
-            this.plvEpisodes.Location = new System.Drawing.Point(520, 64);
-            this.plvEpisodes.MultiSelect = false;
-            this.plvEpisodes.Name = "plvEpisodes";
-            this.plvEpisodes.NameColumnSize = 150;
-            this.plvEpisodes.SetObjectType = RenamerX.PropertyListView.ObjectType.Properties;
-            this.plvEpisodes.Size = new System.Drawing.Size(456, 504);
-            this.plvEpisodes.TabIndex = 1;
-            this.plvEpisodes.UseCompatibleStateImageBehavior = false;
-            this.plvEpisodes.View = System.Windows.Forms.View.Details;
-            // 
             // tpSeriesImages
             // 
             this.tpSeriesImages.Controls.Add(this.pbBanner);
@@ -633,27 +616,6 @@
             this.tpBanners.Text = "Banners";
             this.tpBanners.UseVisualStyleBackColor = true;
             // 
-            // lvBanners
-            // 
-            this.lvBanners.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader9});
-            this.lvBanners.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvBanners.FullRowSelect = true;
-            this.lvBanners.HideSelection = false;
-            this.lvBanners.Location = new System.Drawing.Point(3, 3);
-            this.lvBanners.MultiSelect = false;
-            this.lvBanners.Name = "lvBanners";
-            this.lvBanners.Size = new System.Drawing.Size(378, 344);
-            this.lvBanners.TabIndex = 0;
-            this.lvBanners.UseCompatibleStateImageBehavior = false;
-            this.lvBanners.View = System.Windows.Forms.View.Details;
-            this.lvBanners.SelectedIndexChanged += new System.EventHandler(this.lvBanners_SelectedIndexChanged);
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.Text = "Banner Path";
-            this.columnHeader9.Width = 350;
-            // 
             // tpActors
             // 
             this.tpActors.Controls.Add(this.lvActors);
@@ -664,51 +626,6 @@
             this.tpActors.TabIndex = 1;
             this.tpActors.Text = "Actors";
             this.tpActors.UseVisualStyleBackColor = true;
-            // 
-            // lvActors
-            // 
-            this.lvActors.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader10,
-            this.columnHeader11});
-            this.lvActors.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvActors.FullRowSelect = true;
-            this.lvActors.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvActors.HideSelection = false;
-            this.lvActors.Location = new System.Drawing.Point(3, 3);
-            this.lvActors.MultiSelect = false;
-            this.lvActors.Name = "lvActors";
-            this.lvActors.Size = new System.Drawing.Size(378, 344);
-            this.lvActors.TabIndex = 0;
-            this.lvActors.UseCompatibleStateImageBehavior = false;
-            this.lvActors.View = System.Windows.Forms.View.Details;
-            this.lvActors.SelectedIndexChanged += new System.EventHandler(this.lvActors_SelectedIndexChanged);
-            // 
-            // columnHeader10
-            // 
-            this.columnHeader10.Text = "Name";
-            this.columnHeader10.Width = 175;
-            // 
-            // columnHeader11
-            // 
-            this.columnHeader11.Text = "Role";
-            this.columnHeader11.Width = 175;
-            // 
-            // plvBanners
-            // 
-            this.plvBanners.AllowEmptyObjects = false;
-            this.plvBanners.ConstantColumnSize = true;
-            this.plvBanners.FullRowSelect = true;
-            this.plvBanners.GridLines = true;
-            this.plvBanners.HideSelection = false;
-            this.plvBanners.Location = new System.Drawing.Point(8, 392);
-            this.plvBanners.MultiSelect = false;
-            this.plvBanners.Name = "plvBanners";
-            this.plvBanners.NameColumnSize = 150;
-            this.plvBanners.SetObjectType = RenamerX.PropertyListView.ObjectType.Properties;
-            this.plvBanners.Size = new System.Drawing.Size(392, 168);
-            this.plvBanners.TabIndex = 5;
-            this.plvBanners.UseCompatibleStateImageBehavior = false;
-            this.plvBanners.View = System.Windows.Forms.View.Details;
             // 
             // tpExtract
             // 
@@ -1010,24 +927,6 @@
             this.btnRefreshSettings.UseVisualStyleBackColor = true;
             this.btnRefreshSettings.Click += new System.EventHandler(this.btnRefreshSettings_Click);
             // 
-            // plvSettings
-            // 
-            this.plvSettings.AllowEmptyObjects = true;
-            this.plvSettings.ConstantColumnSize = true;
-            this.plvSettings.FullRowSelect = true;
-            this.plvSettings.GridLines = true;
-            this.plvSettings.HideSelection = false;
-            this.plvSettings.Location = new System.Drawing.Point(8, 280);
-            this.plvSettings.MultiSelect = false;
-            this.plvSettings.Name = "plvSettings";
-            this.plvSettings.NameColumnSize = 150;
-            this.plvSettings.SetObjectType = RenamerX.PropertyListView.ObjectType.Fields;
-            this.plvSettings.Size = new System.Drawing.Size(976, 320);
-            this.plvSettings.TabIndex = 5;
-            this.plvSettings.UseCompatibleStateImageBehavior = false;
-            this.plvSettings.View = System.Windows.Forms.View.Details;
-            this.plvSettings.Visible = false;
-            // 
             // gbGeneralSettings
             // 
             this.gbGeneralSettings.Controls.Add(this.cbShowHelpTooltips);
@@ -1204,6 +1103,43 @@
             this.txtConsole.TabIndex = 0;
             this.txtConsole.WordWrap = false;
             // 
+            // tpCalendar
+            // 
+            this.tpCalendar.Controls.Add(this.lblMaxDays);
+            this.tpCalendar.Controls.Add(this.lblMinDays);
+            this.tpCalendar.Controls.Add(this.nudMaxDays);
+            this.tpCalendar.Controls.Add(this.nudMinDays);
+            this.tpCalendar.Controls.Add(this.lvCalendarList);
+            this.tpCalendar.Controls.Add(this.btnCalendarRefresh);
+            this.tpCalendar.Controls.Add(this.btnEditSeriesList);
+            this.tpCalendar.Location = new System.Drawing.Point(4, 24);
+            this.tpCalendar.Name = "tpCalendar";
+            this.tpCalendar.Padding = new System.Windows.Forms.Padding(3);
+            this.tpCalendar.Size = new System.Drawing.Size(996, 608);
+            this.tpCalendar.TabIndex = 6;
+            this.tpCalendar.Text = "Calendar";
+            this.tpCalendar.UseVisualStyleBackColor = true;
+            // 
+            // btnCalendarRefresh
+            // 
+            this.btnCalendarRefresh.Location = new System.Drawing.Point(120, 8);
+            this.btnCalendarRefresh.Name = "btnCalendarRefresh";
+            this.btnCalendarRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnCalendarRefresh.TabIndex = 2;
+            this.btnCalendarRefresh.Text = "Refresh";
+            this.btnCalendarRefresh.UseVisualStyleBackColor = true;
+            this.btnCalendarRefresh.Click += new System.EventHandler(this.btnCalendarRefresh_Click);
+            // 
+            // btnEditSeriesList
+            // 
+            this.btnEditSeriesList.Location = new System.Drawing.Point(8, 8);
+            this.btnEditSeriesList.Name = "btnEditSeriesList";
+            this.btnEditSeriesList.Size = new System.Drawing.Size(104, 23);
+            this.btnEditSeriesList.TabIndex = 1;
+            this.btnEditSeriesList.Text = "Edit series list";
+            this.btnEditSeriesList.UseVisualStyleBackColor = true;
+            this.btnEditSeriesList.Click += new System.EventHandler(this.btnEditSeriesList_Click);
+            // 
             // ttApp
             // 
             this.ttApp.AutomaticDelay = 100;
@@ -1212,6 +1148,196 @@
             this.ttApp.IsBalloon = true;
             this.ttApp.ReshowDelay = 0;
             this.ttApp.UseFading = false;
+            // 
+            // nudMinDays
+            // 
+            this.nudMinDays.Location = new System.Drawing.Point(240, 11);
+            this.nudMinDays.Name = "nudMinDays";
+            this.nudMinDays.Size = new System.Drawing.Size(48, 20);
+            this.nudMinDays.TabIndex = 4;
+            this.nudMinDays.ValueChanged += new System.EventHandler(this.nudMinDays_ValueChanged);
+            // 
+            // nudMaxDays
+            // 
+            this.nudMaxDays.Location = new System.Drawing.Point(328, 11);
+            this.nudMaxDays.Name = "nudMaxDays";
+            this.nudMaxDays.Size = new System.Drawing.Size(48, 20);
+            this.nudMaxDays.TabIndex = 5;
+            this.nudMaxDays.ValueChanged += new System.EventHandler(this.nudMaxDays_ValueChanged);
+            // 
+            // lblMinDays
+            // 
+            this.lblMinDays.AutoSize = true;
+            this.lblMinDays.Location = new System.Drawing.Point(208, 15);
+            this.lblMinDays.Name = "lblMinDays";
+            this.lblMinDays.Size = new System.Drawing.Size(27, 13);
+            this.lblMinDays.TabIndex = 6;
+            this.lblMinDays.Text = "Min:";
+            // 
+            // lblMaxDays
+            // 
+            this.lblMaxDays.AutoSize = true;
+            this.lblMaxDays.Location = new System.Drawing.Point(296, 15);
+            this.lblMaxDays.Name = "lblMaxDays";
+            this.lblMaxDays.Size = new System.Drawing.Size(30, 13);
+            this.lblMaxDays.TabIndex = 7;
+            this.lblMaxDays.Text = "Max:";
+            // 
+            // plvSeries
+            // 
+            this.plvSeries.AllowEmptyObjects = false;
+            this.plvSeries.ConstantColumnSize = true;
+            this.plvSeries.FullRowSelect = true;
+            this.plvSeries.GridLines = true;
+            this.plvSeries.HideSelection = false;
+            this.plvSeries.Location = new System.Drawing.Point(8, 128);
+            this.plvSeries.MultiSelect = false;
+            this.plvSeries.Name = "plvSeries";
+            this.plvSeries.NameColumnSize = 150;
+            this.plvSeries.SetObjectType = RenamerX.PropertyListView.ObjectType.Properties;
+            this.plvSeries.Size = new System.Drawing.Size(968, 438);
+            this.plvSeries.TabIndex = 0;
+            this.plvSeries.UseCompatibleStateImageBehavior = false;
+            this.plvSeries.View = System.Windows.Forms.View.Details;
+            // 
+            // plvEpisodes
+            // 
+            this.plvEpisodes.AllowEmptyObjects = false;
+            this.plvEpisodes.ConstantColumnSize = true;
+            this.plvEpisodes.FullRowSelect = true;
+            this.plvEpisodes.GridLines = true;
+            this.plvEpisodes.HideSelection = false;
+            this.plvEpisodes.Location = new System.Drawing.Point(520, 64);
+            this.plvEpisodes.MultiSelect = false;
+            this.plvEpisodes.Name = "plvEpisodes";
+            this.plvEpisodes.NameColumnSize = 150;
+            this.plvEpisodes.SetObjectType = RenamerX.PropertyListView.ObjectType.Properties;
+            this.plvEpisodes.Size = new System.Drawing.Size(456, 504);
+            this.plvEpisodes.TabIndex = 1;
+            this.plvEpisodes.UseCompatibleStateImageBehavior = false;
+            this.plvEpisodes.View = System.Windows.Forms.View.Details;
+            // 
+            // lvBanners
+            // 
+            this.lvBanners.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader9});
+            this.lvBanners.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvBanners.FullRowSelect = true;
+            this.lvBanners.HideSelection = false;
+            this.lvBanners.Location = new System.Drawing.Point(3, 3);
+            this.lvBanners.MultiSelect = false;
+            this.lvBanners.Name = "lvBanners";
+            this.lvBanners.Size = new System.Drawing.Size(378, 344);
+            this.lvBanners.TabIndex = 0;
+            this.lvBanners.UseCompatibleStateImageBehavior = false;
+            this.lvBanners.View = System.Windows.Forms.View.Details;
+            this.lvBanners.SelectedIndexChanged += new System.EventHandler(this.lvBanners_SelectedIndexChanged);
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Banner Path";
+            this.columnHeader9.Width = 350;
+            // 
+            // lvActors
+            // 
+            this.lvActors.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader10,
+            this.columnHeader11});
+            this.lvActors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvActors.FullRowSelect = true;
+            this.lvActors.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lvActors.HideSelection = false;
+            this.lvActors.Location = new System.Drawing.Point(3, 3);
+            this.lvActors.MultiSelect = false;
+            this.lvActors.Name = "lvActors";
+            this.lvActors.Size = new System.Drawing.Size(378, 344);
+            this.lvActors.TabIndex = 0;
+            this.lvActors.UseCompatibleStateImageBehavior = false;
+            this.lvActors.View = System.Windows.Forms.View.Details;
+            this.lvActors.SelectedIndexChanged += new System.EventHandler(this.lvActors_SelectedIndexChanged);
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Name";
+            this.columnHeader10.Width = 175;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Role";
+            this.columnHeader11.Width = 175;
+            // 
+            // plvBanners
+            // 
+            this.plvBanners.AllowEmptyObjects = false;
+            this.plvBanners.ConstantColumnSize = true;
+            this.plvBanners.FullRowSelect = true;
+            this.plvBanners.GridLines = true;
+            this.plvBanners.HideSelection = false;
+            this.plvBanners.Location = new System.Drawing.Point(8, 392);
+            this.plvBanners.MultiSelect = false;
+            this.plvBanners.Name = "plvBanners";
+            this.plvBanners.NameColumnSize = 150;
+            this.plvBanners.SetObjectType = RenamerX.PropertyListView.ObjectType.Properties;
+            this.plvBanners.Size = new System.Drawing.Size(392, 168);
+            this.plvBanners.TabIndex = 5;
+            this.plvBanners.UseCompatibleStateImageBehavior = false;
+            this.plvBanners.View = System.Windows.Forms.View.Details;
+            // 
+            // plvSettings
+            // 
+            this.plvSettings.AllowEmptyObjects = true;
+            this.plvSettings.ConstantColumnSize = true;
+            this.plvSettings.FullRowSelect = true;
+            this.plvSettings.GridLines = true;
+            this.plvSettings.HideSelection = false;
+            this.plvSettings.Location = new System.Drawing.Point(8, 280);
+            this.plvSettings.MultiSelect = false;
+            this.plvSettings.Name = "plvSettings";
+            this.plvSettings.NameColumnSize = 150;
+            this.plvSettings.SetObjectType = RenamerX.PropertyListView.ObjectType.Fields;
+            this.plvSettings.Size = new System.Drawing.Size(976, 320);
+            this.plvSettings.TabIndex = 5;
+            this.plvSettings.UseCompatibleStateImageBehavior = false;
+            this.plvSettings.View = System.Windows.Forms.View.Details;
+            this.plvSettings.Visible = false;
+            // 
+            // lvCalendarList
+            // 
+            this.lvCalendarList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chSeries,
+            this.chEpisode,
+            this.chEpisodeName,
+            this.chTime,
+            this.chDate});
+            this.lvCalendarList.FullRowSelect = true;
+            this.lvCalendarList.HideSelection = false;
+            this.lvCalendarList.Location = new System.Drawing.Point(8, 40);
+            this.lvCalendarList.MultiSelect = false;
+            this.lvCalendarList.Name = "lvCalendarList";
+            this.lvCalendarList.Size = new System.Drawing.Size(976, 560);
+            this.lvCalendarList.TabIndex = 3;
+            this.lvCalendarList.UseCompatibleStateImageBehavior = false;
+            this.lvCalendarList.View = System.Windows.Forms.View.Details;
+            // 
+            // chSeries
+            // 
+            this.chSeries.Text = "Series";
+            // 
+            // chEpisode
+            // 
+            this.chEpisode.Text = "Episode";
+            // 
+            // chEpisodeName
+            // 
+            this.chEpisodeName.Text = "Episode Name";
+            // 
+            // chTime
+            // 
+            this.chTime.Text = "Time";
+            // 
+            // chDate
+            // 
+            this.chDate.Text = "Date";
             // 
             // MainWindow
             // 
@@ -1259,6 +1385,10 @@
             this.tpAdvanced.ResumeLayout(false);
             this.tpConsole.ResumeLayout(false);
             this.tpConsole.PerformLayout();
+            this.tpCalendar.ResumeLayout(false);
+            this.tpCalendar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinDays)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxDays)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1359,5 +1489,18 @@
         private System.Windows.Forms.Button btnRefreshSettings;
         private System.Windows.Forms.TabPage tpAdvanced;
         private System.Windows.Forms.PropertyGrid propertyGridApp;
+        private System.Windows.Forms.TabPage tpCalendar;
+        private System.Windows.Forms.Button btnEditSeriesList;
+        private System.Windows.Forms.Button btnCalendarRefresh;
+        private ListViewX lvCalendarList;
+        private System.Windows.Forms.ColumnHeader chSeries;
+        private System.Windows.Forms.ColumnHeader chEpisode;
+        private System.Windows.Forms.ColumnHeader chEpisodeName;
+        private System.Windows.Forms.ColumnHeader chTime;
+        private System.Windows.Forms.ColumnHeader chDate;
+        private System.Windows.Forms.NumericUpDown nudMinDays;
+        private System.Windows.Forms.NumericUpDown nudMaxDays;
+        private System.Windows.Forms.Label lblMaxDays;
+        private System.Windows.Forms.Label lblMinDays;
     }
 }

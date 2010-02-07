@@ -45,13 +45,13 @@ namespace RenamerX
         public string RenameFileFilter = "*.avi|*.mkv|*.srt|*.sub";
 
         // Extract
-        public string ExtractPath = "";
-        public string UnRARPath = "";
+        public string ExtractPath = string.Empty;
+        public string UnRARPath = string.Empty;
         public string ExtractFileFilter = "*.rar|*.r00";
         public string ExtractFileSizeFilter = ">10 MiB";
         public bool SearchSubFolders = true;
         public bool ExtractOverwrite = false;
-        public string ExtractPassword = "";
+        public string ExtractPassword = string.Empty;
         [Category("Options / Extract"), DefaultValue(false), Description("Append file name as a folder")]
         public bool AppendFileNameAsFolder { get; set; }
 
@@ -63,18 +63,23 @@ namespace RenamerX
         public bool ShowActionMessages = false;
         public bool GuessShowName = false;
         public bool ReplaceIllegalChars = true;
-        public string ReplaceIllegalCharsWith = "";
+        public string ReplaceIllegalCharsWith = string.Empty;
         public bool ReplaceSpaces = false;
-        public string ReplaceSpacesWith = "";
+        public string ReplaceSpacesWith = string.Empty;
         public bool ShowErrors = false;
 
         // Series Info
-        public string LastSeriesName = "";
-        public string LastSeriesID = "";
+        public string LastSeriesName = string.Empty;
+        public string LastSeriesID = string.Empty;
 
         // Others
-        public string LastRenameFolder = "";
-        public string LastExtractFolder = "";
+        public string LastRenameFolder = string.Empty;
+        public string LastExtractFolder = string.Empty;
+
+        // Calender
+        public List<SeriesInfo> CalenderList = new List<SeriesInfo>();
+        public int CalendarMinDays = 0;
+        public int CalendarMaxDays = 30;
 
         #endregion
 

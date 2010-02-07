@@ -36,6 +36,7 @@ using System.Linq;
 using System.Xml.Linq;
 using TVRageLib;
 using TVDBLib;
+using RenamerX.GUI;
 
 namespace RenamerX
 {
@@ -126,6 +127,10 @@ namespace RenamerX
             UpdateNameFormatPreview();
             plvSettings.SelectedObject = Program.Settings;
             propertyGridApp.SelectedObject = Program.Settings;
+
+            // Calendar
+            nudMinDays.Value = Program.Settings.CalendarMinDays;
+            nudMaxDays.Value = Program.Settings.CalendarMaxDays;
         }
 
         #region Form Events
@@ -226,7 +231,7 @@ namespace RenamerX
             {
                 AddShow(ib.ShowName, ib.ShowLocation);
                 txtSeriesName.Text = ib.ShowName;
-                this.LoadShow(ib.searchResults.SeriesID);
+                this.LoadShow(ib.searchResults.Info.SeriesID);
                 SaveShowsList();
             }
         }
@@ -547,8 +552,8 @@ namespace RenamerX
             SeriesFinder seriesFinder = new SeriesFinder(seriesName);
             if (seriesFinder.ShowDialog() == DialogResult.OK)
             {
-                txtSeriesID.Text = seriesFinder.searchResults.SeriesID;
-                txtSeriesName.Text = seriesFinder.searchResults.SeriesName;
+                txtSeriesID.Text = seriesFinder.SearchResults.Info.SeriesID;
+                txtSeriesName.Text = seriesFinder.SearchResults.Info.SeriesName;
                 this.LoadShow(txtSeriesID.Text);
             }
         }
@@ -1015,8 +1020,8 @@ namespace RenamerX
                         arguments = Adapter.gExtractorType == ExtratorType.UnRar ? GetUnRarCommands(fp, destDir) : Get7zCommands(fp, destDir);
                         Debug.WriteLine(arguments);
                         ProcessStartInfo psi = new ProcessStartInfo(txtUnRARPath.Text, arguments);
-                        // psi.CreateNoWindow = true;
-                        psi.WindowStyle = ProcessWindowStyle.Normal;
+                        psi.CreateNoWindow = true;
+                        psi.WindowStyle = ProcessWindowStyle.Hidden;
                         Process process = new Process();
                         process.StartInfo = psi;
                         bw.ReportProgress(i, "Started to extract: " + fp + " -> " + txtExtractPath.Text);
@@ -1214,6 +1219,74 @@ namespace RenamerX
         private void btnRefreshSettings_Click(object sender, EventArgs e)
         {
             plvSettings.SelectedObject = Program.Settings;
+        }
+
+        private void btnEditSeriesList_Click(object sender, EventArgs e)
+        {
+            using (SeriesListEditor sle = new SeriesListEditor(Program.Settings.CalenderList))
+            {
+                sle.ShowDialog();
+                CalendarRefresh();
+            }
+        }
+
+        private void btnCalendarRefresh_Click(object sender, EventArgs e)
+        {
+            CalendarRefresh();
+        }
+
+        private void CalendarRefresh()
+        {
+            int low = (int)nudMinDays.Value, high = (int)nudMaxDays.Value;
+
+            List<CalendarItem> items = new List<CalendarItem>();
+            CalendarItem item;
+
+            foreach (SeriesInfo info in Program.Settings.CalenderList)
+            {
+                TVDBLib.SeriesFull series = Program.TVDB.GetSeriesFullInformation(info.SeriesID, TVDBLib.FileType.XML);
+                foreach (TVDBLib.Episode episode in series.Episodes)
+                {
+                    item = new CalendarItem();
+                    if (!string.IsNullOrEmpty(episode.FirstAired))
+                    {
+                        item.Date = DateTime.Parse(episode.FirstAired);
+                        item.Time = DateTime.Now - item.Date;
+                        if (item.Time.Days <= low && item.Time.Days >= -high)
+                        {
+                            item.SeriesName = series.Series.SeriesName;
+                            item.EpisodeName = episode.EpisodeName;
+                            item.EpisodeNumber = string.Format("S{0}E{1:D2}", episode.SeasonNumber, int.Parse(episode.EpisodeNumber));
+                            items.Add(item);
+                        }
+                    }
+                }
+            }
+
+            items = items.OrderByDescending(x => x.Time.Days).ToList();
+
+            lvCalendarList.Items.Clear();
+
+            foreach (CalendarItem episode in items)
+            {
+                ListViewItem lvi = new ListViewItem();
+                lvi.Text = episode.SeriesName;
+                lvi.SubItems.Add(episode.EpisodeNumber);
+                lvi.SubItems.Add(episode.EpisodeName);
+                lvi.SubItems.Add(-episode.Time.Days + " days");
+                lvi.SubItems.Add(episode.Date.ToShortDateString());
+                lvCalendarList.Items.Add(lvi);
+            }
+        }
+
+        private void nudMinDays_ValueChanged(object sender, EventArgs e)
+        {
+            Program.Settings.CalendarMinDays = (int)nudMinDays.Value;
+        }
+
+        private void nudMaxDays_ValueChanged(object sender, EventArgs e)
+        {
+            Program.Settings.CalendarMaxDays = (int)nudMaxDays.Value;
         }
     }
 }

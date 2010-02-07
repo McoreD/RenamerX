@@ -26,16 +26,16 @@ namespace RenamerX
         {
             if (!string.IsNullOrEmpty(showname))
             {
-                searchResults.txtSeriesName.Text = showname;
-                searchResults.Search(showname);
+                SearchResults.txtSeriesName.Text = showname;
+                SearchResults.Search(showname);
             }
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(searchResults.txtSeriesName.Text))
+            if (string.IsNullOrEmpty(SearchResults.txtSeriesName.Text))
             {
-                this.Search(searchResults.txtSeriesName.Text);
+                this.Search(SearchResults.txtSeriesName.Text);
             }
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -46,6 +46,5 @@ namespace RenamerX
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-
     }
 }

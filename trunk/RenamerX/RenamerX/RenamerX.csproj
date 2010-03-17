@@ -69,9 +69,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adapter.cs" />
     <Compile Include="CalendarItem.cs" />
-    <Compile Include="Enums.cs" />
+    <Compile Include="Extract.cs" />
     <Compile Include="GUI\SeriesListEditor.cs">
       <SubType>Form</SubType>
     </Compile>

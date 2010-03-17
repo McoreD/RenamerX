@@ -1,6 +1,4 @@
-C:\Program Files (x86)\WinRAR>UnRAR.exe x -o+ -p123 "E:\TV\Test.rar" "E:\TV"
-
-UNRAR 3.80 freeware      Copyright (c) 1993-2008 Alexander Roshal
+UNRAR 3.92 beta 1 freeware      Copyright (c) 1993-2010 Alexander Roshal
 
 Usage:     unrar <command> -<switch 1> -<switch N> <archive> <files...>
                <@listfiles...> <path_to_extract\>
@@ -17,6 +15,7 @@ Usage:     unrar <command> -<switch 1> -<switch N> <archive> <files...>
   -             Stop switches scanning
   ac            Clear Archive attribute after compression or extraction
   ad            Append archive name to destination path
+  ai            Ignore file attributes
   ap<path>      Set path inside archive
   av-           Disable authenticity verification check
   c-            Disable comments show
@@ -34,7 +33,7 @@ Usage:     unrar <command> -<switch 1> -<switch N> <archive> <files...>
   kb            Keep broken extracted files
   n<file>       Include only specified file
   n@            Read file names to include from stdin
-  n@<list>      Include files in specified list file
+  n@<list>      Include files listed in specified list file
   o[+|-]        Set the overwrite mode
   oc            Set NTFS Compressed attribute
   or            Rename files automatically
@@ -56,5 +55,5 @@ Usage:     unrar <command> -<switch 1> -<switch N> <archive> <files...>
   vp            Pause before each volume
   x<file>       Exclude specified file
   x@            Read file names to exclude from stdin
-  x@<list>      Exclude files in specified list file
+  x@<list>      Exclude files listed in specified list file
   y             Assume Yes on all queries

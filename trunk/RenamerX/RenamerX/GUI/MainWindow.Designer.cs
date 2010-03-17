@@ -85,7 +85,7 @@
             this.txtExtractFileFilter = new System.Windows.Forms.TextBox();
             this.txtExtractPath = new System.Windows.Forms.TextBox();
             this.lblExtractFileFilter = new System.Windows.Forms.Label();
-            this.txtUnRARPath = new System.Windows.Forms.TextBox();
+            this.txtExtractApplicationPath = new System.Windows.Forms.TextBox();
             this.btnExtractClear = new System.Windows.Forms.Button();
             this.cbSearchSubFolders = new System.Windows.Forms.CheckBox();
             this.btnExtractRemove = new System.Windows.Forms.Button();
@@ -96,6 +96,13 @@
             this.btnUnRARBrowse = new System.Windows.Forms.Button();
             this.lvExtractList = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.tpCalendar = new System.Windows.Forms.TabPage();
+            this.lblMaxDays = new System.Windows.Forms.Label();
+            this.lblMinDays = new System.Windows.Forms.Label();
+            this.nudMaxDays = new System.Windows.Forms.NumericUpDown();
+            this.nudMinDays = new System.Windows.Forms.NumericUpDown();
+            this.btnCalendarRefresh = new System.Windows.Forms.Button();
+            this.btnEditSeriesList = new System.Windows.Forms.Button();
             this.tpSettings = new System.Windows.Forms.TabPage();
             this.btnRefreshSettings = new System.Windows.Forms.Button();
             this.gbGeneralSettings = new System.Windows.Forms.GroupBox();
@@ -114,14 +121,8 @@
             this.propertyGridApp = new System.Windows.Forms.PropertyGrid();
             this.tpConsole = new System.Windows.Forms.TabPage();
             this.txtConsole = new System.Windows.Forms.TextBox();
-            this.tpCalendar = new System.Windows.Forms.TabPage();
-            this.btnCalendarRefresh = new System.Windows.Forms.Button();
-            this.btnEditSeriesList = new System.Windows.Forms.Button();
             this.ttApp = new System.Windows.Forms.ToolTip(this.components);
-            this.nudMinDays = new System.Windows.Forms.NumericUpDown();
-            this.nudMaxDays = new System.Windows.Forms.NumericUpDown();
-            this.lblMinDays = new System.Windows.Forms.Label();
-            this.lblMaxDays = new System.Windows.Forms.Label();
+            this.cbExtractApplicationType = new System.Windows.Forms.ComboBox();
             this.plvSeries = new RenamerX.PropertyListView();
             this.plvEpisodes = new RenamerX.PropertyListView();
             this.lvBanners = new RenamerX.ListViewX();
@@ -130,13 +131,13 @@
             this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
             this.plvBanners = new RenamerX.PropertyListView();
-            this.plvSettings = new RenamerX.PropertyListView();
             this.lvCalendarList = new RenamerX.ListViewX();
             this.chSeries = new System.Windows.Forms.ColumnHeader();
             this.chEpisode = new System.Windows.Forms.ColumnHeader();
             this.chEpisodeName = new System.Windows.Forms.ColumnHeader();
             this.chTime = new System.Windows.Forms.ColumnHeader();
             this.chDate = new System.Windows.Forms.ColumnHeader();
+            this.plvSettings = new RenamerX.PropertyListView();
             this.tcMain.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.scRename.Panel1.SuspendLayout();
@@ -157,14 +158,14 @@
             this.scExtract.Panel1.SuspendLayout();
             this.scExtract.Panel2.SuspendLayout();
             this.scExtract.SuspendLayout();
+            this.tpCalendar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxDays)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinDays)).BeginInit();
             this.tpSettings.SuspendLayout();
             this.gbGeneralSettings.SuspendLayout();
             this.gbRenameSettings.SuspendLayout();
             this.tpAdvanced.SuspendLayout();
             this.tpConsole.SuspendLayout();
-            this.tpCalendar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinDays)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxDays)).BeginInit();
             this.SuspendLayout();
             // 
             // tcMain
@@ -649,6 +650,7 @@
             // 
             // scExtract.Panel1
             // 
+            this.scExtract.Panel1.Controls.Add(this.cbExtractApplicationType);
             this.scExtract.Panel1.Controls.Add(this.txtExtractPassword);
             this.scExtract.Panel1.Controls.Add(this.lblExtractPassword);
             this.scExtract.Panel1.Controls.Add(this.cbExtractOverwrite);
@@ -660,7 +662,7 @@
             this.scExtract.Panel1.Controls.Add(this.txtExtractFileFilter);
             this.scExtract.Panel1.Controls.Add(this.txtExtractPath);
             this.scExtract.Panel1.Controls.Add(this.lblExtractFileFilter);
-            this.scExtract.Panel1.Controls.Add(this.txtUnRARPath);
+            this.scExtract.Panel1.Controls.Add(this.txtExtractApplicationPath);
             this.scExtract.Panel1.Controls.Add(this.btnExtractClear);
             this.scExtract.Panel1.Controls.Add(this.cbSearchSubFolders);
             this.scExtract.Panel1.Controls.Add(this.btnExtractRemove);
@@ -684,6 +686,7 @@
             this.txtExtractPassword.Name = "txtExtractPassword";
             this.txtExtractPassword.Size = new System.Drawing.Size(192, 20);
             this.txtExtractPassword.TabIndex = 18;
+            this.txtExtractPassword.Visible = false;
             this.txtExtractPassword.TextChanged += new System.EventHandler(this.txtExtractPassword_TextChanged);
             // 
             // lblExtractPassword
@@ -694,6 +697,7 @@
             this.lblExtractPassword.Size = new System.Drawing.Size(56, 13);
             this.lblExtractPassword.TabIndex = 17;
             this.lblExtractPassword.Text = "Password:";
+            this.lblExtractPassword.Visible = false;
             // 
             // cbExtractOverwrite
             // 
@@ -704,6 +708,7 @@
             this.cbExtractOverwrite.TabIndex = 16;
             this.cbExtractOverwrite.Text = "Overwrite existing file";
             this.cbExtractOverwrite.UseVisualStyleBackColor = true;
+            this.cbExtractOverwrite.Visible = false;
             this.cbExtractOverwrite.CheckedChanged += new System.EventHandler(this.cbExtractOverwrite_CheckedChanged);
             // 
             // pbExtract
@@ -781,20 +786,20 @@
             this.lblExtractFileFilter.TabIndex = 0;
             this.lblExtractFileFilter.Text = "File filter:";
             // 
-            // txtUnRARPath
+            // txtExtractApplicationPath
             // 
-            this.txtUnRARPath.AllowDrop = true;
-            this.txtUnRARPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.txtUnRARPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
-            this.txtUnRARPath.Location = new System.Drawing.Point(112, 36);
-            this.txtUnRARPath.Name = "txtUnRARPath";
-            this.txtUnRARPath.Size = new System.Drawing.Size(472, 20);
-            this.txtUnRARPath.TabIndex = 4;
-            this.ttApp.SetToolTip(this.txtUnRARPath, "Using WinRAR for extract files. If you have WinRAR then you will find UnRAR.exe i" +
+            this.txtExtractApplicationPath.AllowDrop = true;
+            this.txtExtractApplicationPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txtExtractApplicationPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this.txtExtractApplicationPath.Location = new System.Drawing.Point(112, 36);
+            this.txtExtractApplicationPath.Name = "txtExtractApplicationPath";
+            this.txtExtractApplicationPath.Size = new System.Drawing.Size(392, 20);
+            this.txtExtractApplicationPath.TabIndex = 4;
+            this.ttApp.SetToolTip(this.txtExtractApplicationPath, "Using WinRAR for extract files. If you have WinRAR then you will find UnRAR.exe i" +
                     "n WinRAR folder.");
-            this.txtUnRARPath.TextChanged += new System.EventHandler(this.txtUnRARPath_TextChanged);
-            this.txtUnRARPath.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtUnRARPath_DragDrop);
-            this.txtUnRARPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtUnRARPath_DragEnter);
+            this.txtExtractApplicationPath.TextChanged += new System.EventHandler(this.txtUnRARPath_TextChanged);
+            this.txtExtractApplicationPath.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtUnRARPath_DragDrop);
+            this.txtExtractApplicationPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtUnRARPath_DragEnter);
             // 
             // btnExtractClear
             // 
@@ -902,6 +907,87 @@
             // 
             this.columnHeader1.Text = "Files";
             this.columnHeader1.Width = 972;
+            // 
+            // tpCalendar
+            // 
+            this.tpCalendar.Controls.Add(this.lblMaxDays);
+            this.tpCalendar.Controls.Add(this.lblMinDays);
+            this.tpCalendar.Controls.Add(this.nudMaxDays);
+            this.tpCalendar.Controls.Add(this.nudMinDays);
+            this.tpCalendar.Controls.Add(this.lvCalendarList);
+            this.tpCalendar.Controls.Add(this.btnCalendarRefresh);
+            this.tpCalendar.Controls.Add(this.btnEditSeriesList);
+            this.tpCalendar.Location = new System.Drawing.Point(4, 24);
+            this.tpCalendar.Name = "tpCalendar";
+            this.tpCalendar.Padding = new System.Windows.Forms.Padding(3);
+            this.tpCalendar.Size = new System.Drawing.Size(996, 608);
+            this.tpCalendar.TabIndex = 6;
+            this.tpCalendar.Text = "Calendar";
+            this.tpCalendar.UseVisualStyleBackColor = true;
+            // 
+            // lblMaxDays
+            // 
+            this.lblMaxDays.AutoSize = true;
+            this.lblMaxDays.Location = new System.Drawing.Point(296, 15);
+            this.lblMaxDays.Name = "lblMaxDays";
+            this.lblMaxDays.Size = new System.Drawing.Size(30, 13);
+            this.lblMaxDays.TabIndex = 7;
+            this.lblMaxDays.Text = "Max:";
+            // 
+            // lblMinDays
+            // 
+            this.lblMinDays.AutoSize = true;
+            this.lblMinDays.Location = new System.Drawing.Point(208, 15);
+            this.lblMinDays.Name = "lblMinDays";
+            this.lblMinDays.Size = new System.Drawing.Size(27, 13);
+            this.lblMinDays.TabIndex = 6;
+            this.lblMinDays.Text = "Min:";
+            // 
+            // nudMaxDays
+            // 
+            this.nudMaxDays.Location = new System.Drawing.Point(328, 11);
+            this.nudMaxDays.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudMaxDays.Name = "nudMaxDays";
+            this.nudMaxDays.Size = new System.Drawing.Size(48, 20);
+            this.nudMaxDays.TabIndex = 5;
+            this.nudMaxDays.ValueChanged += new System.EventHandler(this.nudMaxDays_ValueChanged);
+            // 
+            // nudMinDays
+            // 
+            this.nudMinDays.Location = new System.Drawing.Point(240, 11);
+            this.nudMinDays.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudMinDays.Name = "nudMinDays";
+            this.nudMinDays.Size = new System.Drawing.Size(48, 20);
+            this.nudMinDays.TabIndex = 4;
+            this.nudMinDays.ValueChanged += new System.EventHandler(this.nudMinDays_ValueChanged);
+            // 
+            // btnCalendarRefresh
+            // 
+            this.btnCalendarRefresh.Location = new System.Drawing.Point(120, 8);
+            this.btnCalendarRefresh.Name = "btnCalendarRefresh";
+            this.btnCalendarRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnCalendarRefresh.TabIndex = 2;
+            this.btnCalendarRefresh.Text = "Refresh";
+            this.btnCalendarRefresh.UseVisualStyleBackColor = true;
+            this.btnCalendarRefresh.Click += new System.EventHandler(this.btnCalendarRefresh_Click);
+            // 
+            // btnEditSeriesList
+            // 
+            this.btnEditSeriesList.Location = new System.Drawing.Point(8, 8);
+            this.btnEditSeriesList.Name = "btnEditSeriesList";
+            this.btnEditSeriesList.Size = new System.Drawing.Size(104, 23);
+            this.btnEditSeriesList.TabIndex = 1;
+            this.btnEditSeriesList.Text = "Edit series list";
+            this.btnEditSeriesList.UseVisualStyleBackColor = true;
+            this.btnEditSeriesList.Click += new System.EventHandler(this.btnEditSeriesList_Click);
             // 
             // tpSettings
             // 
@@ -1103,43 +1189,6 @@
             this.txtConsole.TabIndex = 0;
             this.txtConsole.WordWrap = false;
             // 
-            // tpCalendar
-            // 
-            this.tpCalendar.Controls.Add(this.lblMaxDays);
-            this.tpCalendar.Controls.Add(this.lblMinDays);
-            this.tpCalendar.Controls.Add(this.nudMaxDays);
-            this.tpCalendar.Controls.Add(this.nudMinDays);
-            this.tpCalendar.Controls.Add(this.lvCalendarList);
-            this.tpCalendar.Controls.Add(this.btnCalendarRefresh);
-            this.tpCalendar.Controls.Add(this.btnEditSeriesList);
-            this.tpCalendar.Location = new System.Drawing.Point(4, 24);
-            this.tpCalendar.Name = "tpCalendar";
-            this.tpCalendar.Padding = new System.Windows.Forms.Padding(3);
-            this.tpCalendar.Size = new System.Drawing.Size(996, 608);
-            this.tpCalendar.TabIndex = 6;
-            this.tpCalendar.Text = "Calendar";
-            this.tpCalendar.UseVisualStyleBackColor = true;
-            // 
-            // btnCalendarRefresh
-            // 
-            this.btnCalendarRefresh.Location = new System.Drawing.Point(120, 8);
-            this.btnCalendarRefresh.Name = "btnCalendarRefresh";
-            this.btnCalendarRefresh.Size = new System.Drawing.Size(75, 23);
-            this.btnCalendarRefresh.TabIndex = 2;
-            this.btnCalendarRefresh.Text = "Refresh";
-            this.btnCalendarRefresh.UseVisualStyleBackColor = true;
-            this.btnCalendarRefresh.Click += new System.EventHandler(this.btnCalendarRefresh_Click);
-            // 
-            // btnEditSeriesList
-            // 
-            this.btnEditSeriesList.Location = new System.Drawing.Point(8, 8);
-            this.btnEditSeriesList.Name = "btnEditSeriesList";
-            this.btnEditSeriesList.Size = new System.Drawing.Size(104, 23);
-            this.btnEditSeriesList.TabIndex = 1;
-            this.btnEditSeriesList.Text = "Edit series list";
-            this.btnEditSeriesList.UseVisualStyleBackColor = true;
-            this.btnEditSeriesList.Click += new System.EventHandler(this.btnEditSeriesList_Click);
-            // 
             // ttApp
             // 
             this.ttApp.AutomaticDelay = 100;
@@ -1149,39 +1198,18 @@
             this.ttApp.ReshowDelay = 0;
             this.ttApp.UseFading = false;
             // 
-            // nudMinDays
+            // cbExtractApplicationType
             // 
-            this.nudMinDays.Location = new System.Drawing.Point(240, 11);
-            this.nudMinDays.Name = "nudMinDays";
-            this.nudMinDays.Size = new System.Drawing.Size(48, 20);
-            this.nudMinDays.TabIndex = 4;
-            this.nudMinDays.ValueChanged += new System.EventHandler(this.nudMinDays_ValueChanged);
-            // 
-            // nudMaxDays
-            // 
-            this.nudMaxDays.Location = new System.Drawing.Point(328, 11);
-            this.nudMaxDays.Name = "nudMaxDays";
-            this.nudMaxDays.Size = new System.Drawing.Size(48, 20);
-            this.nudMaxDays.TabIndex = 5;
-            this.nudMaxDays.ValueChanged += new System.EventHandler(this.nudMaxDays_ValueChanged);
-            // 
-            // lblMinDays
-            // 
-            this.lblMinDays.AutoSize = true;
-            this.lblMinDays.Location = new System.Drawing.Point(208, 15);
-            this.lblMinDays.Name = "lblMinDays";
-            this.lblMinDays.Size = new System.Drawing.Size(27, 13);
-            this.lblMinDays.TabIndex = 6;
-            this.lblMinDays.Text = "Min:";
-            // 
-            // lblMaxDays
-            // 
-            this.lblMaxDays.AutoSize = true;
-            this.lblMaxDays.Location = new System.Drawing.Point(296, 15);
-            this.lblMaxDays.Name = "lblMaxDays";
-            this.lblMaxDays.Size = new System.Drawing.Size(30, 13);
-            this.lblMaxDays.TabIndex = 7;
-            this.lblMaxDays.Text = "Max:";
+            this.cbExtractApplicationType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbExtractApplicationType.FormattingEnabled = true;
+            this.cbExtractApplicationType.Items.AddRange(new object[] {
+            "7-Zip",
+            "WinRAR"});
+            this.cbExtractApplicationType.Location = new System.Drawing.Point(512, 36);
+            this.cbExtractApplicationType.Name = "cbExtractApplicationType";
+            this.cbExtractApplicationType.Size = new System.Drawing.Size(72, 21);
+            this.cbExtractApplicationType.TabIndex = 19;
+            this.cbExtractApplicationType.SelectedIndexChanged += new System.EventHandler(this.cbExtractApplicationType_SelectedIndexChanged);
             // 
             // plvSeries
             // 
@@ -1283,24 +1311,6 @@
             this.plvBanners.UseCompatibleStateImageBehavior = false;
             this.plvBanners.View = System.Windows.Forms.View.Details;
             // 
-            // plvSettings
-            // 
-            this.plvSettings.AllowEmptyObjects = true;
-            this.plvSettings.ConstantColumnSize = true;
-            this.plvSettings.FullRowSelect = true;
-            this.plvSettings.GridLines = true;
-            this.plvSettings.HideSelection = false;
-            this.plvSettings.Location = new System.Drawing.Point(8, 280);
-            this.plvSettings.MultiSelect = false;
-            this.plvSettings.Name = "plvSettings";
-            this.plvSettings.NameColumnSize = 150;
-            this.plvSettings.SetObjectType = RenamerX.PropertyListView.ObjectType.Fields;
-            this.plvSettings.Size = new System.Drawing.Size(976, 320);
-            this.plvSettings.TabIndex = 5;
-            this.plvSettings.UseCompatibleStateImageBehavior = false;
-            this.plvSettings.View = System.Windows.Forms.View.Details;
-            this.plvSettings.Visible = false;
-            // 
             // lvCalendarList
             // 
             this.lvCalendarList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -1338,6 +1348,24 @@
             // chDate
             // 
             this.chDate.Text = "Date";
+            // 
+            // plvSettings
+            // 
+            this.plvSettings.AllowEmptyObjects = true;
+            this.plvSettings.ConstantColumnSize = true;
+            this.plvSettings.FullRowSelect = true;
+            this.plvSettings.GridLines = true;
+            this.plvSettings.HideSelection = false;
+            this.plvSettings.Location = new System.Drawing.Point(8, 280);
+            this.plvSettings.MultiSelect = false;
+            this.plvSettings.Name = "plvSettings";
+            this.plvSettings.NameColumnSize = 150;
+            this.plvSettings.SetObjectType = RenamerX.PropertyListView.ObjectType.Fields;
+            this.plvSettings.Size = new System.Drawing.Size(976, 320);
+            this.plvSettings.TabIndex = 5;
+            this.plvSettings.UseCompatibleStateImageBehavior = false;
+            this.plvSettings.View = System.Windows.Forms.View.Details;
+            this.plvSettings.Visible = false;
             // 
             // MainWindow
             // 
@@ -1377,6 +1405,10 @@
             this.scExtract.Panel1.PerformLayout();
             this.scExtract.Panel2.ResumeLayout(false);
             this.scExtract.ResumeLayout(false);
+            this.tpCalendar.ResumeLayout(false);
+            this.tpCalendar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxDays)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMinDays)).EndInit();
             this.tpSettings.ResumeLayout(false);
             this.gbGeneralSettings.ResumeLayout(false);
             this.gbGeneralSettings.PerformLayout();
@@ -1385,10 +1417,6 @@
             this.tpAdvanced.ResumeLayout(false);
             this.tpConsole.ResumeLayout(false);
             this.tpConsole.PerformLayout();
-            this.tpCalendar.ResumeLayout(false);
-            this.tpCalendar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinDays)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxDays)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1425,7 +1453,7 @@
         private System.Windows.Forms.Label lblExtractPath;
         private System.Windows.Forms.TextBox txtExtractPath;
         private System.Windows.Forms.ListView lvExtractList;
-        private System.Windows.Forms.TextBox txtUnRARPath;
+        private System.Windows.Forms.TextBox txtExtractApplicationPath;
         private System.Windows.Forms.Label lblUnRARPath;
         private System.Windows.Forms.GroupBox gbRenameSettings;
         private System.Windows.Forms.Button btnExtractAdd;
@@ -1502,5 +1530,6 @@
         private System.Windows.Forms.NumericUpDown nudMaxDays;
         private System.Windows.Forms.Label lblMaxDays;
         private System.Windows.Forms.Label lblMinDays;
+        private System.Windows.Forms.ComboBox cbExtractApplicationType;
     }
 }

@@ -46,7 +46,8 @@ namespace RenamerX
 
         // Extract
         public string ExtractPath = string.Empty;
-        public string UnRARPath = string.Empty;
+        public string ExtractApplicationPath = string.Empty;
+        public ExtratorType ExtractApplicationType = ExtratorType.SevenZip;
         public string ExtractFileFilter = "*.rar|*.r00";
         public string ExtractFileSizeFilter = ">10 MiB";
         public bool SearchSubFolders = true;

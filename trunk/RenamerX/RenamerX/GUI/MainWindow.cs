@@ -47,6 +47,7 @@ namespace RenamerX
         private bool IsExtracting;
         private BackgroundWorker bwExtract = new BackgroundWorker();
         private Show fakeShow;
+        private Extract extractManager = new Extract();
 
         public MainWindow()
         {
@@ -70,29 +71,19 @@ namespace RenamerX
 
             // Extract
             txtExtractPath.Text = Program.Settings.ExtractPath;
-            if (string.IsNullOrEmpty(Program.Settings.UnRARPath))
+            if (string.IsNullOrEmpty(Program.Settings.ExtractApplicationPath))
             {
-                // 7-Zip
-                string p7z = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "7-Zip"), "7z.exe");
-                string pWinrar = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "WinRAR"), "UnRAR.exe");
-                if (File.Exists(p7z))
+                if (extractManager.FindApplication())
                 {
-                    Program.Settings.UnRARPath = p7z;
-                }
-                else if (File.Exists(pWinrar))
-                {
-                    Program.Settings.UnRARPath = pWinrar;
+                    txtExtractApplicationPath.Text = extractManager.ApplicationPath;
+                    cbExtractApplicationType.SelectedIndex = (int)extractManager.ApplicationType;
                 }
             }
-            if (Path.GetFileNameWithoutExtension(Program.Settings.UnRARPath).ToLower() == "7z")
+            else
             {
-                Adapter.gExtractorType = ExtratorType.SevenZip;
+                txtExtractApplicationPath.Text = Program.Settings.ExtractApplicationPath;
+                cbExtractApplicationType.SelectedIndex = (int)Program.Settings.ExtractApplicationType;
             }
-            else if (Path.GetFileNameWithoutExtension(Program.Settings.UnRARPath).ToLower() == "unrar")
-            {
-                Adapter.gExtractorType = ExtratorType.UnRar;
-            }
-            txtUnRARPath.Text = Program.Settings.UnRARPath;
             txtExtractFileFilter.Text = Program.Settings.ExtractFileFilter;
             txtExtractFileSizeFilter.Text = Program.Settings.ExtractFileSizeFilter;
             cbSearchSubFolders.Checked = Program.Settings.SearchSubFolders;
@@ -298,7 +289,14 @@ namespace RenamerX
 
         private void txtUnRARPath_TextChanged(object sender, EventArgs e)
         {
-            Program.Settings.UnRARPath = txtUnRARPath.Text;
+            Program.Settings.ExtractApplicationPath = txtExtractApplicationPath.Text;
+            extractManager.ApplicationPath = Program.Settings.ExtractApplicationPath;
+        }
+
+        private void cbExtractApplicationType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Program.Settings.ExtractApplicationType = (ExtratorType)cbExtractApplicationType.SelectedIndex;
+            extractManager.ApplicationType = Program.Settings.ExtractApplicationType;
         }
 
         private void txtExtractFileFilter_TextChanged(object sender, EventArgs e)
@@ -358,19 +356,19 @@ namespace RenamerX
 
         private void txtUnRARPath_DragDrop(object sender, DragEventArgs e)
         {
-            txtUnRARPath.Text = ((string[])e.Data.GetData(DataFormats.FileDrop, true))[0];
+            txtExtractApplicationPath.Text = ((string[])e.Data.GetData(DataFormats.FileDrop, true))[0];
         }
 
         private void btnUnRARBrowse_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            if (!string.IsNullOrEmpty(txtUnRARPath.Text) && Directory.Exists(Path.GetDirectoryName(txtUnRARPath.Text)))
+            if (!string.IsNullOrEmpty(txtExtractApplicationPath.Text) && Directory.Exists(Path.GetDirectoryName(txtExtractApplicationPath.Text)))
             {
-                ofd.InitialDirectory = txtUnRARPath.Text;
+                ofd.InitialDirectory = txtExtractApplicationPath.Text;
             }
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                txtUnRARPath.Text = ofd.FileName;
+                txtExtractApplicationPath.Text = ofd.FileName;
             }
         }
 
@@ -426,7 +424,7 @@ namespace RenamerX
             {
                 if (MessageBox.Show("Are you sure you wish to extract these files?", this.Text, MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                    if (File.Exists(txtUnRARPath.Text))
+                    if (File.Exists(txtExtractApplicationPath.Text))
                     {
                         btnExtractAll.Enabled = false;
                         IsExtracting = true;
@@ -880,7 +878,8 @@ namespace RenamerX
                         break;
                     }
                 }
-                if (cbSearchSubFolders.Checked)
+
+                if (Program.Settings.SearchSubFolders)
                 {
                     foreach (string directory in Directory.GetDirectories(folder))
                     {
@@ -1000,6 +999,7 @@ namespace RenamerX
             else
             {
                 ConsoleWriteLine("Extract finished.");
+                MessageBox.Show("Extract finished.", "RenamerX", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             btnExtractAll.Text = "Extract all";
             IsExtracting = false;
@@ -1009,30 +1009,29 @@ namespace RenamerX
         {
             try
             {
-                BackgroundWorker bw = (BackgroundWorker)e.Argument;
-                string arguments;
-                for (int i = 0; i < ExtractList.Count; i++)
+                using (BackgroundWorker bw = (BackgroundWorker)e.Argument)
                 {
-                    string fp = ExtractList[i];
-                    if (File.Exists(fp))
+                    Extract extract = new Extract();
+                    extract.ApplicationPath = Program.Settings.ExtractApplicationPath;
+                    extract.ApplicationType = Program.Settings.ExtractApplicationType;
+                    extract.FindApplication();
+
+                    for (int i = 0; i < ExtractList.Count; i++)
                     {
-                        string destDir = Program.Settings.AppendFileNameAsFolder ? Path.Combine(txtExtractPath.Text, Path.GetFileName(Path.GetDirectoryName(fp))) : txtExtractPath.Text;
-                        arguments = Adapter.gExtractorType == ExtratorType.UnRar ? GetUnRarCommands(fp, destDir) : Get7zCommands(fp, destDir);
-                        Debug.WriteLine(arguments);
-                        ProcessStartInfo psi = new ProcessStartInfo(txtUnRARPath.Text, arguments);
-                        psi.CreateNoWindow = true;
-                        psi.WindowStyle = ProcessWindowStyle.Hidden;
-                        Process process = new Process();
-                        process.StartInfo = psi;
-                        bw.ReportProgress(i, "Started to extract: " + fp + " -> " + txtExtractPath.Text);
-                        process.Start();
-                        process.WaitForExit();
-                        bw.ReportProgress(i + 1, "Extracted: " + fp + " -> " + txtExtractPath.Text);
-                    }
-                    if (bw.CancellationPending)
-                    {
-                        e.Cancel = true;
-                        break;
+                        string filePath = ExtractList[i];
+
+                        if (File.Exists(filePath))
+                        {
+                            bw.ReportProgress(i, "Started to extract: " + filePath + " -> " + txtExtractPath.Text);
+                            extract.ExtractFile(filePath, txtExtractPath.Text);
+                            bw.ReportProgress(i + 1, "Extracted: " + filePath + " -> " + txtExtractPath.Text);
+                        }
+
+                        if (bw.CancellationPending)
+                        {
+                            e.Cancel = true;
+                            break;
+                        }
                     }
                 }
             }
@@ -1040,48 +1039,6 @@ namespace RenamerX
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private string Get7zCommands(string fp, string destDir)
-        {
-            List<string> listCommands = new List<string>();
-            listCommands.Add("e");
-            if (!string.IsNullOrEmpty(txtExtractPassword.Text))
-            {
-                listCommands.Add("p" + txtExtractPassword.Text); //Set password
-            }
-            string commands = string.Join("", listCommands.Select(x => x + " ").ToArray());
-
-            List<string> listSwitches = new List<string>();
-            listSwitches.Add("o\"" + destDir + "\"");
-            // listSwitches.Add("y");
-            string switches = string.Join("", listSwitches.Select(x => " -" + x).ToArray());
-
-            return commands + "\"" + fp + "\"" + switches;
-        }
-
-        private string GetUnRarCommands(string fp, string destDir)
-        {
-            List<string> listCommands = new List<string>();
-            listCommands.Add("x");
-            if (cbExtractOverwrite.Checked)
-            {
-                listCommands.Add("o+"); //Set the overwrite mode (true)
-            }
-            else
-            {
-                listCommands.Add("o-"); //Set the overwrite mode (false)
-            }
-            if (string.IsNullOrEmpty(txtExtractPassword.Text))
-            {
-                listCommands.Add("p-"); //Do not query password
-            }
-            else
-            {
-                listCommands.Add("p" + txtExtractPassword.Text); //Set password
-            }
-            string commands = string.Join("", listCommands.Select(x => " -" + x).ToArray());
-            return string.Format("{0} \"{1}\" \"{2}\"", commands, fp, destDir); ;
         }
 
         private Show CreateFakeShow(string showName, int seasonNumber, int episodeNumber, string episodeTitle)
@@ -1237,45 +1194,48 @@ namespace RenamerX
 
         private void CalendarRefresh()
         {
-            int low = (int)nudMinDays.Value, high = (int)nudMaxDays.Value;
-
-            List<CalendarItem> items = new List<CalendarItem>();
-            CalendarItem item;
-
-            foreach (SeriesInfo info in Program.Settings.CalenderList)
+            if (Program.Settings.CalenderList.Count > 0)
             {
-                TVDBLib.SeriesFull series = Program.TVDB.GetSeriesFullInformation(info.SeriesID, TVDBLib.FileType.XML);
-                foreach (TVDBLib.Episode episode in series.Episodes)
+                int low = (int)nudMinDays.Value, high = (int)nudMaxDays.Value;
+
+                List<CalendarItem> items = new List<CalendarItem>();
+                CalendarItem item;
+
+                foreach (SeriesInfo info in Program.Settings.CalenderList)
                 {
-                    item = new CalendarItem();
-                    if (!string.IsNullOrEmpty(episode.FirstAired))
+                    TVDBLib.SeriesFull series = Program.TVDB.GetSeriesFullInformation(info.SeriesID, TVDBLib.FileType.XML);
+                    foreach (TVDBLib.Episode episode in series.Episodes)
                     {
-                        item.Date = DateTime.Parse(episode.FirstAired);
-                        item.Time = DateTime.Now - item.Date;
-                        if (item.Time.Days <= low && item.Time.Days >= -high)
+                        item = new CalendarItem();
+                        if (!string.IsNullOrEmpty(episode.FirstAired))
                         {
-                            item.SeriesName = series.Series.SeriesName;
-                            item.EpisodeName = episode.EpisodeName;
-                            item.EpisodeNumber = string.Format("S{0}E{1:D2}", episode.SeasonNumber, int.Parse(episode.EpisodeNumber));
-                            items.Add(item);
+                            item.Date = DateTime.Parse(episode.FirstAired);
+                            item.Time = DateTime.Now - item.Date;
+                            if (item.Time.Days <= low && item.Time.Days >= -high)
+                            {
+                                item.SeriesName = series.Series.SeriesName;
+                                item.EpisodeName = episode.EpisodeName;
+                                item.EpisodeNumber = string.Format("S{0:D2}E{1:D2}", int.Parse(episode.SeasonNumber), int.Parse(episode.EpisodeNumber));
+                                items.Add(item);
+                            }
                         }
                     }
                 }
-            }
 
-            items = items.OrderByDescending(x => x.Time.Days).ToList();
+                items = items.OrderByDescending(x => x.Time.Days).ToList();
 
-            lvCalendarList.Items.Clear();
+                lvCalendarList.Items.Clear();
 
-            foreach (CalendarItem episode in items)
-            {
-                ListViewItem lvi = new ListViewItem();
-                lvi.Text = episode.SeriesName;
-                lvi.SubItems.Add(episode.EpisodeNumber);
-                lvi.SubItems.Add(episode.EpisodeName);
-                lvi.SubItems.Add(-episode.Time.Days + " days");
-                lvi.SubItems.Add(episode.Date.ToShortDateString());
-                lvCalendarList.Items.Add(lvi);
+                foreach (CalendarItem episode in items)
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    lvi.Text = episode.SeriesName;
+                    lvi.SubItems.Add(episode.EpisodeNumber);
+                    lvi.SubItems.Add(episode.EpisodeName);
+                    lvi.SubItems.Add(-episode.Time.Days + " days");
+                    lvi.SubItems.Add(episode.Date.ToShortDateString());
+                    lvCalendarList.Items.Add(lvi);
+                }
             }
         }
 

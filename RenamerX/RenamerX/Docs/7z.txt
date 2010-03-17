@@ -1,6 +1,4 @@
-﻿C:\Applications\7-Zip>7z
-
-7-Zip 4.65  Copyright (c) 1999-2009 Igor Pavlov  2009-02-03
+﻿7-Zip [64] 9.10 beta  Copyright (c) 1999-2009 Igor Pavlov  2009-12-22
 
 Usage: 7z <command> [<switches>...] <archive_name> [<file_names>...]
        [<@listfiles...>]
@@ -31,10 +29,8 @@ Usage: 7z <command> [<switches>...] <archive_name> [<file_names>...]
   -ssc[-]: set sensitive case mode
   -ssw: compress shared files
   -t{Type}: Set type of archive
-  -v{Size}[b|k|m|g]: Create volumes
   -u[-][p#][q#][r#][x#][y#][z#][!newArchiveName]: Update options
+  -v{Size}[b|k|m|g]: Create volumes
   -w[{path}]: assign Work directory. Empty path means a temporary directory
   -x[r[-|0]]]{@listfile|!wildcard}: eXclude filenames
   -y: assume Yes on all queries
-
-C:\Applications\7-Zip>

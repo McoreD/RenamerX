@@ -153,7 +153,7 @@ InfoBeforeFile=..\Docs\VersionHistory.txt
 InternalCompressLevel=ultra64
 LanguageDetectionMethod=uilanguage
 MinVersion=4.90.3000,5.0.2195sp3
-OutputBaseFilename={#ExeName}-{#MyAppVersion}-debug-setup
+OutputBaseFilename={#ExeName}-{#MyAppVersion}-setup
 OutputDir=..\..\..\..\Output\
 PrivilegesRequired=none
 ;SetupIconFile=..\Resources\zss-main.ico
@@ -179,6 +179,7 @@ Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:Ad
 [Files]
 Source: ..\bin\Debug\*.exe; Excludes: *.vshost.exe; DestDir: {app}; Flags: ignoreversion
 Source: ..\bin\Debug\*.dll; DestDir: {app}; Flags: ignoreversion recursesubdirs
+Source: ..\bin\Debug\*.pdb; DestDir: {app}; Flags: ignoreversion recursesubdirs
 
 [Icons]
 Name: {code:GetCodeVar|StartMenu}\{#ExeName}; Filename: {app}\{#ExeName}.exe; AppUserModelID: {#ExeName}

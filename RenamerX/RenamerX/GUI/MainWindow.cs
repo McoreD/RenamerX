@@ -698,14 +698,7 @@ namespace RenamerX
         private bool IsInvalidFileName(string filename)
         {
             char[] invalidchars = Path.GetInvalidFileNameChars();
-            foreach (char c in filename)
-            {
-                foreach (char invalidchar in invalidchars)
-                {
-                    if (c == invalidchar) return true;
-                }
-            }
-            return false;
+            return filename.Any(c => invalidchars.Any(invalidchar => c == invalidchar));
         }
 
         private void UpdateItemsCount()
@@ -753,21 +746,25 @@ namespace RenamerX
                     if (season > 0 && episode > 0)
                     {
                         string nameFormat = txtNameFormat.Text;
-                        string extension = Path.GetExtension(filename).ToLowerInvariant();
-                        string title = "";
-                        TVRageLib.Episode findEpisode = show.FindEpisode(season, episode);
-                        if (findEpisode != null)
+                        var s = Path.GetExtension(filename);
+                        if (s != null)
                         {
-                            title = findEpisode.Title;
+                            string extension = s.ToLowerInvariant();
+                            string title = "";
+                            TVRageLib.Episode findEpisode = show.FindEpisode(season, episode);
+                            if (findEpisode != null)
+                            {
+                                title = findEpisode.Title;
+                            }
+                            string result = nameFormat.Replace("$N", show.Name).Replace("$S2", season.ToString("d2")).
+                                                Replace("$S", season.ToString()).Replace("$E2", episode.ToString("d2")).
+                                                Replace("$E", episode.ToString()).Replace("$T", title) + extension;
+                            if (cbReplaceSpaces.Checked)
+                            {
+                                result = result.Replace(" ", txtReplaceSpaces.Text);
+                            }
+                            return result;
                         }
-                        string result = nameFormat.Replace("$N", show.Name).Replace("$S2", season.ToString("d2")).
-                            Replace("$S", season.ToString()).Replace("$E2", episode.ToString("d2")).
-                            Replace("$E", episode.ToString()).Replace("$T", title) + extension;
-                        if (cbReplaceSpaces.Checked)
-                        {
-                            result = result.Replace(" ", txtReplaceSpaces.Text);
-                        }
-                        return result;
                     }
                 }
                 catch (Exception ex)

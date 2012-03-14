@@ -41,7 +41,7 @@
             this.btnOK.Location = new System.Drawing.Point(312, 568);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(83, 23);
-            this.btnOK.TabIndex = 0;
+            this.btnOK.TabIndex = 4;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
@@ -51,7 +51,7 @@
             this.btnCancel.Location = new System.Drawing.Point(400, 568);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(83, 23);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -62,7 +62,7 @@
             this.lblShowLocation.Location = new System.Drawing.Point(16, 16);
             this.lblShowLocation.Name = "lblShowLocation";
             this.lblShowLocation.Size = new System.Drawing.Size(51, 13);
-            this.lblShowLocation.TabIndex = 4;
+            this.lblShowLocation.TabIndex = 0;
             this.lblShowLocation.Text = "Location:";
             // 
             // txtShowLocation
@@ -72,7 +72,7 @@
             this.txtShowLocation.Location = new System.Drawing.Point(88, 12);
             this.txtShowLocation.Name = "txtShowLocation";
             this.txtShowLocation.Size = new System.Drawing.Size(312, 20);
-            this.txtShowLocation.TabIndex = 5;
+            this.txtShowLocation.TabIndex = 2;
             this.txtShowLocation.TextChanged += new System.EventHandler(this.txtShowLocation_TextChanged);
             // 
             // btnBrowse
@@ -80,7 +80,7 @@
             this.btnBrowse.Location = new System.Drawing.Point(408, 8);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(72, 23);
-            this.btnBrowse.TabIndex = 6;
+            this.btnBrowse.TabIndex = 1;
             this.btnBrowse.Text = "&Browse...";
             this.btnBrowse.UseVisualStyleBackColor = true;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
@@ -90,7 +90,7 @@
             this.searchResults.Location = new System.Drawing.Point(8, 40);
             this.searchResults.Name = "searchResults";
             this.searchResults.Size = new System.Drawing.Size(482, 517);
-            this.searchResults.TabIndex = 7;
+            this.searchResults.TabIndex = 3;
             // 
             // InputBox
             // 

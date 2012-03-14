@@ -1,5 +1,8 @@
-﻿1.1.0.0 Added option to append file name as a folder {McoreD}
+﻿Version 1.1 - 2012-03-14
 
-Version 1.0 - 20090619
+1.1.0 Added Calendar to show count down to upcoming TV shows
+1.0.1 Added option to append file name as a folder during file extraction
 
-1.0.0.0 Initial Version {Jaex}
+Version 1.0 - 2009-06-19
+
+1.0.0. Initial Version

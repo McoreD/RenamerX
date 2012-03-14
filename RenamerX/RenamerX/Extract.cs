@@ -1,4 +1,12 @@
-﻿#region License Information (GPL v2)
+﻿
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using Microsoft.Win32;
+#region License Information (GPL v2)
 /*
     RenamerX - Rename your files eXpressly
     Copyright (C) 2009  RenamerX Developers
@@ -21,29 +29,14 @@
 */
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using Microsoft.Win32;
-
 namespace RenamerX
 {
-    public enum ExtratorType
-    {
-        [Description("7-Zip")]
-        SevenZip,
-        [Description("WinRAR")]
-        WinRAR
-    }
 
     public class Extract
     {
+        public bool AppendFileNameAsFolder { get; set; }
         public string ApplicationPath { get; set; }
         public ExtratorType ApplicationType { get; set; }
-        public bool AppendFileNameAsFolder { get; set; }
 
         public void ExtractFile(string filePath, string extractPath)
         {
@@ -107,24 +100,6 @@ namespace RenamerX
             }
 
             return false;
-        }
-
-        private string SearchPath(string registryName, string executableName)
-        {
-            RegistryKey registry = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\" + registryName);
-            string path;
-
-            if (registry != null && !string.IsNullOrEmpty(path = registry.GetValue("Path").ToString()))
-            {
-                path = Path.Combine(path, executableName);
-
-                if (File.Exists(path))
-                {
-                    return path;
-                }
-            }
-
-            return string.Empty;
         }
 
         private string Get7zCommands(string path, string destination)
@@ -191,5 +166,30 @@ namespace RenamerX
             // Usage: unrar <command> -<switch 1> -<switch N> <archive> <files...> <@listfiles...> <path_to_extract\>
             return string.Format("x {0} \"{1}\" \"{2}\"", commands, path, destination);
         }
+
+        private string SearchPath(string registryName, string executableName)
+        {
+            RegistryKey registry = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\" + registryName);
+            string path;
+
+            if (registry != null && !string.IsNullOrEmpty(path = registry.GetValue("Path").ToString()))
+            {
+                path = Path.Combine(path, executableName);
+
+                if (File.Exists(path))
+                {
+                    return path;
+                }
+            }
+
+            return string.Empty;
+        }
+    }
+    public enum ExtratorType
+    {
+        [Description("7-Zip")]
+        SevenZip,
+        [Description("WinRAR")]
+        WinRAR
     }
 }

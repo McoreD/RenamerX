@@ -32,7 +32,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("RenamerX")]
 [assembly: AssemblyProduct("RenamerX")]
-[assembly: AssemblyCopyright("RenamerX Contributors")]
+[assembly: AssemblyCopyright("ZScreen Developers")]
 [assembly: AssemblyTrademark("RenamerX")]
 [assembly: AssemblyCulture("")]
 

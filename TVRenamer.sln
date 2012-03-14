@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TVRenamer", "TVRenamer\TVRenamer.csproj", "{58DBFA6C-7543-430A-87D9-3E81DA44A976}"
 EndProject
 Global

@@ -1,4 +1,5 @@
 ﻿#region License Information (GPL v2)
+
 /*
     RenamerX - Rename your files eXpressly
     Copyright (C) 2009  RenamerX Developers
@@ -16,27 +17,24 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-    
+
     Optionally you can also view the license at <http://www.gnu.org/licenses/>.
 */
-#endregion
+
+#endregion License Information (GPL v2)
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Xml;
-using RenamerX.Properties;
-using System.Diagnostics;
-using System.ComponentModel;
-using System.Linq;
-using System.Xml.Linq;
-using TVRageLib;
-using TVDBLib;
 using RenamerX.GUI;
+using TVDBLib;
+using TVRageLib;
 
 namespace RenamerX
 {
@@ -276,7 +274,7 @@ namespace RenamerX
             }
         }
 
-        #endregion
+        #endregion Rename Tab Events
 
         #region Extract Tab Events
 
@@ -334,7 +332,7 @@ namespace RenamerX
             txtExtractPath.Text = ((string[])e.Data.GetData(DataFormats.FileDrop, true))[0];
         }
 
-        #endregion
+        #endregion Extract Tab Settings
 
         private void btnExtractBrowse_Click(object sender, EventArgs e)
         {
@@ -481,7 +479,7 @@ namespace RenamerX
             }
         }
 
-        #endregion
+        #endregion Extract Tab Events
 
         #region Settings Tab Events
 
@@ -531,7 +529,7 @@ namespace RenamerX
             Program.Settings.ShowErrors = cbShowErrors.Checked;
         }
 
-        #endregion
+        #endregion Settings Tab Events
 
         #region Series Info Tab Events
 
@@ -643,9 +641,9 @@ namespace RenamerX
             }
         }
 
-        #endregion
+        #endregion Series Info Tab Events
 
-        #endregion
+        #endregion Form Events
 
         private void AddShow(ShowItem si)
         {

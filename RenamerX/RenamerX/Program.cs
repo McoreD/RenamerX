@@ -1,4 +1,5 @@
 ﻿#region License Information (GPL v2)
+
 /*
     RenamerX - Rename your files eXpressly
     Copyright (C) 2009  RenamerX Developers
@@ -16,19 +17,20 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-    
+
     Optionally you can also view the license at <http://www.gnu.org/licenses/>.
 */
-#endregion
+
+#endregion License Information (GPL v2)
 
 using System;
-using System.Windows.Forms;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace RenamerX
 {
-    static class Program
+    internal static class Program
     {
         private static string RootAppFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), Application.ProductName);
         private static string SettingsDir;
@@ -54,7 +56,7 @@ namespace RenamerX
         public static Mutex mAppMutex;
 
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             InitializeDefaultFolderPaths();
             Settings = XMLSettings.Read();
@@ -74,7 +76,6 @@ namespace RenamerX
                     assemblyGuid = new Guid(((System.Runtime.InteropServices.GuidAttribute)assemblyObjects[0]).Value);
                 }
                 mAppMutex = new Mutex(true, assemblyGuid.ToString(), out bGrantedOwnership);
-
             }
             catch (UnauthorizedAccessException)
             {

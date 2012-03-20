@@ -1,4 +1,5 @@
 ﻿#region License Information (GPL v2)
+
 /*
     TVDBLib - C# Library for TVDB Services
     Copyright (C) 2009  TVDBLib Developers
@@ -16,14 +17,13 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-    
+
     Optionally you can also view the license at <http://www.gnu.org/licenses/>.
 */
-#endregion
 
-using System;
+#endregion License Information (GPL v2)
+
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
@@ -44,6 +44,7 @@ namespace TVDBLib
     }
 
     #region Series
+
     /*
     <Series>
         <id>73739</id>
@@ -74,7 +75,8 @@ namespace TVDBLib
         <zap2it_id>SH672362</zap2it_id>
     </Series>
     */
-    #endregion
+
+    #endregion Series
 
     public class Series
     {
@@ -105,10 +107,11 @@ namespace TVDBLib
     }
 
     #region Episode
+
     /*
     <Episode>
         <id>127151</id>
-        
+
         <Combined_episodenumber>1</Combined_episodenumber>
         <Combined_season>0</Combined_season>
         <DVD_chapter></DVD_chapter>
@@ -128,7 +131,7 @@ namespace TVDBLib
         <Rating></Rating>
         <SeasonNumber>0</SeasonNumber>
         <Writer></Writer>
-        
+
         <absolute_number></absolute_number>
         <airsafter_season></airsafter_season>
         <airsbefore_episode>21</airsbefore_episode>
@@ -139,7 +142,8 @@ namespace TVDBLib
         <seriesid>73739</seriesid>
     </Episode>
      */
-    #endregion
+
+    #endregion Episode
 
     public class Episode
     {
@@ -174,6 +178,7 @@ namespace TVDBLib
     }
 
     #region Actor
+
     /*
     <Actor>
         <id>27747</id>
@@ -183,7 +188,8 @@ namespace TVDBLib
         <SortOrder>0</SortOrder>
     </Actor>
      */
-    #endregion
+
+    #endregion Actor
 
     public class Actor
     {
@@ -195,6 +201,7 @@ namespace TVDBLib
     }
 
     #region Banner
+
     /*
     <Banner>
         <id>23089</id>
@@ -209,7 +216,8 @@ namespace TVDBLib
         <VignettePath>fanart/vignette/73739-15.jpg</VignettePath>
     </Banner>
     */
-    #endregion
+
+    #endregion Banner
 
     public class Banner
     {

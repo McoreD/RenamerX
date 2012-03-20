@@ -1,4 +1,5 @@
 ﻿#region License Information (GPL v2)
+
 /*
     RenamerX - Rename your files eXpressly
     Copyright (C) 2009  RenamerX Developers
@@ -16,24 +17,20 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-    
+
     Optionally you can also view the license at <http://www.gnu.org/licenses/>.
 */
-#endregion
+
+#endregion License Information (GPL v2)
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace RenamerX
 {
-    public partial class PropertyListView : ListView
+    public class PropertyListView : ListView
     {
         public enum ObjectType { Fields, Properties }
 
@@ -62,7 +59,7 @@ namespace RenamerX
             this.View = View.Details;
             this.NameColumnSize = 125;
             this.Columns.Add("Name", this.NameColumnSize);
-            this.Columns.Add("Value", 200);     
+            this.Columns.Add("Value", 200);
             ContextMenu contextMenu = new ContextMenu();
             contextMenu.MenuItems.Add("Copy name").Click += new EventHandler(PropertyListView_Click_Name);
             contextMenu.MenuItems.Add("Copy value").Click += new EventHandler(PropertyListView_Click_Value);
@@ -183,7 +180,6 @@ namespace RenamerX
         {
             this.SuspendLayout();
             this.ResumeLayout(false);
-
         }
     }
 }

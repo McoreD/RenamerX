@@ -1,4 +1,5 @@
 ﻿#region License Information (GPL v2)
+
 /*
     RenamerX - Rename your files eXpressly
     Copyright (C) 2009  RenamerX Developers
@@ -16,15 +17,11 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-    
+
     Optionally you can also view the license at <http://www.gnu.org/licenses/>.
 */
-#endregion
 
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml;
-using System.IO;
+#endregion License Information (GPL v2)
 
 public class PathInfo
 {

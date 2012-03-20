@@ -1,4 +1,5 @@
 ﻿#region License Information (GPL v2)
+
 /*
     TVDBLib - C# Library for TVDB Services
     Copyright (C) 2009  TVDBLib Developers
@@ -16,19 +17,16 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-    
+
     Optionally you can also view the license at <http://www.gnu.org/licenses/>.
 */
-#endregion
 
-using System;
+#endregion License Information (GPL v2)
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Xml.Linq;
-using System.Xml;
 using System.Net;
+using System.Xml.Linq;
 using ICSharpCode.SharpZipLib.Zip;
 
 namespace TVDBLib

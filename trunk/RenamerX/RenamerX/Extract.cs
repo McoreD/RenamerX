@@ -1,12 +1,12 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Microsoft.Win32;
+
 #region License Information (GPL v2)
+
 /*
     RenamerX - Rename your files eXpressly
     Copyright (C) 2009  RenamerX Developers
@@ -24,14 +24,14 @@ using Microsoft.Win32;
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-    
+
     Optionally you can also view the license at <http://www.gnu.org/licenses/>.
 */
-#endregion
+
+#endregion License Information (GPL v2)
 
 namespace RenamerX
 {
-
     public class Extract
     {
         public bool AppendFileNameAsFolder { get; set; }
@@ -185,6 +185,7 @@ namespace RenamerX
             return string.Empty;
         }
     }
+
     public enum ExtratorType
     {
         [Description("7-Zip")]
